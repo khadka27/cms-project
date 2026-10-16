@@ -1,279 +1,245 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   Menu,
   X,
   Search,
-  ChevronDown,
-  Dumbbell,
   BookOpen,
   LayoutGrid,
+  Info,
+  Mail,
+  ShoppingBag,
+  Sparkles,
 } from "lucide-react";
 import SearchBar from "./SearchBar";
-
-const shopLinks = [
-  {
-    label: "All Products",
-    href: "/products",
-    icon: LayoutGrid,
-    desc: "Browse everything we carry",
-  },
-  {
-    label: "Equipment",
-    href: "/products?type=ECOM",
-    icon: Dumbbell,
-    desc: "Pro-grade training gear",
-  },
-  {
-    label: "Latest Articles",
-    href: "/article",
-    icon: BookOpen,
-    desc: "Read our guides and updates",
-  },
-];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const shopRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 15);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (shopRef.current && !shopRef.current.contains(e.target as Node)) {
-        setShopOpen(false);
-      }
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen || searchOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen, searchOpen]);
+  }, [mobileOpen]);
 
   return (
     <>
-      <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-          scrolled
-            ? "bg-white/90 backdrop-blur-xl shadow-[0_2px_20px_-4px_rgba(0,0,0,0.10)] border-b border-slate-200/60"
-            : "bg-white/70 backdrop-blur-md border-b border-slate-100/80"
-        }`}
-      >
-        {/* Top accent bar — ocean twilight theme */}
-        <div className="h-0.5 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-
-            {/* ── Left: Hamburger + Logo ── */}
-            <div className="flex items-center gap-3">
-              <button
-                id="mobile-menu-toggle"
-                className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-light_cyan/50 hover:text-bright_teal_blue transition-all duration-200"
-                onClick={() => { setMobileOpen(!mobileOpen); setSearchOpen(false); }}
-                aria-label="Toggle menu"
-              >
-                <span
-                  className="block transition-all duration-300"
-                  style={{ transform: mobileOpen ? "rotate(90deg)" : "none" }}
+      <header className="sticky top-3 sm:top-5 z-50 w-full px-3 sm:px-6 lg:px-8 transition-all duration-300">
+        <div className="max-w-5xl mx-auto">
+          {/* ── Floating Pill Navbar ── */}
+          <div
+            className={`relative bg-white/95 backdrop-blur-xl rounded-full border border-turquoise_surf/35 shadow-[0_8px_30px_rgb(0,0,0,0.06)] px-4 sm:px-8 py-2.5 sm:py-3 transition-all duration-300 ${
+              scrolled
+                ? "shadow-lg border-bright_teal_blue/40 bg-white/98"
+                : ""
+            }`}
+          >
+            <div className="flex items-center justify-between min-h-[44px] sm:min-h-[48px]">
+              {/* ── Left Navigation: Article, Guide, About ── */}
+              <div className="flex items-center gap-6 lg:gap-8 flex-1 justify-start">
+                {/* Mobile Hamburger Toggle */}
+                <button
+                  id="mobile-menu-toggle"
+                  onClick={() => {
+                    setMobileOpen(!mobileOpen);
+                    setSearchOpen(false);
+                  }}
+                  className="md:hidden p-2 -ml-1 text-slate-700 hover:text-bright_teal_blue hover:bg-light_cyan/40 rounded-full transition-colors cursor-pointer"
+                  aria-label="Toggle navigation menu"
                 >
                   {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                </span>
-              </button>
-
-              <Link href="/" className="flex items-center gap-2.5 group" aria-label="OfficialProductsLab home">
-                <div className="relative">
-                  <img
-                    src="/logo.png"
-                    alt="OfficialProductsLab logo"
-                    className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <span className="font-bold text-slate-900 tracking-tight hidden sm:inline-block text-[15px] group-hover:text-bright_teal_blue transition-colors duration-200">
-                  OfficialProductsLab
-                </span>
-              </Link>
-            </div>
-
-            {/* ── Center: Desktop Nav ── */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-              {/* Shop dropdown */}
-              <div ref={shopRef} className="relative">
-                <button
-                  id="shop-dropdown-toggle"
-                  onClick={() => setShopOpen(!shopOpen)}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    shopOpen
-                      ? "bg-light_cyan text-bright_teal_blue"
-                      : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-                  }`}
-                >
-                  Shop
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${shopOpen ? "rotate-180" : ""}`}
-                  />
                 </button>
 
-                {/* Mega dropdown */}
-                {shopOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-slate-900/10 border border-slate-100 p-2 animate-in fade-in zoom-in-95 duration-150">
-                    <div className="px-3 pt-2 pb-1">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Browse</p>
-                    </div>
-                    {shopLinks.map(({ label, href, icon: Icon, desc }) => (
-                      <Link
-                        key={label}
-                        href={href}
-                        onClick={() => setShopOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-light_cyan/40 group transition-colors duration-150"
-                      >
-                        <div className="w-9 h-9 rounded-lg bg-light_cyan/60 group-hover:bg-light_cyan flex items-center justify-center flex-shrink-0 transition-colors duration-150">
-                          <Icon className="w-4 h-4 text-bright_teal_blue" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-slate-800 group-hover:text-bright_teal_blue transition-colors">{label}</p>
-                          <p className="text-xs text-slate-500">{desc}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                {/* Desktop Left Links: Article, Guide, About */}
+                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Left navigation">
+                  <Link
+                    href="/article"
+                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                  >
+                    Article
+                  </Link>
+                  <Link
+                    href="/article"
+                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                  >
+                    Guide
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                  >
+                    About
+                  </Link>
+                </nav>
               </div>
 
-              <Link
-                href="/about"
-                className="px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all duration-200"
-              >
-                About
-              </Link>
-              <Link
-                href="/article"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all duration-200"
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                Guides
-              </Link>
-            </nav>
+              {/* ── Center: Circular Protruding Logo Badge ── */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
+                <Link
+                  href="/"
+                  className="block group"
+                  aria-label="OfficialProductsLab Home"
+                >
+                  <div className="w-16 h-16 sm:w-[84px] sm:h-[84px] rounded-full bg-white border-2 border-turquoise_surf/50 shadow-xl shadow-bright_teal_blue/20 ring-4 ring-white flex items-center justify-center p-1.5 sm:p-2 transition-all duration-300 group-hover:scale-105 group-hover:border-bright_teal_blue group-hover:shadow-bright_teal_blue/35 cursor-pointer">
+                    <img
+                      src="/logo.png"
+                      alt="OfficialProductsLab logo"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </Link>
+              </div>
 
-            {/* ── Right: Search ── */}
-            <div className="flex items-center gap-1">
-              <button
-                id="search-toggle"
-                onClick={() => { setSearchOpen(!searchOpen); setMobileOpen(false); }}
-                className={`p-2.5 rounded-xl transition-all duration-200 ${
-                  searchOpen
-                    ? "bg-light_cyan text-bright_teal_blue"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                }`}
-                aria-label="Search products"
-              >
-                <Search className="w-5 h-5" />
-              </button>
+              {/* ── Right Navigation: Products, Contact, Search ── */}
+              <div className="flex items-center gap-4 sm:gap-6 flex-1 justify-end">
+                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Right navigation">
+                  <Link
+                    href="/products"
+                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                  >
+                    Products
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                  >
+                    Contact
+                  </Link>
+                </nav>
+
+                {/* Search Toggle Button */}
+                <button
+                  id="search-toggle"
+                  onClick={() => {
+                    setSearchOpen(!searchOpen);
+                    setMobileOpen(false);
+                  }}
+                  className={`p-2 rounded-full transition-all duration-200 cursor-pointer ${
+                    searchOpen
+                      ? "bg-bright_teal_blue text-white shadow-md shadow-bright_teal_blue/20"
+                      : "text-slate-700 hover:text-bright_teal_blue hover:bg-light_cyan/40"
+                  }`}
+                  aria-label="Search products"
+                >
+                  <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* ── Search overlay ── */}
-        {searchOpen && (
-          <div className="border-t border-slate-100 bg-white/95 backdrop-blur-xl">
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4">
+          {/* ── Floating Search Bar Popover ── */}
+          {searchOpen && (
+            <div className="mt-3 w-full max-w-2xl mx-auto bg-white/95 backdrop-blur-xl rounded-3xl border border-turquoise_surf/35 shadow-2xl shadow-bright_teal_blue/10 p-3 sm:p-4 animate-in fade-in zoom-in-95 duration-200">
               <SearchBar />
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </header>
 
-      {/* ── Mobile side-drawer ── */}
+      {/* ── Mobile Side Drawer ── */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden">
+        <div className="fixed inset-0 z-50 md:hidden">
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
 
-          {/* Drawer */}
-          <div className="absolute top-0 left-0 h-full w-72 max-w-[85vw] bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-200">
-            {/* Drawer accent bar */}
-            <div className="h-0.5 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
+          {/* Drawer Panel */}
+          <div className="absolute top-0 left-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-200">
+            {/* Drawer Top Gradient Bar */}
+            <div className="h-1 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
+
+            {/* Drawer Header */}
             <div className="flex items-center justify-between p-4 border-b border-slate-100">
               <Link
                 href="/"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2.5"
+                className="flex items-center gap-3"
               >
-                <img src="/logo.png" alt="Logo" className="h-9 w-auto object-contain" />
-                <span className="font-bold text-slate-900 text-sm">OfficialProductsLab</span>
+                <div className="w-10 h-10 rounded-full border border-turquoise_surf/30 p-1 flex items-center justify-center bg-light_cyan/20">
+                  <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                </div>
+                <span className="font-extrabold text-slate-900 text-sm tracking-tight">
+                  OfficialProductsLab
+                </span>
               </Link>
               <button
                 onClick={() => setMobileOpen(false)}
-                className="p-2 rounded-xl text-slate-500 hover:bg-slate-100"
+                className="p-2 rounded-full text-slate-500 hover:bg-slate-100"
                 aria-label="Close menu"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Drawer nav */}
-            <nav className="flex-1 overflow-y-auto p-3 space-y-1" aria-label="Mobile navigation">
-              <p className="px-3 pt-2 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Shop</p>
-              {shopLinks.map(({ label, href, icon: Icon, desc }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-light_cyan/40 group transition-colors"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-light_cyan/60 group-hover:bg-light_cyan flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-3.5 h-3.5 text-bright_teal_blue" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800 group-hover:text-bright_teal_blue">{label}</p>
-                    <p className="text-xs text-slate-400">{desc}</p>
-                  </div>
-                </Link>
-              ))}
-
-              <div className="pt-3">
-                <p className="px-3 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Explore</p>
-                <Link
-                  href="/about"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 text-sm font-medium text-slate-700"
-                >
-                  About Us
-                </Link>
-                <Link
-                  href="/article"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 text-sm font-medium text-slate-700"
-                >
-                  <BookOpen className="w-4 h-4 text-slate-400" />
-                  Guides & Articles
-                </Link>
-              </div>
+            {/* Drawer Links */}
+            <nav className="flex-1 overflow-y-auto p-4 space-y-2" aria-label="Mobile navigation">
+              <p className="px-3 pt-1 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                Navigation
+              </p>
+              <Link
+                href="/article"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-light_cyan/40 text-slate-800 font-bold text-sm transition-colors"
+              >
+                <BookOpen className="w-4 h-4 text-bright_teal_blue" />
+                Article
+              </Link>
+              <Link
+                href="/article"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-light_cyan/40 text-slate-800 font-bold text-sm transition-colors"
+              >
+                <Sparkles className="w-4 h-4 text-bright_teal_blue" />
+                Guide
+              </Link>
+              <Link
+                href="/about"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-light_cyan/40 text-slate-800 font-bold text-sm transition-colors"
+              >
+                <Info className="w-4 h-4 text-bright_teal_blue" />
+                About
+              </Link>
+              <Link
+                href="/products"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-light_cyan/40 text-slate-800 font-bold text-sm transition-colors"
+              >
+                <LayoutGrid className="w-4 h-4 text-bright_teal_blue" />
+                Products
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-light_cyan/40 text-slate-800 font-bold text-sm transition-colors"
+              >
+                <Mail className="w-4 h-4 text-bright_teal_blue" />
+                Contact
+              </Link>
             </nav>
 
-            {/* Drawer footer CTA */}
+            {/* Drawer Bottom CTA */}
             <div className="p-4 border-t border-slate-100">
               <Link
                 href="/products"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-french_blue to-bright_teal_blue text-white hover:from-deep_twilight hover:to-french_blue transition-colors shadow-md shadow-bright_teal_blue/20"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl font-bold text-sm bg-gradient-to-r from-french_blue to-bright_teal_blue text-white hover:brightness-110 transition-all shadow-md shadow-bright_teal_blue/20"
               >
-                Browse All Products →
+                <ShoppingBag className="w-4 h-4" />
+                Explore All Products
               </Link>
             </div>
           </div>

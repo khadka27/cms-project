@@ -3373,7 +3373,7 @@ export default function RichTextEditor({
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm max-w-none focus:outline-none min-h-[200px] px-4 py-3",
+          "prose prose-sm max-w-none focus:outline-none min-h-[200px] px-4 py-3 text-slate-800",
       },
     },
   });
@@ -3821,7 +3821,7 @@ export default function RichTextEditor({
             </BubbleBtn>
           </BubbleMenu>
         )}
-        <div ref={editorRef} onKeyDown={handleKeyDown} className="bg-white">
+        <div ref={editorRef} onKeyDown={handleKeyDown} className="bg-white text-slate-900">
           <EditorContent editor={editor} />
         </div>
         <div className="px-4 py-1.5 bg-gray-50 border-t border-gray-100 text-xs text-gray-400">
