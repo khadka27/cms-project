@@ -12,17 +12,17 @@ export default function CategoryToggle() {
   ];
 
   return (
-    <div className="flex w-full sm:w-auto rounded-2xl p-1 bg-orange-50/90 border border-orange-100 shadow-sm">
+    <div className="flex w-full sm:w-auto rounded-2xl p-1 bg-light_cyan/30 border border-turquoise_surf/30 shadow-sm">
       {options.map((opt) => (
         <button
           key={opt.value}
           onClick={() => setActiveCategory(opt.value)}
-          className={`flex-1 sm:flex-none px-5 sm:px-8 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
+          className={`flex-1 sm:flex-none px-5 sm:px-8 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
             activeCategory === opt.value
               ? opt.value === "nutra"
-                ? "bg-gradient-to-r from-orange-600 to-orange-700 text-white shadow-md"
-                : "bg-gradient-to-r from-orange-500 to-cyan-600 text-white shadow-md"
-              : "text-orange-800/70 hover:bg-white/70"
+                ? "bg-gradient-to-r from-deep_twilight to-french_blue text-white shadow-md shadow-deep_twilight/20"
+                : "bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-md shadow-bright_teal_blue/20"
+              : "text-slate-600 hover:text-deep_twilight hover:bg-white/80"
           }`}
         >
           {opt.label}
