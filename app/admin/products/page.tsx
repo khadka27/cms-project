@@ -71,7 +71,7 @@ export default function AdminProductsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-sm">
             <Package className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -80,7 +80,7 @@ export default function AdminProductsPage() {
           </div>
         </div>
         <Link href="/admin/products/new"
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl text-sm font-medium transition-colors shadow-sm">
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:from-deep_twilight hover:to-french_blue text-white rounded-xl text-sm font-medium transition-all shadow-sm">
           <Plus className="w-4 h-4" /> Add Product
         </Link>
       </div>
@@ -89,7 +89,7 @@ export default function AdminProductsPage() {
         <div className="relative flex-1 min-w-48">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products…"
-            className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent bg-white" />
+            className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue focus:border-transparent bg-white" />
         </div>
       </div>
 
@@ -97,7 +97,7 @@ export default function AdminProductsPage() {
         <div className="space-y-3">{[1,2,3,4].map(i => <div key={i} className="h-16 bg-gray-100 rounded-xl animate-pulse" />)}</div>
       ) : (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="h-0.5 bg-gradient-to-r from-amber-500 to-orange-500" />
+          <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
           <div className="overflow-x-auto">
             <table className="w-full text-sm min-w-[680px]">
               <thead className="bg-gray-50 border-b border-gray-100">
@@ -133,11 +133,7 @@ export default function AdminProductsPage() {
                       </div>
                     </td>
                     <td className="px-5 py-3.5">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        String(prod.categoryType).toUpperCase() === 'NUTRA'
-                          ? 'bg-orange-50 text-orange-700 border border-orange-200'
-                          : 'bg-orange-50 text-orange-700 border border-orange-200'
-                      }`}>
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-light_cyan/40 text-french_blue border border-light_cyan">
                         {String(prod.categoryType).toUpperCase() === 'NUTRA' ? '🌿' : '🛒'} {String(prod.categoryType).toUpperCase()}
                       </span>
                     </td>
@@ -147,17 +143,17 @@ export default function AdminProductsPage() {
                         value={prod.status}
                         onChange={(e) => handleStatusChange(prod.id, e.target.value)}
                         disabled={updatingStatusId === prod.id}
-                        className={`text-xs font-semibold rounded-full px-2.5 py-1 focus:outline-none focus:ring-2 focus:ring-amber-500 appearance-none cursor-pointer border ${
+                        className={`text-xs font-semibold rounded-full px-2.5 py-1 focus:outline-none focus:ring-2 focus:ring-bright_teal_blue appearance-none cursor-pointer border ${
                           prod.status === 'PUBLISHED'
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : 'bg-amber-50 text-amber-700 border-amber-200'
+                            ? 'bg-light_cyan/40 text-deep_twilight border-light_cyan'
+                            : 'bg-sky_aqua/15 text-french_blue border-sky_aqua/30'
                         } ${updatingStatusId === prod.id ? 'opacity-50 cursor-wait' : ''}`}
                       >
-                        <option value="PUBLISHED" className="text-emerald-700 bg-white">Published</option>
-                        <option value="DRAFT" className="text-amber-700 bg-white">Draft</option>
+                        <option value="PUBLISHED" className="text-deep_twilight bg-white">Published</option>
+                        <option value="DRAFT" className="text-french_blue bg-white">Draft</option>
                       </select>
                     </td>
-                    <td className="px-5 py-3.5 font-semibold text-orange-600">${prod.price.toFixed(2)}</td>
+                    <td className="px-5 py-3.5 font-semibold text-bright_teal_blue">${prod.price.toFixed(2)}</td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1.5 justify-end">
                         <Link
@@ -165,13 +161,13 @@ export default function AdminProductsPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           title="View preview on store"
-                          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-orange-600 hover:bg-orange-50 transition-colors"
+                          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/30 transition-colors"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                         </Link>
                         <Link href={`/admin/products/${prod.id}`}
                           title="Edit"
-                          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-amber-600 hover:bg-amber-50 transition-colors">
+                          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/30 transition-colors">
                           <Pencil className="w-3.5 h-3.5" />
                         </Link>
                         <AlertDialog>
@@ -210,7 +206,7 @@ export default function AdminProductsPage() {
               </div>
               <p className="text-sm font-medium">{search ? 'No products match your filters' : 'No products yet'}</p>
               {!search && (
-                <Link href="/admin/products/new" className="text-xs text-amber-600 hover:underline">Add your first product →</Link>
+                <Link href="/admin/products/new" className="text-xs text-bright_teal_blue hover:underline">Add your first product →</Link>
               )}
             </div>
           )}

@@ -58,7 +58,7 @@ export default function AdminArticlesPage() {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-sm">
             <FileText className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -69,7 +69,7 @@ export default function AdminArticlesPage() {
           </div>
         </div>
         <Link href="/admin/articles/new"
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-sm font-medium transition-colors shadow-sm">
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:from-deep_twilight hover:to-french_blue text-white rounded-xl text-sm font-medium transition-all shadow-sm">
           <Plus className="w-4 h-4" /> New Article
         </Link>
       </div>
@@ -79,7 +79,7 @@ export default function AdminArticlesPage() {
         <div className="relative flex-1 min-w-48">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search articles…"
-            className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white" />
+            className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue focus:border-transparent bg-white" />
         </div>
         <div className="flex gap-1 p-1 bg-gray-100 rounded-xl">
           {[['', 'All'], ['PUBLISHED', 'Published'], ['DRAFT', 'Drafts']].map(([val, label]) => (
@@ -96,7 +96,7 @@ export default function AdminArticlesPage() {
         <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-16 bg-gray-100 rounded-xl animate-pulse" />)}</div>
       ) : (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="h-0.5 bg-gradient-to-r from-teal-500 to-emerald-600" />
+          <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
           <div className="overflow-x-auto">
             <table className="w-full text-sm min-w-[640px]">
               <thead className="bg-gray-50 border-b border-gray-100">
@@ -133,8 +133,8 @@ export default function AdminArticlesPage() {
                     <td className="px-5 py-3.5">
                       <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                         article.status === 'PUBLISHED'
-                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                          : 'bg-amber-50 text-amber-700 border border-amber-200'
+                          ? 'bg-light_cyan/40 text-deep_twilight border border-light_cyan'
+                          : 'bg-sky_aqua/15 text-french_blue border border-sky_aqua/30'
                       }`}>
                         {article.status === 'PUBLISHED' ? <Eye className="w-3 h-3" /> : <Clock className="w-3 h-3" />}
                         {article.status === 'PUBLISHED' ? 'Published' : 'Draft'}
@@ -147,12 +147,12 @@ export default function AdminArticlesPage() {
                       <div className="flex items-center gap-1.5 justify-end">
                         {article.status === 'PUBLISHED' && (
                           <Link href={`/article/${article.slug}`} target="_blank"
-                            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-teal-600 hover:bg-teal-50 transition-colors">
+                            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/30 transition-colors">
                             <Eye className="w-3.5 h-3.5" />
                           </Link>
                         )}
                         <Link href={`/admin/articles/${article.id}`}
-                          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-teal-600 hover:bg-teal-50 transition-colors">
+                          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/30 transition-colors">
                           <Pencil className="w-3.5 h-3.5" />
                         </Link>
                         <AlertDialog>
@@ -186,7 +186,7 @@ export default function AdminArticlesPage() {
             <div className="py-16 flex flex-col items-center gap-3 text-gray-400">
               <FileText className="w-10 h-10 text-gray-200" />
               <p className="text-sm font-medium">{search ? 'No articles match your search' : 'No articles yet'}</p>
-              {!search && <Link href="/admin/articles/new" className="text-xs text-teal-600 hover:underline">Write your first article →</Link>}
+              {!search && <Link href="/admin/articles/new" className="text-xs text-bright_teal_blue hover:underline">Write your first article →</Link>}
             </div>
           )}
         </div>

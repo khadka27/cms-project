@@ -11,7 +11,7 @@ interface Props {
   initialData?: Ingredient;
 }
 
-const inputCls = 'w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white transition-all';
+const inputCls = 'w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue focus:border-transparent bg-white transition-all';
 
 export default function IngredientForm({ initialData }: Props) {
   const router = useRouter();
@@ -178,7 +178,7 @@ export default function IngredientForm({ initialData }: Props) {
                 onChange={url => setForm(p => ({ ...p, image: url }))}
                 onAltChange={alt => setForm(p => ({ ...p, imageAlt: alt }))}
                 type="ingredient"
-                accentColor="ring-amber-500"
+                accentColor="ring-bright_teal_blue"
               />
             </div>
           </div>

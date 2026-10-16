@@ -173,8 +173,8 @@ export default function HeroSettingsPage() {
         </div>
       )}
       {saved && (
-        <div className="flex items-center gap-2.5 bg-orange-50 border border-orange-200 text-orange-700 px-4 py-3 rounded-xl text-sm">
-          <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+        <div className="flex items-center gap-2.5 bg-light_cyan/30 border border-light_cyan/70 text-french_blue px-4 py-3 rounded-xl text-sm">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-bright_teal_blue" />
           Settings saved successfully!
         </div>
       )}

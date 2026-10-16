@@ -94,7 +94,7 @@ export default function ImageUpload({
   type = "general",
   label,
   required = false,
-  accentColor = "ring-orange-500",
+  accentColor = "ring-bright_teal_blue",
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);

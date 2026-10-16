@@ -19,7 +19,7 @@ export default function EditIngredientPage({ params }: { params: { id: string } 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-bright_teal_blue" />
       </div>
     );
   }

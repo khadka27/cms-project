@@ -103,7 +103,7 @@ export default function AdminAuthorsPage() {
                       <div className="flex items-center gap-3 text-xs text-gray-500">
                         {author.rating && (
                           <span className="flex items-center gap-1">
-                            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                            <Star className="w-3 h-3 text-turquoise_surf fill-turquoise_surf" />
                             {author.rating.toFixed(1)}
                           </span>
                         )}

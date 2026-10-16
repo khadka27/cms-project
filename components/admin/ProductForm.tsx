@@ -452,7 +452,7 @@ export default function ProductForm({
   };
 
   const inputCls =
-    "w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all bg-white";
+    "w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue focus:border-transparent transition-all bg-white";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -464,8 +464,8 @@ export default function ProductForm({
         </div>
       )}
       {success && (
-        <div className="flex items-center gap-3 bg-orange-50 border border-orange-200 text-orange-700 px-4 py-3 rounded-xl text-sm">
-          <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+        <div className="flex items-center gap-3 bg-light_cyan/40 border border-light_cyan text-french_blue px-4 py-3 rounded-xl text-sm font-medium">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-bright_teal_blue" />
           Product saved successfully!
         </div>
       )}
@@ -524,7 +524,7 @@ export default function ProductForm({
                   ))}
                 </select>
                 {filteredSubs.length === 0 && (
-                  <p className="text-xs text-amber-600 mt-1">
+                  <p className="text-xs text-french_blue/70 mt-1">
                     No subcategories for this type yet.
                   </p>
                 )}
@@ -590,9 +590,9 @@ export default function ProductForm({
                   .map((f, i) => (
                     <span
                       key={i}
-                      className="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded-full"
+                      className="inline-flex items-center gap-1 text-xs bg-light_cyan/40 text-french_blue border border-light_cyan px-2 py-0.5 rounded-full font-medium"
                     >
-                      <CheckCircle2 className="w-3 h-3" /> {f.trim()}
+                      <CheckCircle2 className="w-3 h-3 text-bright_teal_blue" /> {f.trim()}
                     </span>
                   ))}
               </div>
@@ -802,7 +802,7 @@ export default function ProductForm({
               hint="Shown as a primary CTA button on the product page"
             >
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-500 text-sm">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-bright_teal_blue text-sm">
                   🛒
                 </span>
                 <input
