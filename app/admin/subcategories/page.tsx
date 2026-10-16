@@ -36,7 +36,7 @@ export default function AdminSubcategoriesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-500 flex items-center justify-center shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-sm shadow-bright_teal_blue/20">
             <Layers className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -45,7 +45,7 @@ export default function AdminSubcategoriesPage() {
           </div>
         </div>
         <Link href="/admin/subcategories/new"
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-[#0EA5E9] hover:bg-[#0284C7] text-white rounded-xl text-sm font-medium transition-colors shadow-sm">
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 text-white rounded-xl text-sm font-medium transition-all shadow-sm shadow-bright_teal_blue/20">
           <Plus className="w-4 h-4" /> Add Subcategory
         </Link>
       </div>
@@ -53,14 +53,14 @@ export default function AdminSubcategoriesPage() {
       <div className="relative max-w-sm">
         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search subcategories…"
-          className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0EA5E9] focus:border-transparent bg-white" />
+          className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue/20 focus:border-bright_teal_blue bg-white" />
       </div>
 
       {loading ? (
         <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-16 bg-gray-100 rounded-xl animate-pulse" />)}</div>
       ) : (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="h-0.5 bg-gradient-to-r from-orange-500 to-orange-500" />
+          <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
           <div className="overflow-x-auto">
             <table className="w-full text-sm min-w-[560px]">
               <thead className="bg-gray-50 border-b border-gray-100">
@@ -84,7 +84,7 @@ export default function AdminSubcategoriesPage() {
                     <td className="px-5 py-3.5 text-gray-400 hidden md:table-cell"><span className="line-clamp-1 max-w-xs">{sub.description || '—'}</span></td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1.5 justify-end">
-                        <Link href={`/admin/subcategories/${sub.id}`} className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-orange-600 hover:bg-orange-50 transition-colors"><Pencil className="w-3.5 h-3.5" /></Link>
+                        <Link href={`/admin/subcategories/${sub.id}`} className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/20 transition-colors"><Pencil className="w-3.5 h-3.5" /></Link>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <button className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -113,7 +113,7 @@ export default function AdminSubcategoriesPage() {
             <div className="py-16 flex flex-col items-center gap-3 text-gray-400">
               <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center"><Layers className="w-6 h-6 text-gray-300" /></div>
               <p className="text-sm font-medium">{search ? 'No subcategories match your search' : 'No subcategories yet'}</p>
-              {!search && <Link href="/admin/subcategories/new" className="text-xs text-orange-600 hover:underline">Create your first subcategory →</Link>}
+              {!search && <Link href="/admin/subcategories/new" className="text-xs text-bright_teal_blue hover:underline">Create your first subcategory →</Link>}
             </div>
           )}
         </div>

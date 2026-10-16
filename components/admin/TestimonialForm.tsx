@@ -83,7 +83,7 @@ export default function TestimonialForm({ initialData }: TestimonialFormProps) {
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all bg-gray-50/50"
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue/20 focus:border-bright_teal_blue transition-all bg-gray-50/50"
               placeholder="e.g. Jane Doe"
             />
           </div>
@@ -94,7 +94,7 @@ export default function TestimonialForm({ initialData }: TestimonialFormProps) {
               type="text"
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all bg-gray-50/50"
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue/20 focus:border-bright_teal_blue transition-all bg-gray-50/50"
               placeholder="e.g. Verified Buyer, New York"
             />
           </div>
@@ -107,7 +107,7 @@ export default function TestimonialForm({ initialData }: TestimonialFormProps) {
             rows={4}
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all bg-gray-50/50 resize-y"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue/20 focus:border-bright_teal_blue transition-all bg-gray-50/50 resize-y"
             placeholder="What did they say?"
           />
         </div>
@@ -131,7 +131,7 @@ export default function TestimonialForm({ initialData }: TestimonialFormProps) {
                     type="button"
                     onClick={() => setFormData({ ...formData, rating: star })}
                     className={`p-1 rounded-lg transition-all ${
-                      formData.rating >= star ? "text-amber-400 hover:scale-110" : "text-gray-300 hover:text-amber-200"
+                      formData.rating >= star ? "text-turquoise_surf hover:scale-110" : "text-gray-300 hover:text-sky_aqua"
                     }`}
                   >
                     <Star className="w-6 h-6" fill={formData.rating >= star ? "currentColor" : "none"} />
@@ -146,7 +146,7 @@ export default function TestimonialForm({ initialData }: TestimonialFormProps) {
                 id="isPublished"
                 checked={formData.isPublished}
                 onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-                className="w-5 h-5 text-orange-600 rounded border-gray-300 focus:ring-orange-500"
+                className="w-5 h-5 text-french_blue rounded border-gray-300 focus:ring-bright_teal_blue"
               />
               <label htmlFor="isPublished" className="text-sm font-medium text-gray-900 select-none">
                 Publish on website
@@ -159,7 +159,7 @@ export default function TestimonialForm({ initialData }: TestimonialFormProps) {
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center gap-2 bg-orange-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-orange-700 transition-colors shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 bg-gradient-to-r from-french_blue to-bright_teal_blue text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:brightness-110 transition-all shadow-sm shadow-bright_teal_blue/20 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             {loading ? "Saving..." : "Save Testimonial"}

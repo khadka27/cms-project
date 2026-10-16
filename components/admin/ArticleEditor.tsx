@@ -38,11 +38,11 @@ function SectionCard({ icon: Icon, title, subtitle, accent = 'teal', children, c
 }) {
   const [open, setOpen] = useState(true);
   const accents: Record<string, string> = {
-    teal:   'from-teal-500 to-emerald-600',
-    violet: 'from-violet-500 to-purple-500',
-    amber:  'from-amber-500 to-orange-500',
-    sky:    'from-orange-500 to-orange-500',
-    rose:   'from-rose-500 to-pink-500',
+    teal:   'from-french_blue via-bright_teal_blue to-turquoise_surf',
+    violet: 'from-deep_twilight to-french_blue',
+    amber:  'from-french_blue to-bright_teal_blue',
+    sky:    'from-turquoise_surf to-sky_aqua',
+    rose:   'from-blue_green to-turquoise_surf',
   };
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -344,7 +344,7 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Google Preview</p>
                 <div className="space-y-0.5">
                   <p className="text-xs text-gray-400">https://officialproductslab.com/article/{form.slug}</p>
-                  <p className="text-orange-700 text-base font-medium leading-tight hover:underline cursor-pointer line-clamp-1">
+                  <p className="text-bright_teal_blue text-base font-medium leading-tight hover:underline cursor-pointer line-clamp-1">
                     {form.metaTitle || form.title}
                   </p>
                   <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
@@ -361,12 +361,12 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
 
           {/* Publish */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="h-0.5 bg-gradient-to-r from-teal-500 to-emerald-600" />
+            <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
             <div className="p-5 space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-gray-900">Publish</h3>
                 <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                  isPublished ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
+                  isPublished ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-light_cyan/40 text-french_blue border border-light_cyan'
                 }`}>
                   {isPublished ? 'Published' : 'Draft'}
                 </span>
@@ -377,13 +377,13 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
                   type="checkbox"
                   checked={form.isHero}
                   onChange={e => setForm(p => ({ ...p, isHero: e.target.checked }))}
-                  className="rounded text-teal-600 focus:ring-teal-500 w-4 h-4"
+                  className="rounded text-french_blue focus:ring-bright_teal_blue w-4 h-4"
                 />
                 <span className="text-sm font-medium text-gray-700">Featured Hero Article</span>
               </label>
 
               <button type="button" onClick={() => handleSave(true)} disabled={publishing || saving}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5">
+                className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5">
                 {publishing ? <><Loader2 className="w-4 h-4 animate-spin" /> Publishing…</> : <><Send className="w-4 h-4" /> {isPublished ? 'Update & Publish' : 'Publish'}</>}
               </button>
 
@@ -406,7 +406,7 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
               onChange={url => setForm(p => ({ ...p, featuredImage: url }))}
               onAltChange={alt => setForm(p => ({ ...p, featuredImageAlt: alt }))}
               type="article"
-              accentColor="ring-teal-500"
+              accentColor="ring-bright_teal_blue"
             />
           </SectionCard>
 

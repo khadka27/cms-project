@@ -146,10 +146,10 @@ function SectionCard({
   accent?: string;
 }) {
   const accents: Record<string, string> = {
-    amber: "from-amber-500 to-orange-500",
-    blue: "from-orange-500 to-indigo-500",
-    violet: "from-violet-500 to-purple-500",
-    rose: "from-rose-500 to-pink-500",
+    amber: "from-french_blue via-bright_teal_blue to-turquoise_surf",
+    blue: "from-french_blue to-bright_teal_blue",
+    violet: "from-deep_twilight to-french_blue",
+    rose: "from-blue_green to-turquoise_surf",
   };
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -228,8 +228,8 @@ function ImageZone({
           onClick={() => !uploading && fileRef.current?.click()}
           className={`relative border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
             uploading
-              ? "border-orange-300 bg-orange-50"
-              : "border-gray-200 hover:border-amber-400 hover:bg-amber-50/30"
+              ? "border-turquoise_surf/50 bg-light_cyan/20"
+              : "border-gray-200 hover:border-bright_teal_blue hover:bg-light_cyan/10"
           }`}
         >
           <input
@@ -244,15 +244,15 @@ function ImageZone({
           />
           {uploading ? (
             <div className="flex flex-col items-center gap-2">
-              <Loader2 className="w-7 h-7 text-orange-500 animate-spin" />
-              <p className="text-sm text-orange-600 font-medium">Uploading…</p>
+              <Loader2 className="w-7 h-7 text-bright_teal_blue animate-spin" />
+              <p className="text-sm text-french_blue font-medium">Uploading…</p>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-2">
               <Upload className="w-7 h-7 text-gray-300" />
               <p className="text-sm text-gray-500">
                 Drop image or{" "}
-                <span className="text-amber-600 font-medium">
+                <span className="text-bright_teal_blue font-medium">
                   click to browse
                 </span>
               </p>
@@ -269,7 +269,7 @@ function ImageZone({
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
             placeholder="https://example.com/image.jpg"
-            className="flex-1 px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent"
+            className="flex-1 px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue/30 focus:border-bright_teal_blue"
           />
           <button
             type="button"
@@ -278,7 +278,7 @@ function ImageZone({
               onUrl(urlInput.trim());
               setUrlInput("");
             }}
-            className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-40 text-white rounded-xl text-sm font-medium transition-colors"
+            className="px-4 py-2.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-40 text-white rounded-xl text-sm font-medium transition-colors"
           >
             Add
           </button>
@@ -286,7 +286,7 @@ function ImageZone({
       )}
 
       {warning && (
-        <div className="flex items-center gap-1.5 text-amber-600 text-xs bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+        <div className="flex items-center gap-1.5 text-french_blue text-xs bg-light_cyan/30 border border-light_cyan/70 rounded-lg px-3 py-2">
           <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
           {warning}
         </div>
@@ -662,12 +662,12 @@ export default function ProductForm({
         <div className="space-y-5">
           {/* Publish card */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="h-0.5 bg-gradient-to-r from-amber-500 to-orange-500" />
+            <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
             <div className="p-5 space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-gray-900">Publish</h3>
                 <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                  form.status === 'PUBLISHED' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
+                  form.status === 'PUBLISHED' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-light_cyan/40 text-french_blue border border-light_cyan'
                 }`}>
                   {form.status === 'PUBLISHED' ? 'Published' : 'Draft'}
                 </span>
@@ -698,7 +698,7 @@ export default function ProductForm({
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:shadow-bright_teal_blue/20 hover:-translate-y-0.5 active:translate-y-0"
               >
                 {saving ? (
                   <>
@@ -823,7 +823,7 @@ export default function ProductForm({
         <button
           type="submit"
           disabled={saving}
-          className="flex-1 flex items-center justify-center gap-2 py-3 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-colors"
         >
           {saving ? (
             <>

@@ -64,7 +64,7 @@ export default function IngredientForm({ initialData }: Props) {
         <Link href="/admin/ingredients" className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:bg-white hover:shadow-md transition-all">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-lg shadow-bright_teal_blue/20">
           <FlaskConical className="w-5 h-5 text-white" />
         </div>
         <div>
@@ -84,10 +84,10 @@ export default function IngredientForm({ initialData }: Props) {
         <div className="lg:col-span-2 space-y-6">
           {/* Main Details */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+            <div className="h-1 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
             <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
-                <FileText className="w-4 h-4 text-amber-600" />
+              <div className="w-8 h-8 rounded-lg bg-light_cyan/40 flex items-center justify-center">
+                <FileText className="w-4 h-4 text-french_blue" />
               </div>
               <h3 className="text-sm font-bold text-gray-900">Ingredient Details</h3>
             </div>
@@ -142,13 +142,13 @@ export default function IngredientForm({ initialData }: Props) {
         <div className="space-y-6">
           {/* Actions */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden sticky top-24">
-            <div className="h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+            <div className="h-1 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
             <div className="p-6 space-y-3">
               <h3 className="text-sm font-bold text-gray-900">Publish Changes</h3>
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full flex items-center justify-center gap-2 py-3.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-2xl text-sm font-bold transition-all hover:shadow-xl hover:shadow-amber-500/20 active:scale-95"
+                className="w-full flex items-center justify-center gap-2 py-3.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-50 text-white rounded-2xl text-sm font-bold transition-all hover:shadow-xl hover:shadow-bright_teal_blue/20 active:scale-95"
               >
                 {saving ? (
                   <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</>
@@ -164,10 +164,10 @@ export default function IngredientForm({ initialData }: Props) {
 
           {/* Image */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+            <div className="h-1 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
             <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
-                <ImageIcon className="w-4 h-4 text-amber-600" />
+              <div className="w-8 h-8 rounded-lg bg-light_cyan/40 flex items-center justify-center">
+                <ImageIcon className="w-4 h-4 text-french_blue" />
               </div>
               <h3 className="text-sm font-bold text-gray-900">Thumbnail</h3>
             </div>

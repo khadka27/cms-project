@@ -200,7 +200,7 @@ export default function ImageUpload({
             setDragActive(true);
           }}
           onDragLeave={() => setDragActive(false)}
-          className={`relative border-2 border-dashed rounded-xl p-5 text-center transition-colors cursor-pointer ${dragActive ? "border-orange-400 bg-orange-50" : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"}`}
+          className={`relative border-2 border-dashed rounded-xl p-5 text-center transition-colors cursor-pointer ${dragActive ? "border-turquoise_surf bg-light_cyan/20" : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"}`}
         >
           <input
             ref={fileRef}
@@ -215,7 +215,7 @@ export default function ImageUpload({
           />
           {uploading ? (
             <div className="flex flex-col items-center gap-2">
-              <div className="w-7 h-7 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-7 h-7 border-2 border-bright_teal_blue border-t-transparent rounded-full animate-spin" />
               <p className="text-sm text-gray-500">
                 {compressing ? "Compressing…" : "Uploading…"}
               </p>
@@ -225,7 +225,7 @@ export default function ImageUpload({
               <Upload className="w-7 h-7 text-gray-400" />
               <p className="text-sm text-gray-600">
                 Drop image or{" "}
-                <span className="text-orange-600 font-medium">
+                <span className="text-bright_teal_blue font-medium">
                   click to browse
                 </span>
               </p>
@@ -251,7 +251,7 @@ export default function ImageUpload({
               onChange(urlInput.trim());
               setUrlInput("");
             }}
-            className="px-4 py-2.5 bg-orange-600 hover:bg-orange-700 disabled:opacity-40 text-white rounded-xl text-sm font-medium transition-colors whitespace-nowrap"
+            className="px-4 py-2.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-40 text-white rounded-xl text-sm font-medium transition-colors whitespace-nowrap"
           >
             Add
           </button>
@@ -302,9 +302,9 @@ export default function ImageUpload({
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs text-gray-500 truncate">{value}</p>
-            {alt && <p className="text-xs text-orange-600 mt-1">Alt: {alt}</p>}
+            {alt && <p className="text-xs text-bright_teal_blue mt-1">Alt: {alt}</p>}
             {!alt && onAltChange && (
-              <p className="text-xs text-amber-500 mt-1">⚠ Alt text missing</p>
+              <p className="text-xs text-french_blue mt-1">⚠ Alt text missing</p>
             )}
           </div>
         </div>

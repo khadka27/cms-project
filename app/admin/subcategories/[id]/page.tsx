@@ -44,7 +44,7 @@ export default function EditSubcategoryPage() {
     <div className="max-w-5xl space-y-5">
       <div className="flex items-center gap-3">
         <Link href="/admin/subcategories" className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-100 transition-colors"><ArrowLeft className="w-4 h-4" /></Link>
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-500 flex items-center justify-center shadow-sm"><Layers className="w-4 h-4 text-white" /></div>
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-sm"><Layers className="w-4 h-4 text-white" /></div>
         <div><h1 className="text-xl font-bold text-gray-900">Edit Subcategory</h1><p className="text-xs text-gray-400 mt-0.5">{form.name || 'Update subcategory details'}</p></div>
       </div>
       {error && <div className="flex items-center gap-2.5 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm"><AlertCircle className="w-4 h-4 flex-shrink-0" />{error}</div>}
@@ -52,9 +52,9 @@ export default function EditSubcategoryPage() {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
           <div className="xl:col-span-2">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="h-0.5 bg-gradient-to-r from-orange-500 to-orange-500" />
+              <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
               <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-500 flex items-center justify-center"><FileText className="w-4 h-4 text-white" /></div>
+                <div className="w-8 h-8 rounded-lg bg-light_cyan/40 flex items-center justify-center"><FileText className="w-4 h-4 text-french_blue" /></div>
                 <div><h3 className="text-sm font-semibold text-gray-900">Subcategory Details</h3><p className="text-xs text-gray-400 mt-0.5">Name, type and description</p></div>
               </div>
               <div className="p-6 space-y-5">
@@ -66,23 +66,23 @@ export default function EditSubcategoryPage() {
           </div>
           <div className="space-y-5">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="h-0.5 bg-gradient-to-r from-orange-500 to-orange-500" />
+              <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
               <div className="p-5 space-y-3">
                 <h3 className="text-sm font-semibold text-gray-900">Publish</h3>
-                <button type="submit" disabled={saving} className="w-full flex items-center justify-center gap-2 py-3 bg-[#0EA5E9] hover:bg-[#0284C7] disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5">
+                <button type="submit" disabled={saving} className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5">
                   {saving ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving…</> : 'Save Changes'}
                 </button>
                 <Link href="/admin/subcategories" className="w-full flex items-center justify-center py-2.5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">Cancel</Link>
               </div>
             </div>
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="h-0.5 bg-gradient-to-r from-orange-500 to-orange-500" />
+              <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
               <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-500 flex items-center justify-center"><ImageIcon className="w-4 h-4 text-white" /></div>
+                <div className="w-8 h-8 rounded-lg bg-light_cyan/40 flex items-center justify-center"><ImageIcon className="w-4 h-4 text-french_blue" /></div>
                 <div><h3 className="text-sm font-semibold text-gray-900">Image</h3><p className="text-xs text-gray-400 mt-0.5">Subcategory thumbnail</p></div>
               </div>
               <div className="p-5">
-                <ImageUpload value={form.image} onChange={url => setForm(p => ({ ...p, image: url }))} type="subcategory" accentColor="ring-[#0EA5E9]" />
+                <ImageUpload value={form.image} onChange={url => setForm(p => ({ ...p, image: url }))} type="subcategory" accentColor="ring-bright_teal_blue" />
               </div>
             </div>
           </div>

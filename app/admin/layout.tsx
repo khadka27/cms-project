@@ -11,17 +11,17 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { label: "Dashboard",     href: "/admin",                icon: LayoutDashboard, color: "text-orange-400" },
-  { label: "Categories",    href: "/admin/categories",     icon: FolderOpen,      color: "text-orange-400" },
-  { label: "Subcategories", href: "/admin/subcategories",  icon: Layers,          color: "text-violet-400" },
-  { label: "Ingredients",   href: "/admin/ingredients",    icon: FlaskConical,    color: "text-amber-400" },
-  { label: "Products",      href: "/admin/products",       icon: Package,         color: "text-amber-400" },
-  { label: "Authors",       href: "/admin/authors",        icon: UserCog,         color: "text-indigo-400" },
-  { label: "Articles",      href: "/admin/articles",       icon: FileText,        color: "text-teal-400" },
-  { label: "SEO Articles",  href: "/admin/seo-article",    icon: Sparkles,        color: "text-violet-400" },
-  { label: "Testimonials",  href: "/admin/testimonials",   icon: MessageSquareQuote, color: "text-yellow-400" },
-  { label: "Hero Settings", href: "/admin/hero-settings",  icon: Settings,        color: "text-rose-400" },
-  { label: "Account",       href: "/admin/settings",       icon: UserCog,         color: "text-indigo-400" },
+  { label: "Dashboard",     href: "/admin",                icon: LayoutDashboard, color: "text-sky_aqua" },
+  { label: "Categories",    href: "/admin/categories",     icon: FolderOpen,      color: "text-turquoise_surf" },
+  { label: "Subcategories", href: "/admin/subcategories",  icon: Layers,          color: "text-bright_teal_blue" },
+  { label: "Ingredients",   href: "/admin/ingredients",    icon: FlaskConical,    color: "text-blue_green" },
+  { label: "Products",      href: "/admin/products",       icon: Package,         color: "text-sky_aqua" },
+  { label: "Authors",       href: "/admin/authors",        icon: UserCog,         color: "text-frosted_blue" },
+  { label: "Articles",      href: "/admin/articles",       icon: FileText,        color: "text-turquoise_surf" },
+  { label: "SEO Articles",  href: "/admin/seo-article",    icon: Sparkles,        color: "text-sky_aqua" },
+  { label: "Testimonials",  href: "/admin/testimonials",   icon: MessageSquareQuote, color: "text-light_cyan" },
+  { label: "Hero Settings", href: "/admin/hero-settings",  icon: Settings,        color: "text-bright_teal_blue" },
+  { label: "Account",       href: "/admin/settings",       icon: UserCog,         color: "text-sky_aqua" },
 ];
 
 function Sidebar({ onClose }: { onClose?: () => void }) {

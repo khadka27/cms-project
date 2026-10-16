@@ -152,29 +152,29 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
             {/* Excerpt card */}
             {article.excerpt && (
-              <div className="mb-5 p-5 bg-teal-50 border border-teal-100 rounded-2xl">
+              <div className="mb-5 p-5 bg-light_cyan/20 border border-light_cyan/70 rounded-2xl">
                 <p className="text-gray-700 text-base leading-relaxed font-medium">{article.excerpt}</p>
               </div>
             )}
 
             {/* Author bar */}
             {author && (
-              <div className="flex items-center gap-3 mb-5 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+              <div className="flex items-center gap-3 mb-5 p-4 bg-white rounded-2xl border border-light_cyan/70 shadow-sm">
                 {author.avatar ? (
                   <img src={author.avatar} alt={author.avatarAlt || author.name}
-                    className="w-11 h-11 rounded-full object-cover border-2 border-teal-100 flex-shrink-0" />
+                    className="w-11 h-11 rounded-full object-cover border-2 border-light_cyan flex-shrink-0" />
                 ) : (
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center flex-shrink-0 text-white font-bold text-base">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center flex-shrink-0 text-white font-bold text-base">
                     {author.name.charAt(0)}
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-semibold text-gray-900 text-sm">{author.name}</span>
-                    {author.title && <span className="text-xs text-teal-700 bg-teal-50 border border-teal-200 px-2 py-0.5 rounded-full font-medium">{author.title}</span>}
+                    {author.title && <span className="text-xs text-french_blue bg-light_cyan/40 border border-light_cyan px-2 py-0.5 rounded-full font-medium">{author.title}</span>}
                     {author.rating && (
-                      <span className="flex items-center gap-1 text-xs text-amber-600 font-semibold ml-auto">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      <span className="flex items-center gap-1 text-xs text-bright_teal_blue font-semibold ml-auto">
+                        <Star className="w-3 h-3 fill-turquoise_surf text-turquoise_surf" />
                         {author.rating.toFixed(1)}
                         {author.reviewCount && <span className="text-gray-400 font-normal">({author.reviewCount.toLocaleString()})</span>}
                       </span>
@@ -199,7 +199,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </div>
                 {author?.website && (
                   <a href={author.website} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-teal-600 hover:text-teal-700 font-medium transition-colors">
+                    className="flex items-center gap-1.5 text-xs text-bright_teal_blue hover:text-french_blue font-medium transition-colors">
                     <Globe className="w-3.5 h-3.5" /> Author website <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
@@ -211,40 +211,40 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <aside className="space-y-4 lg:sticky lg:top-24">
             {/* Author card */}
             {author && (
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                <div className="h-0.5 bg-gradient-to-r from-teal-500 to-emerald-500" />
+              <div className="bg-white rounded-2xl border border-light_cyan/70 shadow-sm overflow-hidden">
+                <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
                 <div className="p-5">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">About the Author</p>
+                  <p className="text-xs font-semibold text-bright_teal_blue uppercase tracking-wider mb-3">About the Author</p>
                   <div className="flex items-center gap-3 mb-3">
                     {author.avatar ? (
-                      <img src={author.avatar} alt={author.name} className="w-14 h-14 rounded-full object-cover border-2 border-teal-100" />
+                      <img src={author.avatar} alt={author.name} className="w-14 h-14 rounded-full object-cover border-2 border-light_cyan" />
                     ) : (
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-xl">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center text-white font-bold text-xl">
                         {author.name.charAt(0)}
                       </div>
                     )}
                     <div>
                       <p className="font-bold text-gray-900 text-sm">{author.name}</p>
-                      {author.title && <p className="text-xs text-teal-600 font-medium">{author.title}</p>}
+                      {author.title && <p className="text-xs text-bright_teal_blue font-medium">{author.title}</p>}
                     </div>
                   </div>
                   {author.bio && <p className="text-xs text-gray-500 leading-relaxed mb-3">{author.bio}</p>}
                   {author.expertise && (
-                    <div className="bg-gray-50 rounded-xl p-3 mb-3">
-                      <p className="text-xs font-semibold text-gray-600 mb-1">Expertise</p>
-                      <p className="text-xs text-gray-500">{author.expertise}</p>
+                    <div className="bg-light_cyan/15 rounded-xl p-3 mb-3 border border-light_cyan/50">
+                      <p className="text-xs font-semibold text-french_blue mb-1">Expertise</p>
+                      <p className="text-xs text-slate-600">{author.expertise}</p>
                     </div>
                   )}
                   {author.rating && (
                     <div className="flex items-center gap-2 text-sm">
-                      <div className="text-amber-400">{'★'.repeat(Math.round(author.rating))}{'☆'.repeat(5 - Math.round(author.rating))}</div>
+                      <div className="text-turquoise_surf">{'★'.repeat(Math.round(author.rating))}{'☆'.repeat(5 - Math.round(author.rating))}</div>
                       <span className="font-bold text-gray-900">{author.rating.toFixed(1)}</span>
                       {author.reviewCount && <span className="text-xs text-gray-400">({author.reviewCount.toLocaleString()} reviews)</span>}
                     </div>
                   )}
                   {author.website && (
                     <a href={author.website} target="_blank" rel="noopener noreferrer"
-                      className="mt-3 flex items-center justify-center gap-1.5 w-full py-2 border border-teal-200 text-teal-600 hover:bg-teal-50 rounded-xl text-xs font-semibold transition-colors">
+                      className="mt-3 flex items-center justify-center gap-1.5 w-full py-2 border border-bright_teal_blue/30 text-bright_teal_blue hover:bg-light_cyan/20 rounded-xl text-xs font-semibold transition-colors">
                       <Globe className="w-3.5 h-3.5" /> Visit Website
                     </a>
                   )}
