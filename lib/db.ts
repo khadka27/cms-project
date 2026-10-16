@@ -29,7 +29,23 @@ if (globalForPrisma.prisma) {
     }
   } else {
     // Fallback for build time when DATABASE_URL is not available
-    prisma = {} as PrismaClient;
+    const dummyProxy: any = new Proxy({} as any, {
+      get(_target, prop) {
+        if (prop === '$connect' || prop === '$disconnect') {
+          return async () => {};
+        }
+        return new Proxy({}, {
+          get(_modelTarget, method) {
+            return async () => {
+              if (method === 'findMany') return [];
+              if (method === 'count') return 0;
+              return null;
+            };
+          },
+        });
+      },
+    });
+    prisma = dummyProxy as PrismaClient;
   }
 }
 

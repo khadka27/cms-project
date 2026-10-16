@@ -14,7 +14,11 @@ function runStep(command, args) {
 }
 
 runStep("pnpm", ["prisma", "generate"]);
-runStep("pnpm", ["prisma", "migrate", "deploy"]);
+if (process.env.DATABASE_URL) {
+  runStep("pnpm", ["prisma", "migrate", "deploy"]);
+} else {
+  console.log("[build] DATABASE_URL not provided, skipping prisma migrate deploy");
+}
 
 const buildProcess = spawn("pnpm", ["next", "build", "--turbo"], {
   stdio: "inherit",
