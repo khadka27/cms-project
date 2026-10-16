@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-slate-50 flex flex-col items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6] flex flex-col items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl w-full">
         {/* Header Section */}
         <div className="text-center mb-12 fade-in-up">
@@ -37,7 +37,7 @@ export default function ContactPage() {
             For general questions, correction requests, privacy-related requests, or product information concerns, please email us at:
           </p>
           
-          <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-6 mb-6 max-w-md">
+          <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-6 mb-6 max-w-md">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-white rounded-xl shadow-sm text-bright_teal_blue">
                 <Mail className="h-6 w-6" />
@@ -220,7 +220,7 @@ export default function ContactPage() {
             <h3 className="text-sm font-extrabold uppercase tracking-[0.25em] text-slate-400 mb-4">
               Official Products Lab Contact Details
             </h3>
-            <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-6 space-y-2 text-slate-800 text-sm font-semibold max-w-md">
+            <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-6 space-y-2 text-slate-800 text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
               <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
               <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>

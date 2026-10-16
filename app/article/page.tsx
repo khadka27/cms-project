@@ -37,7 +37,7 @@ export default async function ArticlesIndexPage() {
     : allArticles;
 
   return (
-    <main className="min-h-screen bg-[#f8fbff]">
+    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
       {/* Header */}
       <section className="relative bg-[#010226] py-16 sm:py-24 overflow-hidden border-b border-french_blue/30">
         <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-turquoise_surf/15 blur-3xl -mr-20 -mt-20 pointer-events-none" />

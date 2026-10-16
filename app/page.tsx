@@ -108,9 +108,9 @@ export default function HomePage() {
       "Official Products Lab helps shoppers understand popular online products through simple reviews, product summaries, category guides, feature breakdowns, pricing notes, and dedicated product information pages. The goal is to make product research easier before a visitor decides to check a product offer.",
     backgroundImage: "",
     backgroundType: "gradient",
-    gradientFrom: "#f4fcfe",
-    gradientVia: "#f8fbff",
-    gradientTo: "#ffffff",
+    gradientFrom: "#d4eff7",
+    gradientVia: "#e5f5f9",
+    gradientTo: "#daf0f6",
     textColor: "#0f172a",
     primaryColor: "#0077b6",
     ctaColor: "#0077b6",
@@ -185,7 +185,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           HERO
       ════════════════════════════════════ */}
-      <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#f4fcfe] via-[#f8fbff] to-white">
+      <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
         {hero.backgroundType === "image" && hero.backgroundImage && (
           <div
             className="absolute inset-0 z-0"
@@ -342,7 +342,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           FEATURED PRODUCTS
       ════════════════════════════════════ */}
-      <section id="products" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-[#f8fbff] to-[#f4fcfe]/40">
+      <section id="products" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#daf0f6] via-[#e5f5f9] to-[#d4eff7]">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
             <div>
@@ -402,7 +402,7 @@ export default function HomePage() {
           BROWSE BY CATEGORY
       ════════════════════════════════════ */}
       {subcategories.length > 0 && (
-        <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#d4eff7] via-[#e2f3f8] to-[#daf0f6]">
           <div className="max-w-7xl mx-auto">
             <SectionHeading
               label="Collections"
@@ -466,7 +466,7 @@ export default function HomePage() {
           INGREDIENTS
       ════════════════════════════════════ */}
       {ingredients.length > 0 && (
-        <section id="ingredients" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f4fcfe]/40 via-white to-white">
+        <section id="ingredients" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#daf0f6] via-[#e7f7fa] to-[#d4eff7]">
           <div className="max-w-7xl mx-auto">
             <SectionHeading
               label="Science-Backed"
@@ -531,7 +531,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           PRODUCT CATALOG (pill grid)
       ════════════════════════════════════ */}
-      <section id="categories" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-[#f8fbff] to-[#f4fcfe]/40">
+      <section id="categories" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#d4eff7] via-[#e2f3f8] to-[#daf0f6]">
         <div className="max-w-7xl mx-auto">
           <SectionHeading
             label="All Collections"
@@ -592,7 +592,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           CTA BANNER
       ════════════════════════════════════ */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-14 sm:pb-20 bg-white">
+      <section className="px-4 sm:px-6 lg:px-8 pb-14 sm:pb-20 bg-gradient-to-b from-[#daf0f6] via-[#d4eff7] to-[#daf0f6]">
         <div className="max-w-7xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#010226] via-[#02044b] to-[#010226] border border-french_blue/40 px-8 sm:px-12 py-14 sm:py-20 text-center shadow-2xl">
             {/* Decorative blobs */}
@@ -635,7 +635,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           HOW WE HELP & EDITORIAL PRINCIPLES
       ════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fbff] to-white border-t border-slate-100">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#daf0f6] via-[#e5f5f9] to-[#daf0f6] border-t border-turquoise_surf/20">
         <div className="max-w-7xl mx-auto space-y-20">
           
           {/* Section 1: How Official Products Lab Helps Shoppers */}

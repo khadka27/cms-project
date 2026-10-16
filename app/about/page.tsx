@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-slate-50 flex flex-col items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6] flex flex-col items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl w-full">
         {/* Header Section */}
         <div className="text-center mb-16 fade-in-up">

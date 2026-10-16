@@ -3,7 +3,7 @@ import { ArrowLeft, Home, Search } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#FAF7F2] flex items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6] flex items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-turquoise_surf/15 blur-3xl -mr-20 -mt-20 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-deep_twilight-600/20 blur-3xl -ml-20 -mb-20 pointer-events-none" />

@@ -93,7 +93,7 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="theme-color" content="#1E1E1E" />
+        <meta name="theme-color" content="#03045e" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -113,7 +113,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <WebSiteSchema />
       </head>
-      <body className={`${roboto.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${roboto.variable} antialiased bg-[#d4eff7] text-slate-800`} suppressHydrationWarning>
         <SessionProvider>
           <CategoryProvider>
             <ConditionalHeader />

@@ -19,7 +19,7 @@ import {
 import type { HeroSettings } from "@/lib/types";
 
 const inputCls =
-  "w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent bg-white";
+  "w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue focus:border-transparent bg-white";
 
 function SectionCard({
   icon: Icon,
@@ -34,9 +34,9 @@ function SectionCard({
 }) {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-      <div className="h-0.5 bg-gradient-to-r from-violet-500 to-purple-500" />
+      <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
       <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center flex-shrink-0">
           <Icon className="w-4 h-4 text-white" />
         </div>
         <div>
@@ -142,7 +142,7 @@ export default function HeroSettingsPage() {
         >
           <ArrowLeft className="w-4 h-4" />
         </Link>
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center shadow-sm">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-sm">
           <Settings className="w-4 h-4 text-white" />
         </div>
         <div className="flex-1">
@@ -182,12 +182,12 @@ export default function HeroSettingsPage() {
       {/* Live preview */}
       {preview && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="h-0.5 bg-gradient-to-r from-violet-500 to-purple-500" />
+          <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
           <div className="px-5 py-3 border-b border-gray-50 flex items-center gap-2">
             <div className="flex gap-1.5">
               <div className="w-3 h-3 rounded-full bg-red-400" />
               <div className="w-3 h-3 rounded-full bg-amber-400" />
-              <div className="w-3 h-3 rounded-full bg-orange-400" />
+              <div className="w-3 h-3 rounded-full bg-emerald-400" />
             </div>
             <span className="text-xs text-gray-400 ml-2">Live Preview</span>
           </div>
@@ -471,7 +471,7 @@ export default function HeroSettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:from-deep_twilight hover:to-french_blue disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 shadow-sm"
                 >
                   {saving ? (
                     <>
@@ -490,7 +490,7 @@ export default function HeroSettingsPage() {
                 <Link
                   href="/"
                   target="_blank"
-                  className="w-full flex items-center justify-center gap-1.5 py-2.5 border border-violet-200 bg-violet-50 rounded-xl text-sm text-violet-700 hover:bg-violet-100 transition-colors"
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 border border-bright_teal_blue/20 bg-light_cyan/30 rounded-xl text-sm text-french_blue hover:bg-light_cyan/60 transition-colors font-medium"
                 >
                   <Eye className="w-3.5 h-3.5" /> View Live Site
                 </Link>
@@ -499,35 +499,35 @@ export default function HeroSettingsPage() {
 
             {/* Quick tips */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="h-0.5 bg-gradient-to-r from-violet-500 to-purple-500" />
+              <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
               <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-2">
-                <Palette className="w-4 h-4 text-violet-500" />
+                <Palette className="w-4 h-4 text-bright_teal_blue" />
                 <h3 className="text-sm font-semibold text-gray-900">Tips</h3>
               </div>
               <div className="p-5 space-y-3 text-xs text-gray-500">
                 <div className="flex items-start gap-2">
-                  <span className="text-violet-400 font-bold mt-0.5">•</span>
+                  <span className="text-bright_teal_blue font-bold mt-0.5">•</span>
                   <p>
                     Use <strong>white text</strong> on dark gradient backgrounds
                     for best readability.
                   </p>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-violet-400 font-bold mt-0.5">•</span>
+                  <span className="text-bright_teal_blue font-bold mt-0.5">•</span>
                   <p>
                     For image backgrounds, set overlay to{" "}
                     <strong>30–50%</strong> to keep text readable.
                   </p>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-violet-400 font-bold mt-0.5">•</span>
+                  <span className="text-bright_teal_blue font-bold mt-0.5">•</span>
                   <p>
                     Recommended image size: <strong>1920×600px</strong> or
                     wider.
                   </p>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-violet-400 font-bold mt-0.5">•</span>
+                  <span className="text-bright_teal_blue font-bold mt-0.5">•</span>
                   <p>
                     Keep the title under <strong>60 characters</strong> for
                     mobile display.

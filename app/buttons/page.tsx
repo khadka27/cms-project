@@ -301,7 +301,7 @@ export default function BubbleButton() {
             <Sparkles className="w-4 h-4 text-purple-400" />
             <span>Interactive CSS Customizer</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-sky_aqua via-turquoise_surf to-light_cyan">
             Bubble Button Lab
           </h1>
           <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">

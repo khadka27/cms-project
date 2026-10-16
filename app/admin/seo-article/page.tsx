@@ -350,7 +350,7 @@ export default function SEOArticlePage() {
                 )}
               </div>
 
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
+              <div className="bg-light_cyan/40 border border-light_cyan rounded-xl p-4 text-sm text-french_blue">
                 <strong>How to use:</strong> Click &quot;Copy HTML&quot;, then go to your product&apos;s Detailed Description editor, click the source/code view, and paste the HTML. Or use the editor&apos;s paste function directly.
               </div>
             </>

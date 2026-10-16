@@ -41,7 +41,7 @@ export default function SubcategoryPage() {
   }, [slug]);
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
       {subcategory && (
         <>
           <CategorySchema

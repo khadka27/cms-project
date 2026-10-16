@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowLeft, FolderOpen, Loader2, AlertCircle, FileText, Image as ImageIcon } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
 
-const inputCls = 'w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#16A34A] focus:border-transparent bg-white';
+const inputCls = 'w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue focus:border-transparent bg-white';
 
 export default function EditCategoryPage() {
   const { id } = useParams<{ id: string }>();
@@ -44,7 +44,7 @@ export default function EditCategoryPage() {
     <div className="max-w-5xl space-y-5">
       <div className="flex items-center gap-3">
         <Link href="/admin/categories" className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-100 transition-colors"><ArrowLeft className="w-4 h-4" /></Link>
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-teal-500 flex items-center justify-center shadow-sm"><FolderOpen className="w-4 h-4 text-white" /></div>
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-sm"><FolderOpen className="w-4 h-4 text-white" /></div>
         <div><h1 className="text-xl font-bold text-gray-900">Edit Category</h1><p className="text-xs text-gray-400 mt-0.5">{form.name || 'Update category details'}</p></div>
       </div>
       {error && <div className="flex items-center gap-2.5 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm"><AlertCircle className="w-4 h-4 flex-shrink-0" />{error}</div>}
@@ -52,9 +52,9 @@ export default function EditCategoryPage() {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
           <div className="xl:col-span-2">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="h-0.5 bg-gradient-to-r from-orange-500 to-teal-500" />
+              <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
               <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-teal-500 flex items-center justify-center"><FileText className="w-4 h-4 text-white" /></div>
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center"><FileText className="w-4 h-4 text-white" /></div>
                 <div><h3 className="text-sm font-semibold text-gray-900">Category Details</h3><p className="text-xs text-gray-400 mt-0.5">Name, type and description</p></div>
               </div>
               <div className="p-6 space-y-5">
@@ -65,23 +65,23 @@ export default function EditCategoryPage() {
           </div>
           <div className="space-y-5">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="h-0.5 bg-gradient-to-r from-orange-500 to-teal-500" />
+              <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
               <div className="p-5 space-y-3">
                 <h3 className="text-sm font-semibold text-gray-900">Publish</h3>
-                <button type="submit" disabled={saving} className="w-full flex items-center justify-center gap-2 py-3 bg-[#16A34A] hover:bg-[#15803D] disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5">
+                <button type="submit" disabled={saving} className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:from-deep_twilight hover:to-french_blue disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all hover:shadow-md hover:-translate-y-0.5 shadow-sm">
                   {saving ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving…</> : 'Save Changes'}
                 </button>
                 <Link href="/admin/categories" className="w-full flex items-center justify-center py-2.5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">Cancel</Link>
               </div>
             </div>
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="h-0.5 bg-gradient-to-r from-orange-500 to-teal-500" />
+              <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
               <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-teal-500 flex items-center justify-center"><ImageIcon className="w-4 h-4 text-white" /></div>
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center"><ImageIcon className="w-4 h-4 text-white" /></div>
                 <div><h3 className="text-sm font-semibold text-gray-900">Image</h3><p className="text-xs text-gray-400 mt-0.5">Category thumbnail</p></div>
               </div>
               <div className="p-5">
-                <ImageUpload value={form.image} alt={form.imageAlt} onChange={url => setForm(p => ({ ...p, image: url }))} onAltChange={alt => setForm(p => ({ ...p, imageAlt: alt }))} type="category" accentColor="ring-[#16A34A]" />
+                <ImageUpload value={form.image} alt={form.imageAlt} onChange={url => setForm(p => ({ ...p, image: url }))} onAltChange={alt => setForm(p => ({ ...p, imageAlt: alt }))} type="category" accentColor="ring-bright_teal_blue" />
               </div>
             </div>
           </div>

@@ -282,7 +282,7 @@ export default function ExternalLinksPolicyPage() {
             <p>
               If you have questions about this External Links Policy or want to report a broken, outdated, or incorrect link, you can contact us at:
             </p>
-            <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
+            <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
               <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
               <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>

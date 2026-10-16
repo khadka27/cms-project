@@ -43,7 +43,7 @@ function ProductsContent() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f8fbff]">
+    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
       {/* Header */}
       <section className="relative bg-[#010226] py-16 sm:py-20 overflow-hidden border-b border-french_blue/30">
         {/* Decorative elements matching the ocean theme */}
@@ -153,7 +153,7 @@ function ProductsContent() {
 
 export default function ProductsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen animate-pulse bg-[#f8fbff]" />}>
+    <Suspense fallback={<div className="min-h-screen animate-pulse bg-[#d4eff7]" />}>
       <ProductsContent />
     </Suspense>
   );

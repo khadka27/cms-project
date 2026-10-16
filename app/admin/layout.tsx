@@ -125,7 +125,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f6f9] flex">
+    <div className="min-h-screen bg-gradient-to-br from-[#eaf4f8] via-[#f0f8fb] to-[#e4f2f7] flex">
       {/* Desktop sidebar */}
       <aside className="hidden md:flex flex-col w-60 shrink-0 sticky top-0 h-screen">
         <Sidebar />

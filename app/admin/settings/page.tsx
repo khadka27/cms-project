@@ -7,16 +7,16 @@ import {
   Eye, EyeOff, Mail, UserCircle, Calendar,
 } from 'lucide-react';
 
-const inputCls = 'w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent bg-white transition-all';
+const inputCls = 'w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue focus:border-transparent bg-white transition-all';
 
 function SectionCard({ icon: Icon, title, subtitle, accent = 'violet', children }: {
   icon: React.ElementType; title: string; subtitle?: string;
   accent?: string; children: React.ReactNode;
 }) {
   const accents: Record<string, string> = {
-    violet: 'from-violet-500 to-purple-500',
-    blue: 'from-orange-500 to-teal-500',
-    rose:    'from-rose-500 to-pink-500',
+    violet: 'from-french_blue to-bright_teal_blue',
+    blue: 'from-bright_teal_blue to-turquoise_surf',
+    rose:    'from-deep_twilight to-french_blue',
   };
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -164,7 +164,7 @@ export default function AdminSettingsPage() {
             {profileMsg && (
               <div className={`flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm border ${
                 profileMsg.type === 'success'
-                  ? 'bg-orange-50 border-orange-200 text-orange-700'
+                  ? 'bg-light_cyan/40 border-light_cyan text-french_blue'
                   : 'bg-red-50 border-red-200 text-red-700'
               }`}>
                 {profileMsg.type === 'success'
@@ -220,7 +220,7 @@ export default function AdminSettingsPage() {
             {passwordMsg && (
               <div className={`flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm border ${
                 passwordMsg.type === 'success'
-                  ? 'bg-orange-50 border-orange-200 text-orange-700'
+                  ? 'bg-light_cyan/40 border-light_cyan text-french_blue'
                   : 'bg-red-50 border-red-200 text-red-700'
               }`}>
                 {passwordMsg.type === 'success'
@@ -298,7 +298,7 @@ export default function AdminSettingsPage() {
                       passwords.confirm && passwords.new !== passwords.confirm
                         ? 'border-red-300 focus:ring-red-400'
                         : passwords.confirm && passwords.new === passwords.confirm
-                        ? 'border-orange-300 focus:ring-orange-400'
+                        ? 'border-bright_teal_blue/50 focus:ring-bright_teal_blue'
                         : ''
                     }`}
                     placeholder="Repeat new password"
@@ -310,7 +310,7 @@ export default function AdminSettingsPage() {
                   {passwords.confirm && (
                     <div className="absolute right-10 top-1/2 -translate-y-1/2">
                       {passwords.new === passwords.confirm
-                        ? <CheckCircle2 className="w-4 h-4 text-orange-500" />
+                        ? <CheckCircle2 className="w-4 h-4 text-bright_teal_blue" />
                         : <AlertCircle className="w-4 h-4 text-red-400" />}
                     </div>
                   )}
@@ -331,9 +331,9 @@ export default function AdminSettingsPage() {
         <div className="space-y-5">
           {/* Account info card */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="h-0.5 bg-gradient-to-r from-orange-500 to-teal-500" />
+            <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
             <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-teal-500 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center">
                 <Shield className="w-4 h-4 text-white" />
               </div>
               <h3 className="text-sm font-semibold text-gray-900">Account Info</h3>
@@ -341,7 +341,7 @@ export default function AdminSettingsPage() {
             <div className="p-5 space-y-4">
               {/* Avatar */}
               <div className="flex flex-col items-center gap-3 pb-4 border-b border-gray-100">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-200">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center shadow-lg shadow-bright_teal_blue/20">
                   <span className="text-2xl font-bold text-white">
                     {(profile.name || profile.email || 'A').charAt(0).toUpperCase()}
                   </span>
@@ -358,7 +358,7 @@ export default function AdminSettingsPage() {
                   <span className="text-xs text-gray-500 flex items-center gap-1.5">
                     <Shield className="w-3.5 h-3.5" /> Role
                   </span>
-                  <span className="text-xs font-semibold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">
+                  <span className="text-xs font-semibold text-french_blue bg-light_cyan/40 border border-light_cyan px-2 py-0.5 rounded-full">
                     {accountInfo?.role || 'ADMIN'}
                   </span>
                 </div>

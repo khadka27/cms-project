@@ -149,7 +149,7 @@ export default async function ProductPage({
   const faqs = extractFaqsFromHtml(product.detailedDescription);
 
   return (
-    <main className="min-h-screen bg-[#f8fbff]">
+    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
       <ProductFirstH1HashUrl slug={firstH1Slug} />
       <ProductSchema
         name={product.name}

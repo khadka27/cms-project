@@ -181,9 +181,9 @@ export default function AdminDashboard() {
           </div>
           <div className="space-y-3">
             {[
-              { label: 'Total Products',      value: counts.products,      max: Math.max(counts.products, 1),      color: 'bg-amber-500' },
-              { label: 'Total Categories',    value: counts.categories,    max: Math.max(counts.categories, 1),    color: 'bg-orange-500' },
-              { label: 'Total Subcategories', value: counts.subcategories, max: Math.max(counts.subcategories, 1), color: 'bg-orange-500' },
+              { label: 'Total Products',      value: counts.products,      max: Math.max(counts.products, 1),      color: 'bg-bright_teal_blue' },
+              { label: 'Total Categories',    value: counts.categories,    max: Math.max(counts.categories, 1),    color: 'bg-french_blue' },
+              { label: 'Total Subcategories', value: counts.subcategories, max: Math.max(counts.subcategories, 1), color: 'bg-turquoise_surf' },
             ].map(item => (
               <div key={item.label}>
                 <div className="flex items-center justify-between text-sm mb-1.5">

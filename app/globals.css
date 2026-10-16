@@ -274,7 +274,7 @@
 }
 
 :root {
-  --surface-bg: #f4fcfe;
+  --surface-bg: #e2f3f8;
   --surface-card: #ffffff;
   --surface-soft: #caf0f8;
   --surface-stroke: #ade8f4;
@@ -310,15 +310,15 @@
     background:
       radial-gradient(
         circle at 8% 10%,
-        rgba(0, 180, 216, 0.12),
+        rgba(0, 180, 216, 0.16),
         transparent 36%
       ),
       radial-gradient(
         circle at 90% 18%,
-        rgba(0, 119, 182, 0.08),
+        rgba(0, 119, 182, 0.12),
         transparent 30%
       ),
-      linear-gradient(180deg, #ffffff 0%, var(--surface-bg) 55%, #caf0f8 100%);
+      linear-gradient(180deg, #d4eff7 0%, #e5f5f9 50%, #daf0f6 100%);
     font-family: var(--font-body), sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
