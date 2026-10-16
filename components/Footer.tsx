@@ -3,10 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  Twitter,
-  Instagram,
-  Facebook,
-  Youtube,
   Mail,
   MapPin,
   ArrowRight,
@@ -15,6 +11,40 @@ import {
   Layers,
   BookOpen,
 } from "lucide-react";
+
+function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
+function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.82 0-1.667.417-1.667 1.623v2.367h3.818l-.513 3.667h-3.305v7.98z" />
+    </svg>
+  );
+}
+
+function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  );
+}
 
 const exploreLinks = [
   { label: "Product Reviews", href: "/products" },
@@ -51,10 +81,10 @@ const legalLinks = [
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter / X", href: "#", color: "hover:bg-slate-700" },
-  { icon: Instagram, label: "Instagram", href: "#", color: "hover:bg-slate-700" },
-  { icon: Facebook, label: "Facebook", href: "#", color: "hover:bg-slate-700" },
-  { icon: Youtube, label: "YouTube", href: "#", color: "hover:bg-slate-700" },
+  { icon: TwitterIcon, label: "Twitter / X", href: "#", color: "hover:bg-slate-700" },
+  { icon: InstagramIcon, label: "Instagram", href: "#", color: "hover:bg-slate-700" },
+  { icon: FacebookIcon, label: "Facebook", href: "#", color: "hover:bg-slate-700" },
+  { icon: YoutubeIcon, label: "YouTube", href: "#", color: "hover:bg-slate-700" },
 ];
 
 export default function Footer() {
