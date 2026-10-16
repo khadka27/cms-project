@@ -1,0 +1,3893 @@
+"use client";
+
+// Simple image compression using canvas (no external dependencies)
+async function compressImage(file: File): Promise<Blob> {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+
+        // Downscale if too large; keep images comfortably below request limits.
+        const maxDimension = 1600;
+        if (width > maxDimension) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (ctx) ctx.drawImage(img, 0, 0, width, height);
+
+        const mimeCandidates = ["image/webp", "image/jpeg"] as const;
+
+        const encode = (
+          mimeType: (typeof mimeCandidates)[number],
+          quality: number,
+        ) =>
+          new Promise<Blob | null>((resolveBlob) => {
+            canvas.toBlob((blob) => resolveBlob(blob), mimeType, quality);
+          });
+
+        const tryCompress = async () => {
+          for (const mimeType of mimeCandidates) {
+            let quality = 0.82;
+            while (quality >= 0.2) {
+              const blob = await encode(mimeType, quality);
+              if (blob && blob.size <= 100 * 1024) {
+                resolve(blob);
+                return;
+              }
+              if (blob && quality <= 0.2) {
+                resolve(blob);
+                return;
+              }
+              quality = Number((quality - 0.1).toFixed(2));
+            }
+          }
+
+          const fallback = await encode("image/jpeg", 0.2);
+          resolve(fallback || file);
+        };
+
+        void tryCompress();
+      };
+      img.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function getCompressedFileName(fileName: string, mimeType: string) {
+  const baseName = fileName.replace(/\.[^.]+$/, "");
+  const extension = mimeType === "image/webp" ? "webp" : "jpg";
+  return `${baseName}.${extension}`;
+}
+
+import {
+  useEditor,
+  EditorContent,
+  Editor,
+  NodeViewWrapper,
+  NodeViewProps,
+  ReactNodeViewRenderer,
+  NodeViewRendererProps,
+} from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
+import StarterKit from "@tiptap/starter-kit";
+import Heading from "@tiptap/extension-heading";
+import Link from "@tiptap/extension-link";
+import Placeholder from "@tiptap/extension-placeholder";
+import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
+import { TextStyle } from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { Node as TiptapNode, mergeAttributes } from "@tiptap/react";
+import { useEffect, useRef, useState, useCallback, useMemo, Fragment, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from "react";
+import {
+  Bold,
+  Italic,
+  Underline as UnderlineIcon,
+  Strikethrough,
+  Heading1,
+  Heading2,
+  Heading3,
+  List,
+  ListOrdered,
+  Quote,
+  Code,
+  Minus,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Link as LinkIcon,
+  Image as ImageIcon,
+  Undo,
+  Redo,
+  Type,
+  FlaskConical,
+  Search,
+  Pencil,
+  Trash2,
+  GripVertical,
+  X,
+} from "lucide-react";
+
+// ── Resizable Image Node View ─────────────────────────────────────────────────
+function ResizableImageView({
+  node,
+  updateAttributes,
+  selected,
+}: NodeViewProps) {
+  const { src, alt, width, align } = node.attrs as {
+    src: string;
+    alt: string;
+    width: string;
+    align: string;
+  };
+
+  const wrapperClass =
+    align === "center"
+      ? "flex justify-center"
+      : align === "right"
+        ? "flex justify-end"
+        : "flex justify-start";
+
+  return (
+    <NodeViewWrapper className={`my-3 w-full ${wrapperClass}`}>
+      <div
+        className={`relative group ${selected ? "ring-2 ring-amber-400 rounded-lg" : ""}`}
+        style={{ display: "block" }}
+      >
+        <img
+          src={src}
+          alt={alt || ""}
+          style={{
+            width: width || "auto",
+            maxWidth: "100%",
+            display: "block",
+            borderRadius: "8px",
+          }}
+        />
+        {/* Floating toolbar — shows on select */}
+        {selected && (
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-gray-900 text-white rounded-lg px-2 py-1 shadow-xl z-10 whitespace-nowrap">
+            {/* Alignment */}
+            {(["left", "center", "right"] as const).map((a) => (
+              <button
+                key={a}
+                type="button"
+                title={`Align ${a}`}
+                onClick={() => updateAttributes({ align: a })}
+                className={`p-1 rounded transition-colors ${align === a ? "bg-amber-500" : "hover:bg-gray-700"}`}
+              >
+                {a === "left" && <AlignLeft className="w-3.5 h-3.5" />}
+                {a === "center" && <AlignCenter className="w-3.5 h-3.5" />}
+                {a === "right" && <AlignRight className="w-3.5 h-3.5" />}
+              </button>
+            ))}
+            <div className="w-px h-4 bg-gray-600 mx-0.5" />
+            {/* Size presets */}
+            {[
+              ["25%", "XS"],
+              ["50%", "S"],
+              ["75%", "M"],
+              ["100%", "Full"],
+            ].map(([w, label]) => (
+              <button
+                key={w}
+                type="button"
+                title={`Width ${w}`}
+                onClick={() => updateAttributes({ width: w })}
+                className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-colors ${width === w ? "bg-amber-500" : "hover:bg-gray-700"}`}
+              >
+                {label}
+              </button>
+            ))}
+            <div className="w-px h-4 bg-gray-600 mx-0.5" />
+            <label className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-gray-300">
+              Width
+              <input
+                type="text"
+                value={width}
+                onChange={(e) => updateAttributes({ width: e.target.value })}
+                className="w-20 rounded-md border border-gray-700 bg-gray-800 px-1.5 py-0.5 text-[10px] font-medium text-white outline-none placeholder:text-gray-500"
+                placeholder="100%"
+              />
+            </label>
+          </div>
+        )}
+      </div>
+    </NodeViewWrapper>
+  );
+}
+
+// ── Custom Image Extension with resize + align ────────────────────────────────
+
+// ── Raw HTML block — preserves arbitrary HTML including inline styles ─────────
+const RawHTML = TiptapNode.create({
+  name: "rawHTML",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      html: { default: "" },
+    };
+  },
+
+  parseHTML() {
+    return [{ tag: "div[data-raw-html]" }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "div",
+      mergeAttributes({ "data-raw-html": "true" }, HTMLAttributes),
+    ];
+  },
+
+  addNodeView() {
+    return (props: NodeViewRendererProps) => {
+      const dom = document.createElement("div");
+      dom.setAttribute("data-raw-html", "true");
+      dom.style.cssText = "display:block;width:100%;overflow:visible;";
+      dom.innerHTML = props.node.attrs.html;
+      return { dom };
+    };
+  },
+});
+
+const ResizableImage = TiptapNode.create({
+  name: "resizableImage",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      src: { default: null },
+      alt: { default: "" },
+      width: { default: "100%" },
+      align: { default: "left" },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "img[src]",
+        getAttrs: (el) => {
+          if (typeof el === "string" || !(el instanceof HTMLElement))
+            return false;
+          // alignment is stored on wrapper div as text-align in renderHTML
+          let align = "left";
+          const parent = el.parentElement;
+          if (parent) {
+            const ta = parent.style && parent.style.textAlign;
+            if (ta === "center") align = "center";
+            else if (ta === "right") align = "right";
+          }
+
+          // extract width from style attribute or width attr
+          let width = el.getAttribute("width") || "";
+          const style = el.getAttribute("style") || "";
+          const m = style.match(/width\s*:\s*([^;]+)\s*;?/i);
+          if (m && m[1]) width = m[1].trim();
+          if (!width) width = "100%";
+
+          return {
+            src: el.getAttribute("src") || null,
+            alt: el.getAttribute("alt") || "",
+            width,
+            align,
+          };
+        },
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    const { align, width, ...rest } = HTMLAttributes;
+    // Wrapper uses text-align for legacy cases, but ensure the <img> is block-level
+    // and uses auto margins when centered so it also centers in previews and static HTML.
+    const wrapStyle =
+      align === "center"
+        ? "text-align:center"
+        : align === "right"
+          ? "text-align:right"
+          : "text-align:left";
+
+    const imgStyleBase = `width:${width};max-width:100%;border-radius:8px;display:block;`;
+    const imgStyle =
+      align === "center" ? imgStyleBase + "margin:0 auto;" : imgStyleBase;
+
+    return [
+      "div",
+      { style: wrapStyle },
+      [
+        "img",
+        mergeAttributes(rest, {
+          style: imgStyle,
+          loading: "lazy",
+        }),
+      ],
+    ];
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(ResizableImageView);
+  },
+});
+
+// ── Review Card Node View (editor preview) ────────────────────────────────────
+function ReviewCardView({ node, selected }: NodeViewProps) {
+  const { name, location, rating, text, date } = node.attrs as {
+    name: string;
+    location: string;
+    rating: number;
+    text: string;
+    date: string;
+  };
+
+  const stars = rating || 5;
+  const formattedDate = date
+    ? new Date(date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
+  const initial = name ? name.charAt(0).toUpperCase() : "?";
+
+  return (
+    <NodeViewWrapper>
+      <div
+        className={`review-card my-3 select-none ${selected ? "ring-2 ring-amber-400 ring-offset-2" : ""}`}
+        contentEditable={false}
+        style={{ userSelect: "none" }}
+      >
+        <div className="review-card-header">
+          <div className="review-card-avatar">{initial}</div>
+          <div className="review-card-meta">
+            <span className="review-card-name">{name || "Reviewer"}</span>
+            {location && (
+              <span className="review-card-location">📍 {location}</span>
+            )}
+          </div>
+          <div className="review-card-right">
+            <div className="review-card-stars">
+              {"★".repeat(stars)}
+              <span style={{ color: "#e5e7eb" }}>{"★".repeat(5 - stars)}</span>
+            </div>
+            {formattedDate && (
+              <span className="review-card-date">{formattedDate}</span>
+            )}
+          </div>
+        </div>
+        <p className="review-card-text">{text}</p>
+        <div className="review-card-badge">✓ Verified Purchase</div>
+      </div>
+    </NodeViewWrapper>
+  );
+}
+
+// ── Review Card Tiptap Extension ──────────────────────────────────────────────
+const ReviewCard = TiptapNode.create({
+  name: "reviewCard",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      name: { default: "" },
+      location: { default: "" },
+      rating: { default: 5 },
+      text: { default: "" },
+      date: { default: "" },
+    };
+  },
+
+  parseHTML() {
+    return [{ tag: "div.review-card[data-name]" }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    const { name, location, rating, text, date } = HTMLAttributes;
+    const stars =
+      "★".repeat(Number(rating) || 5) + "☆".repeat(5 - (Number(rating) || 5));
+    const initial = (name as string)?.charAt(0)?.toUpperCase() || "?";
+    const formattedDate = date
+      ? new Date(date as string).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+      : "";
+
+    return [
+      "div",
+      {
+        class: "review-card",
+        "data-name": name || "",
+        "data-location": location || "",
+        "data-rating": String(rating || 5),
+        "data-text": text || "",
+        "data-date": date || "",
+      },
+      [
+        "div",
+        { class: "review-card-header" },
+        ["div", { class: "review-card-avatar" }, initial],
+        [
+          "div",
+          { class: "review-card-meta" },
+          ["span", { class: "review-card-name" }, name || ""],
+          ...(location
+            ? [
+                [
+                  "span",
+                  { class: "review-card-location" },
+                  `📍 ${location}`,
+                ] as [string, Record<string, string>, string],
+              ]
+            : []),
+        ],
+        [
+          "div",
+          { class: "review-card-right" },
+          ["div", { class: "review-card-stars" }, stars],
+          ...(formattedDate
+            ? [
+                ["span", { class: "review-card-date" }, formattedDate] as [
+                  string,
+                  Record<string, string>,
+                  string,
+                ],
+              ]
+            : []),
+        ],
+      ],
+      ["p", { class: "review-card-text" }, text || ""],
+      ["div", { class: "review-card-badge" }, "✓ Verified Purchase"],
+    ];
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(ReviewCardView);
+  },
+});
+
+// ── Ingredients List Node View (editor preview) ───────────────────────────────
+function IngredientListView({ node, selected }: NodeViewProps) {
+  let ingredients = node.attrs.ingredients;
+  if (typeof ingredients === "string") {
+    try { ingredients = JSON.parse(ingredients); } catch { ingredients = []; }
+  }
+  if (!Array.isArray(ingredients)) ingredients = [];
+
+  return (
+    <NodeViewWrapper>
+      <div
+        className={`my-6 bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden select-none ${selected ? "ring-2 ring-amber-400" : ""}`}
+        contentEditable={false}
+      >
+        <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3 bg-gray-50/50">
+          <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+            <FlaskConical className="w-4 h-4 text-amber-600" />
+          </div>
+          <h3 className="text-sm font-bold text-gray-900">
+            Active Ingredients
+          </h3>
+        </div>
+        <div className="p-6">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+            {ingredients?.map((ing: { id: Key | null | undefined; image: any; name: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; }) => (
+              <div key={ing.id} className="flex flex-col items-center gap-2">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-gray-100 overflow-hidden border border-gray-200 flex-shrink-0">
+                  <img
+                    src={ing.image || "/ingredient-placeholder.png"}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 text-center line-clamp-2">
+                  {ing.name}
+                </span>
+              </div>
+            ))}
+          </div>
+          {(!ingredients || ingredients.length === 0) && (
+            <p className="text-center text-xs text-gray-400 italic">
+              No ingredients selected.
+            </p>
+          )}
+        </div>
+      </div>
+    </NodeViewWrapper>
+  );
+}
+
+const IngredientList = TiptapNode.create({
+  name: "ingredientList",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      ingredients: { default: [] },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "div.ingredient-list-block",
+        getAttrs: (el) => {
+          if (typeof el === "string" || !(el instanceof HTMLElement)) return false;
+          let ingredients = [];
+          try {
+            ingredients = JSON.parse(el.getAttribute("data-ingredients") || "[]");
+          } catch (e) {}
+          return { ingredients };
+        },
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    let { ingredients } = HTMLAttributes as {
+      ingredients: any;
+    };
+    if (typeof ingredients === "string") {
+      try {
+        ingredients = JSON.parse(ingredients);
+      } catch (e) {
+        ingredients = [];
+      }
+    }
+    if (!Array.isArray(ingredients)) ingredients = [];
+    return [
+      "div",
+      {
+        class: "ingredient-list-block",
+        "data-ingredients": escapeAttr(JSON.stringify(ingredients)),
+      },
+      ["h3", { class: "text-lg font-bold mb-4" }, "Key Ingredients"],
+      [
+        "div",
+        {
+          class:
+            "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4",
+        },
+        ...ingredients.map((ing: any) => [
+          "div",
+          { class: "flex flex-col items-center gap-2" },
+          [
+            "img",
+            {
+              src: ing.image || "",
+              class: "w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover",
+            },
+          ],
+          [
+            "span",
+            {
+              class:
+                "text-xs sm:text-sm font-semibold text-gray-700 text-center line-clamp-2",
+            },
+            ing.name,
+          ],
+        ]),
+      ],
+    ];
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(IngredientListView);
+  },
+});
+
+// ── Slash command menu items ──────────────────────────────────────────────────
+const SLASH_COMMANDS = [
+  {
+    id: "h1",
+    label: "Heading 1",
+    desc: "Large section heading",
+    icon: "𝗛𝟭",
+    keys: ["/h1"],
+  },
+  {
+    id: "h2",
+    label: "Heading 2",
+    desc: "Medium section heading",
+    icon: "𝗛𝟮",
+    keys: ["/h2"],
+  },
+  {
+    id: "h3",
+    label: "Heading 3",
+    desc: "Small section heading",
+    icon: "𝗛𝟯",
+    keys: ["/h3"],
+  },
+  {
+    id: "bullet",
+    label: "Bullet List",
+    desc: "Unordered list",
+    icon: "•",
+    keys: ["/bullet", "/ul"],
+  },
+  {
+    id: "ordered",
+    label: "Numbered List",
+    desc: "Ordered list",
+    icon: "1.",
+    keys: ["/ordered", "/ol"],
+  },
+  {
+    id: "blockquote",
+    label: "Quote",
+    desc: "Blockquote",
+    icon: "❝",
+    keys: ["/quote"],
+  },
+  {
+    id: "code",
+    label: "Code Block",
+    desc: "Code snippet",
+    icon: "<>",
+    keys: ["/code"],
+  },
+  {
+    id: "divider",
+    label: "Divider",
+    desc: "Horizontal rule",
+    icon: "—",
+    keys: ["/divider", "/hr"],
+  },
+  {
+    id: "link",
+    label: "Link",
+    desc: "Insert a hyperlink",
+    icon: "🔗",
+    keys: ["/link"],
+  },
+  {
+    id: "image",
+    label: "Image",
+    desc: "Insert image with alt",
+    icon: "🖼",
+    keys: ["/image"],
+  },
+  {
+    id: "button",
+    label: "Button",
+    desc: "Insert a CTA button",
+    icon: "⬛",
+    keys: ["/button"],
+  },
+  {
+    id: "review",
+    label: "Review Card",
+    desc: "User review with rating",
+    icon: "★",
+    keys: ["/review"],
+  },
+  {
+    id: "productcard",
+    label: "Product Cards",
+    desc: "Product cards with image/specs",
+    icon: "▦",
+    keys: ["/productcard", "/card"],
+  },
+  {
+    id: "ingredient",
+    label: "Ingredients",
+    desc: "Choose ingredients list",
+    icon: "🧪",
+    keys: ["/ingredient", "/ing"],
+  },
+  {
+    id: "procon",
+    label: "Pros & Cons",
+    desc: "Insert side-by-side pros & cons list",
+    icon: "±",
+    keys: ["/procon", "/proscons", "/pros", "/cons"],
+  },
+  {
+    id: "faq",
+    label: "FAQ Block",
+    desc: "Interactive open/close questions",
+    icon: "❓",
+    keys: ["/faq", "/questions"],
+  },
+];
+
+// ── Toolbar button ────────────────────────────────────────────────────────────
+function ToolBtn({
+  onClick,
+  active,
+  disabled,
+  title,
+  children,
+}: {
+  onClick: () => void;
+  active?: boolean;
+  disabled?: boolean;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onMouseDown={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      disabled={disabled}
+      title={title}
+      className={`p-1.5 rounded-md transition-colors ${
+        active
+          ? "bg-gray-900 text-white"
+          : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+      } disabled:opacity-30 disabled:cursor-not-allowed`}
+    >
+      {children}
+    </button>
+  );
+}
+
+// ── Toolbar ───────────────────────────────────────────────────────────────────
+function BubbleBtn({
+  onClick,
+  active,
+  disabled,
+  title,
+  children,
+}: {
+  onClick: () => void;
+  active?: boolean;
+  disabled?: boolean;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onMouseDown={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      disabled={disabled}
+      title={title}
+      className={`p-1 rounded-md transition-colors ${
+        active
+          ? "bg-amber-400 text-slate-950 font-bold"
+          : "text-slate-300 hover:bg-slate-800 hover:text-white"
+      } disabled:opacity-30 disabled:cursor-not-allowed`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function Toolbar({ editor }: { editor: Editor }) {
+  const setLink = () => {
+    const prev = editor.getAttributes("link").href as string | undefined;
+    const url = window.prompt("Enter URL:", prev ?? "https://");
+    if (url === null) return;
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+    editor
+      .chain()
+      .focus()
+      .extendMarkRange("link")
+      .setLink({ href: url, target: "_blank" })
+      .run();
+  };
+
+  const insertImage = () => {
+    const url = window.prompt("Image URL:");
+    if (!url) return;
+    const alt = window.prompt("Alt text (for accessibility):") ?? "";
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: "resizableImage",
+        attrs: { src: url, alt, width: "100%", align: "left" },
+      })
+      .run();
+  };
+
+  return (
+    <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 border-b border-gray-200 bg-gray-50 rounded-t-xl">
+      {/* History */}
+      <ToolBtn
+        onClick={() => editor.chain().focus().undo().run()}
+        disabled={!editor.can().undo()}
+        title="Undo"
+      >
+        <Undo className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().redo().run()}
+        disabled={!editor.can().redo()}
+        title="Redo"
+      >
+        <Redo className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <div className="w-px h-4 bg-gray-300 mx-1" />
+
+      {/* Headings */}
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        active={editor.isActive("heading", { level: 1 })}
+        title="Heading 1"
+      >
+        <Heading1 className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        active={editor.isActive("heading", { level: 2 })}
+        title="Heading 2"
+      >
+        <Heading2 className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        active={editor.isActive("heading", { level: 3 })}
+        title="Heading 3"
+      >
+        <Heading3 className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <div className="w-px h-4 bg-gray-300 mx-1" />
+
+      {/* Inline marks */}
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        active={editor.isActive("bold")}
+        title="Bold"
+      >
+        <Bold className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        active={editor.isActive("italic")}
+        title="Italic"
+      >
+        <Italic className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleUnderline().run()}
+        active={editor.isActive("underline")}
+        title="Underline"
+      >
+        <UnderlineIcon className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleStrike().run()}
+        active={editor.isActive("strike")}
+        title="Strikethrough"
+      >
+        <Strikethrough className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleCode().run()}
+        active={editor.isActive("code")}
+        title="Inline code"
+      >
+        <Code className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <div className="w-px h-4 bg-gray-300 mx-1" />
+
+      {/* Alignment */}
+      <ToolBtn
+        onClick={() => editor.chain().focus().setTextAlign("left").run()}
+        active={editor.isActive({ textAlign: "left" })}
+        title="Align left"
+      >
+        <AlignLeft className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().setTextAlign("center").run()}
+        active={editor.isActive({ textAlign: "center" })}
+        title="Align center"
+      >
+        <AlignCenter className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().setTextAlign("right").run()}
+        active={editor.isActive({ textAlign: "right" })}
+        title="Align right"
+      >
+        <AlignRight className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <div className="w-px h-4 bg-gray-300 mx-1" />
+
+      {/* Lists & blocks */}
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        active={editor.isActive("bulletList")}
+        title="Bullet list"
+      >
+        <List className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        active={editor.isActive("orderedList")}
+        title="Numbered list"
+      >
+        <ListOrdered className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        active={editor.isActive("blockquote")}
+        title="Blockquote"
+      >
+        <Quote className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        active={editor.isActive("codeBlock")}
+        title="Code block"
+      >
+        <Type className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn
+        onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        title="Divider"
+      >
+        <Minus className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <div className="w-px h-4 bg-gray-300 mx-1" />
+
+      {/* Link & Image */}
+      <ToolBtn
+        onClick={setLink}
+        active={editor.isActive("link")}
+        title="Insert link"
+      >
+        <LinkIcon className="w-3.5 h-3.5" />
+      </ToolBtn>
+      <ToolBtn onClick={insertImage} title="Insert image">
+        <ImageIcon className="w-3.5 h-3.5" />
+      </ToolBtn>
+    </div>
+  );
+}
+
+// ── Slash command menu ────────────────────────────────────────────────────────
+function SlashMenu({
+  query,
+  position,
+  onSelect,
+  onClose,
+}: {
+  query: string;
+  position: { top: number; left: number };
+  onSelect: (id: string) => void;
+  onClose: () => void;
+}) {
+  const [active, setActive] = useState(0);
+  const filtered = SLASH_COMMANDS.filter(
+    (c) =>
+      c.label.toLowerCase().includes(query.toLowerCase()) ||
+      c.keys.some((k) => k.includes(query.toLowerCase())),
+  );
+
+  useEffect(() => {
+    setActive(0);
+  }, [query]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActive((i) => Math.min(i + 1, filtered.length - 1));
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActive((i) => Math.max(i - 1, 0));
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (filtered[active]) onSelect(filtered[active].id);
+      }
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [active, filtered, onSelect, onClose]);
+
+  if (!filtered.length) return null;
+
+  return (
+    <div
+      className="fixed z-50 bg-white border border-gray-200 rounded-xl shadow-xl w-72 overflow-hidden"
+      style={{ top: position.top, left: position.left }}
+    >
+      <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider border-b border-gray-100">
+        Insert block
+      </div>
+      <div className="max-h-72 overflow-y-auto py-1">
+        {filtered.map((cmd, i) => (
+          <button
+            key={cmd.id}
+            type="button"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              onSelect(cmd.id);
+            }}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors ${
+              i === active
+                ? "bg-amber-50 text-amber-900"
+                : "hover:bg-gray-50 text-gray-700"
+            }`}
+          >
+            <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-sm font-bold flex-shrink-0">
+              {cmd.icon}
+            </span>
+            <div>
+              <div className="text-sm font-medium">{cmd.label}</div>
+              <div className="text-xs text-gray-400">{cmd.desc}</div>
+            </div>
+          </button>
+        ))}
+      </div>
+      <div className="px-3 py-2 border-t border-gray-100 text-xs text-gray-400">
+        ↑↓ navigate · Enter select · Esc close
+      </div>
+    </div>
+  );
+}
+
+// ── Link dialog ───────────────────────────────────────────────────────────────
+function LinkDialog({
+  onInsert,
+  onClose,
+}: {
+  onInsert: (href: string, text: string) => void;
+  onClose: () => void;
+}) {
+  const [href, setHref] = useState("https://");
+  const [text, setText] = useState("");
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
+      <div className="bg-white rounded-2xl shadow-2xl p-6 w-96 space-y-4">
+        <h3 className="font-semibold text-gray-900">Insert Link</h3>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            URL
+          </label>
+          <input
+            value={href}
+            onChange={(e) => setHref(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            placeholder="https://example.com"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Link text (optional)
+          </label>
+          <input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            placeholder="Click here"
+          />
+        </div>
+        <div className="flex gap-2 justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={() => onInsert(href, text)}
+            className="px-4 py-2 text-sm bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-medium"
+          >
+            Insert
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Image dialog ──────────────────────────────────────────────────────────────
+function ImageDialog({
+  onInsert,
+  onClose,
+}: {
+  onInsert: (src: string, alt: string) => void;
+  onClose: () => void;
+}) {
+  const [src, setSrc] = useState("");
+  const [alt, setAlt] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (file: File) => {
+    const allowed = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+    ];
+    if (!allowed.includes(file.type)) {
+      alert("Only JPEG, PNG, WebP, or GIF allowed.");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      // Compress image client-side targeting ~100KB
+      let compressedFile = file;
+      try {
+        const compressedBlob = await compressImage(file);
+        compressedFile = new File(
+          [compressedBlob],
+          getCompressedFileName(file.name, compressedBlob.type),
+          {
+            type: compressedBlob.type,
+          },
+        );
+        console.log(
+          `Compressed: ${(file.size / 1024).toFixed(1)}KB → ${(compressedFile.size / 1024).toFixed(1)}KB`,
+        );
+      } catch (compErr) {
+        console.warn("Compression failed, proceeding with original:", compErr);
+        compressedFile = file;
+      }
+
+      const fd = new FormData();
+      fd.append("file", compressedFile);
+      fd.append("type", "content");
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(
+          `Upload failed (${res.status}): ${errorText.substring(0, 100)}`,
+        );
+      }
+
+      const data = await res.json();
+      if (data.url) setSrc(data.url);
+      else throw new Error("No URL in response");
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert(
+        `Upload failed: ${err instanceof Error ? err.message : "Unknown error"}`,
+      );
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
+      <div className="bg-white rounded-2xl shadow-2xl p-6 w-96 space-y-4">
+        <h3 className="font-semibold text-gray-900">Insert Image</h3>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Upload from device
+          </label>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) handleFile(f);
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            disabled={uploading}
+            className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-amber-400 hover:text-amber-600 transition-colors"
+          >
+            {uploading ? "Uploading…" : "📁 Click to upload image"}
+          </button>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Or image URL
+          </label>
+          <input
+            value={src}
+            onChange={(e) => setSrc(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            placeholder="https://..."
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Alt text <span className="text-red-500">*</span>
+          </label>
+          <input
+            value={alt}
+            onChange={(e) => setAlt(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            placeholder="Describe the image for accessibility"
+          />
+        </div>
+        {src && (
+          <img
+            src={src}
+            alt={alt}
+            className="w-full h-32 object-cover rounded-lg border border-gray-200"
+          />
+        )}
+        <div className="flex gap-2 justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (src) onInsert(src, alt);
+            }}
+            disabled={!src}
+            className="px-4 py-2 text-sm bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-lg font-medium"
+          >
+            Insert
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Button dialog ─────────────────────────────────────────────────────────────
+function ButtonDialog({
+  onInsert,
+  onClose,
+}: {
+  onInsert: (
+    label: string,
+    href: string,
+    style: string,
+    color?: string,
+    hoverEffect?: string
+  ) => void;
+  onClose: () => void;
+}) {
+  const [label, setLabel] = useState("Click here");
+  const [href, setHref] = useState("https://");
+  const [style, setStyle] = useState("primary");
+  const [btnColor, setBtnColor] = useState("#7d2ae8");
+  const [hoverEffect, setHoverEffect] = useState("bubble");
+
+  const styles = [
+    { value: "primary", label: "Primary", preview: "bg-orange-600 text-white" },
+    { value: "amber", label: "Amber", preview: "bg-amber-500 text-white" },
+    {
+      value: "secondary",
+      label: "Outline",
+      preview: "bg-transparent text-orange-600 border-2 border-orange-600",
+    },
+    { value: "dark", label: "Dark", preview: "bg-slate-900 text-white" },
+    {
+      value: "primary-pill",
+      label: "Primary Pill",
+      preview: "bg-orange-600 text-white rounded-full",
+    },
+    {
+      value: "amber-pill",
+      label: "Amber Pill",
+      preview: "bg-amber-500 text-white rounded-full",
+    },
+    {
+      value: "bubble",
+      label: "Bubble (Custom)",
+      preview: "bg-purple-600 text-white rounded-lg",
+    },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
+      <div className="bg-white rounded-2xl shadow-2xl p-6 w-[420px] space-y-4">
+        <h3 className="font-semibold text-gray-900">Insert Button</h3>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Button label
+          </label>
+          <input
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Link URL
+          </label>
+          <input
+            value={href}
+            onChange={(e) => setHref(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Style
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            {styles.map((s) => (
+              <button
+                key={s.value}
+                type="button"
+                onClick={() => setStyle(s.value)}
+                className={`px-3 py-2 rounded-lg text-xs font-semibold border-2 transition-all ${s.preview} ${style === s.value ? "border-amber-400 ring-2 ring-amber-300" : "border-transparent"}`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        {style === "bubble" && (
+          <div className="space-y-3 border-t border-gray-100 pt-3">
+            <div>
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                Bubble Button Color
+              </label>
+              <div className="flex gap-3 items-center">
+                <input
+                  type="color"
+                  value={btnColor}
+                  onChange={(e) => setBtnColor(e.target.value)}
+                  className="w-10 h-10 p-0 border-0 rounded-lg cursor-pointer shrink-0"
+                />
+                <input
+                  type="text"
+                  value={btnColor}
+                  onChange={(e) => setBtnColor(e.target.value)}
+                  placeholder="#7d2ae8"
+                  className="flex-grow px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 font-mono"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                Hover Effect
+              </label>
+              <select
+                value={hoverEffect}
+                onChange={(e) => setHoverEffect(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-400"
+              >
+                <option value="bubble">Bubble Explosion</option>
+                <option value="shine">Shine Sweep</option>
+                <option value="glow">Pulse Glow</option>
+                <option value="float">Float Scale</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {/* Live preview */}
+        <div className="bg-gray-50 rounded-xl p-4 text-center">
+          <span className="text-xs text-gray-400 block mb-2">Preview</span>
+          {style === "bubble" ? (
+            <span
+              className="inline-block px-5 py-2.5 rounded-lg text-sm font-bold text-white shadow-sm transition-all animate-pulse"
+              style={{ backgroundColor: btnColor }}
+            >
+              {label || "Button"}
+            </span>
+          ) : (
+            <span
+              className={`inline-block px-5 py-2.5 rounded-xl text-sm font-bold ${styles.find((s) => s.value === style)?.preview}`}
+            >
+              {label || "Button"}
+            </span>
+          )}
+        </div>
+        <div className="flex gap-2 justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={() => onInsert(label, href, style, btnColor, hoverEffect)}
+            className="px-4 py-2 text-sm bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-medium"
+          >
+            Insert
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Review dialog ─────────────────────────────────────────────────────────────
+function ReviewDialog({
+  onInsert,
+  onClose,
+}: {
+  onInsert: (data: {
+    name: string;
+    location: string;
+    rating: number;
+    text: string;
+    date: string;
+  }) => void;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [rating, setRating] = useState(5);
+  const [text, setText] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [hovered, setHovered] = useState(0);
+
+  const formattedDate = date
+    ? new Date(date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
+
+  const displayRating = hovered || rating;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-amber-50 to-orange-50">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-amber-200">
+              <span className="text-white text-sm font-bold">★</span>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 text-base">
+                Insert Review Card
+              </h3>
+              <p className="text-xs text-gray-500">
+                Add a customer testimonial to your content
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors text-lg font-light"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          {/* ── Left: Form ── */}
+          <div className="p-6 space-y-4 border-r border-gray-100">
+            {/* Name & Location */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+                  Reviewer Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all bg-gray-50 focus:bg-white"
+                  placeholder="Sarah K."
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+                  Location
+                </label>
+                <input
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all bg-gray-50 focus:bg-white"
+                  placeholder="New York, USA"
+                />
+              </div>
+            </div>
+
+            {/* Rating */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-2">
+                Rating
+              </label>
+              <div className="flex items-center gap-1.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    onMouseEnter={() => setHovered(star)}
+                    onMouseLeave={() => setHovered(0)}
+                    onClick={() => setRating(star)}
+                    className="text-3xl leading-none transition-all duration-100 hover:scale-125 focus:outline-none"
+                    style={{
+                      filter:
+                        displayRating >= star
+                          ? "drop-shadow(0 0 6px rgba(245,158,11,0.5))"
+                          : "none",
+                    }}
+                  >
+                    <span
+                      className={`transition-colors ${displayRating >= star ? "text-amber-400" : "text-gray-200"}`}
+                    >
+                      ★
+                    </span>
+                  </button>
+                ))}
+                <span className="text-sm font-semibold text-gray-500 ml-2 bg-gray-100 px-2.5 py-0.5 rounded-full">
+                  {rating}/5
+                </span>
+              </div>
+            </div>
+
+            {/* Date */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+                Review Date
+              </label>
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all bg-gray-50 focus:bg-white"
+              />
+            </div>
+
+            {/* Review Text */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+                Review Text <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                rows={4}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all resize-none bg-gray-50 focus:bg-white leading-relaxed"
+                placeholder="Share your experience with this product…"
+              />
+              <p className="text-xs text-gray-400 mt-1">
+                {text.length} characters
+              </p>
+            </div>
+          </div>
+
+          {/* ── Right: Live Preview ── */}
+          <div className="p-6 bg-gray-50/60 flex flex-col">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
+              Live Preview
+            </p>
+
+            {/* Preview Card — mirrors .review-card exactly */}
+            <div className="flex-1 flex items-start">
+              <div
+                className="w-full bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden relative"
+                style={{
+                  background:
+                    "radial-gradient(circle at top right, rgba(16,185,129,0.04), transparent 40%), radial-gradient(circle at bottom left, rgba(245,158,11,0.04), transparent 40%) #ffffff",
+                }}
+              >
+                {/* Top accent bar */}
+                <div className="h-1 w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400" />
+
+                <div className="p-4 space-y-3">
+                  {/* Header */}
+                  <div className="flex items-center gap-3">
+                    {/* Avatar */}
+                    <div
+                      className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-teal-500 flex items-center justify-center text-white font-bold text-base flex-shrink-0 shadow-md"
+                      style={{ transform: "rotate(-3deg)" }}
+                    >
+                      {name ? name.charAt(0).toUpperCase() : "?"}
+                    </div>
+                    {/* Meta */}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-sm text-gray-900 leading-tight">
+                        {name || (
+                          <span className="text-gray-300 italic font-normal">
+                            Reviewer name…
+                          </span>
+                        )}
+                      </p>
+                      {location && (
+                        <p className="text-xs text-gray-500 mt-0.5 flex items-center gap-1">
+                          <span>📍</span> {location}
+                        </p>
+                      )}
+                    </div>
+                    {/* Stars + Date */}
+                    <div className="text-right flex-shrink-0">
+                      <div
+                        className="text-amber-400 text-sm tracking-widest"
+                        style={{ fontFamily: "serif" }}
+                      >
+                        {"★".repeat(rating)}
+                        <span className="text-gray-200">
+                          {"★".repeat(5 - rating)}
+                        </span>
+                      </div>
+                      {formattedDate && (
+                        <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mt-1">
+                          {formattedDate}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Review text */}
+                  <div className="bg-gray-50 rounded-xl px-3 py-2.5 border border-gray-100 min-h-[48px]">
+                    <p className="text-sm text-gray-600 leading-relaxed italic">
+                      {text || (
+                        <span className="text-gray-300 not-italic">
+                          Review text will appear here…
+                        </span>
+                      )}
+                    </p>
+                  </div>
+
+                  {/* Badge */}
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-orange-800 bg-orange-100 border border-orange-200 px-3 py-1.5 rounded-full w-fit">
+                    <span className="w-3.5 h-3.5 bg-orange-600 text-white rounded-full flex items-center justify-center text-[9px] font-black">
+                      ✓
+                    </span>
+                    Verified Purchase
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[10px] text-gray-400 text-center mt-4">
+              This is how the review card will appear in your article
+            </p>
+          </div>
+        </div>
+
+        {/* Footer actions */}
+        <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50/50">
+          <p className="text-xs text-gray-400">
+            {!name && !text
+              ? "Fill in name and review text to insert"
+              : !name
+                ? "⚠ Name is required"
+                : !text
+                  ? "⚠ Review text is required"
+                  : "✓ Ready to insert"}
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-xl transition-colors font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              disabled={!name || !text}
+              onClick={() => onInsert({ name, location, rating, text, date })}
+              className="px-5 py-2 text-sm bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl font-semibold shadow-md shadow-amber-200 transition-all hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+            >
+              ★ Insert Review
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Ingredients dialog ────────────────────────────────────────────────────────
+function IngredientDialog({
+  onInsert,
+  onClose,
+}: {
+  onInsert: (items: { id: string; name: string; image: string }[]) => void;
+  onClose: () => void;
+}) {
+  const [ingredients, setIngredients] = useState<
+    { id: string; name: string; image: string }[]
+  >([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetch("/api/ingredients")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setIngredients(data);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const filtered = ingredients.filter((i) =>
+    i.name.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  const toggle = (id: string) => {
+    setSelectedIds((p) =>
+      p.includes(id) ? p.filter((x) => x !== id) : [...p, id],
+    );
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-amber-500 rounded-xl flex items-center justify-center text-white">
+              🧪
+            </div>
+            <h3 className="font-bold text-gray-900">Select Ingredients</h3>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 text-2xl"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="p-6 space-y-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              autoFocus
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search ingredients…"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+            />
+          </div>
+
+          <div className="max-h-72 overflow-y-auto grid grid-cols-2 gap-2 pr-1 custom-scrollbar">
+            {loading ? (
+              <div className="col-span-2 py-8 text-center text-gray-400 text-sm animate-pulse">
+                Loading ingredients…
+              </div>
+            ) : filtered.length === 0 ? (
+              <div className="col-span-2 py-8 text-center text-gray-400 text-sm italic">
+                No ingredients found.
+              </div>
+            ) : (
+              filtered.map((ing) => (
+                <button
+                  key={ing.id}
+                  type="button"
+                  onClick={() => toggle(ing.id)}
+                  className={`flex items-center gap-3 p-2.5 rounded-xl border-2 transition-all text-left ${
+                    selectedIds.includes(ing.id)
+                      ? "border-amber-400 bg-amber-50 ring-2 ring-amber-100"
+                      : "border-gray-100 hover:border-gray-200 bg-gray-50"
+                  }`}
+                >
+                  <div className="w-10 h-10 rounded-full bg-white overflow-hidden border border-gray-200 flex-shrink-0">
+                    <img
+                      src={ing.image || "/ingredient-placeholder.png"}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-bold text-gray-800 truncate">
+                      {ing.name}
+                    </div>
+                    <div className="text-[10px] text-amber-600 font-bold uppercase tracking-wider">
+                      {selectedIds.includes(ing.id)
+                        ? "✓ Selected"
+                        : "Click to add"}
+                    </div>
+                  </div>
+                </button>
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
+          <p className="text-xs font-semibold text-gray-400">
+            {selectedIds.length} ingredients selected
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm text-gray-600 font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              disabled={selectedIds.length === 0}
+              onClick={() =>
+                onInsert(ingredients.filter((i) => selectedIds.includes(i.id)))
+              }
+              className="px-6 py-2 text-sm bg-amber-500 hover:bg-amber-600 disabled:opacity-40 text-white rounded-xl font-bold shadow-md transition-all"
+            >
+              Insert List
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Pros & Cons Text Parser Utility ──────────────────────────────────────────
+function parseProConText(text: string) {
+  const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
+  let title = "Pros & Cons";
+  const pros: string[] = [];
+  const cons: string[] = [];
+  
+  let currentSection: "title" | "pros" | "cons" = "title";
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const lowerLine = line.toLowerCase();
+    
+    // Check if this line is a section header
+    if (/^(pros|pro|advantages|strengths|positives)(:|\s*$)/i.test(line) || lowerLine === "pros" || lowerLine === "pro" || lowerLine === "conspros") {
+      currentSection = "pros";
+      continue;
+    }
+    if (/^(cons|con|disadvantages|limitations|drawbacks|negatives)(:|\s*$)/i.test(line) || lowerLine === "cons" || lowerLine === "con") {
+      currentSection = "cons";
+      continue;
+    }
+    
+    // Clean bullet points
+    const cleanedLine = line.replace(/^[\s\-•*𐩒⁃]+\s*/, "").replace(/^\d+[\s.)\-]+\s*/, "");
+    
+    if (currentSection === "title") {
+      // The first line that is not a header can be the title
+      title = cleanedLine;
+    } else if (currentSection === "pros") {
+      pros.push(cleanedLine);
+    } else if (currentSection === "cons") {
+      cons.push(cleanedLine);
+    }
+  }
+  
+  return { title, pros, cons };
+}
+
+// ── Pros & Cons Node View (editor preview) ────────────────────────────────────
+function ProConBlockView({
+  node,
+  updateAttributes,
+  selected,
+  deleteNode,
+}: NodeViewProps) {
+  const [editing, setEditing] = useState(false);
+  const { title } = node.attrs;
+  let pros = node.attrs.pros;
+  let cons = node.attrs.cons;
+  if (typeof pros === "string") {
+    try { pros = JSON.parse(pros); } catch { pros = []; }
+  }
+  if (typeof cons === "string") {
+    try { cons = JSON.parse(cons); } catch { cons = []; }
+  }
+  if (!Array.isArray(pros)) pros = [];
+  if (!Array.isArray(cons)) cons = [];
+
+  const formatPointReact = (text: string, isPro: boolean) => {
+    const colonIndex = text.indexOf(":");
+    if (colonIndex > 0 && colonIndex < text.length - 1) {
+      const boldPart = text.substring(0, colonIndex + 1);
+      const normalPart = text.substring(colonIndex + 1);
+      return (
+        <li className="flex items-start gap-2 text-xs text-gray-600">
+          <span className={isPro ? "text-emerald-500 font-bold shrink-0" : "text-rose-500 font-bold shrink-0"}>
+            {isPro ? "✓" : "✗"}
+          </span>
+          <span>
+            <strong className="text-gray-900">{boldPart}</strong>
+            {normalPart}
+          </span>
+        </li>
+      );
+    }
+    return (
+      <li className="flex items-start gap-2 text-xs text-gray-600">
+        <span className={isPro ? "text-emerald-500 font-bold shrink-0" : "text-rose-500 font-bold shrink-0"}>
+          {isPro ? "✓" : "✗"}
+        </span>
+        <span>{text}</span>
+      </li>
+    );
+  };
+
+  return (
+    <NodeViewWrapper className="my-4 block w-full max-w-full">
+      <div
+        className={`relative rounded-2xl border bg-white overflow-hidden ${
+          selected
+            ? "border-amber-400 ring-2 ring-amber-300/60"
+            : "border-gray-200"
+        }`}
+      >
+        <div
+          className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-100 bg-gray-50 text-[10px] font-semibold text-gray-500 uppercase tracking-wider"
+          contentEditable={false}
+          data-drag-handle
+        >
+          <GripVertical
+            className="w-3.5 h-3.5 text-gray-400 shrink-0 cursor-grab active:cursor-grabbing"
+            aria-hidden
+          />
+          Pros & Cons: {title}
+        </div>
+        
+        {/* Render Title inside block in editor */}
+        <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/20" contentEditable={false}>
+          <h3 className="text-xs font-bold text-gray-800 m-0">{title}</h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100" contentEditable={false}>
+          {/* Pros */}
+          <div className="p-4 sm:p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs font-bold">✓</span>
+              <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">Pros</span>
+            </div>
+            <ul className="space-y-2 list-none pl-0 m-0">
+              {pros && pros.map((pro: string, idx: number) => (
+                <Fragment key={idx}>
+                  {formatPointReact(pro, true)}
+                </Fragment>
+              ))}
+              {(!pros || pros.length === 0) && (
+                <li className="text-xs text-gray-400 italic">No pros added.</li>
+              )}
+            </ul>
+          </div>
+          {/* Cons */}
+          <div className="p-4 sm:p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center text-xs font-bold">✗</span>
+              <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">Cons</span>
+            </div>
+            <ul className="space-y-2 list-none pl-0 m-0">
+              {cons && cons.map((con: string, idx: number) => (
+                <Fragment key={idx}>
+                  {formatPointReact(con, false)}
+                </Fragment>
+              ))}
+              {(!cons || cons.length === 0) && (
+                <li className="text-xs text-gray-400 italic">No cons added.</li>
+              )}
+            </ul>
+          </div>
+        </div>
+
+        {selected && (
+          <div className="absolute top-9 right-2 flex gap-1.5 z-20">
+            <button
+              type="button"
+              title="Edit block"
+              className="p-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-200 shadow-sm"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => setEditing(true)}
+            >
+              <Pencil className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              title="Remove block"
+              className="p-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-red-50 hover:text-red-600 hover:border-red-200 shadow-sm"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => deleteNode()}
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+      </div>
+      {editing && (
+        <ProConDialog
+          mode="edit"
+          initialTitle={title}
+          initialPros={pros}
+          initialCons={cons}
+          onClose={() => setEditing(false)}
+          onInsert={(nextTitle, nextPros, nextCons) => {
+            updateAttributes({
+              title: nextTitle,
+              pros: nextPros,
+              cons: nextCons,
+            });
+            setEditing(false);
+          }}
+        />
+      )}
+    </NodeViewWrapper>
+  );
+}
+
+// ── Pros & Cons Tiptap Extension ──────────────────────────────────────────────
+const ProConBlock = TiptapNode.create({
+  name: "proConBlock",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      title: { default: "Pros & Cons" },
+      pros: { default: [] },
+      cons: { default: [] },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "div.pro-con-block[data-pros]",
+        getAttrs: (el) => {
+          if (typeof el === "string" || !(el instanceof HTMLElement))
+            return false;
+          let pros = [];
+          let cons = [];
+          let title = "Pros & Cons";
+          try {
+            pros = JSON.parse(el.getAttribute("data-pros") || "[]");
+            cons = JSON.parse(el.getAttribute("data-cons") || "[]");
+            title = el.getAttribute("data-title") || "Pros & Cons";
+          } catch (e) {}
+          return { title, pros, cons };
+        },
+      },
+    ];
+  },
+
+  renderHTML({ node, HTMLAttributes }) {
+    const title = node.attrs.title || "Pros & Cons";
+    let pros = node.attrs.pros;
+    let cons = node.attrs.cons;
+    if (typeof pros === "string") {
+      try { pros = JSON.parse(pros); } catch { pros = []; }
+    }
+    if (typeof cons === "string") {
+      try { cons = JSON.parse(cons); } catch { cons = []; }
+    }
+    if (!Array.isArray(pros)) pros = [];
+    if (!Array.isArray(cons)) cons = [];
+
+    const formatPointDom = (text: string, isPro: boolean) => {
+      const bulletClass = isPro ? "pro-item" : "con-item";
+      const colonIndex = text.indexOf(":");
+      if (colonIndex > 0 && colonIndex < text.length - 1) {
+        const boldPart = text.substring(0, colonIndex + 1);
+        const normalPart = text.substring(colonIndex + 1);
+        return [
+          "li",
+          {},
+          ["strong", {}, boldPart],
+          normalPart
+        ];
+      }
+      return [
+        "li",
+        {},
+        text
+      ];
+    };
+
+    const prosList = pros.map((pro: string) => formatPointDom(pro, true));
+    const consList = cons.map((con: string) => formatPointDom(con, false));
+
+    return [
+      "div",
+      mergeAttributes(
+        {
+          class: "pro-con-block",
+          "data-title": title,
+          "data-pros": escapeAttr(JSON.stringify(pros)),
+          "data-cons": escapeAttr(JSON.stringify(cons)),
+        },
+        HTMLAttributes,
+      ),
+      [
+        "div",
+        { class: "pro-con-header-block" },
+        ["h3", { class: "pro-con-block-title" }, title]
+      ],
+      [
+        "div",
+        { class: "pro-con-container" },
+        [
+          "div",
+          { class: "pro-column" },
+          [
+            "div",
+            { class: "pro-title-wrap" },
+            ["span", { class: "pro-title-icon" }, "✓"],
+            ["h4", { class: "pro-title" }, "Pros"],
+          ],
+          ["ul", { class: "pro-list" }, ...prosList],
+        ],
+        [
+          "div",
+          { class: "con-column" },
+          [
+            "div",
+            { class: "con-title-wrap" },
+            ["span", { class: "con-title-icon" }, "✗"],
+            ["h4", { class: "con-title" }, "Cons"],
+          ],
+          ["ul", { class: "con-list" }, ...consList],
+        ],
+      ],
+    ];
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(ProConBlockView);
+  },
+});
+
+// ── Pros & Cons Dialog ────────────────────────────────────────────────────────
+function ProConDialog({
+  onInsert,
+  onClose,
+  initialTitle = "Pros & Cons",
+  initialPros = [],
+  initialCons = [],
+  mode = "insert",
+}: {
+  onInsert: (title: string, pros: string[], cons: string[]) => void;
+  onClose: () => void;
+  initialTitle?: string;
+  initialPros?: string[];
+  initialCons?: string[];
+  mode?: "insert" | "edit";
+}) {
+  const [activeTab, setActiveTab] = useState<"smart" | "manual">("smart");
+  const [titleText, setTitleText] = useState(initialTitle);
+  const [prosText, setProsText] = useState(() => initialPros.join("\n"));
+  const [consText, setConsText] = useState(() => initialCons.join("\n"));
+  const [pasteText, setPasteText] = useState("");
+
+  const handleSmartParse = () => {
+    if (!pasteText.trim()) return;
+    const { title, pros, cons } = parseProConText(pasteText);
+    setTitleText(title);
+    setProsText(pros.join("\n"));
+    setConsText(cons.join("\n"));
+    setActiveTab("manual");
+  };
+
+  const handleSave = () => {
+    let finalTitle = titleText;
+    let finalPros = prosText;
+    let finalCons = consText;
+
+    if (activeTab === "smart" && pasteText.trim()) {
+      const parsed = parseProConText(pasteText);
+      finalTitle = parsed.title;
+      finalPros = parsed.pros.join("\n");
+      finalCons = parsed.cons.join("\n");
+    }
+
+    const title = finalTitle.trim() || "Pros & Cons";
+    const pros = finalPros
+      .split("\n")
+      .map((x) => x.trim())
+      .filter(Boolean);
+    const cons = finalCons
+      .split("\n")
+      .map((x) => x.trim())
+      .filter(Boolean);
+    onInsert(title, pros, cons);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+      >
+        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-amber-500 rounded-xl flex items-center justify-center text-white font-bold">
+              ±
+            </div>
+            <h3 className="font-bold text-gray-900">
+              {mode === "edit" ? "Edit Pros & Cons" : "Insert Pros & Cons"}
+            </h3>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 text-2xl"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="flex border-b border-gray-100 px-6 bg-gray-50/50">
+          <button
+            type="button"
+            onClick={() => setActiveTab("smart")}
+            className={`px-4 py-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-all ${
+              activeTab === "smart"
+                ? "border-amber-500 text-amber-600"
+                : "border-transparent text-gray-400 hover:text-gray-600"
+            }`}
+          >
+            📋 Smart Paste
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("manual")}
+            className={`px-4 py-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-all ${
+              activeTab === "manual"
+                ? "border-amber-500 text-amber-600"
+                : "border-transparent text-gray-400 hover:text-gray-600"
+            }`}
+          >
+            ✍️ Edit Fields ({prosText.split("\n").filter(Boolean).length} Pros, {consText.split("\n").filter(Boolean).length} Cons)
+          </button>
+        </div>
+
+        <div className="p-6 overflow-y-auto max-h-[60vh]">
+          {activeTab === "smart" ? (
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
+                  Paste Entire Pros & Cons Block
+                </label>
+                <p className="text-xs text-gray-400 mb-3">
+                  Paste raw text copied from your document. We will parse the Title, Pros, and Cons.
+                </p>
+                <textarea
+                  autoFocus
+                  value={pasteText}
+                  onChange={(e) => setPasteText(e.target.value)}
+                  rows={10}
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all font-medium text-gray-700 placeholder-gray-300"
+                  placeholder={`Example:\nUltra Vizion Pros and Cons\nPros\n- Discreet transparent appearance: Less visually noticeable...\nCons\n- Channel availability is not guaranteed...`}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={handleSmartParse}
+                disabled={!pasteText.trim()}
+                className="w-full py-2.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all shadow-md"
+              >
+                ⚡ Parse & Auto-Fill Fields
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  value={titleText}
+                  onChange={(e) => setTitleText(e.target.value)}
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all font-medium text-gray-700"
+                  placeholder="Pros & Cons"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">
+                    Pros (Advantages)
+                  </label>
+                  <textarea
+                    value={prosText}
+                    onChange={(e) => setProsText(e.target.value)}
+                    rows={8}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all font-medium text-gray-700 placeholder-gray-300"
+                    placeholder="Enter pros (one per line)..."
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-rose-700 uppercase tracking-wider mb-2">
+                    Cons (Disadvantages)
+                  </label>
+                  <textarea
+                    value={consText}
+                    onChange={(e) => setConsText(e.target.value)}
+                    rows={8}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all font-medium text-gray-700 placeholder-gray-300"
+                    placeholder="Enter cons (one per line)..."
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 text-sm text-gray-600 font-medium hover:bg-gray-100 rounded-xl transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={handleSave}
+            className="px-6 py-2 text-sm bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-bold shadow-md transition-all"
+          >
+            {mode === "edit" ? "Save Changes" : "Insert"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Product Card Dialog ───────────────────────────────────────────────────────
+interface ProductCardItem {
+  id: string;
+  name: string;
+  image: string;
+  imageAlt: string;
+  rating: number;
+  specs: string; // newline-separated key:value pairs
+  description: string;
+  price: string;
+  buyLink: string;
+}
+
+function escapeHtml(text: string): string {
+  return String(text ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Escape for embedding in a double-quoted HTML attribute */
+function escapeAttr(text: string): string {
+  return String(text ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;");
+}
+
+function parseCardsJson(raw: any): ProductCardItem[] {
+  if (Array.isArray(raw)) return raw;
+  if (typeof raw !== "string" || !raw.trim()) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function buildProductCardsHtml(cards: ProductCardItem[]): string {
+  const jsonAttr = escapeAttr(JSON.stringify(cards));
+  if (!cards.length) {
+    return `<div class="pc-grid" data-product-cards="${jsonAttr}"><div class="pc-card"><div class="pc-body"><p class="text-sm text-gray-500 m-0">No products in this block.</p></div></div></div>`;
+  }
+  const cardHTML = cards
+    .map((card, idx) => {
+      const stars = "★".repeat(card.rating) + "☆".repeat(5 - card.rating);
+      const specRows = card.specs
+        ? card.specs
+            .split("\n")
+            .filter(Boolean)
+            .map((line) => {
+              const [label, ...rest] = line.split(":");
+              const value = rest.join(":").trim();
+              const L = escapeHtml(label.trim());
+              const V = escapeHtml(value);
+              return value
+                ? `<tr><td class="pc-spec-label">${L}</td><td class="pc-spec-value">${V}</td></tr>`
+                : `<tr><td class="pc-spec-label" colspan="2">${L}</td></tr>`;
+            })
+            .join("")
+        : "";
+
+      const imgBlock = card.image
+        ? `<div class="pc-image-wrap"><img class="pc-image" src="${escapeHtml(card.image)}" alt="${escapeHtml(card.imageAlt || card.name)}" loading="lazy" /></div>`
+        : "";
+
+      const priceBlock = card.price
+        ? `<span class="pc-price">${escapeHtml(card.price)}</span>`
+        : "";
+
+      const descBlock = card.description
+        ? `<p class="pc-desc">${escapeHtml(card.description)}</p>`
+        : "";
+
+      const specsBlock = specRows
+        ? `<table class="pc-specs"><tbody>${specRows}</tbody></table>`
+        : "";
+
+      const buyBlock = card.buyLink
+        ? `<a href="${escapeHtml(card.buyLink)}" class="pc-btn" target="_blank" rel="noopener noreferrer nofollow">Check Price</a>`
+        : "";
+
+      return `<div class="pc-card">
+<div class="pc-rank">#${idx + 1}</div>
+${imgBlock}
+<div class="pc-body">
+  <div class="pc-name">${escapeHtml(card.name)}</div>
+  <div class="pc-stars">
+    <span class="pc-stars-icons">${stars}</span>
+    <span class="pc-rating-num">${card.rating}/5</span>
+    ${priceBlock}
+  </div>
+  ${descBlock}
+  ${specsBlock}
+  ${buyBlock}
+</div>
+</div>`;
+    })
+    .join("");
+
+  return `<div class="pc-grid" data-product-cards="${jsonAttr}">${cardHTML}</div>`;
+}
+
+/** TipTap renderHTML / ProseMirror DOM spec for one product card */
+function oneCardDom(card: ProductCardItem, idx: number): unknown {
+  const stars = "★".repeat(card.rating) + "☆".repeat(5 - card.rating);
+  const rows: unknown[] = [];
+  if (card.specs) {
+    for (const line of card.specs.split("\n").filter(Boolean)) {
+      const [label, ...rest] = line.split(":");
+      const value = rest.join(":").trim();
+      const L = escapeHtml(label.trim());
+      const V = escapeHtml(value);
+      if (value) {
+        rows.push([
+          "tr",
+          {},
+          ["td", { class: "pc-spec-label" }, L],
+          ["td", { class: "pc-spec-value" }, V],
+        ]);
+      } else {
+        rows.push([
+          "tr",
+          {},
+          ["td", { class: "pc-spec-label", colspan: "2" }, L],
+        ]);
+      }
+    }
+  }
+
+  const starsRow: unknown[] = [
+    "div",
+    { class: "pc-stars" },
+    ["span", { class: "pc-stars-icons" }, stars],
+    ["span", { class: "pc-rating-num" }, `${card.rating}/5`],
+  ];
+  if (card.price)
+    starsRow.push(["span", { class: "pc-price" }, escapeHtml(card.price)]);
+
+  const bodyChildren: unknown[] = [
+    ["div", { class: "pc-name" }, escapeHtml(card.name)],
+    starsRow,
+  ];
+  if (card.description) {
+    bodyChildren.push([
+      "p",
+      { class: "pc-desc" },
+      escapeHtml(card.description),
+    ]);
+  }
+  if (rows.length) {
+    bodyChildren.push(["table", { class: "pc-specs" }, ["tbody", {}, ...rows]]);
+  }
+  if (card.buyLink) {
+    bodyChildren.push([
+      "a",
+      {
+        class: "pc-btn",
+        href: card.buyLink,
+        target: "_blank",
+        rel: "noopener noreferrer nofollow",
+      },
+      "Check Price",
+    ]);
+  }
+
+  const parts: unknown[] = [["div", { class: "pc-rank" }, `#${idx + 1}`]];
+  if (card.image) {
+    parts.push([
+      "div",
+      { class: "pc-image-wrap" },
+      [
+        "img",
+        {
+          class: "pc-image",
+          src: card.image,
+          alt: card.imageAlt || card.name || "",
+          loading: "lazy",
+        },
+      ],
+    ]);
+  }
+  parts.push(["div", { class: "pc-body" }, ...bodyChildren]);
+
+  return ["div", { class: "pc-card" }, ...parts];
+}
+
+function ProductCardGridView({
+  node,
+  updateAttributes,
+  selected,
+  deleteNode,
+}: NodeViewProps) {
+  const [editing, setEditing] = useState(false);
+  const cards = useMemo(
+    () => parseCardsJson(node.attrs.cardsJson as string | undefined),
+    [node.attrs.cardsJson],
+  );
+  const html = useMemo(() => buildProductCardsHtml(cards), [cards]);
+
+  return (
+    <NodeViewWrapper className="my-4 block w-full max-w-full">
+      <div
+        className={`relative rounded-xl border bg-white overflow-hidden ${
+          selected
+            ? "border-amber-400 ring-2 ring-amber-300/60"
+            : "border-gray-200"
+        }`}
+      >
+        <div
+          className="flex items-center gap-1.5 px-2 py-1.5 border-b border-gray-100 bg-gray-50 text-[10px] font-semibold text-gray-500 uppercase tracking-wider"
+          contentEditable={false}
+          data-drag-handle
+        >
+          <GripVertical
+            className="w-3.5 h-3.5 text-gray-400 shrink-0 cursor-grab active:cursor-grabbing"
+            aria-hidden
+          />
+          Product cards
+        </div>
+        <div
+          className="p-2 sm:p-3"
+          contentEditable={false}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        {selected && (
+          <div className="absolute top-9 right-2 flex gap-1.5 z-20">
+            <button
+              type="button"
+              title="Edit cards"
+              className="p-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-200 shadow-sm"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => setEditing(true)}
+            >
+              <Pencil className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              title="Remove block"
+              className="p-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-red-50 hover:text-red-600 hover:border-red-200 shadow-sm"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => deleteNode()}
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+      </div>
+      {editing && (
+        <ProductCardDialog
+          mode="edit"
+          initialCards={cards}
+          onClose={() => setEditing(false)}
+          onInsert={(next) => {
+            updateAttributes({
+              cardsJson: JSON.stringify(next.filter((c) => c.name.trim())),
+            });
+            setEditing(false);
+          }}
+        />
+      )}
+    </NodeViewWrapper>
+  );
+}
+
+const ProductCardGrid = TiptapNode.create({
+  name: "productCardGrid",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      cardsJson: { default: "[]" },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "div.pc-grid[data-product-cards]",
+        getAttrs: (el) => {
+          if (typeof el === "string" || !(el instanceof HTMLElement))
+            return false;
+          const raw = el.getAttribute("data-product-cards");
+          if (raw == null || raw === "") return false;
+          return { cardsJson: raw };
+        },
+      },
+    ];
+  },
+
+  renderHTML({ node, HTMLAttributes }) {
+    let cards: ProductCardItem[] = [];
+    try {
+      const raw = node.attrs.cardsJson;
+      cards = typeof raw === "string" ? JSON.parse(raw || "[]") : raw;
+    } catch {
+      cards = [];
+    }
+    if (!Array.isArray(cards)) cards = [];
+    const json = typeof node.attrs.cardsJson === "string" ? node.attrs.cardsJson : JSON.stringify(cards);
+    const childSpecs: unknown[] = cards.length
+      ? cards.map((c, i) => oneCardDom(c, i))
+      : [
+          [
+            "div",
+            { class: "pc-card" },
+            [
+              "div",
+              { class: "pc-body" },
+              [
+                "p",
+                { class: "text-sm text-gray-500 m-0" },
+                "No products in this block.",
+              ],
+            ],
+          ],
+        ];
+    return [
+      "div",
+      mergeAttributes(
+        { class: "pc-grid", "data-product-cards": json },
+        HTMLAttributes,
+      ),
+      ...childSpecs,
+    ];
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(ProductCardGridView);
+  },
+});
+
+function ProductCardDialog({
+  onInsert,
+  onClose,
+  initialCards,
+  mode = "insert",
+}: {
+  onInsert: (cards: ProductCardItem[]) => void;
+  onClose: () => void;
+  initialCards?: ProductCardItem[];
+  mode?: "insert" | "edit";
+}) {
+  const [cards, setCards] = useState<ProductCardItem[]>(() =>
+    initialCards?.length
+      ? initialCards.map((c, i) => ({ ...c, id: c.id || `c-${i}` }))
+      : [
+          {
+            id: "1",
+            name: "",
+            image: "",
+            imageAlt: "",
+            rating: 5,
+            specs: "",
+            description: "",
+            price: "",
+            buyLink: "",
+          },
+        ],
+  );
+  const [activeCard, setActiveCard] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const addCard = () => {
+    const newCard: ProductCardItem = {
+      id: Date.now().toString(),
+      name: "",
+      image: "",
+      imageAlt: "",
+      rating: 5,
+      specs: "",
+      description: "",
+      price: "",
+      buyLink: "",
+    };
+    setCards((p) => [...p, newCard]);
+    setActiveCard(cards.length);
+  };
+
+  const removeCard = (idx: number) => {
+    if (cards.length === 1) return;
+    setCards((p) => p.filter((_, i) => i !== idx));
+    setActiveCard(Math.max(0, idx - 1));
+  };
+
+  const updateCard = (
+    idx: number,
+    key: keyof ProductCardItem,
+    value: string | number,
+  ) => {
+    setCards((p) => p.map((c, i) => (i === idx ? { ...c, [key]: value } : c)));
+  };
+
+  const uploadImage = async (file: File) => {
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("type", "productcard");
+    const res = await fetch("/api/upload", { method: "POST", body: fd });
+    const data = await res.json();
+    if (data.url) updateCard(activeCard, "image", data.url);
+    setUploading(false);
+    if (fileRef.current) fileRef.current.value = "";
+  };
+
+  const card = cards[activeCard];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+          <h3 className="font-semibold text-gray-900">
+            {mode === "edit" ? "Edit product cards" : "Product Cards"}
+          </h3>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={addCard}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors"
+            >
+              + Add Card
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        {/* Card tabs */}
+        <div className="flex gap-1 px-4 pt-3 overflow-x-auto">
+          {cards.map((c, i) => (
+            <div key={c.id} className="flex items-center gap-1 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setActiveCard(i)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  activeCard === i
+                    ? "bg-amber-100 text-amber-800 border border-amber-300"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {c.name || `Card ${i + 1}`}
+              </button>
+              {cards.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeCard(i)}
+                  className="w-4 h-4 flex items-center justify-center text-gray-400 hover:text-red-500 text-xs"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Card form */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="col-span-2">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Product Name *
+              </label>
+              <input
+                value={card.name}
+                onChange={(e) => updateCard(activeCard, "name", e.target.value)}
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                placeholder="Optimum Nutrition Gold Standard Whey"
+              />
+            </div>
+
+            {/* Image upload */}
+            <div className="col-span-2">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Product Image
+              </label>
+              <div className="flex gap-2">
+                <input
+                  value={card.image}
+                  onChange={(e) =>
+                    updateCard(activeCard, "image", e.target.value)
+                  }
+                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  placeholder="https://... or upload below"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileRef.current?.click()}
+                  disabled={uploading}
+                  className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-xs font-medium transition-colors whitespace-nowrap"
+                >
+                  {uploading ? "…" : "Upload"}
+                </button>
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) uploadImage(f);
+                  }}
+                />
+              </div>
+              {card.image && (
+                <div className="mt-2 flex items-center gap-2">
+                  <img
+                    src={card.image}
+                    alt=""
+                    className="w-16 h-12 object-cover rounded-lg border border-gray-200"
+                  />
+                  <input
+                    value={card.imageAlt}
+                    onChange={(e) =>
+                      updateCard(activeCard, "imageAlt", e.target.value)
+                    }
+                    className="flex-1 px-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    placeholder="Alt text (required for SEO)"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Rating (1–5)
+              </label>
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => updateCard(activeCard, "rating", s)}
+                    className={`text-xl leading-none transition-transform hover:scale-110 ${card.rating >= s ? "text-amber-400" : "text-gray-200"}`}
+                  >
+                    ★
+                  </button>
+                ))}
+                <span className="text-xs text-gray-500 ml-1">
+                  {card.rating}/5
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Price
+              </label>
+              <input
+                value={card.price}
+                onChange={(e) =>
+                  updateCard(activeCard, "price", e.target.value)
+                }
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                placeholder="$29.99"
+              />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Specs / Key Features
+                <span className="ml-1 font-normal text-gray-400">
+                  One per line, use &quot;Label: Value&quot; format
+                </span>
+              </label>
+              <textarea
+                value={card.specs}
+                onChange={(e) =>
+                  updateCard(activeCard, "specs", e.target.value)
+                }
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs font-mono focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                placeholder={
+                  "Protein: 25g per serving\nCalories: 120\nFlavors: 20+\nServings: 74"
+                }
+              />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Short Description
+              </label>
+              <textarea
+                value={card.description}
+                onChange={(e) =>
+                  updateCard(activeCard, "description", e.target.value)
+                }
+                rows={2}
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                placeholder="Best overall whey protein for muscle building and recovery…"
+              />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Buy Now Link
+              </label>
+              <input
+                type="url"
+                value={card.buyLink}
+                onChange={(e) =>
+                  updateCard(activeCard, "buyLink", e.target.value)
+                }
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                placeholder="https://..."
+              />
+            </div>
+          </div>
+
+          {/* Preview */}
+          {card.name && (
+            <div className="bg-gray-50 rounded-xl p-3 border border-gray-100">
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                Preview
+              </p>
+              <div className="bg-white rounded-xl border border-gray-100 p-3 flex gap-3 shadow-sm">
+                {card.image && (
+                  <img
+                    src={card.image}
+                    alt={card.imageAlt}
+                    className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-gray-900 text-sm">{card.name}</p>
+                  <div className="text-amber-400 text-xs mt-0.5">
+                    {"★".repeat(card.rating)}
+                    {"☆".repeat(5 - card.rating)}
+                  </div>
+                  {card.price && (
+                    <p className="text-emerald-600 font-bold text-sm mt-0.5">
+                      {card.price}
+                    </p>
+                  )}
+                  {card.description && (
+                    <p className="text-gray-500 text-xs mt-1 line-clamp-2">
+                      {card.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+          <p className="text-xs text-gray-400">
+            {cards.length} card{cards.length !== 1 ? "s" : ""}
+            {mode === "edit"
+              ? " · save to update the article"
+              : " · full-width list in the article"}
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              disabled={!card.name.trim()}
+              onClick={() => onInsert(cards.filter((c) => c.name.trim()))}
+              className="px-4 py-2 text-sm bg-amber-500 hover:bg-amber-600 disabled:opacity-40 text-white rounded-lg font-medium"
+            >
+              {mode === "edit"
+                ? "Save changes"
+                : `Insert ${cards.filter((c) => c.name.trim()).length || cards.length} Card${cards.length !== 1 ? "s" : ""}`}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── FAQ Node View (editor preview) ────────────────────────────────────────────
+function FAQBlockView({ node, updateAttributes, selected, deleteNode }: NodeViewProps) {
+  const [editing, setEditing] = useState(false);
+  let faqs = node.attrs.faqs;
+  if (typeof faqs === "string") {
+    try { faqs = JSON.parse(faqs); } catch { faqs = []; }
+  }
+  if (!Array.isArray(faqs)) faqs = [];
+
+  return (
+    <NodeViewWrapper className="my-4 block w-full max-w-full">
+      <div
+        className={`relative rounded-xl border bg-white overflow-hidden ${
+          selected ? "border-amber-400 ring-2 ring-amber-300/60" : "border-gray-200"
+        }`}
+      >
+        <div
+          className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-100 bg-gray-50 text-[10px] font-semibold text-gray-500 uppercase tracking-wider"
+          contentEditable={false}
+          data-drag-handle
+        >
+          <GripVertical className="w-3.5 h-3.5 text-gray-400 shrink-0 cursor-grab active:cursor-grabbing" aria-hidden />
+          FAQ Block ({faqs.length} items)
+        </div>
+
+        <div className="p-4 sm:p-5" contentEditable={false}>
+          {faqs.length === 0 ? (
+            <p className="text-sm text-gray-400 italic m-0">No questions added yet.</p>
+          ) : (
+            <div className="space-y-3">
+              {faqs.map((faq: {q: string, a: string}, idx: number) => (
+                <details key={idx} className="group border border-gray-100 rounded-lg" open={idx === 0}>
+                  <summary className="flex justify-between items-center p-3 font-medium cursor-pointer list-none text-sm text-gray-800 hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden">
+                    <span>{faq.q}</span>
+                    <span className="transition group-open:rotate-180 flex-shrink-0 ml-3 text-gray-400">
+                      ▼
+                    </span>
+                  </summary>
+                  <div className="p-3 pt-0 text-gray-600 text-xs border-t border-gray-50 bg-gray-50/50">
+                    {faq.a.split("\n").map((line: string, i: number) => <p key={i} className="mb-1 last:mb-0">{line}</p>)}
+                  </div>
+                </details>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {selected && (
+          <div className="absolute top-9 right-2 flex gap-1.5 z-20">
+            <button
+              type="button"
+              className="p-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-200 shadow-sm"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => setEditing(true)}
+            >
+              <Pencil className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              className="p-1.5 rounded-lg bg-white border border-gray-200 text-gray-600 hover:bg-red-50 hover:text-red-600 hover:border-red-200 shadow-sm"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => deleteNode()}
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {editing && (
+        <FAQDialog
+          mode="edit"
+          initialFaqs={faqs}
+          onClose={() => setEditing(false)}
+          onInsert={(nextFaqs) => {
+            updateAttributes({ faqs: nextFaqs });
+            setEditing(false);
+          }}
+        />
+      )}
+    </NodeViewWrapper>
+  );
+}
+
+// ── FAQ Dialog & Text Parser ──────────────────────────────────────────────────
+function parseFaqText(text: string) {
+  const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
+  const faqs: { q: string; a: string }[] = [];
+  let currentQ = "";
+  let currentA: string[] = [];
+
+  for (const line of lines) {
+    const isQ = line.startsWith("Q:") || line.endsWith("?");
+    if (isQ) {
+      if (currentQ) {
+        faqs.push({ q: currentQ, a: currentA.join("\n") });
+      }
+      currentQ = line.replace(/^Q:\\s*/i, "").trim();
+      currentA = [];
+    } else {
+      let aLine = line.replace(/^A:\\s*/i, "").trim();
+      if (aLine) currentA.push(aLine);
+    }
+  }
+  if (currentQ) {
+    faqs.push({ q: currentQ, a: currentA.join("\n") });
+  }
+  return faqs;
+}
+
+function FAQDialog({
+  onInsert,
+  onClose,
+  initialFaqs = [],
+  mode = "insert",
+}: {
+  onInsert: (faqs: { q: string; a: string }[]) => void;
+  onClose: () => void;
+  initialFaqs?: { q: string; a: string }[];
+  mode?: "insert" | "edit";
+}) {
+  const [text, setText] = useState(() => 
+    initialFaqs.map(f => `Q: ${f.q}\nA: ${f.a}`).join("\n\n")
+  );
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-sm transition-opacity">
+      <div className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gray-50/50">
+          <h3 className="font-semibold text-gray-900">
+            {mode === "insert" ? "Insert FAQs" : "Edit FAQs"}
+          </h3>
+          <button
+            onClick={onClose}
+            className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="p-5 space-y-3">
+          <p className="text-xs text-gray-500">Paste your FAQ text below. Questions should end with a question mark (?) or start with &quot;Q:&quot;. Answers will be automatically grouped.</p>
+          <textarea
+            autoFocus
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={10}
+            className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 font-mono"
+            placeholder="Q: Where can I buy this?&#10;A: On our official website.&#10;&#10;Q: Does it work?&#10;A: Yes, it works great."
+          />
+        </div>
+        <div className="px-5 py-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-2">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 bg-gray-100 rounded-xl transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => onInsert(parseFaqText(text))}
+            disabled={!text.trim()}
+            className="px-4 py-2 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 rounded-xl disabled:opacity-50 transition-colors shadow-sm"
+          >
+            {mode === "insert" ? "Insert FAQs" : "Save Changes"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── FAQ Tiptap Extension ──────────────────────────────────────────────────────
+const FAQBlock = TiptapNode.create({
+  name: "faqBlock",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      faqs: { default: [] },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "div.faq-block-wrapper",
+        getAttrs: (el) => {
+          if (typeof el === "string" || !(el instanceof HTMLElement)) return false;
+          const raw = el.getAttribute("data-faqs");
+          if (!raw) return false;
+          try {
+            return { faqs: JSON.parse(raw) };
+          } catch {
+            return false;
+          }
+        },
+      },
+    ];
+  },
+
+  renderHTML({ node }) {
+    let faqs = node.attrs.faqs;
+    if (typeof faqs === "string") {
+      try { faqs = JSON.parse(faqs); } catch { faqs = []; }
+    }
+    if (!Array.isArray(faqs)) faqs = [];
+
+    const jsonAttr = escapeAttr(JSON.stringify(faqs));
+
+    if (faqs.length === 0) {
+      return ["div", { class: "faq-block-wrapper", "data-faqs": jsonAttr }, "No FAQs"];
+    }
+
+    const faqElements = faqs.map((faq: {q: string, a: string}, idx: number) => {
+      return [
+        "details",
+        { class: "group bg-white border border-gray-200 rounded-xl mb-4 overflow-hidden shadow-sm" },
+        [
+          "summary",
+          { class: "flex justify-between items-center font-bold cursor-pointer list-none p-4 text-gray-900 transition-colors hover:bg-gray-50 [&::-webkit-details-marker]:hidden" },
+          ["span", {}, faq.q],
+          [
+            "span",
+            { class: "transition group-open:rotate-180 flex-shrink-0 ml-4" },
+            [
+              "svg",
+              { fill: "none", height: "20", stroke: "currentColor", "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-width": "2", viewBox: "0 0 24 24", width: "20" },
+              ["path", { d: "M6 9l6 6 6-6" }]
+            ]
+          ]
+        ],
+        [
+          "div",
+          { class: "p-4 pt-0 text-gray-600 leading-relaxed m-0 mt-1" },
+          ...faq.a.split("\n").map((line: string) => ["p", { class: "mb-2 last:mb-0" }, line])
+        ]
+      ];
+    });
+
+    return ["div", { class: "faq-block-wrapper", "data-faqs": jsonAttr }, ...faqElements];
+  },
+
+  addNodeView() {
+    return ReactNodeViewRenderer(FAQBlockView);
+  },
+});
+
+// ── Main editor ───────────────────────────────────────────────────────────────
+interface RichTextEditorProps {
+  value: string;
+  onChange: (html: string) => void;
+  placeholder?: string;
+}
+
+export default function RichTextEditor({
+  value,
+  onChange,
+  placeholder = "Type '/' for commands…",
+}: RichTextEditorProps) {
+  const [slashMenu, setSlashMenu] = useState<{
+    query: string;
+    pos: { top: number; left: number };
+  } | null>(null);
+  const [slashStart, setSlashStart] = useState<number | null>(null);
+  const [dialog, setDialog] = useState<
+    "link" | "image" | "button" | "review" | "productcard" | "ingredient" | "procon" | "faq" | null
+  >(null);
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  const editor = useEditor({
+    immediatelyRender: false,
+    extensions: [
+      StarterKit.configure({
+        heading: false,
+        codeBlock: false,
+        underline: false,
+        link: false,
+      }),
+      Heading.configure({ levels: [1, 2, 3] }),
+      Underline,
+      TextStyle,
+      Color,
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      Link.extend({
+        addAttributes() {
+          return {
+            ...this.parent?.(),
+            style: {
+              default: null,
+              parseHTML: (element) => element.getAttribute("style"),
+              renderHTML: (attributes) => {
+                if (!attributes.style) return {};
+                return { style: attributes.style };
+              },
+            },
+          };
+        },
+      }).configure({
+        openOnClick: false,
+        HTMLAttributes: { target: "_blank", rel: "noopener noreferrer" },
+      }),
+      ResizableImage,
+      RawHTML,
+      ReviewCard,
+      ProductCardGrid,
+      IngredientList,
+      ProConBlock,
+      FAQBlock,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+      Placeholder.configure({ placeholder }),
+    ],
+    content: value || "",
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML());
+    },
+    editorProps: {
+      attributes: {
+        class:
+          "prose prose-sm max-w-none focus:outline-none min-h-[200px] px-4 py-3",
+      },
+    },
+  });
+
+  // Sync external value changes (e.g. when editing an existing product)
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value || "", { emitUpdate: false });
+    }
+  }, [value, editor]);
+
+  // Detect "/" key to open slash menu
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!editor) return;
+
+      if (e.key === "/") {
+        const { from } = editor.state.selection;
+        setSlashStart(from);
+        // Get caret position for menu placement
+        const domSel = window.getSelection();
+        if (domSel && domSel.rangeCount > 0) {
+          const range = domSel.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
+          setSlashMenu({
+            query: "",
+            pos: { top: rect.bottom + 8, left: rect.left },
+          });
+        }
+      }
+
+      if (slashMenu) {
+        if (e.key === "Backspace") {
+          const newQuery = slashMenu.query.slice(0, -1);
+          if (newQuery === "" && slashStart !== null) {
+            setSlashMenu(null);
+            setSlashStart(null);
+          } else {
+            setSlashMenu((m) => (m ? { ...m, query: newQuery } : null));
+          }
+        } else if (e.key.length === 1 && e.key !== "/") {
+          setSlashMenu((m) => (m ? { ...m, query: m.query + e.key } : null));
+        }
+      }
+    },
+    [editor, slashMenu, slashStart],
+  );
+
+  const closeSlash = useCallback(() => {
+    setSlashMenu(null);
+    setSlashStart(null);
+  }, []);
+
+  const executeCommand = useCallback(
+    (id: string) => {
+      if (!editor) return;
+
+      // Delete the slash + query text
+      if (slashStart !== null) {
+        const { from } = editor.state.selection;
+        editor
+          .chain()
+          .focus()
+          .deleteRange({ from: slashStart, to: from })
+          .run();
+      }
+
+      closeSlash();
+
+      switch (id) {
+        case "h1":
+          editor.chain().focus().toggleHeading({ level: 1 }).run();
+          break;
+        case "h2":
+          editor.chain().focus().toggleHeading({ level: 2 }).run();
+          break;
+        case "h3":
+          editor.chain().focus().toggleHeading({ level: 3 }).run();
+          break;
+        case "bullet":
+          editor.chain().focus().toggleBulletList().run();
+          break;
+        case "ordered":
+          editor.chain().focus().toggleOrderedList().run();
+          break;
+        case "blockquote":
+          editor.chain().focus().toggleBlockquote().run();
+          break;
+        case "code":
+          editor.chain().focus().toggleCodeBlock().run();
+          break;
+        case "divider":
+          editor.chain().focus().setHorizontalRule().run();
+          break;
+        case "link":
+          setDialog("link");
+          break;
+        case "image":
+          setDialog("image");
+          break;
+        case "button":
+          setDialog("button");
+          break;
+        case "review":
+          setDialog("review");
+          break;
+        case "productcard":
+          setDialog("productcard");
+          break;
+        case "ingredient":
+          setDialog("ingredient");
+          break;
+        case "procon":
+          setDialog("procon");
+          break;
+        case "faq":
+          setDialog("faq");
+          break;
+      }
+    },
+    [editor, slashStart, closeSlash],
+  );
+
+  const insertLink = (href: string, text: string) => {
+    if (!editor) return;
+    setDialog(null);
+    if (text) {
+      editor
+        .chain()
+        .focus()
+        .insertContent(`<a href="${href}" target="_blank">${text}</a>`)
+        .run();
+    } else {
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href, target: "_blank" })
+        .run();
+    }
+  };
+
+  const insertImage = (src: string, alt: string) => {
+    if (!editor) return;
+    setDialog(null);
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: "resizableImage",
+        attrs: { src, alt, width: "100%", align: "left" },
+      })
+      .run();
+  };
+
+  const insertReview = (data: {
+    name: string;
+    location: string;
+    rating: number;
+    text: string;
+    date: string;
+  }) => {
+    if (!editor) return;
+    setDialog(null);
+    const stars = "★".repeat(data.rating) + "☆".repeat(5 - data.rating);
+    const initial = data.name.charAt(0).toUpperCase();
+    const formattedDate = data.date
+      ? new Date(data.date).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+      : "";
+    const html = `<div class="review-card"><div class="review-card-header"><div class="review-card-avatar">${initial}</div><div class="review-card-meta"><span class="review-card-name">${data.name}</span>${data.location ? `<span class="review-card-location">${data.location}</span>` : ""}</div><div class="review-card-right"><div class="review-card-stars">${stars}</div>${formattedDate ? `<span class="review-card-date">${formattedDate}</span>` : ""}</div></div><p class="review-card-text">${data.text}</p><div class="review-card-badge">Verified Purchase</div></div>`;
+    editor.chain().focus().insertContent(html).run();
+  };
+
+  const insertProductCards = (cards: ProductCardItem[]) => {
+    if (!editor) return;
+    setDialog(null);
+    const filtered = cards.filter((c) => c.name.trim());
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: "productCardGrid",
+        attrs: { cardsJson: JSON.stringify(filtered) },
+      })
+      .run();
+  };
+
+  const insertButton = (
+    label: string,
+    href: string,
+    style: string,
+    color?: string,
+    hoverEffect?: string
+  ) => {
+    if (!editor) return;
+    setDialog(null);
+    const classMap: Record<string, string> = {
+      primary: "btn btn-primary",
+      amber: "btn btn-amber",
+      secondary: "btn btn-secondary",
+      dark: "btn btn-dark",
+      "primary-pill": "btn btn-primary btn-pill",
+      "amber-pill": "btn btn-amber btn-pill",
+    };
+    let cls = classMap[style] || "btn btn-primary";
+    if (style === "bubble") {
+      const effect = hoverEffect || "bubble";
+      cls = `btn btn-bubble btn-hover-${effect}`;
+    }
+    const styleAttr =
+      style === "bubble" && color ? ` style="--btn-color: ${color};"` : "";
+    editor
+      .chain()
+      .focus()
+      .insertContent(
+        `<p><a href="${href}" target="_blank" class="${cls}"${styleAttr}>${label}</a></p>`
+      )
+      .run();
+  };
+
+  const insertIngredients = (
+    items: { id: string; name: string; image: string }[],
+  ) => {
+    if (!editor) return;
+    setDialog(null);
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: "ingredientList",
+        attrs: { ingredients: items },
+      })
+      .run();
+  };
+
+  const insertProCon = (title: string, pros: string[], cons: string[]) => {
+    if (!editor) return;
+    setDialog(null);
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: "proConBlock",
+        attrs: { title, pros, cons },
+      })
+      .run();
+  };
+
+  const insertFaq = (faqs: { q: string; a: string }[]) => {
+    if (!editor) return;
+    setDialog(null);
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: "faqBlock",
+        attrs: { faqs },
+      })
+      .run();
+  };
+
+  const setLinkBubble = () => {
+    if (!editor) return;
+    const prev = editor.getAttributes("link").href as string | undefined;
+    const url = window.prompt("Enter URL:", prev ?? "https://");
+    if (url === null) return;
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+    editor
+      .chain()
+      .focus()
+      .extendMarkRange("link")
+      .setLink({ href: url, target: "_blank" })
+      .run();
+  };
+
+  if (!editor) return null;
+
+  return (
+    <div className="relative">
+      <div className="border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-transparent transition-all">
+        <Toolbar editor={editor} />
+        {editor && (
+          <BubbleMenu
+            editor={editor}
+            className="flex items-center gap-1 bg-slate-900 border border-slate-800 text-white rounded-xl shadow-2xl p-1 z-50 transition-all max-w-[95vw] sm:max-w-none flex-wrap"
+          >
+            {/* Bold */}
+            <BubbleBtn
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              active={editor.isActive("bold")}
+              title="Bold"
+            >
+              <Bold className="w-3.5 h-3.5" />
+            </BubbleBtn>
+            
+            {/* Italic */}
+            <BubbleBtn
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              active={editor.isActive("italic")}
+              title="Italic"
+            >
+              <Italic className="w-3.5 h-3.5" />
+            </BubbleBtn>
+
+            {/* Underline */}
+            <BubbleBtn
+              onClick={() => editor.chain().focus().toggleUnderline().run()}
+              active={editor.isActive("underline")}
+              title="Underline"
+            >
+              <UnderlineIcon className="w-3.5 h-3.5" />
+            </BubbleBtn>
+
+            {/* Strikethrough */}
+            <BubbleBtn
+              onClick={() => editor.chain().focus().toggleStrike().run()}
+              active={editor.isActive("strike")}
+              title="Strikethrough"
+            >
+              <Strikethrough className="w-3.5 h-3.5" />
+            </BubbleBtn>
+
+            <div className="w-px h-4 bg-slate-800 self-center mx-1" />
+
+            {/* Headings Selector */}
+            <select
+              value={
+                editor.isActive("heading", { level: 1 }) ? "h1" :
+                editor.isActive("heading", { level: 2 }) ? "h2" :
+                editor.isActive("heading", { level: 3 }) ? "h3" : "p"
+              }
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === "p") {
+                  editor.chain().focus().setParagraph().run();
+                } else if (val === "h1") {
+                  editor.chain().focus().toggleHeading({ level: 1 }).run();
+                } else if (val === "h2") {
+                  editor.chain().focus().toggleHeading({ level: 2 }).run();
+                } else if (val === "h3") {
+                  editor.chain().focus().toggleHeading({ level: 3 }).run();
+                }
+              }}
+              className="bg-slate-950 border border-slate-800 text-white rounded-lg text-xs px-2 py-1 focus:outline-none focus:ring-1 focus:ring-amber-400"
+            >
+              <option value="p">Paragraph</option>
+              <option value="h1">H1</option>
+              <option value="h2">H2</option>
+              <option value="h3">H3</option>
+            </select>
+
+            <div className="w-px h-4 bg-slate-800 self-center mx-1" />
+
+            {/* Alignment */}
+            <BubbleBtn
+              onClick={() => editor.chain().focus().setTextAlign("left").run()}
+              active={editor.isActive({ textAlign: "left" })}
+              title="Align Left"
+            >
+              <AlignLeft className="w-3.5 h-3.5" />
+            </BubbleBtn>
+            <BubbleBtn
+              onClick={() => editor.chain().focus().setTextAlign("center").run()}
+              active={editor.isActive({ textAlign: "center" })}
+              title="Align Center"
+            >
+              <AlignCenter className="w-3.5 h-3.5" />
+            </BubbleBtn>
+            <BubbleBtn
+              onClick={() => editor.chain().focus().setTextAlign("right").run()}
+              active={editor.isActive({ textAlign: "right" })}
+              title="Align Right"
+            >
+              <AlignRight className="w-3.5 h-3.5" />
+            </BubbleBtn>
+
+            <div className="w-px h-4 bg-slate-800 self-center mx-1" />
+
+            {/* Color Selector */}
+            <div className="relative group/color flex items-center">
+              <button
+                type="button"
+                className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-all font-semibold"
+                title="Text Color"
+              >
+                <span className="w-3.5 h-3.5 rounded-full border border-white/20" style={{ backgroundColor: editor.getAttributes("textStyle").color || "#ffffff" }} />
+                <span className="hidden sm:inline">Color</span>
+              </button>
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/color:flex flex-col bg-slate-950 border border-slate-800 rounded-xl p-2.5 shadow-2xl z-[60] gap-2 w-[140px]">
+                <div className="grid grid-cols-4 gap-1.5">
+                  {[
+                    { label: "Default", val: "" },
+                    { label: "Blue", val: "#0284c7" },
+                    { label: "Orange", val: "#ea580c" },
+                    { label: "Green", val: "#16a34a" },
+                    { label: "Red", val: "#dc2626" },
+                    { label: "Amber", val: "#d97706" },
+                    { label: "Purple", val: "#7d2ae8" },
+                    { label: "Slate", val: "#64748b" },
+                  ].map((c) => (
+                    <button
+                      key={c.label}
+                      type="button"
+                      onClick={() => {
+                        if (c.val === "") {
+                          editor.chain().focus().unsetColor().run();
+                        } else {
+                          editor.chain().focus().setColor(c.val).run();
+                        }
+                      }}
+                      className="w-5 h-5 rounded-full border border-white/10 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+                      style={{ backgroundColor: c.val || "#ffffff" }}
+                      title={c.label}
+                    >
+                      {c.val === "" && <span className="text-[9px] text-red-500 font-bold text-center flex items-center justify-center leading-none">X</span>}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type="color"
+                  value={editor.getAttributes("textStyle").color || "#000000"}
+                  onChange={(e) => editor.chain().focus().setColor(e.target.value).run()}
+                  className="w-full h-6 p-0 border-0 rounded cursor-pointer mt-1"
+                  title="Custom Color"
+                />
+              </div>
+            </div>
+
+            <div className="w-px h-4 bg-slate-800 self-center mx-1" />
+
+            {/* Link */}
+            <BubbleBtn
+              onClick={setLinkBubble}
+              active={editor.isActive("link")}
+              title="Insert Link"
+            >
+              <LinkIcon className="w-3.5 h-3.5" />
+            </BubbleBtn>
+          </BubbleMenu>
+        )}
+        <div ref={editorRef} onKeyDown={handleKeyDown} className="bg-white">
+          <EditorContent editor={editor} />
+        </div>
+        <div className="px-4 py-1.5 bg-gray-50 border-t border-gray-100 text-xs text-gray-400">
+          Type{" "}
+          <kbd className="px-1 py-0.5 bg-white border border-gray-200 rounded text-gray-600 font-mono">
+            /
+          </kbd>{" "}
+          for commands ·{" "}
+          <kbd className="px-1 py-0.5 bg-white border border-gray-200 rounded text-gray-600 font-mono">
+            Ctrl+B
+          </kbd>{" "}
+          bold ·{" "}
+          <kbd className="px-1 py-0.5 bg-white border border-gray-200 rounded text-gray-600 font-mono">
+            Ctrl+I
+          </kbd>{" "}
+          italic
+        </div>
+      </div>
+
+      {/* Slash command menu */}
+      {slashMenu && (
+        <SlashMenu
+          query={slashMenu.query}
+          position={slashMenu.pos}
+          onSelect={executeCommand}
+          onClose={closeSlash}
+        />
+      )}
+
+      {/* Dialogs */}
+      {dialog === "link" && (
+        <LinkDialog onInsert={insertLink} onClose={() => setDialog(null)} />
+      )}
+      {dialog === "image" && (
+        <ImageDialog onInsert={insertImage} onClose={() => setDialog(null)} />
+      )}
+      {dialog === "button" && (
+        <ButtonDialog onInsert={insertButton} onClose={() => setDialog(null)} />
+      )}
+      {dialog === "review" && (
+        <ReviewDialog onInsert={insertReview} onClose={() => setDialog(null)} />
+      )}
+      {dialog === "productcard" && (
+        <ProductCardDialog
+          onInsert={insertProductCards}
+          onClose={() => setDialog(null)}
+        />
+      )}
+      {dialog === "ingredient" && (
+        <IngredientDialog
+          onInsert={insertIngredients}
+          onClose={() => setDialog(null)}
+        />
+      )}
+      {dialog === "procon" && (
+        <ProConDialog
+          onInsert={insertProCon}
+          onClose={() => setDialog(null)}
+        />
+      )}
+      {dialog === "faq" && (
+        <FAQDialog
+          onInsert={insertFaq}
+          onClose={() => setDialog(null)}
+        />
+      )}
+    </div>
+  );
+}
