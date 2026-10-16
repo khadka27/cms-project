@@ -4,7 +4,7 @@ export default function TermsOfServicePage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Terms & Policies
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
           <p>
-            Welcome to Official Products Lab. These Terms and Conditions (“Terms”) explain the rules for using <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">OfficialProductsLab.com</a>, our product review pages, category pages, buyer guides, product information pages, and any related subdomains or services that link to these Terms.
+            Welcome to Official Products Lab. These Terms and Conditions (“Terms”) explain the rules for using <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">OfficialProductsLab.com</a>, our product review pages, category pages, buyer guides, product information pages, and any related subdomains or services that link to these Terms.
           </p>
           <p className="font-semibold text-slate-900">
             By accessing or using this website, you agree to follow these Terms. If you do not agree with these Terms, please stop using the website.
@@ -335,7 +335,7 @@ export default function TermsOfServicePage() {
               Your use of Official Products Lab is also governed by our Privacy Policy.
             </p>
             <p>
-              The Privacy Policy explains how we may collect, use, store, and share information when you visit the website, use forms, subscribe to updates, interact with cookies, or click product-related links. Please review our <Link href="/legal/privacy" className="text-orange-500 hover:text-orange-600 transition-colors font-bold">Privacy Policy</Link> for more details.
+              The Privacy Policy explains how we may collect, use, store, and share information when you visit the website, use forms, subscribe to updates, interact with cookies, or click product-related links. Please review our <Link href="/legal/privacy" className="text-bright_teal_blue hover:text-french_blue transition-colors font-bold">Privacy Policy</Link> for more details.
             </p>
           </div>
 
@@ -411,8 +411,8 @@ export default function TermsOfServicePage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

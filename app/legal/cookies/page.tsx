@@ -4,7 +4,7 @@ export default function CookiePolicyPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Cookies & Tracking
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -16,7 +16,7 @@ export default function CookiePolicyPage() {
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
           <p>
-            Official Products Lab (“Official Products Lab,” “we,” “our,” or “us”) uses cookies and similar tracking technologies on <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">OfficialProductsLab.com</a> and related pages or subdomains that link to this Cookie Policy.
+            Official Products Lab (“Official Products Lab,” “we,” “our,” or “us”) uses cookies and similar tracking technologies on <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">OfficialProductsLab.com</a> and related pages or subdomains that link to this Cookie Policy.
           </p>
           <p>
             This Cookie Policy explains what cookies are, how we use them, what types of cookies may appear on our website, how third-party tools may use cookies, and how you can manage your cookie choices.
@@ -447,8 +447,8 @@ export default function CookiePolicyPage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

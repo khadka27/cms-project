@@ -108,9 +108,9 @@ export default function HomePage() {
       "Official Products Lab helps shoppers understand popular online products through simple reviews, product summaries, category guides, feature breakdowns, pricing notes, and dedicated product information pages. The goal is to make product research easier before a visitor decides to check a product offer.",
     backgroundImage: "",
     backgroundType: "gradient",
-    gradientFrom: "#FAF7F2",
-    gradientVia: "#FAF7F2",
-    gradientTo: "#FAF7F2",
+    gradientFrom: "#f4fcfe",
+    gradientVia: "#f8fbff",
+    gradientTo: "#ffffff",
     textColor: "#0f172a",
     primaryColor: "#0077b6",
     ctaColor: "#0077b6",
@@ -185,7 +185,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           HERO
       ════════════════════════════════════ */}
-      <section className="relative w-full overflow-hidden bg-[#FAF7F2]">
+      <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#f4fcfe] via-[#f8fbff] to-white">
         {hero.backgroundType === "image" && hero.backgroundImage && (
           <div
             className="absolute inset-0 z-0"
@@ -342,7 +342,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           FEATURED PRODUCTS
       ════════════════════════════════════ */}
-      <section id="products" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF7F2]">
+      <section id="products" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-[#f8fbff] to-[#f4fcfe]/40">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
             <div>
@@ -359,13 +359,13 @@ export default function HomePage() {
 
             {/* View toggle */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center bg-white border border-slate-200 p-1 rounded-xl shadow-sm">
+              <div className="flex items-center bg-white border border-light_cyan/80 p-1 rounded-xl shadow-sm">
                 <button
                   onClick={() => setViewMode("list")}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-bold transition-all ${
                     viewMode === "list"
-                      ? "bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-sm"
-                      : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                      ? "bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-sm shadow-bright_teal_blue/25"
+                      : "text-slate-500 hover:text-slate-800 hover:bg-light_cyan/20"
                   }`}
                 >
                   <List className="w-4 h-4" /> List
@@ -374,8 +374,8 @@ export default function HomePage() {
                   onClick={() => setViewMode("grid")}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-bold transition-all ${
                     viewMode === "grid"
-                      ? "bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-sm"
-                      : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                      ? "bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-sm shadow-bright_teal_blue/25"
+                      : "text-slate-500 hover:text-slate-800 hover:bg-light_cyan/20"
                   }`}
                 >
                   <LayoutGrid className="w-4 h-4" /> Grid
@@ -389,7 +389,7 @@ export default function HomePage() {
           <div className="mt-12 flex justify-center">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-deep_twilight text-white text-sm font-bold rounded-2xl hover:bg-gradient-to-r hover:from-french_blue hover:to-bright_teal_blue transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-deep_twilight/20 group"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-deep_twilight via-french_blue to-bright_teal_blue text-white text-sm font-bold rounded-2xl hover:brightness-110 transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-deep_twilight/25 group"
             >
               View All Products
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -411,7 +411,7 @@ export default function HomePage() {
               action={
                 <Link
                   href="/products"
-                  className="inline-flex items-center gap-1.5 text-sm font-bold text-bright_teal_blue hover:text-french_blue transition-colors border border-bright_teal_blue/30 hover:border-bright_teal_blue px-4 py-2 rounded-xl"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-bright_teal_blue hover:text-french_blue transition-colors border border-bright_teal_blue/30 hover:border-bright_teal_blue px-4 py-2 rounded-xl hover:bg-light_cyan/20"
                 >
                   View All <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -422,7 +422,7 @@ export default function HomePage() {
                 <Link
                   key={sub.id}
                   href={`/products?subcategory=${sub.slug}`}
-                  className="group relative min-w-[200px] sm:min-w-[240px] h-[280px] sm:h-[310px] shrink-0 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                  className="group relative min-w-[200px] sm:min-w-[240px] h-[280px] sm:h-[310px] shrink-0 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ring-1 ring-light_cyan/80 hover:ring-2 hover:ring-turquoise_surf"
                 >
                   <Image
                     src={sub.image || "/subcategory-placeholder.png"}
@@ -430,9 +430,9 @@ export default function HomePage() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#010226]/95 via-[#010226]/40 to-transparent" />
                   {idx < 2 && (
-                    <div className="absolute top-3 left-3 z-10 flex items-center gap-1 bg-gradient-to-r from-french_blue to-bright_teal_blue text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg">
+                    <div className="absolute top-3 left-3 z-10 flex items-center gap-1 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg shadow-bright_teal_blue/30 ring-1 ring-white/30">
                       <Flame className="w-2.5 h-2.5" /> New
                     </div>
                   )}
@@ -441,9 +441,9 @@ export default function HomePage() {
                       {sub.name}
                     </h3>
                     {sub.description && (
-                      <p className="text-white/65 text-xs mt-1 line-clamp-1">{sub.description}</p>
+                      <p className="text-light_cyan/80 text-xs mt-1 line-clamp-1">{sub.description}</p>
                     )}
-                    <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-turquoise_surf group-hover:gap-2 transition-all">
+                    <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-turquoise_surf group-hover:text-sky_aqua group-hover:gap-2 transition-all">
                       Shop Now <ArrowRight className="w-3 h-3" />
                     </span>
                   </div>
@@ -466,7 +466,7 @@ export default function HomePage() {
           INGREDIENTS
       ════════════════════════════════════ */}
       {ingredients.length > 0 && (
-        <section id="ingredients" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <section id="ingredients" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f4fcfe]/40 via-white to-white">
           <div className="max-w-7xl mx-auto">
             <SectionHeading
               label="Science-Backed"
@@ -477,7 +477,7 @@ export default function HomePage() {
               {ingredients.map((ing) => (
                 <div
                   key={ing.id}
-                  className="group relative bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-turquoise_surf/30 hover:-translate-y-1 transition-all duration-300"
+                  className="group relative bg-white border border-light_cyan/70 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-turquoise_surf/50 hover:-translate-y-1 transition-all duration-300"
                 >
                   {/* Image */}
                   <div className="relative h-40 w-full overflow-hidden bg-slate-50">
@@ -531,7 +531,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           PRODUCT CATALOG (pill grid)
       ════════════════════════════════════ */}
-      <section id="categories" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF7F2]">
+      <section id="categories" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-[#f8fbff] to-[#f4fcfe]/40">
         <div className="max-w-7xl mx-auto">
           <SectionHeading
             label="All Collections"
@@ -540,7 +540,7 @@ export default function HomePage() {
             action={
               <Link
                 href="/products"
-                className="hidden sm:inline-flex items-center gap-1.5 text-sm font-bold text-bright_teal_blue hover:text-french_blue transition-colors border border-bright_teal_blue/30 hover:border-bright_teal_blue px-4 py-2 rounded-xl"
+                className="hidden sm:inline-flex items-center gap-1.5 text-sm font-bold text-bright_teal_blue hover:text-french_blue transition-colors border border-bright_teal_blue/30 hover:border-bright_teal_blue px-4 py-2 rounded-xl hover:bg-light_cyan/20"
               >
                 All Products <ArrowRight className="w-4 h-4" />
               </Link>
@@ -550,14 +550,14 @@ export default function HomePage() {
           {loading && (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
               {categorySkeletonKeys.map((key) => (
-                <div key={key} className="h-14 bg-slate-200 rounded-2xl animate-pulse" />
+                <div key={key} className="h-14 bg-light_cyan/30 rounded-2xl animate-pulse" />
               ))}
             </div>
           )}
 
           {!loading && subcategories.length === 0 && (
-            <div className="rounded-3xl text-center py-16 text-slate-400 border border-dashed border-slate-200 bg-white">
-              <Grid3X3 className="w-12 h-12 mx-auto mb-3 opacity-20" />
+            <div className="rounded-3xl text-center py-16 text-slate-400 border border-dashed border-light_cyan bg-white">
+              <Grid3X3 className="w-12 h-12 mx-auto mb-3 opacity-20 text-bright_teal_blue" />
               <p className="text-base font-semibold">No subcategories found.</p>
             </div>
           )}
@@ -567,13 +567,13 @@ export default function HomePage() {
               {subcategories.map((sub, idx) => (
                 <div key={sub.id} className="group relative">
                   {idx < 2 && (
-                    <div className="absolute -top-2 -right-2 z-10 flex items-center gap-0.5 bg-bright_teal_blue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full shadow-md">
+                    <div className="absolute -top-2 -right-2 z-10 flex items-center gap-0.5 bg-gradient-to-r from-french_blue to-bright_teal_blue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full shadow-md shadow-bright_teal_blue/25 ring-1 ring-white">
                       <Flame className="w-2.5 h-2.5" /> New
                     </div>
                   )}
                   <Link
                     href={`/subcategory/${sub.slug}`}
-                    className="flex items-center justify-center text-center px-4 py-3.5 h-full min-h-[56px] rounded-2xl bg-white border border-slate-200 text-sm font-bold text-slate-700 hover:bg-gradient-to-r hover:from-french_blue hover:to-bright_teal_blue hover:text-white hover:border-transparent hover:shadow-lg hover:shadow-bright_teal_blue/20 hover:-translate-y-0.5 transition-all duration-200 leading-snug shadow-sm"
+                    className="flex items-center justify-center text-center px-4 py-3.5 h-full min-h-[56px] rounded-2xl bg-white border border-light_cyan/80 text-sm font-bold text-slate-700 hover:bg-gradient-to-r hover:from-french_blue hover:to-bright_teal_blue hover:text-white hover:border-transparent hover:shadow-lg hover:shadow-bright_teal_blue/25 hover:-translate-y-0.5 transition-all duration-200 leading-snug shadow-sm"
                   >
                     {sub.name}
                   </Link>
@@ -596,18 +596,20 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#010226] via-[#02044b] to-[#010226] border border-french_blue/40 px-8 sm:px-12 py-14 sm:py-20 text-center shadow-2xl">
             {/* Decorative blobs */}
-            <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-turquoise_surf/15 blur-3xl -mr-20 -mt-20 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-deep_twilight-600/30 blur-3xl -ml-20 -mb-20 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-turquoise_surf/20 blur-3xl -mr-20 -mt-20 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-deep_twilight-600/30 blur-3xl -ml-20 -mb-20 pointer-events-none" />
 
             <div className="relative z-10 max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 bg-bright_teal_blue/20 border border-turquoise_surf/30 text-sky_aqua text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 bg-turquoise_surf/15 border border-turquoise_surf/35 text-sky_aqua text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
                 <Zap className="w-3 h-3 text-turquoise_surf" /> Limited Time Offer
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">
                 Ready to Transform<br />
-                <span className="text-sky_aqua">Your Wellness?</span>
+                <span className="bg-gradient-to-r from-sky_aqua via-turquoise_surf to-light_cyan bg-clip-text text-transparent">
+                  Your Wellness?
+                </span>
               </h2>
-              <p className="text-slate-300 text-base sm:text-lg mb-10 leading-relaxed">
+              <p className="text-light_cyan/90 text-base sm:text-lg mb-10 leading-relaxed">
                 Join thousands of satisfied customers who have taken control of
                 their health journey with our premium products.
               </p>
@@ -620,7 +622,7 @@ export default function HomePage() {
                 </a>
                 <a
                   href="/about"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white font-bold rounded-xl hover:bg-white/15 transition-all border border-white/15 backdrop-blur-sm"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white font-bold rounded-xl hover:bg-white/15 transition-all border border-white/20 backdrop-blur-sm"
                 >
                   Learn More
                 </a>
@@ -633,7 +635,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           HOW WE HELP & EDITORIAL PRINCIPLES
       ════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-t border-slate-100">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fbff] to-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto space-y-20">
           
           {/* Section 1: How Official Products Lab Helps Shoppers */}
@@ -652,15 +654,16 @@ export default function HomePage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { area: "Product Clarity", details: "Explains what the product is and what problem it is designed to address", bg: "bg-light_cyan/30", border: "border-turquoise_surf/30", text: "text-french_blue" },
-                { area: "Feature Breakdown", details: "Highlights important features and explains their practical value", bg: "bg-blue-500/5", border: "border-blue-500/10", text: "text-blue-600" },
-                { area: "Buyer Suitability", details: "Helps readers understand who may benefit from the product and who may not need it", bg: "bg-emerald-500/5", border: "border-emerald-500/10", text: "text-emerald-600" },
-                { area: "Pros and Cons", details: "Gives a balanced look at strengths and limitations", bg: "bg-purple-500/5", border: "border-purple-500/10", text: "text-purple-600" },
-                { area: "Pricing Guidance", details: "Points readers toward current price, package, and availability details", bg: "bg-sky_aqua/15", border: "border-sky_aqua/30", text: "text-deep_twilight" },
-                { area: "Product Page Access", details: "Connects readers to dedicated product information pages when they want to learn more", bg: "bg-pink-500/5", border: "border-pink-500/10", text: "text-pink-600" },
+                { area: "Product Clarity", details: "Explains what the product is and what problem it is designed to address", bg: "bg-deep_twilight/5", border: "border-french_blue/20", text: "text-french_blue", accent: "bg-french_blue" },
+                { area: "Feature Breakdown", details: "Highlights important features and explains their practical value", bg: "bg-bright_teal_blue/5", border: "border-bright_teal_blue/25", text: "text-bright_teal_blue", accent: "bg-bright_teal_blue" },
+                { area: "Buyer Suitability", details: "Helps readers understand who may benefit from the product and who may not need it", bg: "bg-blue_green/5", border: "border-blue_green/25", text: "text-blue_green", accent: "bg-blue_green" },
+                { area: "Pros and Cons", details: "Gives a balanced look at strengths and limitations", bg: "bg-turquoise_surf/5", border: "border-turquoise_surf/30", text: "text-[#008fab]", accent: "bg-turquoise_surf" },
+                { area: "Pricing Guidance", details: "Points readers toward current price, package, and availability details", bg: "bg-sky_aqua/10", border: "border-sky_aqua/30", text: "text-[#105a69]", accent: "bg-sky_aqua" },
+                { area: "Product Page Access", details: "Connects readers to dedicated product information pages when they want to learn more", bg: "bg-light_cyan/40", border: "border-frosted_blue/40", text: "text-deep_twilight", accent: "bg-bright_teal_blue" },
               ].map((item) => (
-                <div key={item.area} className={`p-6 rounded-2xl border ${item.border} ${item.bg} hover:shadow-lg transition-all duration-300`}>
-                  <h3 className={`font-bold text-base ${item.text} mb-2`}>{item.area}</h3>
+                <div key={item.area} className={`group p-6 rounded-2xl border ${item.border} ${item.bg} hover:shadow-xl hover:border-turquoise_surf/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden`}>
+                  <div className={`w-1.5 h-6 rounded-full ${item.accent} mb-3`} />
+                  <h3 className={`font-bold text-base ${item.text} mb-2 group-hover:text-bright_teal_blue transition-colors`}>{item.area}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed">{item.details}</p>
                 </div>
               ))}
@@ -681,7 +684,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:p-8">
+            <div className="bg-gradient-to-br from-[#f4fcfe] to-white border border-light_cyan/80 rounded-3xl p-6 sm:p-8 shadow-sm">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 {[
                   { section: "Product Overview", details: "Explains what the product is, what category it belongs to, and what it is designed to do" },
@@ -693,10 +696,12 @@ export default function HomePage() {
                   { section: "Buyer Notes", details: "Shares safety, usage, compatibility, refund, and expectation-related reminders" },
                   { section: "FAQs", details: "Answers common buyer questions in a simple format" },
                 ].map((item) => (
-                  <div key={item.section} className="flex gap-4 items-start">
-                    <div className="w-2 h-2 rounded-full bg-bright_teal_blue mt-2 flex-shrink-0" />
+                  <div key={item.section} className="flex gap-4 items-start group">
+                    <div className="w-5 h-5 rounded-lg bg-light_cyan/80 border border-turquoise_surf/30 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
+                      <div className="w-2 h-2 rounded-full bg-bright_teal_blue" />
+                    </div>
                     <div>
-                      <h3 className="font-bold text-sm text-slate-900 mb-1">{item.section}</h3>
+                      <h3 className="font-bold text-sm text-slate-900 mb-1 group-hover:text-bright_teal_blue transition-colors">{item.section}</h3>
                       <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">{item.details}</p>
                     </div>
                   </div>
@@ -706,17 +711,18 @@ export default function HomePage() {
           </div>
 
           {/* Section 3: Product Information, Not Pressure */}
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#010226] to-[#010113] px-8 py-10 sm:p-12 text-white border border-french_blue/40 shadow-xl">
-            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-turquoise_surf/10 blur-3xl pointer-events-none" />
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#010226] via-[#011836] to-[#010226] px-8 py-10 sm:p-12 text-white border border-french_blue/40 shadow-2xl">
+            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-turquoise_surf/15 blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-deep_twilight-600/25 blur-3xl pointer-events-none" />
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
               <div className="lg:col-span-1 space-y-4">
-                <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-sky_aqua">
+                <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-sky_aqua px-3 py-1 rounded-full bg-french_blue/40 border border-turquoise_surf/30 inline-block">
                   Our Content Approach
                 </span>
                 <h2 className="text-3xl font-black tracking-tight leading-tight">
                   Product Information, Not Pressure
                 </h2>
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-light_cyan/80 leading-relaxed">
                   Official Products Lab is built around helpful product research, not aggressive selling. The content is designed to help shoppers slow down, compare product details, and make a more informed decision before clicking through to a product page.
                 </p>
               </div>
@@ -729,8 +735,11 @@ export default function HomePage() {
                   { principle: "Category Organization", details: "Products are grouped into clear categories for easier browsing" },
                   { principle: "Practical Guidance", details: "Each review focuses on what shoppers should know before buying" },
                 ].map((item) => (
-                  <div key={item.principle} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-turquoise_surf/30 transition-colors">
-                    <h3 className="font-bold text-sm text-turquoise_surf mb-1">{item.principle}</h3>
+                  <div key={item.principle} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-turquoise_surf/40 hover:bg-white/10 transition-all">
+                    <h3 className="font-bold text-sm text-sky_aqua mb-1 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-turquoise_surf" />
+                      {item.principle}
+                    </h3>
                     <p className="text-xs text-slate-300 leading-relaxed">{item.details}</p>
                   </div>
                 ))}
@@ -761,7 +770,7 @@ export default function HomePage() {
                 { topic: "Third-Party Offers", details: "Some product pages may lead to external product websites or checkout pages" },
                 { topic: "Buyer Responsibility", details: "Visitors should review all terms, product details, and checkout information before ordering" },
               ].map((item) => (
-                <div key={item.topic} className="p-5 rounded-2xl border border-slate-100 bg-light_cyan/15 hover:bg-light_cyan/30 transition-colors duration-200">
+                <div key={item.topic} className="p-5 rounded-2xl border border-light_cyan/80 bg-light_cyan/15 hover:bg-light_cyan/35 hover:border-turquoise_surf/30 transition-colors duration-200">
                   <h3 className="font-bold text-sm text-slate-900 mb-1.5">{item.topic}</h3>
                   <p className="text-xs text-slate-500 leading-relaxed">{item.details}</p>
                 </div>

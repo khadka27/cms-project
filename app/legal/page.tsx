@@ -32,7 +32,7 @@ export default function LegalIndexPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="surface-shell rounded-3xl p-8 sm:p-12">
-        <p className="text-xs uppercase tracking-[0.24em] text-orange-600/80">
+        <p className="text-xs uppercase tracking-[0.24em] text-bright_teal_blue font-bold">
           Legal
         </p>
         <h1 className="mt-3 text-4xl sm:text-5xl font-semibold text-slate-900">
@@ -47,13 +47,13 @@ export default function LegalIndexPage() {
             <Link
               key={page.href}
               href={page.href}
-              className="group rounded-2xl border border-orange-100 bg-white/80 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-200 hover:bg-white"
+              className="group rounded-2xl border border-slate-100 bg-white/80 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-turquoise_surf/40 hover:bg-white"
             >
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-slate-900">
                   {page.title}
                 </h2>
-                <span className="text-orange-600 text-sm font-medium transition group-hover:text-orange-700">
+                <span className="text-bright_teal_blue text-sm font-medium transition group-hover:text-french_blue">
                   View
                 </span>
               </div>

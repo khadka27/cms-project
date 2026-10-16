@@ -5,7 +5,7 @@ export default function ExternalLinksPolicyPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Navigation & Transparency
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -20,7 +20,7 @@ export default function ExternalLinksPolicyPage() {
             Official Products Lab is a product information hub created to help shoppers research trending e-commerce products through reviews, buyer guides, category pages, product summaries, and dedicated product information pages.
           </p>
           <p>
-            Our website may include links to external websites, product subdomains, affiliate pages, third-party product offers, checkout pages, advertising pages, seller websites, and other online resources. This External Links Policy explains how external links may appear on <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">OfficialProductsLab.com</a> and what visitors should understand before clicking them.
+            Our website may include links to external websites, product subdomains, affiliate pages, third-party product offers, checkout pages, advertising pages, seller websites, and other online resources. This External Links Policy explains how external links may appear on <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">OfficialProductsLab.com</a> and what visitors should understand before clicking them.
           </p>
 
           <hr className="border-slate-100" />
@@ -148,19 +148,19 @@ export default function ExternalLinksPolicyPage() {
             <p>For paid, sponsored, advertising, or affiliate links, we may use attributes such as:</p>
             <ul className="space-y-2 text-slate-600">
               <li className="flex items-start gap-2">
-                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-orange-600 font-mono mt-0.5">rel=&quot;sponsored&quot;</code>
+                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-bright_teal_blue font-mono mt-0.5">rel=&quot;sponsored&quot;</code>
                 <span>Used for links that are advertisements or paid placements.</span>
               </li>
               <li className="flex items-start gap-2">
-                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-orange-600 font-mono mt-0.5">rel=&quot;nofollow&quot;</code>
+                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-bright_teal_blue font-mono mt-0.5">rel=&quot;nofollow&quot;</code>
                 <span>Used when we do not want to imply endorsement or pass ranking signals.</span>
               </li>
               <li className="flex items-start gap-2">
-                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-orange-600 font-mono mt-0.5">rel=&quot;sponsored nofollow&quot;</code>
+                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-bright_teal_blue font-mono mt-0.5">rel=&quot;sponsored nofollow&quot;</code>
                 <span>Combined attributes for optimal advertising link compliance.</span>
               </li>
               <li className="flex items-start gap-2">
-                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-orange-600 font-mono mt-0.5">rel=&quot;ugc&quot;</code>
+                <code className="text-xs bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-bright_teal_blue font-mono mt-0.5">rel=&quot;ugc&quot;</code>
                 <span>Used for user-generated links (such as comments or forums) if applicable.</span>
               </li>
             </ul>
@@ -284,8 +284,8 @@ export default function ExternalLinksPolicyPage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

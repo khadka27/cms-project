@@ -13,11 +13,11 @@ export default function ContactPage() {
       <div className="max-w-4xl w-full">
         {/* Header Section */}
         <div className="text-center mb-12 fade-in-up">
-          <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+          <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
             Support & Inquiry
           </span>
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
-            Contact <span className="text-orange-600">Us</span>
+            Contact <span className="text-bright_teal_blue">Us</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Official Products Lab is a product information hub created to help shoppers research trending e-commerce products through clear reviews, buyer guides, category pages, product summaries, and dedicated product information pages.
@@ -30,7 +30,7 @@ export default function ContactPage() {
         {/* Quick Contact Card */}
         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 mb-10 fade-in-up">
           <h2 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
-            <Mail className="h-6 w-6 text-orange-500" />
+            <Mail className="h-6 w-6 text-bright_teal_blue" />
             How to Contact Official Products Lab
           </h2>
           <p className="text-slate-600 mb-6">
@@ -39,19 +39,19 @@ export default function ContactPage() {
           
           <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-6 mb-6 max-w-md">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-white rounded-xl shadow-sm text-orange-500">
+              <div className="p-3 bg-white rounded-xl shadow-sm text-bright_teal_blue">
                 <Mail className="h-6 w-6" />
               </div>
               <div>
                 <p className="text-xs text-slate-400 font-extrabold uppercase tracking-wider">Email Support</p>
-                <a href="mailto:support@officialproductslab.com" className="text-lg sm:text-xl font-bold text-orange-600 hover:text-orange-700 transition-colors">
+                <a href="mailto:support@officialproductslab.com" className="text-lg sm:text-xl font-bold text-bright_teal_blue hover:text-french_blue transition-colors">
                   support@officialproductslab.com
                 </a>
               </div>
             </div>
           </div>
 
-          <p className="text-sm font-semibold text-slate-500 border-l-4 border-orange-500 pl-4 py-1">
+          <p className="text-sm font-semibold text-slate-500 border-l-4 border-bright_teal_blue pl-4 py-1">
             We aim to review messages as soon as possible. In most cases, you can expect a response within <span className="text-slate-800">2–5 business days</span>, depending on the nature of your request and message volume.
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function ContactPage() {
           {/* Box 1: What We Cover */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-slate-100">
             <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-              <HelpCircle className="h-5 w-5 text-orange-500" />
+              <HelpCircle className="h-5 w-5 text-bright_teal_blue" />
               What You Can Contact Us About
             </h3>
             <p className="text-sm text-slate-600 mb-4">
@@ -85,7 +85,7 @@ export default function ContactPage() {
           <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-slate-100 flex flex-col justify-between">
             <div>
               <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5 text-teal-600" />
+                <CheckCircle className="h-5 w-5 text-bright_teal_blue" />
                 Response Time Details
               </h3>
               <p className="text-sm text-slate-600 mb-4">
@@ -111,7 +111,7 @@ export default function ContactPage() {
           {/* Section: Product Information Correction Requests */}
           <div className="space-y-4">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-              <FileText className="h-6 w-6 text-orange-500" />
+              <FileText className="h-6 w-6 text-bright_teal_blue" />
               Product Information Correction Requests
             </h3>
             <p className="text-slate-600 text-sm sm:text-base">
@@ -138,11 +138,11 @@ export default function ContactPage() {
           {/* Section: Privacy Requests */}
           <div className="space-y-4">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-              <Lock className="h-6 w-6 text-orange-500" />
+              <Lock className="h-6 w-6 text-bright_teal_blue" />
               Privacy Requests
             </h3>
             <p className="text-slate-600 text-sm sm:text-base">
-              If you have a privacy-related question or want to make a data request, you can contact us at: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">support@officialproductslab.com</a>.
+              If you have a privacy-related question or want to make a data request, you can contact us at: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">support@officialproductslab.com</a>.
             </p>
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
               <p className="text-sm font-semibold text-slate-800 mb-2">Privacy-related requests may include:</p>
@@ -155,7 +155,7 @@ export default function ContactPage() {
               </ul>
             </div>
             <p className="text-slate-500 text-xs sm:text-sm">
-              For more details, please review our <Link href="/legal/privacy" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">Privacy Policy</Link> and <Link href="/legal/cookies" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">Cookie Policy</Link>.
+              For more details, please review our <Link href="/legal/privacy" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">Privacy Policy</Link> and <Link href="/legal/cookies" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">Cookie Policy</Link>.
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export default function ContactPage() {
           {/* Section: Third-Party Product Pages and Offers */}
           <div className="space-y-4">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-              <Globe className="h-6 w-6 text-orange-500" />
+              <Globe className="h-6 w-6 text-bright_teal_blue" />
               Third-Party Product Pages and Offers
             </h3>
             <p className="text-slate-600 text-sm sm:text-base">
@@ -186,11 +186,11 @@ export default function ContactPage() {
           {/* Section: Business and Partnership Inquiries */}
           <div className="space-y-4">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-              <Globe className="h-6 w-6 text-orange-500" />
+              <Globe className="h-6 w-6 text-bright_teal_blue" />
               Business and Partnership Inquiries
             </h3>
             <p className="text-slate-600 text-sm sm:text-base">
-              For business, advertising, sponsored placement, affiliate, or partnership inquiries, you can contact us at: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">support@officialproductslab.com</a>.
+              For business, advertising, sponsored placement, affiliate, or partnership inquiries, you can contact us at: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">support@officialproductslab.com</a>.
             </p>
             <p className="text-slate-600 text-sm">
               Please include your name, company name if applicable, website, product details, and the purpose of your inquiry. We review partnership opportunities carefully and may not respond to every promotional request.
@@ -200,15 +200,15 @@ export default function ContactPage() {
           <hr className="border-slate-100" />
 
           {/* Section: Important Note & Disclaimer */}
-          <div className="space-y-4 bg-orange-50/50 border border-orange-100 rounded-3xl p-6 sm:p-8">
-            <h3 className="text-lg font-bold text-orange-955 flex items-center gap-2">
-              <ShieldAlert className="h-5 w-5 text-orange-600" />
+          <div className="space-y-4 bg-light_cyan/30 border border-turquoise_surf/30 rounded-3xl p-6 sm:p-8">
+            <h3 className="text-lg font-bold text-deep_twilight flex items-center gap-2">
+              <ShieldAlert className="h-5 w-5 text-bright_teal_blue" />
               Important Security Note
             </h3>
-            <p className="text-orange-900/80 text-xs sm:text-sm leading-relaxed">
+            <p className="text-french_blue text-xs sm:text-sm leading-relaxed">
               Please do not send sensitive personal information through email or contact forms unless necessary. This includes payment details, passwords, private medical information, government identification numbers, or confidential account information.
             </p>
-            <p className="text-orange-900/80 text-xs sm:text-sm leading-relaxed font-semibold">
+            <p className="text-french_blue text-xs sm:text-sm leading-relaxed font-semibold">
               Official Products Lab provides product reviews, buyer guides, product category pages, and product information resources for general research purposes only. Our content is not professional advice, and visitors should always verify current product details, pricing, terms, and policies before making a purchase decision.
             </p>
           </div>
@@ -222,8 +222,8 @@ export default function ContactPage() {
             </h3>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-6 space-y-2 text-slate-800 text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
             </div>
           </div>
 

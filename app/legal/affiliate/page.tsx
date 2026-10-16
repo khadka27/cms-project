@@ -4,7 +4,7 @@ export default function AffiliateDisclosurePage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Disclosures & Transparency
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -19,7 +19,7 @@ export default function AffiliateDisclosurePage() {
             Official Products Lab is a product information hub that helps shoppers research trending e-commerce products through reviews, product summaries, buyer guides, category pages, and links to dedicated product information pages.
           </p>
           <p>
-            Some pages on <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">OfficialProductsLab.com</a> may contain affiliate links, product links, sponsored links, tracking links, or links to third-party product offers. This means we may earn a commission if you click a link and make a purchase through certain pages, at no extra cost to you.
+            Some pages on <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">OfficialProductsLab.com</a> may contain affiliate links, product links, sponsored links, tracking links, or links to third-party product offers. This means we may earn a commission if you click a link and make a purchase through certain pages, at no extra cost to you.
           </p>
           <p className="font-semibold text-slate-900">
             This Affiliate Disclosure explains how affiliate links and commercial relationships may appear on our website.
@@ -296,8 +296,8 @@ export default function AffiliateDisclosurePage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

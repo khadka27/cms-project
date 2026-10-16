@@ -15,21 +15,22 @@ import {
   Info
 } from "lucide-react";
 
-// Curated harmonious preset colors
+// Curated harmonious preset colors from User's Ocean Theme
 const COLOR_PRESETS = [
-  { name: "Electric Purple", hex: "#7d2ae8" },
-  { name: "Sunset Orange", hex: "#ff5e36" },
-  { name: "Emerald Green", hex: "#10b981" },
-  { name: "Neon Pink", hex: "#ff007f" },
-  { name: "Ocean Cyan", hex: "#00bfff" },
-  { name: "Golden Amber", hex: "#f5a623" },
-  { name: "Royal Blue", hex: "#2563eb" },
-  { name: "Deep Crimson", hex: "#dc2626" },
+  { name: "Deep Twilight", hex: "#03045e" },
+  { name: "French Blue", hex: "#023e8a" },
+  { name: "Bright Teal Blue", hex: "#0077b6" },
+  { name: "Blue Green", hex: "#0096c7" },
+  { name: "Turquoise Surf", hex: "#00b4d8" },
+  { name: "Sky Aqua", hex: "#48cae4" },
+  { name: "Frosted Blue", hex: "#90e0ef" },
+  { name: "Ice Blue", hex: "#ade8f4" },
+  { name: "Light Cyan", hex: "#caf0f8" },
 ];
 
 export default function ButtonsPlayground() {
   // State variables for button customization
-  const [btnColor, setBtnColor] = useState("#7d2ae8");
+  const [btnColor, setBtnColor] = useState("#0077b6");
   const [textColor, setTextColor] = useState("#ffffff");
   const [buttonText, setButtonText] = useState("Hover Me");
   const [borderRadius, setBorderRadius] = useState(6);

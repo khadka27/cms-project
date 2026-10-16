@@ -5,7 +5,7 @@ export default function EditorialPolicyPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Editorial & Standards
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -20,7 +20,7 @@ export default function EditorialPolicyPage() {
             Official Products Lab is a product information hub created to help shoppers research trending e-commerce products before visiting dedicated product information pages, product subdomains, affiliate offers, or third-party product pages.
           </p>
           <p>
-            This Editorial Policy explains how we create, organize, review, and update content on <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">OfficialProductsLab.com</a>. Our goal is to provide clear, practical, and buyer-focused product information while avoiding unsupported claims, fake proof, exaggerated promises, and misleading product statements.
+            This Editorial Policy explains how we create, organize, review, and update content on <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">OfficialProductsLab.com</a>. Our goal is to provide clear, practical, and buyer-focused product information while avoiding unsupported claims, fake proof, exaggerated promises, and misleading product statements.
           </p>
 
           <hr className="border-slate-100" />
@@ -280,7 +280,7 @@ export default function EditorialPolicyPage() {
               Commercial relationships may influence which products are available for coverage or featured placement. However, our editorial goal is to present product information in a way that is clear, practical, and useful for readers.
             </p>
             <p className="text-slate-500 text-xs sm:text-sm">
-              For more information, readers can review our <Link href="/legal/affiliate" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">Affiliate Disclosure</Link> and <Link href="/legal/advertising" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">Advertising Disclosure</Link> pages.
+              For more information, readers can review our <Link href="/legal/affiliate" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">Affiliate Disclosure</Link> and <Link href="/legal/advertising" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">Advertising Disclosure</Link> pages.
             </p>
           </div>
 
@@ -323,7 +323,7 @@ export default function EditorialPolicyPage() {
               Corrections Policy
             </h2>
             <p>
-              We welcome correction requests from readers, product owners, advertisers, affiliate partners, or other relevant parties. If you believe a page contains outdated, incomplete, incorrect, unclear, or misleading information, please review our <Link href="/legal/corrections" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">Corrections Policy</Link> and contact us.
+              We welcome correction requests from readers, product owners, advertisers, affiliate partners, or other relevant parties. If you believe a page contains outdated, incomplete, incorrect, unclear, or misleading information, please review our <Link href="/legal/corrections" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">Corrections Policy</Link> and contact us.
             </p>
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 space-y-2">
               <p className="text-sm font-semibold text-slate-800">Please include:</p>
@@ -335,7 +335,7 @@ export default function EditorialPolicyPage() {
               </ul>
             </div>
             <p className="text-sm">
-              Correction requests can be sent to: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">support@officialproductslab.com</a>
+              Correction requests can be sent to: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">support@officialproductslab.com</a>
             </p>
           </div>
 
@@ -366,8 +366,8 @@ export default function EditorialPolicyPage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

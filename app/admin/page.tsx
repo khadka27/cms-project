@@ -48,8 +48,8 @@ export default function AdminDashboard() {
       icon: Package,
       href: '/admin/products',
       newHref: '/admin/products/new',
-      gradient: 'from-amber-500 to-orange-500',
-      iconBg: 'bg-amber-100 text-amber-600',
+      gradient: 'from-french_blue to-bright_teal_blue',
+      iconBg: 'bg-light_cyan text-deep_twilight',
     },
     {
       label: 'Categories',
@@ -57,8 +57,8 @@ export default function AdminDashboard() {
       icon: FolderOpen,
       href: '/admin/categories',
       newHref: '/admin/categories/new',
-      gradient: 'from-orange-500 to-teal-500',
-      iconBg: 'bg-orange-100 text-orange-600',
+      gradient: 'from-bright_teal_blue to-turquoise_surf',
+      iconBg: 'bg-light_cyan text-french_blue',
     },
     {
       label: 'Subcategories',
@@ -66,8 +66,8 @@ export default function AdminDashboard() {
       icon: Layers,
       href: '/admin/subcategories',
       newHref: '/admin/subcategories/new',
-      gradient: 'from-orange-500 to-orange-500',
-      iconBg: 'bg-orange-100 text-orange-600',
+      gradient: 'from-deep_twilight to-french_blue',
+      iconBg: 'bg-light_cyan text-deep_twilight',
     },
     {
       label: 'Hero Settings',
@@ -75,16 +75,16 @@ export default function AdminDashboard() {
       icon: Settings,
       href: '/admin/hero-settings',
       newHref: '/admin/hero-settings',
-      gradient: 'from-violet-500 to-purple-500',
-      iconBg: 'bg-violet-100 text-violet-600',
+      gradient: 'from-french_blue to-turquoise_surf',
+      iconBg: 'bg-light_cyan text-french_blue',
     },
   ];
 
   const quickActions = [
-    { label: 'New Product',      href: '/admin/products/new',      color: 'bg-amber-500 hover:bg-amber-600',   icon: Package },
-    { label: 'New Subcategory',  href: '/admin/subcategories/new', color: 'bg-orange-500 hover:bg-orange-600',       icon: Layers },
-    { label: 'New Category',     href: '/admin/categories/new',    color: 'bg-orange-600 hover:bg-orange-700', icon: FolderOpen },
-    { label: 'Hero Settings',    href: '/admin/hero-settings',     color: 'bg-violet-500 hover:bg-violet-600', icon: Settings },
+    { label: 'New Product',      href: '/admin/products/new',      color: 'bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 text-white', icon: Package },
+    { label: 'New Subcategory',  href: '/admin/subcategories/new', color: 'bg-gradient-to-r from-bright_teal_blue to-turquoise_surf hover:brightness-110 text-white', icon: Layers },
+    { label: 'New Category',     href: '/admin/categories/new',    color: 'bg-deep_twilight hover:bg-french_blue text-white', icon: FolderOpen },
+    { label: 'Hero Settings',    href: '/admin/hero-settings',     color: 'bg-french_blue hover:bg-bright_teal_blue text-white', icon: Settings },
   ];
 
   const hour = new Date().getHours();
@@ -95,19 +95,19 @@ export default function AdminDashboard() {
     <div className="space-y-6 max-w-6xl">
 
       {/* Welcome banner */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-orange-600 via-orange-700 to-teal-700 rounded-2xl p-6 text-white shadow-lg shadow-orange-900/20">
+      <div className="relative overflow-hidden bg-gradient-to-r from-deep_twilight via-french_blue to-bright_teal_blue rounded-2xl p-6 text-white shadow-lg shadow-bright_teal_blue/20">
         <div className="absolute -top-8 -right-8 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-orange-400/20 rounded-full blur-xl" />
+        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-turquoise_surf/20 rounded-full blur-xl" />
         <div className="relative z-10 flex items-center justify-between flex-wrap gap-4">
           <div>
-            <p className="text-orange-200 text-sm font-medium">{greeting},</p>
+            <p className="text-sky_aqua text-sm font-medium">{greeting},</p>
             <h1 className="text-2xl sm:text-3xl font-bold mt-0.5">{name}</h1>
-            <p className="text-orange-200/80 text-sm mt-1">
+            <p className="text-sky_aqua/80 text-sm mt-1">
               You have <span className="text-white font-semibold">{counts.products}</span> products across <span className="text-white font-semibold">{counts.categories}</span> categories.
             </p>
           </div>
           <div className="flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
-            <Activity className="w-4 h-4 text-orange-200" />
+            <Activity className="w-4 h-4 text-sky_aqua" />
             <span className="text-sm font-medium">Store Active</span>
           </div>
         </div>

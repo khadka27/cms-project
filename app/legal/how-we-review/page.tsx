@@ -5,7 +5,7 @@ export default function HowWeReviewPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Review Methodology
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -392,7 +392,7 @@ export default function HowWeReviewPage() {
               Product information may change after a review is published. Sellers may update pricing, discounts, product pages, claims, refund policies, shipping information, package details, or availability.
             </p>
             <p>
-              We may update reviews when new details emerge, links break, claims need softening, or correction requests are received. If you notice outdated or incorrect information, please review our <Link href="/legal/corrections" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">Corrections Policy</Link> and contact us with the product name, URL, and a description of the issue.
+              We may update reviews when new details emerge, links break, claims need softening, or correction requests are received. If you notice outdated or incorrect information, please review our <Link href="/legal/corrections" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">Corrections Policy</Link> and contact us with the product name, URL, and a description of the issue.
             </p>
           </div>
 
@@ -426,8 +426,8 @@ export default function HowWeReviewPage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

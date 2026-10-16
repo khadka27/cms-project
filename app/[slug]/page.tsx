@@ -149,7 +149,7 @@ export default async function ProductPage({
   const faqs = extractFaqsFromHtml(product.detailedDescription);
 
   return (
-    <main className="min-h-screen bg-[#FAF7F2]">
+    <main className="min-h-screen bg-[#f8fbff]">
       <ProductFirstH1HashUrl slug={firstH1Slug} />
       <ProductSchema
         name={product.name}
@@ -218,7 +218,7 @@ export default async function ProductPage({
           <div className="mt-6 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             {/* Left: Image Gallery */}
             <div className="lg:col-span-7 xl:col-span-7">
-              <div className="relative aspect-[16/10] sm:aspect-[16/9] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden border border-white shadow-2xl shadow-orange-500/10 bg-white">
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden border border-white shadow-2xl shadow-french_blue/10 bg-white">
                 <Image
                   src={product.image}
                   alt={product.imageAlt || product.name}
@@ -227,7 +227,7 @@ export default async function ProductPage({
                   priority
                 />
                 <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-col gap-2">
-                  <span className="px-4 py-1.5 bg-white/90 backdrop-blur-md rounded-full text-[10px] sm:text-xs font-bold text-orange-500 uppercase tracking-widest shadow-sm border border-orange-500/30">
+                  <span className="px-4 py-1.5 bg-white/90 backdrop-blur-md rounded-full text-[10px] sm:text-xs font-bold text-french_blue uppercase tracking-widest shadow-sm border border-turquoise_surf/30">
                     Product
                   </span>
                 </div>
@@ -235,25 +235,25 @@ export default async function ProductPage({
 
               {/* Trust Markers */}
               <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8">
-                <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-orange-500/40 transition-colors shadow-sm">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-orange-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                    <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
+                <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-turquoise_surf/40 transition-colors shadow-sm">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-light_cyan/40 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-bright_teal_blue" />
                   </div>
                   <span className="text-[10px] sm:text-xs font-bold text-slate-900 uppercase tracking-tight">
                     Pure Quality
                   </span>
                 </div>
-                <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-orange-500/40 transition-colors shadow-sm">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-orange-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                    <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
+                <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-turquoise_surf/40 transition-colors shadow-sm">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-light_cyan/40 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-bright_teal_blue" />
                   </div>
                   <span className="text-[10px] sm:text-xs font-bold text-slate-900 uppercase tracking-tight">
                     Fast Shipping
                   </span>
                 </div>
-                <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-orange-500/40 transition-colors shadow-sm">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-orange-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                    <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
+                <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-turquoise_surf/40 transition-colors shadow-sm">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-light_cyan/40 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 text-bright_teal_blue" />
                   </div>
                   <span className="text-[10px] sm:text-xs font-bold text-slate-900 uppercase tracking-tight">
                     Easy Returns
@@ -269,7 +269,7 @@ export default async function ProductPage({
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star
                       key={s}
-                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400"
+                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-turquoise_surf text-turquoise_surf"
                     />
                   ))}
                 </div>
@@ -283,7 +283,7 @@ export default async function ProductPage({
               </h1>
 
               <div className="flex items-baseline gap-3 mb-6 sm:mb-8">
-                <span className="text-4xl sm:text-5xl font-black text-orange-500 tracking-tighter">
+                <span className="text-4xl sm:text-5xl font-black text-bright_teal_blue tracking-tighter">
                   ${product.price.toFixed(2)}
                 </span>
                 <span className="text-sm font-bold text-slate-400 uppercase tracking-widest line-through decoration-2">
@@ -292,7 +292,7 @@ export default async function ProductPage({
               </div>
 
               {/* Short description */}
-              <p className="text-slate-500 text-sm sm:text-base leading-relaxed border-l-4 border-orange-500/40 pl-4 italic mb-5">
+              <p className="text-slate-500 text-sm sm:text-base leading-relaxed border-l-4 border-bright_teal_blue/40 pl-4 italic mb-5">
                 {product.shortDescription}
               </p>
 
@@ -304,7 +304,7 @@ export default async function ProductPage({
                       href={product.buyNowLink}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-amber-300/40 hover:-translate-y-0.5 text-sm sm:text-base"
+                      className="flex items-center justify-center gap-2 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf hover:brightness-110 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-bright_teal_blue/25 hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
                     >
                       <ShoppingCart className="w-4 h-4" /> Check Current Price & Availability
                     </a>
@@ -314,7 +314,7 @@ export default async function ProductPage({
                       href={product.readMoreLink}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base"
+                      className="flex items-center justify-center gap-2 bg-deep_twilight hover:bg-french_blue text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
                     >
                       <ExternalLink className="w-4 h-4" />
                       Explore the Full Product Guide
@@ -332,7 +332,7 @@ export default async function ProductPage({
                   <ul className="space-y-1.5 sm:space-y-2">
                     {keyFeaturesList.slice(0, 5).map((feature, i) => (
                       <li key={i} className="flex items-start gap-2.5">
-                        <CheckCircle2 className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-bright_teal_blue mt-0.5 flex-shrink-0" />
                         <span className="text-sm text-slate-700 leading-relaxed">
                           {feature}
                         </span>
@@ -357,7 +357,7 @@ export default async function ProductPage({
                 {/* Author Info at Top */}
                 {product.author && (
                   <div className="mb-10 p-5 sm:p-6 bg-white rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-1 h-full bg-orange-500" />
+                    <div className="absolute top-0 left-0 w-1 h-full bg-bright_teal_blue" />
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
                       <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shadow-md border-4 border-white flex-shrink-0 ring-1 ring-slate-100">
                         <AuthorAvatar
@@ -371,9 +371,9 @@ export default async function ProductPage({
                           <span className="text-lg font-black text-slate-900 tracking-tight">
                             {product.author.name}
                           </span>
-                          <div className="flex items-center gap-1 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-100">
-                            <CheckCircle2 className="w-3 h-3 text-orange-600" />
-                            <span className="text-[10px] font-bold text-orange-700 uppercase tracking-widest">
+                          <div className="flex items-center gap-1 bg-light_cyan/40 px-2 py-0.5 rounded-full border border-turquoise_surf/30">
+                            <CheckCircle2 className="w-3 h-3 text-french_blue" />
+                            <span className="text-[10px] font-bold text-french_blue uppercase tracking-widest">
                               Verified Expert
                             </span>
                           </div>
@@ -381,7 +381,7 @@ export default async function ProductPage({
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6">
                           <div className="flex items-center gap-2 text-slate-500">
-                            <Zap className="w-3.5 h-3.5 text-amber-500" />
+                            <Zap className="w-3.5 h-3.5 text-bright_teal_blue" />
                             <span className="text-xs font-medium">
                               {product.author.title || "Health Researcher"}
                             </span>
@@ -404,7 +404,7 @@ export default async function ProductPage({
 
                         <div className="mt-3 flex flex-wrap items-center gap-4 border-t border-slate-50 pt-3">
                           <div className="flex items-center gap-1.5">
-                            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                            <Star className="w-3.5 h-3.5 text-turquoise_surf fill-turquoise_surf" />
                             <span className="text-xs font-bold text-slate-700">
                               4.9/5
                             </span>
@@ -414,7 +414,7 @@ export default async function ProductPage({
                           </div>
                           <div className="h-3 w-px bg-slate-200" />
                           <div className="flex items-center gap-1.5">
-                            <ShieldCheck className="w-3.5 h-3.5 text-orange-500" />
+                            <ShieldCheck className="w-3.5 h-3.5 text-bright_teal_blue" />
                             <span className="text-xs font-bold text-slate-700">
                               12+ yrs
                             </span>
@@ -424,7 +424,7 @@ export default async function ProductPage({
                           </div>
                           <div className="h-3 w-px bg-slate-200" />
                           <div className="flex items-center gap-1.5">
-                            <ShoppingCart className="w-3.5 h-3.5 text-emerald-500" />
+                            <ShoppingCart className="w-3.5 h-3.5 text-bright_teal_blue" />
                             <span className="text-xs font-bold text-slate-700">
                               500+
                             </span>
@@ -464,18 +464,18 @@ export default async function ProductPage({
 
                   {/* Ingredients Sidebar Widget */}
                   {product.ingredients && product.ingredients.length > 0 && (
-                    <div className="mt-8 bg-[#2C2C2C] rounded-[2rem] p-6 text-white shadow-xl shadow-slate-900/10 overflow-hidden relative group">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 blur-3xl -mr-16 -mt-16 group-hover:bg-orange-500/20 transition-colors" />
+                    <div className="mt-8 bg-[#010226] rounded-[2rem] p-6 text-white shadow-xl shadow-slate-900/10 overflow-hidden relative group border border-french_blue/30">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-turquoise_surf/15 blur-3xl -mr-16 -mt-16 group-hover:bg-turquoise_surf/25 transition-colors" />
 
                       <div className="flex items-center gap-3 mb-6 relative z-10">
-                        <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center ring-1 ring-orange-500/30">
-                          <FlaskConical className="w-5 h-5 text-orange-400" />
+                        <div className="w-10 h-10 rounded-xl bg-bright_teal_blue/20 flex items-center justify-center ring-1 ring-turquoise_surf/30">
+                          <FlaskConical className="w-5 h-5 text-sky_aqua" />
                         </div>
                         <div>
                           <h3 className="text-lg font-bold leading-tight">
                             Active Ingredients
                           </h3>
-                          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-0.5">
+                          <p className="text-[10px] text-sky_aqua uppercase tracking-widest font-bold mt-0.5">
                             Potency & Purity
                           </p>
                         </div>
@@ -487,7 +487,7 @@ export default async function ProductPage({
                             key={ing.id}
                             className="flex items-center gap-4 group/item"
                           >
-                            <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-slate-800 border border-slate-700/50 flex-shrink-0 group-hover/item:border-orange-500/50 transition-colors">
+                            <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-slate-800 border border-slate-700/50 flex-shrink-0 group-hover/item:border-turquoise_surf/50 transition-colors">
                               <Image
                                 src={ing.image || "/ingredient-placeholder.png"}
                                 alt={ing.name}
@@ -496,7 +496,7 @@ export default async function ProductPage({
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-bold text-white group-hover/item:text-orange-400 transition-colors">
+                              <p className="text-sm font-bold text-white group-hover/item:text-sky_aqua transition-colors">
                                 {ing.name}
                               </p>
                               
@@ -504,7 +504,7 @@ export default async function ProductPage({
                                 <ul className="mt-2 space-y-1">
                                   {ing.keyFeatures.split('\n').filter(f => f.trim()).slice(0, 2).map((feature, i) => (
                                     <li key={i} className="flex items-start gap-1.5">
-                                      <CheckCircle2 className="w-3 h-3 text-orange-500 mt-0.5 flex-shrink-0" />
+                                      <CheckCircle2 className="w-3 h-3 text-turquoise_surf mt-0.5 flex-shrink-0" />
                                       <span className="text-[11px] text-slate-300 line-clamp-1">{feature.trim()}</span>
                                     </li>
                                   ))}
@@ -513,7 +513,7 @@ export default async function ProductPage({
 
                               {!ing.keyFeatures && (
                                 <div className="flex items-center gap-1.5 mt-1">
-                                  <Activity className="w-3 h-3 text-orange-500" />
+                                  <Activity className="w-3 h-3 text-turquoise_surf" />
                                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
                                     Bioavailable Form
                                   </span>
@@ -524,17 +524,17 @@ export default async function ProductPage({
                         ))}
                       </div>
 
-                      <div className="mt-8 pt-6 border-t border-slate-700 relative z-10">
+                      <div className="mt-8 pt-6 border-t border-french_blue/40 relative z-10">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-bold text-slate-400">
+                          <span className="text-xs font-bold text-slate-300">
                             Scientific Trust
                           </span>
-                          <span className="text-xs font-black text-orange-400">
+                          <span className="text-xs font-black text-sky_aqua">
                             99.8%
                           </span>
                         </div>
                         <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                          <div className="h-full bg-gradient-to-r from-orange-600 to-orange-400 w-[99.8%]" />
+                          <div className="h-full bg-gradient-to-r from-french_blue to-turquoise_surf w-[99.8%]" />
                         </div>
                       </div>
                     </div>
@@ -552,16 +552,16 @@ export default async function ProductPage({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-8 sm:mb-12">
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                  <Zap className="w-3 h-3" /> Expert Recommendation
+                <div className="inline-flex items-center gap-2 bg-light_cyan/50 text-french_blue px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-turquoise_surf/30">
+                  <Zap className="w-3 h-3 text-bright_teal_blue" /> Expert Recommendation
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                  Complete Your <span className="text-orange-500">Regimen</span>
+                  Complete Your <span className="text-bright_teal_blue">Regimen</span>
                 </h2>
               </div>
               <Link
                 href="/products"
-                className="hidden sm:flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-orange-500 transition-colors group"
+                className="hidden sm:flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-bright_teal_blue transition-colors group"
               >
                 View all collection{" "}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

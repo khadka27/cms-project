@@ -4,7 +4,7 @@ export default function DisclaimerPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Disclaimers & Limits
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -19,7 +19,7 @@ export default function DisclaimerPage() {
             Official Products Lab is a product information hub created to help shoppers research trending e-commerce products through reviews, buyer guides, category pages, product summaries, and links to dedicated product information pages.
           </p>
           <p>
-            The information on <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">OfficialProductsLab.com</a> is provided for general informational and product research purposes only. By using this website, you understand and agree that the content should not be treated as professional advice, product guarantees, or a replacement for your own research.
+            The information on <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">OfficialProductsLab.com</a> is provided for general informational and product research purposes only. By using this website, you understand and agree that the content should not be treated as professional advice, product guarantees, or a replacement for your own research.
           </p>
 
           <hr className="border-slate-100" />
@@ -250,7 +250,7 @@ export default function DisclaimerPage() {
               This means we may earn a commission or receive compensation if you click certain links, visit product pages, or make purchases through those links, at no extra cost to you.
             </p>
             <p>
-              Commercial relationships may influence which products are featured or linked on the website, but they do not guarantee that a product is right for every visitor. Please review our <Link href="/legal/affiliate" className="text-orange-500 hover:text-orange-600 transition-colors font-bold">Affiliate Disclosure</Link> and <Link href="/legal/advertising" className="text-orange-500 hover:text-orange-600 transition-colors font-bold">Advertising Disclosure</Link> pages for more details.
+              Commercial relationships may influence which products are featured or linked on the website, but they do not guarantee that a product is right for every visitor. Please review our <Link href="/legal/affiliate" className="text-bright_teal_blue hover:text-french_blue transition-colors font-bold">Affiliate Disclosure</Link> and <Link href="/legal/advertising" className="text-bright_teal_blue hover:text-french_blue transition-colors font-bold">Advertising Disclosure</Link> pages for more details.
             </p>
           </div>
 
@@ -365,8 +365,8 @@ export default function DisclaimerPage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

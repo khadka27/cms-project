@@ -38,7 +38,7 @@ export default function TestimonialSlider({ testimonials }: TestimonialSliderPro
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
-    <section className="py-20 sm:py-32 bg-[#FAF7F2] relative overflow-hidden">
+    <section className="py-20 sm:py-32 bg-gradient-to-b from-[#f8fbff] to-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-turquoise_surf/10 rounded-full blur-3xl pointer-events-none -mr-48 -mt-48" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-bright_teal_blue/10 rounded-full blur-3xl pointer-events-none -ml-48 -mb-48" />
 

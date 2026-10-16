@@ -29,16 +29,16 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
   const { data: session } = useSession();
 
   return (
-    <div className="flex flex-col h-full bg-[#0f1117] text-white">
+    <div className="flex flex-col h-full bg-[#010226] text-white border-r border-french_blue/30">
       {/* Brand */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg flex items-center justify-center shadow-lg shadow-orange-900/50">
+          <div className="w-8 h-8 bg-gradient-to-br from-french_blue to-bright_teal_blue rounded-lg flex items-center justify-center shadow-lg shadow-bright_teal_blue/30">
             <ShoppingBag className="w-4 h-4 text-white" />
           </div>
           <div>
             <p className="font-bold text-sm tracking-tight">OfficialProductsLab</p>
-            <p className="text-[10px] text-white/40 uppercase tracking-widest">Admin Panel</p>
+            <p className="text-[10px] text-sky_aqua uppercase tracking-widest font-semibold">Admin Panel</p>
           </div>
         </div>
         {onClose && (
@@ -52,14 +52,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
       {session?.user && (
         <div className="px-4 py-3 mx-3 mt-3 rounded-xl bg-white/5 border border-white/8">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-orange-600 to-teal-700 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 bg-gradient-to-br from-deep_twilight to-bright_teal_blue rounded-full flex items-center justify-center flex-shrink-0">
               <User className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">
                 {session.user.name || session.user.email}
               </p>
-              <p className="text-[10px] text-orange-400 uppercase tracking-wider font-semibold">
+              <p className="text-[10px] text-sky_aqua uppercase tracking-wider font-semibold">
                 {(session.user as any)?.role || "Admin"}
               </p>
             </div>
@@ -81,13 +81,13 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
               onClick={onClose}
               className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
                 active
-                  ? "bg-orange-600/20 text-white border border-orange-500/30"
+                  ? "bg-bright_teal_blue/20 text-white border border-turquoise_surf/30 shadow-sm"
                   : "text-white/50 hover:bg-white/6 hover:text-white"
               }`}
             >
-              <Icon className={`w-4 h-4 flex-shrink-0 ${active ? "text-orange-400" : item.color + " opacity-60 group-hover:opacity-100"}`} />
+              <Icon className={`w-4 h-4 flex-shrink-0 ${active ? "text-sky_aqua" : item.color + " opacity-60 group-hover:opacity-100"}`} />
               <span className="flex-1">{item.label}</span>
-              {active && <ChevronRight className="w-3.5 h-3.5 text-orange-400" />}
+              {active && <ChevronRight className="w-3.5 h-3.5 text-sky_aqua" />}
             </Link>
           );
         })}

@@ -12,7 +12,7 @@ export default function AboutPage() {
         {/* Header Section */}
         <div className="text-center mb-16 fade-in-up">
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-            About <span className="text-orange-600">OfficialProductsLab</span>
+            About <span className="text-bright_teal_blue">OfficialProductsLab</span>
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Elevating your lifestyle with wellness-first living and curated health products. 
@@ -32,13 +32,13 @@ export default function AboutPage() {
 
             <h2 className="text-2xl font-bold text-slate-800 mb-4 mt-8">Why Choose Us?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <div className="p-6 bg-orange-50/50 rounded-2xl border border-orange-100 transition-all hover:shadow-md hover:bg-orange-50">
-                <h3 className="font-semibold text-orange-900 mb-2">Curated Quality</h3>
-                <p className="text-sm text-orange-800/80">Every product is verified for efficacy, safety, and premium ingredients.</p>
+              <div className="p-6 bg-light_cyan/30 rounded-2xl border border-turquoise_surf/30 transition-all hover:shadow-md hover:bg-light_cyan/50">
+                <h3 className="font-semibold text-deep_twilight mb-2">Curated Quality</h3>
+                <p className="text-sm text-french_blue">Every product is verified for efficacy, safety, and premium ingredients.</p>
               </div>
-              <div className="p-6 bg-teal-50/50 rounded-2xl border border-teal-100 transition-all hover:shadow-md hover:bg-teal-50">
-                <h3 className="font-semibold text-teal-900 mb-2">Expert Backed</h3>
-                <p className="text-sm text-teal-800/80">Our catalog is reviewed and approved by certified health professionals.</p>
+              <div className="p-6 bg-sky_aqua/15 rounded-2xl border border-sky_aqua/30 transition-all hover:shadow-md hover:bg-sky_aqua/25">
+                <h3 className="font-semibold text-deep_twilight mb-2">Expert Backed</h3>
+                <p className="text-sm text-french_blue">Our catalog is reviewed and approved by certified health professionals.</p>
               </div>
             </div>
           </div>

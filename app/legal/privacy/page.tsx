@@ -4,7 +4,7 @@ export default function PrivacyPolicyPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 sm:p-12">
-        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-orange-500 mb-3 block">
+        <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-bright_teal_blue mb-3 block">
           Legal & Transparency
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
           <p>
-            Official Products Lab (“Official Products Lab,” “we,” “our,” or “us”) respects your privacy. This Privacy Policy explains how we collect, use, share, and protect information when you visit <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 font-bold transition-colors">OfficialProductsLab.com</a>, browse our product reviews, use category pages, subscribe to updates, submit a form, or click links to dedicated product information pages or third-party product offers.
+            Official Products Lab (“Official Products Lab,” “we,” “our,” or “us”) respects your privacy. This Privacy Policy explains how we collect, use, share, and protect information when you visit <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">OfficialProductsLab.com</a>, browse our product reviews, use category pages, subscribe to updates, submit a form, or click links to dedicated product information pages or third-party product offers.
           </p>
           <p>
             This Privacy Policy applies to OfficialProductsLab.com and any related pages, services, or product subdomains that link to this policy.
@@ -424,8 +424,8 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="bg-[#FAF7F2] border border-slate-100 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Official Products Lab</p>
-              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">support@officialproductslab.com</a></p>
-              <p>Website: <a href="https://officialproductslab.com" className="text-orange-500 hover:text-orange-600 transition-colors">https://officialproductslab.com</a></p>
+              <p>Email: <a href="mailto:support@officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@officialproductslab.com</a></p>
+              <p>Website: <a href="https://officialproductslab.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://officialproductslab.com</a></p>
             </div>
           </div>
 

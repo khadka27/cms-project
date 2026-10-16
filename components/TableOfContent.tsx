@@ -84,13 +84,13 @@ export default function TableOfContents({ contentSelector = '.product-content' }
       {/* ── Desktop sidebar TOC ── */}
       <nav className="hidden lg:block sticky top-24 self-start">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="h-0.5 bg-gradient-to-r from-orange-500 to-teal-500" />
+          <div className="h-0.5 bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
           <button
             onClick={() => setOpen(v => !v)}
-            className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900 border-b border-gray-50 transition-colors hover:bg-gray-50"
+            className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900 border-b border-gray-50 transition-colors hover:bg-gray-50 cursor-pointer"
           >
             <span className="flex items-center gap-2">
-              <List className="w-4 h-4 text-orange-600" />
+              <List className="w-4 h-4 text-bright_teal_blue" />
               Contents
             </span>
             {open ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
@@ -101,11 +101,11 @@ export default function TableOfContents({ contentSelector = '.product-content' }
                 <li key={item.id}>
                   <button
                     onClick={() => scrollTo(item.id)}
-                    className={`w-full text-left px-3 py-1.5 rounded-lg text-sm transition-all duration-150 ${
+                    className={`w-full text-left px-3 py-1.5 rounded-lg text-sm transition-all duration-150 cursor-pointer ${
                       item.level === 3 ? 'pl-6' : ''
                     } ${
                       activeId === item.id
-                        ? 'bg-orange-50 text-orange-700 font-medium'
+                        ? 'bg-light_cyan/40 text-french_blue font-medium'
                         : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'
                     }`}
                   >
@@ -124,13 +124,13 @@ export default function TableOfContents({ contentSelector = '.product-content' }
       {/* ── Mobile collapsible TOC ── */}
       <div className="xl:hidden mb-6">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="h-0.5 bg-gradient-to-r from-orange-500 to-teal-500" />
+          <div className="h-0.5 bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
           <button
             onClick={() => setOpen(v => !v)}
-            className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900"
+            className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900 cursor-pointer"
           >
             <span className="flex items-center gap-2">
-              <List className="w-4 h-4 text-orange-600" />
+              <List className="w-4 h-4 text-bright_teal_blue" />
               Table of Contents
             </span>
             {open ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
@@ -141,11 +141,11 @@ export default function TableOfContents({ contentSelector = '.product-content' }
                 <li key={item.id}>
                   <button
                     onClick={() => scrollTo(item.id)}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all cursor-pointer ${
                       item.level === 3 ? 'pl-6' : ''
                     } ${
                       activeId === item.id
-                        ? 'bg-orange-50 text-orange-700 font-medium'
+                        ? 'bg-light_cyan/40 text-french_blue font-medium'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                     }`}
                   >
