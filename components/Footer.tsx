@@ -103,10 +103,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="mt-12 md:mt-24 relative overflow-hidden bg-[#1E1E1E] text-slate-300">
-      {/* Decorative blobs */}
-      <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-orange-500/10 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full bg-orange-600/5 blur-3xl pointer-events-none" />
+    <footer className="mt-12 md:mt-24 relative overflow-hidden bg-[#010226] text-slate-300 border-t border-french_blue/30">
+      {/* Top ocean accent line */}
+      <div className="h-1 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
+
+      {/* Decorative ocean gradient ambient glows */}
+      <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-turquoise_surf/15 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full bg-deep_twilight-600/25 blur-3xl pointer-events-none" />
 
       {/* ── Main footer content ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 relative z-10">
@@ -120,7 +123,7 @@ export default function Footer() {
                 alt="OfficialProductsLab logo"
                 className="h-14 w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
               />
-              <span className="font-bold text-white text-base tracking-tight group-hover:text-orange-400 transition-colors duration-200">
+              <span className="font-bold text-white text-base tracking-tight group-hover:text-sky_aqua transition-colors duration-200">
                 OfficialProductsLab
               </span>
             </Link>
@@ -133,9 +136,9 @@ export default function Footer() {
             <div className="space-y-2.5 mb-6">
               <a
                 href="mailto:support@officialproductslab.com"
-                className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-orange-400 transition-colors duration-200 group"
+                className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-sky_aqua transition-colors duration-200 group"
               >
-                <Mail className="w-4 h-4 text-slate-500 group-hover:text-orange-400 transition-colors" />
+                <Mail className="w-4 h-4 text-slate-500 group-hover:text-turquoise_surf transition-colors" />
                 support@officialproductslab.com
               </a>
               <div className="flex items-center gap-2.5 text-sm text-slate-400">
@@ -151,7 +154,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-transparent transition-all duration-200 hover:bg-orange-500"
+                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-transparent transition-all duration-200 hover:bg-gradient-to-tr hover:from-french_blue hover:to-turquoise_surf shadow-sm"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -162,7 +165,7 @@ export default function Footer() {
           {/* Explore links */}
           <div>
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-5">
-              <Compass className="w-3.5 h-3.5 text-orange-500" />
+              <Compass className="w-3.5 h-3.5 text-turquoise_surf" />
               Explore
             </h3>
             <ul className="space-y-3">
@@ -170,7 +173,7 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 hover:pl-1 inline-block transition-all"
+                    className="text-sm text-slate-400 hover:text-sky_aqua transition-colors duration-200 hover:pl-1 inline-block"
                   >
                     {label}
                   </Link>
@@ -182,7 +185,7 @@ export default function Footer() {
           {/* Categories links */}
           <div>
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-5">
-              <Layers className="w-3.5 h-3.5 text-orange-500" />
+              <Layers className="w-3.5 h-3.5 text-turquoise_surf" />
               Categories
             </h3>
             <ul className="space-y-3">
@@ -190,7 +193,7 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 hover:pl-1 inline-block transition-all"
+                    className="text-sm text-slate-400 hover:text-sky_aqua transition-colors duration-200 hover:pl-1 inline-block"
                   >
                     {label}
                   </Link>
@@ -202,7 +205,7 @@ export default function Footer() {
           {/* Company & Legal links */}
           <div>
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-5">
-              <BookOpen className="w-3.5 h-3.5 text-orange-500" />
+              <BookOpen className="w-3.5 h-3.5 text-turquoise_surf" />
               Company
             </h3>
             <ul className="space-y-3 mb-8">
@@ -210,7 +213,7 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 hover:pl-1 inline-block transition-all"
+                    className="text-sm text-slate-400 hover:text-sky_aqua transition-colors duration-200 hover:pl-1 inline-block"
                   >
                     {label}
                   </Link>
@@ -226,7 +229,7 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 hover:pl-1 inline-block transition-all"
+                    className="text-sm text-slate-400 hover:text-sky_aqua transition-colors duration-200 hover:pl-1 inline-block"
                   >
                     {label}
                   </Link>
@@ -238,7 +241,7 @@ export default function Footer() {
           {/* Newsletter */}
           <div>
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-2">
-              <Mail className="w-3.5 h-3.5 text-orange-500" />
+              <Mail className="w-3.5 h-3.5 text-turquoise_surf" />
               Get Research Updates
             </h3>
             <p className="text-sm text-slate-400 mb-5 leading-relaxed">
@@ -246,10 +249,10 @@ export default function Footer() {
             </p>
 
             {subscribed ? (
-              <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-orange-500/10 border border-orange-500/30">
-                <CheckCircle className="w-5 h-5 text-orange-400 flex-shrink-0" />
+              <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-bright_teal_blue/15 border border-turquoise_surf/30">
+                <CheckCircle className="w-5 h-5 text-turquoise_surf flex-shrink-0" />
                 <div>
-                  <p className="text-sm font-semibold text-orange-300">You&apos;re in!</p>
+                  <p className="text-sm font-semibold text-sky_aqua">You&apos;re in!</p>
                   <p className="text-xs text-slate-400">Check your inbox soon.</p>
                 </div>
               </div>
@@ -263,7 +266,7 @@ export default function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500/50 transition-all duration-200"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-turquoise_surf/40 focus:border-turquoise_surf/50 transition-all duration-200"
                     required
                   />
                 </div>
@@ -271,7 +274,7 @@ export default function Footer() {
                   id="newsletter-submit"
                   type="submit"
                   disabled={subscribing}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold bg-orange-500 text-white hover:bg-orange-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-bright_teal_blue/25 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {subscribing ? (
                     <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
@@ -301,7 +304,7 @@ export default function Footer() {
               <Link
                 key={label}
                 href={href}
-                className="text-xs text-slate-500 hover:text-slate-300 transition-colors duration-200"
+                className="text-xs text-slate-500 hover:text-sky_aqua transition-colors duration-200"
               >
                 {label}
               </Link>

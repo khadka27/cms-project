@@ -21,10 +21,10 @@ export default function ProductCard({
 
   if (variant === "list") {
     return (
-      <div className="group bg-white rounded-2xl border border-gray-100 hover:shadow-xl hover:shadow-orange-900/5 transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-row h-full w-full">
+      <div className="group bg-white rounded-2xl border border-slate-100 hover:border-turquoise_surf/30 hover:shadow-xl hover:shadow-french_blue/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-row h-full w-full">
         <Link
           href={`/${product.slug}`}
-          className="relative w-24 sm:w-40 md:w-72 aspect-square overflow-hidden bg-gray-50 flex-shrink-0 block"
+          className="relative w-24 sm:w-40 md:w-72 aspect-square overflow-hidden bg-slate-50 flex-shrink-0 block"
         >
           <Image
             src={displayImage || "/placeholder-image.png"}
@@ -33,7 +33,7 @@ export default function ProductCard({
             className="object-contain p-2 sm:p-4 transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
-            <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-bold tracking-widest uppercase shadow-sm bg-white/95 text-orange-800">
+            <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-bold tracking-widest uppercase shadow-sm bg-white/95 text-french_blue border border-light_cyan">
               Product
             </span>
           </div>
@@ -42,7 +42,7 @@ export default function ProductCard({
         <div className="p-3 sm:p-4 md:p-5 flex-1 flex flex-col justify-between min-w-0">
           <div className="space-y-1 sm:space-y-2">
             <Link href={`/${product.slug}`} className="block">
-              <h3 className="text-sm sm:text-lg font-bold text-slate-900 leading-tight group-hover:text-orange-700 transition-colors line-clamp-2 sm:truncate">
+              <h3 className="text-sm sm:text-lg font-bold text-slate-900 leading-tight group-hover:text-bright_teal_blue transition-colors line-clamp-2 sm:truncate">
                 {product.name}
               </h3>
             </Link>
@@ -56,16 +56,16 @@ export default function ProductCard({
                 {product.ingredients.slice(0, 2).map((ing) => (
                   <div
                     key={ing.id}
-                    className="flex items-center gap-1.5 bg-orange-50/50 border border-orange-100/50 px-2 py-0.5 rounded-lg"
+                    className="flex items-center gap-1.5 bg-light_cyan/30 border border-turquoise_surf/20 px-2 py-0.5 rounded-lg"
                   >
-                    <div className="w-3 h-3 rounded-full overflow-hidden bg-white border border-orange-100 flex-shrink-0">
+                    <div className="w-3 h-3 rounded-full overflow-hidden bg-white border border-light_cyan flex-shrink-0">
                       <img
                         src={ing.image || "/ingredient-placeholder.png"}
                         alt=""
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <span className="text-[8px] font-bold text-orange-800 uppercase tracking-tight">
+                    <span className="text-[8px] font-bold text-french_blue uppercase tracking-tight">
                       {ing.name}
                     </span>
                   </div>
@@ -79,7 +79,7 @@ export default function ProductCard({
               <span className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">
                 Best Price
               </span>
-              <span className="text-xl sm:text-2xl font-extrabold text-orange-600">
+              <span className="text-xl sm:text-2xl font-extrabold text-bright_teal_blue">
                 ${product.price.toFixed(2)}
               </span>
             </div>
@@ -90,7 +90,7 @@ export default function ProductCard({
                   href={product.readMoreLink}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-orange-600 border border-orange-100 hover:bg-orange-50 transition-all flex items-center gap-1"
+                  className="px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-bright_teal_blue border border-bright_teal_blue/25 hover:bg-light_cyan/40 transition-all flex items-center gap-1"
                 >
                   Explore the Full Product Guide
                 </a>
@@ -100,7 +100,7 @@ export default function ProductCard({
                   href={product.buyNowLink}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="bg-amber-400 text-amber-950 px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm shadow-sm hover:bg-amber-300 transition-all active:scale-95 flex items-center gap-1 whitespace-nowrap"
+                  className="bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm shadow-md shadow-bright_teal_blue/20 hover:brightness-110 transition-all active:scale-95 flex items-center gap-1 whitespace-nowrap cursor-pointer"
                 >
                   <ShoppingCart className="w-3 sm:w-4 h-3 sm:h-4" /> Check Current Price & Availability
                 </a>
@@ -113,11 +113,11 @@ export default function ProductCard({
   }
 
   return (
-    <div className="group bg-white rounded-2xl md:rounded-3xl hover:shadow-xl hover:shadow-orange-950/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col border border-gray-100">
+    <div className="group bg-white rounded-2xl md:rounded-3xl hover:border-turquoise_surf/30 hover:shadow-xl hover:shadow-french_blue/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col border border-slate-100">
       {/* Image Area */}
       <Link
         href={`/${product.slug}`}
-        className="relative aspect-[16/9] overflow-hidden bg-orange-50/60 block"
+        className="relative aspect-[16/9] overflow-hidden bg-gradient-to-b from-light_cyan/20 to-slate-50 block"
       >
         <Image
           src={displayImage || "/placeholder-image.png"}
@@ -126,7 +126,7 @@ export default function ProductCard({
           className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
-          <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold tracking-wide uppercase bg-orange-100/95 text-orange-800">
+          <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold tracking-wide uppercase bg-white/95 text-french_blue border border-light_cyan shadow-sm">
             Product
           </span>
         </div>
@@ -135,7 +135,7 @@ export default function ProductCard({
       <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between">
         <div>
           <Link href={`/${product.slug}`} className="block">
-            <h3 className="text-sm sm:text-base font-bold text-slate-900 line-clamp-2 leading-snug group-hover:text-orange-700 transition-colors">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 line-clamp-2 leading-snug group-hover:text-bright_teal_blue transition-colors">
               {product.name}
             </h3>
           </Link>
@@ -144,7 +144,7 @@ export default function ProductCard({
           </p>
 
           <div className="mt-3">
-            <span className="text-lg sm:text-xl font-black text-orange-700">
+            <span className="text-lg sm:text-xl font-black text-bright_teal_blue">
               ${product.price.toFixed(2)}
             </span>
           </div>
@@ -156,7 +156,7 @@ export default function ProductCard({
               href={product.readMoreLink}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="flex items-center justify-center gap-1.5 py-2 rounded-xl text-[10px] font-bold border border-orange-50 text-orange-600 bg-orange-50/30 hover:bg-orange-50 transition-all"
+              className="flex items-center justify-center gap-1.5 py-2 rounded-xl text-[10px] font-bold border border-bright_teal_blue/20 text-bright_teal_blue bg-light_cyan/20 hover:bg-light_cyan/50 transition-all"
             >
               Explore the Full Product Guide
             </a>
@@ -168,7 +168,7 @@ export default function ProductCard({
               href={product.buyNowLink}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-amber-400 text-amber-950 hover:bg-amber-300 transition-all shadow-md shadow-amber-200/50"
+              className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white hover:brightness-110 transition-all shadow-md shadow-bright_teal_blue/20 active:scale-95 cursor-pointer"
             >
               <ShoppingCart className="w-4 h-4" /> Check Current Price & Availability
             </a>

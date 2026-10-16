@@ -71,8 +71,8 @@ export default function Header() {
             : "bg-white/70 backdrop-blur-md border-b border-slate-100/80"
         }`}
       >
-        {/* Top accent bar — orange theme */}
-        <div className="h-0.5 w-full bg-gradient-to-r from-orange-400 via-orange-500 to-amber-400" />
+        {/* Top accent bar — ocean twilight theme */}
+        <div className="h-0.5 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -81,7 +81,7 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <button
                 id="mobile-menu-toggle"
-                className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-orange-50 hover:text-orange-600 transition-all duration-200"
+                className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-light_cyan/50 hover:text-bright_teal_blue transition-all duration-200"
                 onClick={() => { setMobileOpen(!mobileOpen); setSearchOpen(false); }}
                 aria-label="Toggle menu"
               >
@@ -101,7 +101,7 @@ export default function Header() {
                     className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <span className="font-bold text-slate-900 tracking-tight hidden sm:inline-block text-[15px] group-hover:text-orange-500 transition-colors duration-200">
+                <span className="font-bold text-slate-900 tracking-tight hidden sm:inline-block text-[15px] group-hover:text-bright_teal_blue transition-colors duration-200">
                   OfficialProductsLab
                 </span>
               </Link>
@@ -116,7 +116,7 @@ export default function Header() {
                   onClick={() => setShopOpen(!shopOpen)}
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                     shopOpen
-                      ? "bg-orange-50 text-orange-600"
+                      ? "bg-light_cyan text-bright_teal_blue"
                       : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
                   }`}
                 >
@@ -137,13 +137,13 @@ export default function Header() {
                         key={label}
                         href={href}
                         onClick={() => setShopOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-orange-50 group transition-colors duration-150"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-light_cyan/40 group transition-colors duration-150"
                       >
-                        <div className="w-9 h-9 rounded-lg bg-orange-50 group-hover:bg-orange-100 flex items-center justify-center flex-shrink-0 transition-colors duration-150">
-                          <Icon className="w-4 h-4 text-orange-500" />
+                        <div className="w-9 h-9 rounded-lg bg-light_cyan/60 group-hover:bg-light_cyan flex items-center justify-center flex-shrink-0 transition-colors duration-150">
+                          <Icon className="w-4 h-4 text-bright_teal_blue" />
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-slate-800 group-hover:text-orange-600 transition-colors">{label}</p>
+                          <p className="text-sm font-semibold text-slate-800 group-hover:text-bright_teal_blue transition-colors">{label}</p>
                           <p className="text-xs text-slate-500">{desc}</p>
                         </div>
                       </Link>
@@ -174,7 +174,7 @@ export default function Header() {
                 onClick={() => { setSearchOpen(!searchOpen); setMobileOpen(false); }}
                 className={`p-2.5 rounded-xl transition-all duration-200 ${
                   searchOpen
-                    ? "bg-orange-100 text-orange-600"
+                    ? "bg-light_cyan text-bright_teal_blue"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                 }`}
                 aria-label="Search products"
@@ -207,7 +207,7 @@ export default function Header() {
           {/* Drawer */}
           <div className="absolute top-0 left-0 h-full w-72 max-w-[85vw] bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-200">
             {/* Drawer accent bar */}
-            <div className="h-0.5 w-full bg-gradient-to-r from-orange-400 via-orange-500 to-amber-400" />
+            <div className="h-0.5 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
             <div className="flex items-center justify-between p-4 border-b border-slate-100">
               <Link
                 href="/"
@@ -234,13 +234,13 @@ export default function Header() {
                   key={label}
                   href={href}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-orange-50 group transition-colors"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-light_cyan/40 group transition-colors"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-orange-50 group-hover:bg-orange-100 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-3.5 h-3.5 text-orange-500" />
+                  <div className="w-8 h-8 rounded-lg bg-light_cyan/60 group-hover:bg-light_cyan flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-bright_teal_blue" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-800 group-hover:text-orange-600">{label}</p>
+                    <p className="text-sm font-semibold text-slate-800 group-hover:text-bright_teal_blue">{label}</p>
                     <p className="text-xs text-slate-400">{desc}</p>
                   </div>
                 </Link>
@@ -271,7 +271,7 @@ export default function Header() {
               <Link
                 href="/products"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm bg-orange-500 text-white hover:bg-orange-600 transition-colors shadow-md shadow-orange-200"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-french_blue to-bright_teal_blue text-white hover:from-deep_twilight hover:to-french_blue transition-colors shadow-md shadow-bright_teal_blue/20"
               >
                 Browse All Products →
               </Link>
