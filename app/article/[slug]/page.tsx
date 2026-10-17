@@ -188,7 +188,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {/* Article body */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="px-6 sm:px-8 py-8">
-                <div className="article-content product-content"
+                <div className="article-content"
                   dangerouslySetInnerHTML={{ __html: wrapTablesInResponsiveDiv(article.content) }} />
               </div>
 

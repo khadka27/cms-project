@@ -533,81 +533,181 @@
   text-decoration: line-through;
 }
 
-/* ── Product & Article page rendered HTML content ─────────────────────── */
-.product-content,
+/* ── Article content typography (tight, readable, editorial) ───────────── */
 .article-content {
+  display: block !important;
   color: #334155 !important;
-  font-size: 0.9375rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
-.product-content h1,
+.article-content > *:first-child {
+  margin-top: 0 !important;
+}
+
 .article-content h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0f172a !important;
-  margin: 1.75rem 0 0.875rem;
-  line-height: 1.2;
-}
-.product-content h2,
-.article-content h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #0f172a !important;
-  margin: 1.5rem 0 0.75rem;
-  line-height: 1.3;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 0.5rem;
-}
-.product-content h3,
-.article-content h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.75rem;
+  font-weight: 800;
   color: #0f172a !important;
   margin: 1.25rem 0 0.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.article-content h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a !important;
+  margin: 1.35rem 0 0.45rem;
+  line-height: 1.3;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 0.35rem;
+  letter-spacing: -0.015em;
+}
+
+.article-content h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #0f172a !important;
+  margin: 1.1rem 0 0.35rem;
+  line-height: 1.35;
+}
+
+.article-content p {
+  color: #334155 !important;
+  margin: 0.5rem 0;
+  line-height: 1.65;
+}
+
+.article-content p:empty,
+.article-content p > br:only-child {
+  display: none !important;
+}
+
+.article-content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.article-content ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.article-content li {
+  margin: 0.25rem 0;
+  color: #334155 !important;
+  line-height: 1.6;
+}
+
+.article-content strong {
+  font-weight: 700;
+  color: #0f172a !important;
+}
+
+.article-content em {
+  font-style: italic;
+}
+
+.article-content blockquote {
+  border-left: 4px solid #0077b6;
+  background: #f0f9ff;
+  padding: 0.75rem 1rem;
+  margin: 0.85rem 0;
+  border-radius: 0 10px 10px 0;
+  color: #034870;
+  font-style: italic;
 }
 
 @media (min-width: 640px) {
-  .product-content,
-  .article-content {
-    font-size: 1rem;
-  }
-  .product-content h1,
   .article-content h1 {
-    font-size: 1.875rem;
+    font-size: 2rem;
   }
-  .product-content h2,
   .article-content h2 {
     font-size: 1.5rem;
   }
-  .product-content h3,
   .article-content h3 {
+    font-size: 1.25rem;
+  }
+  .article-content p {
+    margin: 0.55rem 0;
+  }
+}
+
+/* ── Product page rendered HTML content ────────────────────────────────── */
+.product-content {
+  color: #334155 !important;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.product-content > *:first-child {
+  margin-top: 0 !important;
+}
+
+.product-content h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a !important;
+  margin: 1.25rem 0 0.5rem;
+  line-height: 1.25;
+}
+.product-content h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a !important;
+  margin: 1.25rem 0 0.5rem;
+  line-height: 1.3;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.4rem;
+}
+.product-content h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0f172a !important;
+  margin: 1rem 0 0.35rem;
+}
+
+@media (min-width: 640px) {
+  .product-content {
+    font-size: 1rem;
+  }
+  .product-content h1 {
+    font-size: 1.875rem;
+  }
+  .product-content h2 {
+    font-size: 1.5rem;
+  }
+  .product-content h3 {
     font-size: 1.25rem;
   }
 }
 
-.product-content p,
-.article-content p {
+.product-content p {
   color: #334155 !important;
-  margin: 0.75rem 0;
+  margin: 0.5rem 0;
 }
 
-.product-content ul,
-.article-content ul {
+.product-content p:empty,
+.product-content p > br:only-child {
+  display: none !important;
+}
+
+.product-content ul {
   list-style: none;
   padding: 0;
-  margin: 0.875rem 0;
+  margin: 0.65rem 0;
 }
-.product-content ul li,
-.article-content ul li {
+.product-content ul li {
   padding-left: 1.5rem;
   position: relative;
-  margin: 0.35rem 0;
+  margin: 0.3rem 0;
   font-size: 0.9375rem;
   color: #334155 !important;
 }
-.product-content ul li::before,
-.article-content ul li::before {
+.product-content ul li::before {
   content: "✓";
   position: absolute;
   left: 0;
@@ -615,30 +715,25 @@
   font-weight: 700;
 }
 
-.product-content ol,
-.article-content ol {
+.product-content ol {
   list-style: decimal;
   padding-left: 1.5rem;
-  margin: 0.875rem 0;
+  margin: 0.65rem 0;
 }
-.product-content ol li,
-.article-content ol li {
-  margin: 0.35rem 0;
+.product-content ol li {
+  margin: 0.3rem 0;
   font-size: 0.9375rem;
   color: #334155 !important;
 }
 
 @media (min-width: 640px) {
-  .product-content p,
-  .article-content p {
-    margin: 0.875rem 0;
+  .product-content p {
+    margin: 0.55rem 0;
   }
   .product-content ul li,
-  .article-content ul li,
-  .product-content ol li,
-  .article-content ol li {
+  .product-content ol li {
     font-size: 1rem;
-    margin: 0.4rem 0;
+    margin: 0.35rem 0;
   }
 }
 
@@ -1162,31 +1257,30 @@ a.btn-dark:hover {
   font-size: 0.65rem;
 }
 
-/* ── Grid Layout for Reviews ── */
+/* ── Grid Layout for Reviews (Only applied when review cards exist) ── */
 
 /* Mobile: block layout (safe default) */
-.product-content {
-  display: block;
+.product-content,
+.article-content {
+  display: block !important;
 }
 
-/* Desktop: 2-column grid that automatically handles flow */
+/* Desktop: 2-column grid only when review cards are present */
 @media (min-width: 1024px) {
-  .product-content {
+  .product-content:has(> .review-card):not(.article-content) {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.5rem !important;
     align-items: start !important;
   }
 
-  /* Most elements take full width */
-  .product-content > * {
+  .product-content:has(> .review-card):not(.article-content) > * {
     grid-column: span 2 !important;
   }
 
-  /* Only review cards take half width to form the 2-column grid */
-  .product-content > .review-card {
+  .product-content:has(> .review-card):not(.article-content) > .review-card {
     grid-column: span 1 !important;
-    margin: 0 !important; /* Grid handles spacing */
+    margin: 0 !important;
   }
 }
 

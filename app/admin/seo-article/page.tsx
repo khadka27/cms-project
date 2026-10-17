@@ -339,7 +339,7 @@ export default function SEOArticlePage() {
                 <div className="h-0.5 bg-gradient-to-r from-violet-500 to-purple-500" />
                 {showPreview ? (
                   <div className="p-6 max-h-[600px] overflow-y-auto">
-                    <div className="product-content" dangerouslySetInnerHTML={{ __html: wrapTablesInResponsiveDiv(htmlContent) }} />
+                    <div className="article-content" dangerouslySetInnerHTML={{ __html: wrapTablesInResponsiveDiv(htmlContent) }} />
                   </div>
                 ) : (
                   <div className="p-4 max-h-[600px] overflow-y-auto">

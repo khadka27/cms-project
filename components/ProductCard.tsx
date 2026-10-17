@@ -100,7 +100,7 @@ export default function ProductCard({
                   href={product.buyNowLink}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm shadow-md shadow-bright_teal_blue/20 hover:brightness-110 transition-all active:scale-95 flex items-center gap-1 whitespace-nowrap cursor-pointer"
+                  className="bg-french_blue hover:bg-deep_twilight text-white px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm shadow-md transition-all active:scale-95 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
                 >
                   <ShoppingCart className="w-3 sm:w-4 h-3 sm:h-4" /> Check Current Price & Availability
                 </a>
@@ -168,7 +168,7 @@ export default function ProductCard({
               href={product.buyNowLink}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white hover:brightness-110 transition-all shadow-md shadow-bright_teal_blue/20 active:scale-95 cursor-pointer"
+              className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-95 cursor-pointer"
             >
               <ShoppingCart className="w-4 h-4" /> Check Current Price & Availability
             </a>
