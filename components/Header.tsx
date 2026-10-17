@@ -33,6 +33,17 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <>
       <header className="sticky top-0 z-50 w-full pt-3 sm:pt-4 pb-2 px-3 sm:px-6 lg:px-8 transition-all duration-300">
@@ -127,25 +138,44 @@ export default function Header() {
                   }}
                   className={`p-2 rounded-full transition-all duration-200 cursor-pointer ${
                     searchOpen
-                      ? "bg-bright_teal_blue text-white shadow-md shadow-bright_teal_blue/20"
+                      ? "bg-french_blue text-white shadow-md shadow-french_blue/25 scale-105"
                       : "text-slate-700 hover:text-bright_teal_blue hover:bg-light_cyan/40"
                   }`}
-                  aria-label="Search products"
+                  aria-label={searchOpen ? "Close search" : "Search products"}
                 >
-                  <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                  {searchOpen ? (
+                    <X className="w-4 h-4 sm:w-4.5 sm:h-4.5 animate-in spin-in-90 duration-200" />
+                  ) : (
+                    <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                  )}
                 </button>
               </div>
             </div>
           </div>
 
-          {/* ── Floating Search Bar Popover ── */}
-          {searchOpen && (
-            <div className="mt-3 w-full max-w-2xl mx-auto bg-white/95 backdrop-blur-xl rounded-3xl border border-turquoise_surf/35 shadow-2xl shadow-bright_teal_blue/10 p-3 sm:p-4 animate-in fade-in zoom-in-95 duration-200">
-              <SearchBar />
+          {/* ── Floating Search Bar Popover With Smooth Open/Close Animation ── */}
+          <div
+            className={`transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform ${
+              searchOpen
+                ? "max-h-[720px] opacity-100 scale-100 translate-y-0 mt-3 pointer-events-auto"
+                : "max-h-0 opacity-0 scale-95 -translate-y-3 mt-0 pointer-events-none"
+            }`}
+          >
+            <div className="w-full max-w-2xl mx-auto bg-white/98 backdrop-blur-2xl rounded-3xl border-2 border-turquoise_surf/35 shadow-2xl shadow-french_blue/15 p-4 sm:p-5">
+              <SearchBar onClose={() => setSearchOpen(false)} autoFocus={searchOpen} />
             </div>
-          )}
+          </div>
         </div>
       </header>
+
+      {/* ── Search Backdrop Blur Scrim ── */}
+      <div
+        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-[2px] z-40 transition-opacity duration-300 ${
+          searchOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setSearchOpen(false)}
+        aria-hidden="true"
+      />
 
       {/* ── Mobile Side Drawer ── */}
       {mobileOpen && (
