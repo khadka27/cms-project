@@ -43,24 +43,24 @@ function ProductsContent() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
+    <main className="min-h-screen bg-[#eef8fb]">
       {/* Header */}
-      <section className="relative bg-[#010226] py-16 sm:py-20 overflow-hidden border-b border-french_blue/30">
+      <section className="relative bg-[#010226] py-14 sm:py-20 overflow-hidden border-b border-french_blue/30">
         {/* Decorative elements matching the ocean theme */}
         <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-turquoise_surf/15 blur-3xl -mr-20 -mt-20 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-deep_twilight-600/30 blur-3xl -ml-20 -mb-20 pointer-events-none" />
         
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-french_blue" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-2xl bg-bright_teal_blue/20 flex items-center justify-center mb-6 ring-1 ring-turquoise_surf/30 backdrop-blur-md">
+            <div className="w-12 h-12 rounded-2xl bg-bright_teal_blue/20 flex items-center justify-center mb-5 sm:mb-6 ring-1 ring-turquoise_surf/30 backdrop-blur-md">
               <PackageSearch className="w-6 h-6 text-sky_aqua" />
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-3 sm:mb-4">
               Explore Our <span className="text-sky_aqua">Products</span>
             </h1>
-            <p className="text-slate-300 max-w-2xl text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-300 max-w-2xl text-xs sm:text-base leading-relaxed">
               Discover our curated selection of premium products, 
               designed for maximum style, function, and efficacy.
             </p>
@@ -68,9 +68,9 @@ function ProductsContent() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
         {/* Toolbar */}
-        <div className="flex items-center justify-between mb-10 bg-white p-4 rounded-2xl sm:rounded-[2rem] border border-slate-100 shadow-sm">
+        <div className="flex items-center justify-between mb-8 sm:mb-10 bg-white p-3.5 sm:p-4 rounded-2xl sm:rounded-[2rem] border border-light_cyan shadow-sm">
           {/* Results count (left) */}
           <div className="hidden sm:block">
             <p className="text-xs font-extrabold text-bright_teal_blue uppercase tracking-widest px-2">
@@ -87,9 +87,9 @@ function ProductsContent() {
             <div className="flex items-center bg-slate-50 p-1 rounded-xl border border-slate-100">
               <button
                 onClick={() => setViewMode("list")}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   viewMode === "list"
-                    ? "bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-sm"
+                    ? "bg-french_blue text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-800 hover:bg-white"
                 }`}
                 title="List View"
@@ -98,9 +98,9 @@ function ProductsContent() {
               </button>
               <button
                 onClick={() => setViewMode("grid")}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   viewMode === "grid"
-                    ? "bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-sm"
+                    ? "bg-french_blue text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-800 hover:bg-white"
                 }`}
                 title="Grid View"
@@ -153,7 +153,7 @@ function ProductsContent() {
 
 export default function ProductsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen animate-pulse bg-[#d4eff7]" />}>
+    <Suspense fallback={<div className="min-h-screen animate-pulse bg-[#eef8fb]" />}>
       <ProductsContent />
     </Suspense>
   );

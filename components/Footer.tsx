@@ -112,16 +112,16 @@ export default function Footer() {
       <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full bg-deep_twilight-600/25 blur-3xl pointer-events-none" />
 
       {/* ── Main footer content ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-8 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10">
 
           {/* Brand column (wider) */}
-          <div className="md:col-span-3 lg:col-span-2">
+          <div className="sm:col-span-2 md:col-span-3 lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-3 group mb-5" aria-label="OfficialProductsLab home">
               <img
                 src="/logo.png"
                 alt="OfficialProductsLab logo"
-                className="h-14 w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
+                className="h-12 sm:h-14 w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
               />
               <span className="font-bold text-white text-base tracking-tight group-hover:text-sky_aqua transition-colors duration-200">
                 OfficialProductsLab
@@ -154,7 +154,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-transparent transition-all duration-200 hover:bg-gradient-to-tr hover:from-french_blue hover:to-turquoise_surf shadow-sm"
+                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-transparent transition-all duration-200 hover:bg-french_blue shadow-sm"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -164,11 +164,11 @@ export default function Footer() {
 
           {/* Explore links */}
           <div>
-            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-5">
+            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-4 sm:mb-5">
               <Compass className="w-3.5 h-3.5 text-turquoise_surf" />
               Explore
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5 sm:space-y-3">
               {exploreLinks.map(({ label, href }) => (
                 <li key={label}>
                   <Link
@@ -184,11 +184,11 @@ export default function Footer() {
 
           {/* Categories links */}
           <div>
-            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-5">
+            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-4 sm:mb-5">
               <Layers className="w-3.5 h-3.5 text-turquoise_surf" />
               Categories
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5 sm:space-y-3">
               {categoryLinks.map(({ label, href }) => (
                 <li key={label}>
                   <Link
@@ -204,11 +204,11 @@ export default function Footer() {
 
           {/* Company & Legal links */}
           <div>
-            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-5">
+            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-4 sm:mb-5">
               <BookOpen className="w-3.5 h-3.5 text-turquoise_surf" />
               Company
             </h3>
-            <ul className="space-y-3 mb-8">
+            <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
               {companyLinks.map(({ label, href }) => (
                 <li key={label}>
                   <Link
@@ -221,10 +221,10 @@ export default function Footer() {
               ))}
             </ul>
 
-            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-4">
+            <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-3">
               Legal
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5 sm:space-y-3">
               {legalLinks.slice(0, 2).map(({ label, href }) => (
                 <li key={label}>
                   <Link
@@ -239,12 +239,12 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <div>
+          <div className="sm:col-span-2 md:col-span-3 lg:col-span-2">
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-2">
               <Mail className="w-3.5 h-3.5 text-turquoise_surf" />
               Get Research Updates
             </h3>
-            <p className="text-sm text-slate-400 mb-5 leading-relaxed">
+            <p className="text-sm text-slate-400 mb-4 sm:mb-5 leading-relaxed">
               Readers can subscribe to receive new product reviews, buyer guides, and category updates from Official Products Lab.
             </p>
 
@@ -274,7 +274,7 @@ export default function Footer() {
                   id="newsletter-submit"
                   type="submit"
                   disabled={subscribing}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-bright_teal_blue/25 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold bg-french_blue hover:bg-bright_teal_blue text-white shadow-md transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer active:scale-98"
                 >
                   {subscribing ? (
                     <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />

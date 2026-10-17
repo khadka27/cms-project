@@ -38,16 +38,16 @@ export default function TestimonialSlider({ testimonials }: TestimonialSliderPro
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
-    <section className="py-20 sm:py-32 bg-gradient-to-b from-[#daf0f6] via-[#e2f3f8] to-[#d4eff7] relative overflow-hidden">
+    <section className="py-14 sm:py-24 bg-[#eef8fb] border-t border-turquoise_surf/20 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-turquoise_surf/10 rounded-full blur-3xl pointer-events-none -mr-48 -mt-48" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-bright_teal_blue/10 rounded-full blur-3xl pointer-events-none -ml-48 -mb-48" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12 sm:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-3 sm:mb-4">
             Trusted by <span className="text-bright_teal_blue">Thousands</span>
           </h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-base sm:text-lg">
+          <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-lg">
             See what our community has to say about their experience with OfficialProductsLab.
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function TestimonialSlider({ testimonials }: TestimonialSliderPro
                   key={t.id}
                   className="flex-[0_0_100%] min-w-0 pl-4 sm:flex-[0_0_80%] lg:flex-[0_0_50%]"
                 >
-                  <div className="bg-white rounded-[2rem] p-8 sm:p-10 border border-slate-100 shadow-xl shadow-french_blue/5 h-full flex flex-col relative group hover:-translate-y-1 hover:border-turquoise_surf/30 transition-all duration-300">
+                  <div className="bg-white rounded-2xl sm:rounded-[2rem] p-6 sm:p-10 border border-light_cyan shadow-xl shadow-french_blue/5 h-full flex flex-col relative group hover:-translate-y-1 hover:border-turquoise_surf/30 transition-all duration-300">
                     <Quote className="absolute top-8 right-8 w-12 h-12 text-bright_teal_blue/10 rotate-180 group-hover:scale-110 group-hover:text-bright_teal_blue/25 transition-all duration-300" />
                     
                     <div className="flex items-center gap-1 mb-6">

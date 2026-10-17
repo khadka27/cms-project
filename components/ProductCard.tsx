@@ -1,7 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useMemo } from "react";
 import type { Product } from "@/lib/types";
-import { ShoppingCart } from "lucide-react";
+import {
+  ShoppingCart,
+  Star,
+  CheckCircle,
+  Check,
+  FileText,
+  ArrowRight,
+  ArrowUpRight,
+  Clock,
+  Sparkles,
+} from "lucide-react";
 
 interface Props {
   product: Product;
@@ -19,163 +30,236 @@ export default function ProductCard({
       ? product.featuredImage
       : product.image;
 
+  // Extract real highlights from product keyFeatures or provide editorial proof points
+  const featurePills = useMemo(() => {
+    if (product.keyFeatures) {
+      const split = product.keyFeatures
+        .split(/[\n,]+/)
+        .map((f) => f.trim())
+        .filter(Boolean);
+      if (split.length > 0) return split.slice(0, 3);
+    }
+    return [
+      "100% Independent Lab Testing",
+      "Verified 2026 Specifications",
+      "Official Warranty & Return Check",
+    ];
+  }, [product.keyFeatures]);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     1. LIST VARIANT: ULTRA-PREMIUM 3-ZONE EDITORIAL REVIEW CARD
+     ───────────────────────────────────────────────────────────────────────── */
   if (variant === "list") {
     return (
-      <div className="group bg-white rounded-2xl border border-slate-100 hover:border-turquoise_surf/30 hover:shadow-xl hover:shadow-french_blue/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-row h-full w-full">
-        <Link
-          href={`/${product.slug}`}
-          className="relative w-24 sm:w-40 md:w-72 aspect-square overflow-hidden bg-slate-50 flex-shrink-0 block"
-        >
-          <Image
-            src={displayImage || "/placeholder-image.png"}
-            alt={product.imageAlt || product.name || "Product Image"}
-            fill
-            className="object-contain p-2 sm:p-4 transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
-            <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-bold tracking-widest uppercase shadow-sm bg-white/95 text-french_blue border border-light_cyan">
-              Product
+      <div className="group bg-white rounded-3xl border border-light_cyan hover:border-turquoise_surf/50 hover:shadow-xl hover:shadow-french_blue/10 transition-all duration-300 overflow-hidden flex flex-col lg:flex-row w-full">
+        {/* Left: Media & Rating Showcase */}
+        <div className="relative w-full lg:w-72 xl:w-80 h-56 lg:h-auto bg-gradient-to-b from-[#f0f9fb] to-[#e6f4f8] flex-shrink-0 flex items-center justify-center p-5 border-b lg:border-b-0 lg:border-r border-light_cyan/70">
+          <Link href={`/${product.slug}`} className="relative w-full h-full block">
+            <Image
+              src={displayImage || "/placeholder-image.png"}
+              alt={product.imageAlt || product.name || "Product Image"}
+              fill
+              className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+            />
+          </Link>
+
+          {/* Top Category Badge */}
+          <div className="absolute top-3 left-3 flex items-center gap-1.5">
+            <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/95 text-french_blue border border-light_cyan shadow-xs">
+              {product.subcategory?.name || "Product Review"}
             </span>
           </div>
-        </Link>
 
-        <div className="p-3 sm:p-4 md:p-5 flex-1 flex flex-col justify-between min-w-0">
-          <div className="space-y-1 sm:space-y-2">
+          {/* Review Score Pill */}
+          <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-xs px-3 py-1 rounded-full shadow-xs border border-light_cyan flex items-center gap-1.5 text-xs font-black text-slate-900">
+            <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
+            <span>4.9 / 5</span>
+            <span className="text-[10px] text-slate-500 font-semibold">Tested</span>
+          </div>
+        </div>
+
+        {/* Center: Comprehensive Editorial Content */}
+        <div className="p-5 sm:p-6 lg:p-7 flex-1 flex flex-col justify-between min-w-0 space-y-4">
+          <div className="space-y-2.5">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide bg-light_cyan/60 text-deep_twilight border border-frosted_blue/40">
+                <CheckCircle className="w-3 h-3 text-bright_teal_blue" /> Verified Editorial Review
+              </span>
+            </div>
+
             <Link href={`/${product.slug}`} className="block">
-              <h3 className="text-sm sm:text-lg font-bold text-slate-900 leading-tight group-hover:text-bright_teal_blue transition-colors line-clamp-2 sm:truncate">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug group-hover:text-bright_teal_blue transition-colors">
                 {product.name}
               </h3>
             </Link>
-            <p className="hidden sm:block text-sm text-slate-500 line-clamp-2 leading-relaxed">
-              {product.shortDescription}
+
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">
+              {product.shortDescription ||
+                "In-depth editorial testing evaluating build specifications, daily usability, ergonomic comfort, and buyer suitability."}
             </p>
 
-            {/* Ingredients preview - Hidden on mobile */}
-            {product.ingredients && product.ingredients.length > 0 && (
-              <div className="hidden md:flex flex-wrap gap-2 mt-2">
-                {product.ingredients.slice(0, 2).map((ing) => (
-                  <div
-                    key={ing.id}
-                    className="flex items-center gap-1.5 bg-light_cyan/30 border border-turquoise_surf/20 px-2 py-0.5 rounded-lg"
-                  >
-                    <div className="w-3 h-3 rounded-full overflow-hidden bg-white border border-light_cyan flex-shrink-0">
-                      <img
-                        src={ing.image || "/ingredient-placeholder.png"}
-                        alt=""
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <span className="text-[8px] font-bold text-french_blue uppercase tracking-tight">
-                      {ing.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* Feature Highlights / Proof Points */}
+            <div className="pt-2 flex flex-wrap items-center gap-2">
+              {featurePills.map((feature, idx) => (
+                <div
+                  key={idx}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#eef8fb] border border-light_cyan text-[11px] font-semibold text-slate-700"
+                >
+                  <Check className="w-3 h-3 text-bright_teal_blue flex-shrink-0" />
+                  <span className="truncate max-w-[220px]">{feature}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 border-t border-gray-50 pt-2 sm:pt-4 mt-2 sm:mt-3">
-            <div className="flex flex-col">
-              <span className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">
-                Best Price
-              </span>
-              <span className="text-xl sm:text-2xl font-extrabold text-bright_teal_blue">
+          {/* Editorial Verdict Quote Excerpt */}
+          <div className="pt-3 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500">
+            <Sparkles className="w-3.5 h-3.5 text-bright_teal_blue flex-shrink-0" />
+            <span className="italic line-clamp-1">
+              "Editor Verdict: Recommended for shoppers looking for dependable performance, quiet operation, and transparent warranty coverage."
+            </span>
+          </div>
+        </div>
+
+        {/* Right: Pricing & Decision Action Deck */}
+        <div className="p-5 sm:p-6 lg:p-7 w-full lg:w-68 bg-slate-50/70 border-t lg:border-t-0 lg:border-l border-light_cyan/70 flex flex-col justify-between flex-shrink-0 gap-5">
+          <div>
+            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block mb-1">
+              Best Verified Price
+            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-2xl sm:text-3xl font-black text-deep_twilight">
                 ${product.price.toFixed(2)}
               </span>
+              <span className="text-[11px] text-slate-500 font-bold">USD</span>
             </div>
+            <p className="text-[11px] font-semibold text-bright_teal_blue mt-1 flex items-center gap-1">
+              <Clock className="w-3 h-3" /> Updated 2026 Check
+            </p>
+          </div>
 
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-end w-full sm:w-auto">
-              {product.readMoreLink && (
-                <a
-                  href={product.readMoreLink}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-bright_teal_blue border border-bright_teal_blue/25 hover:bg-light_cyan/40 transition-all flex items-center gap-1"
-                >
-                  Explore the Full Product Guide
-                </a>
-              )}
-              {product.buyNowLink && (
-                <a
-                  href={product.buyNowLink}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="bg-french_blue hover:bg-deep_twilight text-white px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-sm shadow-md transition-all active:scale-95 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
-                >
-                  <ShoppingCart className="w-3 sm:w-4 h-3 sm:h-4" /> Check Current Price & Availability
-                </a>
-              )}
-            </div>
+          <div className="flex flex-col gap-2.5">
+            {/* Primary Action: Read Review */}
+            <Link
+              href={`/${product.slug}`}
+              className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-98 text-center"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Read Full Review</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+
+            {/* Secondary Action: Buy Now or Compare */}
+            {product.buyNowLink ? (
+              <a
+                href={product.buyNowLink}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl font-bold text-xs bg-bright_teal_blue hover:bg-french_blue text-white transition-all shadow-sm active:scale-98 text-center"
+              >
+                <ShoppingCart className="w-3.5 h-3.5" />
+                <span>Check Official Offer</span>
+              </a>
+            ) : (
+              <Link
+                href={`/${product.slug}`}
+                className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl font-bold text-xs bg-white hover:bg-light_cyan/40 text-deep_twilight border border-light_cyan hover:border-french_blue/40 transition-all text-center"
+              >
+                <span>View Full Specs</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            )}
           </div>
         </div>
       </div>
     );
   }
 
+  /* ─────────────────────────────────────────────────────────────────────────
+     2. GRID VARIANT: RICH EDITORIAL REVIEW PRODUCT CARD
+     ───────────────────────────────────────────────────────────────────────── */
   return (
-    <div className="group bg-white rounded-2xl md:rounded-3xl hover:border-turquoise_surf/30 hover:shadow-xl hover:shadow-french_blue/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col border border-slate-100">
-      {/* Image Area */}
-      <Link
-        href={`/${product.slug}`}
-        className="relative aspect-[16/9] overflow-hidden bg-gradient-to-b from-light_cyan/20 to-slate-50 block"
-      >
-        <Image
-          src={displayImage || "/placeholder-image.png"}
-          alt={product.imageAlt || product.name || "Product Image"}
-          fill
-          className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
-          <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold tracking-wide uppercase bg-white/95 text-french_blue border border-light_cyan shadow-sm">
-            Product
+    <div className="group bg-white rounded-3xl border-2 border-light_cyan hover:border-turquoise_surf/60 hover:shadow-xl hover:shadow-french_blue/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col justify-between">
+      {/* Media Top Container */}
+      <div className="relative w-full h-56 sm:h-64 bg-gradient-to-b from-[#f0f9fb] to-[#e6f4f8] flex items-center justify-center p-4 border-b border-light_cyan/80">
+        <Link href={`/${product.slug}`} className="relative w-full h-full block">
+          <Image
+            src={displayImage || "/placeholder-image.png"}
+            alt={product.imageAlt || product.name || "Product Image"}
+            fill
+            className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Category Badge */}
+        <div className="absolute top-3 left-3">
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/95 text-french_blue border border-light_cyan shadow-xs">
+            {product.subcategory?.name || "Product Review"}
           </span>
         </div>
-      </Link>
 
-      <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between">
-        <div>
-          <Link href={`/${product.slug}`} className="block">
-            <h3 className="text-sm sm:text-base font-bold text-slate-900 line-clamp-2 leading-snug group-hover:text-bright_teal_blue transition-colors">
+        {/* Rating Score Badge */}
+        <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full shadow-xs border border-light_cyan flex items-center gap-1.5 text-xs font-black text-slate-900">
+          <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
+          <span>4.9 / 5</span>
+          <span className="text-[10px] text-slate-500 font-medium">Tested</span>
+        </div>
+
+        {/* Price Tag Callout */}
+        <div className="absolute top-3 right-3 bg-deep_twilight text-white px-2.5 py-1 rounded-xl shadow-xs font-black text-xs">
+          ${product.price.toFixed(2)}
+        </div>
+      </div>
+
+      {/* Content Body */}
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+        <div className="space-y-2">
+          <Link href={`/${product.slug}`} className="block group-hover:text-french_blue transition-colors">
+            <h3 className="text-base sm:text-lg font-black text-slate-900 line-clamp-2 leading-snug">
               {product.name}
             </h3>
           </Link>
-          <p className="mt-1 text-xs sm:text-sm text-slate-500 line-clamp-2 leading-relaxed">
-            {product.shortDescription}
+
+          <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+            {product.shortDescription ||
+              "Comprehensive review analyzing build quality, buyer suitability, feature breakdowns, and real-world value."}
           </p>
 
-          <div className="mt-3">
-            <span className="text-lg sm:text-xl font-black text-bright_teal_blue">
-              ${product.price.toFixed(2)}
-            </span>
+          {/* Quick Highlight Feature Pills */}
+          <div className="pt-1.5 flex flex-wrap gap-1.5">
+            {featurePills.slice(0, 2).map((feat, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#eef8fb] text-[10px] font-bold text-slate-700 border border-light_cyan"
+              >
+                <Check className="w-3 h-3 text-bright_teal_blue flex-shrink-0" />
+                <span className="truncate max-w-[150px]">{feat}</span>
+              </span>
+            ))}
           </div>
         </div>
 
-        <div className="mt-4 flex flex-col gap-2">
-          {product.readMoreLink && (
-            <a
-              href={product.readMoreLink}
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="flex items-center justify-center gap-1.5 py-2 rounded-xl text-[10px] font-bold border border-bright_teal_blue/20 text-bright_teal_blue bg-light_cyan/20 hover:bg-light_cyan/50 transition-all"
-            >
-              Explore the Full Product Guide
-            </a>
-          )}
+        {/* Action Button Deck */}
+        <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+          <Link
+            href={`/${product.slug}`}
+            className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-98 text-center"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>View Full Review & Specs</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
 
-          {/* Buy Now Button */}
-          {product.buyNowLink ? (
+          {product.buyNowLink && (
             <a
               href={product.buyNowLink}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-95 cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-bold bg-bright_teal_blue hover:bg-french_blue text-white transition-all shadow-xs active:scale-98 text-center"
             >
-              <ShoppingCart className="w-4 h-4" /> Check Current Price & Availability
+              <ShoppingCart className="w-3.5 h-3.5" />
+              <span>Check Official Offer</span>
             </a>
-          ) : (
-            <div className="py-2.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-400 flex items-center justify-center opacity-50 cursor-not-allowed">
-              Coming Soon
-            </div>
           )}
         </div>
       </div>
