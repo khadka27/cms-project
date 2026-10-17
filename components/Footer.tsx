@@ -103,9 +103,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="mt-12 md:mt-24 relative overflow-hidden bg-[#010226] text-slate-300 border-t border-french_blue/30">
+    <footer className="relative overflow-hidden bg-[#010226] text-slate-300 border-t border-french_blue/30">
       {/* Top ocean accent line */}
-      <div className="h-1 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
+      <div className="h-1 w-full bg-french_blue" />
 
       {/* Decorative ocean gradient ambient glows */}
       <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-turquoise_surf/15 blur-3xl pointer-events-none" />

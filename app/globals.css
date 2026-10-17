@@ -269,18 +269,7 @@
   body {
     min-height: 100vh;
     color: #0f172a;
-    background:
-      radial-gradient(
-        circle at 8% 10%,
-        rgba(0, 180, 216, 0.16),
-        transparent 36%
-      ),
-      radial-gradient(
-        circle at 90% 18%,
-        rgba(0, 119, 182, 0.12),
-        transparent 30%
-      ),
-      linear-gradient(180deg, #d4eff7 0%, #e5f5f9 50%, #daf0f6 100%);
+    background-color: #eef8fb;
     font-family: var(--font-body), sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

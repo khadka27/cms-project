@@ -76,6 +76,7 @@ export interface Product {
   updatedAt: string;
   author?: Author;
   ingredients?: Ingredient[];
+  subcategory?: Subcategory;
 }
 
 export interface HeroSettings {

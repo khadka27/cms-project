@@ -113,11 +113,13 @@ export default function RootLayout({
         <OrganizationSchema />
         <WebSiteSchema />
       </head>
-      <body className={`${roboto.variable} antialiased bg-[#d4eff7] text-slate-800`} suppressHydrationWarning>
+      <body className={`${roboto.variable} antialiased bg-[#eef8fb] text-slate-800 min-h-screen flex flex-col`} suppressHydrationWarning>
         <SessionProvider>
           <CategoryProvider>
             <ConditionalHeader />
-            {children}
+            <div className="flex-1 w-full">
+              {children}
+            </div>
             <ConditionalFooter />
           </CategoryProvider>
         </SessionProvider>

@@ -35,7 +35,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-3 sm:top-5 z-50 w-full px-3 sm:px-6 lg:px-8 transition-all duration-300">
+      <header className="sticky top-0 z-50 w-full pt-3 sm:pt-4 pb-2 px-3 sm:px-6 lg:px-8 transition-all duration-300">
         <div className="max-w-5xl mx-auto">
           {/* ── Floating Pill Navbar ── */}
           <div
@@ -158,8 +158,8 @@ export default function Header() {
 
           {/* Drawer Panel */}
           <div className="absolute top-0 left-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-200">
-            {/* Drawer Top Gradient Bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
+            {/* Drawer Top Solid Bar */}
+            <div className="h-1 w-full bg-french_blue" />
 
             {/* Drawer Header */}
             <div className="flex items-center justify-between p-4 border-b border-slate-100">
@@ -236,7 +236,7 @@ export default function Header() {
               <Link
                 href="/products"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl font-bold text-sm bg-gradient-to-r from-french_blue to-bright_teal_blue text-white hover:brightness-110 transition-all shadow-md shadow-bright_teal_blue/20"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl font-bold text-sm bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-95"
               >
                 <ShoppingBag className="w-4 h-4" />
                 Explore All Products
