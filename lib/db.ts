@@ -15,10 +15,36 @@ if (globalForPrisma.prisma) {
 } else {
   const databaseUrl = process.env.DATABASE_URL;
   if (databaseUrl) {
-    const poolConfig: any = { connectionString: databaseUrl };
-    if (databaseUrl.includes('sslmode=require') || databaseUrl.includes('sslmode=no-verify')) {
-      poolConfig.ssl = { rejectUnauthorized: false };
+    let poolConfig: any = { connectionString: databaseUrl };
+    try {
+      const url = new URL(databaseUrl);
+      const sslmode = url.searchParams.get('sslmode');
+      const ssl = url.searchParams.get('ssl');
+
+      if (sslmode === 'disable' || ssl === 'false') {
+        url.searchParams.delete('sslmode');
+        url.searchParams.delete('ssl');
+        poolConfig = {
+          connectionString: url.toString(),
+          ssl: false,
+        };
+      } else if (sslmode || ssl === 'true' || url.searchParams.has('sslmode')) {
+        url.searchParams.delete('sslmode');
+        url.searchParams.delete('ssl');
+        poolConfig = {
+          connectionString: url.toString(),
+          ssl: { rejectUnauthorized: false },
+        };
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+      }
+    } catch {
+      poolConfig = {
+        connectionString: databaseUrl,
+        ssl: { rejectUnauthorized: false },
+      };
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     }
+
     pool = new Pool(poolConfig);
     const adapter = new PrismaPg(pool);
     prisma = new PrismaClient({ adapter });

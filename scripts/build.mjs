@@ -13,6 +13,14 @@ function runStep(command, args) {
   }
 }
 
+if (
+  process.env.DATABASE_URL &&
+  (process.env.DATABASE_URL.includes("sslmode=") ||
+    process.env.DATABASE_URL.includes("ssl="))
+) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+}
+
 runStep("pnpm", ["prisma", "generate"]);
 if (process.env.DATABASE_URL) {
   runStep("pnpm", ["prisma", "migrate", "deploy"]);

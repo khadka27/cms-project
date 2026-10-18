@@ -14,7 +14,27 @@ async function main() {
         process.exit(1);
     }
 
-    const pool = new Pool({ connectionString: databaseUrl });
+    let poolConfig = { connectionString: databaseUrl };
+    try {
+        const url = new URL(databaseUrl);
+        const sslmode = url.searchParams.get('sslmode');
+        const ssl = url.searchParams.get('ssl');
+        if (sslmode === 'disable' || ssl === 'false') {
+            url.searchParams.delete('sslmode');
+            url.searchParams.delete('ssl');
+            poolConfig = { connectionString: url.toString(), ssl: false };
+        } else if (sslmode || ssl === 'true' || url.searchParams.has('sslmode')) {
+            url.searchParams.delete('sslmode');
+            url.searchParams.delete('ssl');
+            poolConfig = { connectionString: url.toString(), ssl: { rejectUnauthorized: false } };
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+        }
+    } catch {
+        poolConfig = { connectionString: databaseUrl, ssl: { rejectUnauthorized: false } };
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    }
+
+    const pool = new Pool(poolConfig);
     const adapter = new PrismaPg(pool);
     const prisma = new PrismaClient({ adapter });
 
