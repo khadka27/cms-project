@@ -131,25 +131,25 @@ export default function Header() {
                   )}
                 </button>
 
-                {/* Desktop Left Links: Article, Guide, About */}
-                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Left navigation">
+                {/* Desktop Left Links: Artículos, Guías, Nosotros */}
+                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación izquierda">
                   <Link
                     href="/article"
                     className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                   >
-                    Article
+                    Artículos
                   </Link>
                   <Link
                     href="/article"
                     className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                   >
-                    Guide
+                    Guías
                   </Link>
                   <Link
                     href="/about"
                     className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                   >
-                    About
+                    Nosotros
                   </Link>
                 </nav>
               </div>
@@ -159,32 +159,32 @@ export default function Header() {
                 <Link
                   href="/"
                   className="block group"
-                  aria-label="OfficialProductsLab Home"
+                  aria-label="NutritionalReviews Home"
                 >
                   <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-[84px] md:h-[84px] rounded-full bg-white border-2 border-turquoise_surf/50 shadow-xl shadow-bright_teal_blue/20 ring-4 ring-white flex items-center justify-center p-1.5 sm:p-2 transition-all duration-300 group-hover:scale-105 group-hover:border-bright_teal_blue group-hover:shadow-bright_teal_blue/35 cursor-pointer">
                     <img
                       src="/logo.png"
-                      alt="OfficialProductsLab logo"
+                      alt="NutritionalReviews logo"
                       className="w-full h-full object-contain"
                     />
                   </div>
                 </Link>
               </div>
 
-              {/* ── Right Navigation: Products, Contact, Search ── */}
+              {/* ── Right Navigation: Productos, Contacto, Búsqueda ── */}
               <div className="flex items-center gap-4 sm:gap-6 flex-1 justify-end">
-                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Right navigation">
+                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación derecha">
                   <Link
                     href="/products"
                     className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                   >
-                    Products
+                    Productos
                   </Link>
                   <Link
                     href="/contact"
                     className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                   >
-                    Contact
+                    Contacto
                   </Link>
                 </nav>
 
@@ -200,7 +200,7 @@ export default function Header() {
                       ? "bg-french_blue text-white shadow-md shadow-french_blue/25 scale-105"
                       : "text-slate-700 hover:text-bright_teal_blue hover:bg-light_cyan/40 bg-slate-50 sm:bg-transparent border border-slate-200/80 sm:border-transparent"
                   }`}
-                  aria-label={searchOpen ? "Close search" : "Search products"}
+                  aria-label={searchOpen ? "Cerrar búsqueda" : "Buscar productos"}
                 >
                   {searchOpen ? (
                     <X className="w-4.5 h-4.5 animate-in spin-in-90 duration-200" />
@@ -275,17 +275,17 @@ export default function Header() {
               </div>
               <div>
                 <span className="block font-black text-slate-900 text-sm tracking-tight leading-tight">
-                  OfficialProductsLab
+                  NutritionalReviews
                 </span>
                 <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                  Verified Product Hub
+                  Centro de Análisis Verificados
                 </span>
               </div>
             </Link>
             <button
               onClick={() => setMobileOpen(false)}
               className="w-9 h-9 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
-              aria-label="Close menu"
+              aria-label="Cerrar menú"
             >
               <X className="w-5 h-5" />
             </button>
@@ -304,7 +304,7 @@ export default function Header() {
               >
                 <div className="flex items-center gap-2.5">
                   <Search className="w-4 h-4 text-french_blue group-hover:scale-110 transition-transform" />
-                  <span className="font-medium text-slate-600">Search products, guides...</span>
+                  <span className="font-medium text-slate-600">Buscar productos, guías...</span>
                 </div>
                 <span className="text-[10px] font-extrabold text-french_blue bg-white px-2 py-0.5 rounded-lg border border-light_cyan shadow-xs">
                   ⌘K
@@ -315,13 +315,13 @@ export default function Header() {
             {/* Main Navigation Links */}
             <div className="space-y-1">
               <p className="px-2 pb-1 text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">
-                Menu
+                Menú
               </p>
               {[
-                { href: "/products", label: "Products Catalog", icon: LayoutGrid, desc: "Explore all verified reviews" },
-                { href: "/article", label: "Buyer Guides & Articles", icon: BookOpen, desc: "Expert tips & analysis" },
-                { href: "/about", label: "About Our Lab", icon: Info, desc: "Editorial review process" },
-                { href: "/contact", label: "Contact Us", icon: Mail, desc: "Inquiries & support" },
+                { href: "/products", label: "Catálogo de Productos", icon: LayoutGrid, desc: "Explora todos los análisis verificados" },
+                { href: "/article", label: "Guías de Compra y Artículos", icon: BookOpen, desc: "Consejos de expertos y análisis" },
+                { href: "/about", label: "Sobre Nuestro Laboratorio", icon: Info, desc: "Proceso editorial y metodología" },
+                { href: "/contact", label: "Contáctenos", icon: Mail, desc: "Consultas y soporte" },
               ].map((item) => (
                 <Link
                   key={item.href + item.label}
@@ -351,22 +351,22 @@ export default function Header() {
             <div className="pt-2 border-t border-slate-100">
               <div className="flex items-center justify-between px-2 mb-2.5">
                 <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">
-                  Popular Categories
+                  Categorías Populares
                 </span>
                 <Link
                   href="/products"
                   onClick={() => setMobileOpen(false)}
                   className="text-[11px] font-bold text-french_blue hover:underline"
                 >
-                  View All
+                  Ver Todo
                 </Link>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { name: "Smart Tech", href: "/products" },
-                  { name: "Home Living", href: "/products" },
-                  { name: "Wellness & Health", href: "/products" },
-                  { name: "Fitness Gear", href: "/products" },
+                  { name: "Tecnología de Salud", href: "/products" },
+                  { name: "Vida y Hogar", href: "/products" },
+                  { name: "Salud y Bienestar", href: "/products" },
+                  { name: "Fitness y Deporte", href: "/products" },
                 ].map((cat) => (
                   <Link
                     key={cat.name}
@@ -389,10 +389,10 @@ export default function Header() {
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-98"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>Browse Full Catalog</span>
+              <span>Explorar Catálogo Completo</span>
             </Link>
             <p className="text-center text-[10px] text-slate-400">
-              Official Products Lab • 100% Independent Reviews
+              Nutritional Reviews • Análisis 100% Independientes
             </p>
           </div>
         </div>

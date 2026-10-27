@@ -24,7 +24,7 @@ export default function SubcategoryPage() {
       .then((subs: Subcategory[]) => {
         const sub = subs.find((s) => s.slug === slug);
         if (!sub) {
-          setError("Subcategory not found");
+          setError("Subcategoría no encontrada");
           setLoading(false);
           return;
         }
@@ -36,7 +36,7 @@ export default function SubcategoryPage() {
       .then((data?: { products: Product[] }) => {
         if (data?.products) setProducts(data.products);
       })
-      .catch(() => setError("Failed to load data"))
+      .catch(() => setError("Error al cargar los datos"))
       .finally(() => setLoading(false));
   }, [slug]);
 
@@ -48,22 +48,22 @@ export default function SubcategoryPage() {
             name={subcategory.name}
             description={subcategory.description || ""}
             image={subcategory.image || ""}
-            url={`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/subcategory/${subcategory.slug}`}
+            url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org"}/subcategory/${subcategory.slug}`}
           />
           <BreadcrumbSchema
             items={[
               {
-                name: "Home",
+                name: "Inicio",
                 url:
-                  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+                  process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org",
               },
               {
-                name: "Products",
-                url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/products`,
+                name: "Productos",
+                url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org"}/products`,
               },
               {
                 name: subcategory.name,
-                url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/subcategory/${subcategory.slug}`,
+                url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org"}/subcategory/${subcategory.slug}`,
               },
             ]}
           />
@@ -82,8 +82,8 @@ export default function SubcategoryPage() {
             <div className="max-w-[1320px] mx-auto">
               <Breadcrumb
                 crumbs={[
-                  { label: "Home", href: "/" },
-                  { label: "Products", href: "/products" },
+                  { label: "Inicio", href: "/" },
+                  { label: "Productos", href: "/products" },
                   { label: subcategory.name },
                 ]}
               />
@@ -104,7 +104,7 @@ export default function SubcategoryPage() {
           <p className="text-xs sm:text-sm text-slate-600">
             {loading
               ? "..."
-              : `${products.length} product${products.length !== 1 ? "s" : ""} found`}
+              : `${products.length} producto${products.length !== 1 ? "s" : ""} encontrado${products.length !== 1 ? "s" : ""}`}
           </p>
         </div>
 
@@ -124,7 +124,7 @@ export default function SubcategoryPage() {
           <div className="surface-shell rounded-2xl sm:rounded-3xl text-center py-16 sm:py-20">
             <PackageSearch className="w-12 h-12 sm:w-14 sm:h-14 text-slate-300 mx-auto mb-4" />
             <p className="text-slate-500 text-base sm:text-lg font-medium">
-              No products in this subcategory yet.
+              Aún no hay productos en esta subcategoría.
             </p>
           </div>
         ) : (

@@ -23,11 +23,11 @@ interface SearchBarProps {
 }
 
 const TRENDING_SEARCHES = [
-  "Home Treadmill",
-  "Cardio Equipment",
-  "Supplements",
-  "Fitness Gear",
-  "Wellness",
+  "Cinta de Correr",
+  "Equipos de Cardio",
+  "Suplementos",
+  "Fitness y Deporte",
+  "Bienestar",
 ];
 
 export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps) {
@@ -143,7 +143,7 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
         <input
           ref={inputRef}
           type="text"
-          placeholder="Search for products, reviews, categories..."
+          placeholder="Buscar productos, análisis, categorías..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full pl-12 pr-24 py-4 rounded-2xl bg-[#eef8fb] border-2 border-turquoise_surf/30 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-french_blue/20 focus:border-french_blue transition-all duration-200 text-sm sm:text-base font-medium shadow-inner"
@@ -189,7 +189,7 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
             <div>
               <div className="flex items-center gap-1.5 text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2.5 px-1">
                 <TrendingUp className="w-3.5 h-3.5 text-bright_teal_blue" />
-                <span>Trending Searches</span>
+                <span>Búsquedas Populares</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {TRENDING_SEARCHES.map((term) => (
@@ -208,7 +208,7 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
             <div>
               <div className="flex items-center gap-1.5 text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2.5 px-1">
                 <Sparkles className="w-3.5 h-3.5 text-bright_teal_blue" />
-                <span>Explore Sections</span>
+                <span>Explorar Secciones</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <Link
@@ -222,9 +222,9 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
                     </div>
                     <div>
                       <p className="text-xs font-bold text-slate-900 group-hover:text-french_blue transition-colors">
-                        All Products Catalog
+                        Catálogo de Productos
                       </p>
-                      <p className="text-[11px] text-slate-500">Browse verified reviews</p>
+                      <p className="text-[11px] text-slate-500">Explora análisis verificados</p>
                     </div>
                   </div>
                   <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-french_blue group-hover:translate-x-0.5 transition-all" />
@@ -241,9 +241,9 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
                     </div>
                     <div>
                       <p className="text-xs font-bold text-slate-900 group-hover:text-french_blue transition-colors">
-                        Buyer Guides & Articles
+                        Guías de Compra y Artículos
                       </p>
-                      <p className="text-[11px] text-slate-500">Expert comparisons & tips</p>
+                      <p className="text-[11px] text-slate-500">Comparativas de expertos y consejos</p>
                     </div>
                   </div>
                   <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-french_blue group-hover:translate-x-0.5 transition-all" />
@@ -257,7 +257,7 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
         {loading && (
           <div className="py-12 flex flex-col items-center justify-center text-center">
             <div className="w-8 h-8 border-3 border-light_cyan border-t-french_blue rounded-full animate-spin mb-3" />
-            <p className="text-xs font-bold text-slate-500">Searching verified database...</p>
+            <p className="text-xs font-bold text-slate-500">Buscando en la base de datos verificada...</p>
           </div>
         )}
 
@@ -266,10 +266,10 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
           <div className="space-y-1.5 py-1">
             <div className="flex items-center justify-between px-2 mb-2">
               <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">
-                Matching Products ({results.length})
+                Productos Coincidentes ({results.length})
               </span>
               <span className="text-[11px] font-bold text-bright_teal_blue">
-                Verified Reviews
+                Análisis Verificados
               </span>
             </div>
 
@@ -308,7 +308,7 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
                       )}
                     </div>
                     <p className="text-xs text-slate-500 truncate mt-0.5">
-                      {product.shortDescription || "Click to explore verified review and buyer notes"}
+                      {product.shortDescription || "Haz clic para ver el análisis verificado y notas de compra"}
                     </p>
                   </div>
 
@@ -337,16 +337,16 @@ export default function SearchBar({ onClose, autoFocus = true }: SearchBarProps)
               <Search className="w-6 h-6" />
             </div>
             <p className="text-sm font-bold text-slate-800">
-              No products found for &ldquo;{query}&rdquo;
+              No se encontraron productos para &ldquo;{query}&rdquo;
             </p>
             <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
-              Try searching with general keywords like &ldquo;treadmill&rdquo;, &ldquo;fitness&rdquo;, or &ldquo;supplements&rdquo;.
+              Intenta buscar con palabras clave generales como &ldquo;cinta&rdquo;, &ldquo;fitness&rdquo; o &ldquo;suplementos&rdquo;.
             </p>
             <button
               onClick={() => setQuery("")}
               className="mt-3 text-xs font-bold text-french_blue hover:underline cursor-pointer"
             >
-              Clear search query
+              Borrar búsqueda
             </button>
           </div>
         )}

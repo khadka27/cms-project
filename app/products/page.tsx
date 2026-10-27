@@ -58,11 +58,11 @@ function ProductsContent() {
               <PackageSearch className="w-6 h-6 text-sky_aqua" />
             </div>
             <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-3 sm:mb-4">
-              Explore Our <span className="text-sky_aqua">Products</span>
+              Explore Nuestros <span className="text-sky_aqua">Productos</span>
             </h1>
             <p className="text-slate-300 max-w-2xl text-xs sm:text-base leading-relaxed">
-              Discover our curated selection of premium products, 
-              designed for maximum style, function, and efficacy.
+              Descubra nuestra cuidada selección de productos destacados, 
+              analizados para garantizar la máxima calidad, funcionalidad y eficacia.
             </p>
           </div>
         </div>
@@ -74,14 +74,14 @@ function ProductsContent() {
           {/* Results count (left) */}
           <div className="hidden sm:block">
             <p className="text-xs font-extrabold text-bright_teal_blue uppercase tracking-widest px-2">
-              {pagination.total} Results
+              {pagination.total} Resultados
             </p>
           </div>
 
           {/* View Toggle */}
           <div className="flex items-center gap-3 ml-auto w-full sm:w-auto justify-between sm:justify-end">
             <p className="sm:hidden text-xs font-extrabold text-bright_teal_blue uppercase tracking-widest pl-1">
-              {pagination.total} Results
+              {pagination.total} Resultados
             </p>
 
             <div className="flex items-center bg-slate-50 p-1 rounded-xl border border-slate-100">
@@ -92,9 +92,9 @@ function ProductsContent() {
                     ? "bg-french_blue text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-800 hover:bg-white"
                 }`}
-                title="List View"
+                title="Vista Lista"
               >
-                <List className="w-4 h-4" /> <span className="hidden sm:inline">List</span>
+                <List className="w-4 h-4" /> <span className="hidden sm:inline">Lista</span>
               </button>
               <button
                 onClick={() => setViewMode("grid")}
@@ -103,9 +103,9 @@ function ProductsContent() {
                     ? "bg-french_blue text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-800 hover:bg-white"
                 }`}
-                title="Grid View"
+                title="Vista Cuadrícula"
               >
-                <LayoutGrid className="w-4 h-4" /> <span className="hidden sm:inline">Grid</span>
+                <LayoutGrid className="w-4 h-4" /> <span className="hidden sm:inline">Cuadrícula</span>
               </button>
             </div>
           </div>
@@ -125,8 +125,8 @@ function ProductsContent() {
             <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
               <PackageSearch className="w-8 h-8 text-slate-300" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">No products found</h3>
-            <p className="text-slate-500 mt-2">Try adjusting your filters or search terms.</p>
+            <h3 className="text-lg font-bold text-slate-900">No se encontraron productos</h3>
+            <p className="text-slate-500 mt-2">Intente ajustar sus filtros o términos de búsqueda.</p>
           </div>
         ) : (
           <div className={viewMode === "list" ? "flex flex-col gap-6" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"}>

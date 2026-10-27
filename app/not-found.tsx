@@ -15,13 +15,13 @@ export default function NotFound() {
           </h1>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
             <p className="text-lg sm:text-xl md:text-2xl font-black text-white bg-deep_twilight/90 backdrop-blur-md px-6 py-2 rounded-full inline-block rotate-[-5deg] shadow-xl">
-              Page Not Found
+              Página No Encontrada
             </p>
           </div>
         </div>
 
         <p className="text-slate-500 text-sm sm:text-base leading-relaxed mb-10 max-w-md mx-auto font-medium">
-          Oops! It looks like you&apos;ve wandered off the trail. The page you&apos;re looking for might have been moved or no longer exists.
+          ¡Ups! Parece que se ha desviado del camino. La página que está buscando podría haberse movido o ya no existe.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -30,7 +30,7 @@ export default function NotFound() {
             className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf text-white font-bold rounded-xl hover:brightness-110 transition-all shadow-lg shadow-bright_teal_blue/25 hover:-translate-y-0.5 group cursor-pointer"
           >
             <Home className="w-4 h-4" />
-            Back to Home
+            Volver al Inicio
           </Link>
           
           <Link
@@ -38,7 +38,7 @@ export default function NotFound() {
             className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-slate-50 text-slate-700 font-bold rounded-xl border border-slate-200 hover:bg-light_cyan/20 hover:text-deep_twilight transition-all hover:-translate-y-0.5 group"
           >
             <Search className="w-4 h-4 text-slate-400 group-hover:text-bright_teal_blue transition-colors" />
-            Browse Products
+            Explorar Productos
           </Link>
         </div>
       </div>

@@ -1,6 +1,6 @@
-# OfficialProductsLab SEO Configuration Guide
+# NutritionalReviews SEO Configuration Guide
 
-## Domain: officialproductslab.com
+## Domain: nutritionalreviews.org
 
 ### ✅ Implemented SEO Features
 
@@ -43,7 +43,7 @@
 
 #### 6. **Site Security**
 
-- HTTPS enforced (officialproductslab.com)
+- HTTPS enforced (nutritionalreviews.org)
 - Secure cookie settings
 - CORS properly configured
 
@@ -52,15 +52,15 @@
 #### 1. **Google Search Console**
 
 1. Go to https://search.google.com/search-console
-2. Add property: https://officialproductslab.com
+2. Add property: https://nutritionalreviews.org
 3. Verify domain ownership
-4. Submit sitemap: https://officialproductslab.com/sitemap.xml
+4. Submit sitemap: https://nutritionalreviews.org/sitemap.xml
 5. Check coverage and fix any issues
 
 #### 2. **Bing Webmaster Tools**
 
 1. Go to https://www.bing.com/webmasters
-2. Add site: https://officialproductslab.com
+2. Add site: https://nutritionalreviews.org
 3. Submit sitemap
 4. Verify website
 
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
 
 #### 5. **SSL Certificate**
 
-- ✅ Ensure HTTPS is enforced on officialproductslab.com
+- ✅ Ensure HTTPS is enforced on nutritionalreviews.org
 - Valid SSL certificate required
 
 #### 6. **Analytics Setup**
@@ -123,15 +123,15 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 **Current Status:**
 
-- Sitemap: https://officialproductslab.com/sitemap.xml
-- Robots: https://officialproductslab.com/robots.txt
-- Domain: https://officialproductslab.com
+- Sitemap: https://nutritionalreviews.org/sitemap.xml
+- Robots: https://nutritionalreviews.org/robots.txt
+- Domain: https://nutritionalreviews.org
 - SSL: ✅ Required
 
 **To check indexing:**
 
-1. Google: `site:officialproductslab.com`
-2. Bing: `site:officialproductslab.com`
+1. Google: `site:nutritionalreviews.org`
+2. Bing: `site:nutritionalreviews.org`
 
 ### 💡 SEO Best Practices
 

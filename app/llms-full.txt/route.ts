@@ -56,73 +56,73 @@ export async function GET() {
     }
   }
 
-  let content = `# Official Products Lab - Full AI-Friendly Documentation & Content Index\n\n`;
-  content += `Official Products Lab is a trusted editorial hub that organizes product information into clear, balanced reviews and buyer guides. We help shoppers understand popular online products, category definitions, pricing details, and key features before they visit dedicated product checkout or information pages.\n\n`;
+  let content = `# Nutritional Reviews - Documentación Completa e Índice de Contenidos para IA\n\n`;
+  content += `Nutritional Reviews es un portal editorial de confianza que organiza información de productos en análisis claros y equilibrados, y guías de compra. Ayudamos a los compradores a comprender productos populares, definiciones de categorías, detalles de precios y especificaciones clave antes de visitar las páginas oficiales de información o compra.\n\n`;
 
-  content += `## Content Philosophy & Process\n`;
-  content += `- **Clarity Over Pressure**: Our content explains products in simple language. We avoid high-pressure sales tactics.\n`;
-  content += `- **Balanced Reviews**: Every product overview highlights key features alongside realistic limitations and pros/cons.\n`;
-  content += `- **Transparency**: Some of our reviews include affiliate links to third-party offers or product sites. We urge all users to check terms, refund rules, and package options on the seller's final page.\n\n`;
+  content += `## Filosofía Editorial y Proceso\n`;
+  content += `- **Claridad sin Presiones**: Nuestro contenido explica los productos en un lenguaje sencillo y accesible, evitando tácticas de venta agresivas.\n`;
+  content += `- **Análisis Equilibrados**: Cada resumen destaca las características principales junto con limitaciones realistas, pros y contras.\n`;
+  content += `- **Transparencia**: Algunos de nuestros análisis incluyen enlaces de afiliados a ofertas de terceros o sitios de fabricantes. Recomendamos revisar siempre los términos, condiciones y políticas de devolución en la página final del vendedor.\n\n`;
 
   content += `---\n\n`;
 
-  content += `## Subcategories & Collections\n\n`;
+  content += `## Subcategorías y Colecciones\n\n`;
   if (subcategories.length > 0) {
     for (const sub of subcategories) {
       content += `### ${sub.name}\n`;
-      content += `- **Link**: https://officialproductslab.com/subcategory/${sub.slug}\n`;
-      content += `- **Description**: ${sub.description || "No description available."}\n\n`;
+      content += `- **Enlace**: https://nutritionalreviews.org/subcategory/${sub.slug}\n`;
+      content += `- **Descripción**: ${sub.description || "Sin descripción disponible."}\n\n`;
     }
   } else {
-    content += `No subcategories currently available.\n\n`;
+    content += `No hay subcategorías disponibles actualmente.\n\n`;
   }
 
   content += `---\n\n`;
 
-  content += `## Detailed Product Reviews\n\n`;
+  content += `## Análisis Detallados de Productos\n\n`;
   if (products.length > 0) {
     for (const prod of products) {
       content += `### ${prod.name}\n`;
-      content += `- **Link**: https://officialproductslab.com/${prod.slug}\n`;
-      content += `- **Subcategory**: ${prod.subcategory?.name || "N/A"}\n`;
-      content += `- **Price**: $${prod.price}\n`;
+      content += `- **Enlace**: https://nutritionalreviews.org/${prod.slug}\n`;
+      content += `- **Subcategoría**: ${prod.subcategory?.name || "N/D"}\n`;
+      content += `- **Precio**: $${prod.price}\n`;
       if (prod.buyNowLink) {
-        content += `- **Purchase Link**: ${prod.buyNowLink}\n`;
+        content += `- **Enlace de Compra**: ${prod.buyNowLink}\n`;
       }
       if (prod.readMoreLink) {
-        content += `- **More Information**: ${prod.readMoreLink}\n`;
+        content += `- **Más Información**: ${prod.readMoreLink}\n`;
       }
-      content += `- **Summary**: ${prod.shortDescription}\n`;
+      content += `- **Resumen**: ${prod.shortDescription}\n`;
       if (prod.keyFeatures) {
-        content += `- **Key Features**:\n${prod.keyFeatures.split("\n").map((line: string) => `  * ${line.trim()}`).join("\n")}\n`;
+        content += `- **Características Principales**:\n${prod.keyFeatures.split("\n").map((line: string) => `  * ${line.trim()}`).join("\n")}\n`;
       }
       if (prod.ingredients && prod.ingredients.length > 0) {
-        content += `- **Active Ingredients**:\n`;
+        content += `- **Ingredientes Activos**:\n`;
         for (const ing of prod.ingredients) {
-          content += `  * **${ing.name}**: ${ing.description || "N/A"}\n`;
+          content += `  * **${ing.name}**: ${ing.description || "N/D"}\n`;
         }
       }
-      content += `- **Detailed Description**:\n${prod.detailedDescription}\n\n`;
+      content += `- **Descripción Detallada**:\n${prod.detailedDescription}\n\n`;
       content += `---\n\n`;
     }
   } else {
-    content += `No products currently available.\n\n`;
+    content += `No hay productos disponibles actualmente.\n\n`;
   }
 
-  content += `## Published Articles & Guides\n\n`;
+  content += `## Artículos y Guías Publicados\n\n`;
   if (articles.length > 0) {
     for (const art of articles) {
       content += `### ${art.title}\n`;
-      content += `- **Link**: https://officialproductslab.com/article/${art.slug}\n`;
-      content += `- **Author**: ${art.author?.name || "Official Products Lab Editorial Team"}\n`;
+      content += `- **Enlace**: https://nutritionalreviews.org/article/${art.slug}\n`;
+      content += `- **Autor**: ${art.author?.name || "Equipo Editorial de Nutritional Reviews"}\n`;
       if (art.excerpt) {
-        content += `- **Excerpt**: ${art.excerpt}\n`;
+        content += `- **Extracto**: ${art.excerpt}\n`;
       }
-      content += `- **Content**:\n${art.content}\n\n`;
+      content += `- **Contenido**:\n${art.content}\n\n`;
       content += `---\n\n`;
     }
   } else {
-    content += `No articles currently published.\n\n`;
+    content += `No hay artículos publicados actualmente.\n\n`;
   }
 
   return new Response(content, {

@@ -3,35 +3,35 @@ export default function RefundPolicyPage() {
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="surface-shell rounded-3xl p-8 sm:p-12">
         <p className="text-xs uppercase tracking-[0.24em] text-bright_teal_blue">
-          Refund Policy
+          Política de Reembolso
         </p>
         <h1 className="mt-3 text-4xl sm:text-5xl font-semibold text-slate-900">
-          Refund policy
+          Política de reembolsos y devoluciones
         </h1>
-        <p className="mt-4 text-sm text-slate-500">Last updated: May 8, 2026</p>
+        <p className="mt-4 text-sm text-slate-500">Última actualización: 8 de mayo de 2026</p>
 
         <section className="mt-8 space-y-4 text-sm sm:text-base text-slate-700">
           <p>
-            We want you to be satisfied with your purchase. This policy explains
-            when refunds are available and how to request them.
+            Queremos que esté completamente satisfecho con su compra. Esta política explica
+            cuándo se aplican los reembolsos y cómo solicitarlos.
           </p>
-          <h2 className="text-lg font-semibold text-slate-900">Eligibility</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Elegibilidad</h2>
           <ul className="list-disc pl-5 space-y-2">
-            <li>Requests must be submitted within 30 days of delivery.</li>
-            <li>Items must be unused and in original packaging.</li>
-            <li>Certain products may be non-refundable for safety reasons.</li>
+            <li>Las solicitudes deben enviarse dentro de los 30 días posteriores a la entrega.</li>
+            <li>Los artículos deben estar sin usar y en su embalaje original intacto.</li>
+            <li>Ciertos productos consumibles o precintados pueden no ser reembolsables por razones de higiene y seguridad.</li>
           </ul>
           <h2 className="text-lg font-semibold text-slate-900">
-            How to request a refund
+            Cómo solicitar un reembolso
           </h2>
           <ol className="list-decimal pl-5 space-y-2">
-            <li>Email your order number to support@bestproductslab.example.</li>
-            <li>Our team will respond with return instructions.</li>
-            <li>Refunds are issued to the original payment method.</li>
+            <li>Envíe un correo electrónico con su número de pedido a support@nutritionalreviews.org.</li>
+            <li>Nuestro equipo le responderá con las instrucciones de devolución.</li>
+            <li>Los reembolsos se emiten utilizando el método de pago original.</li>
           </ol>
           <p>
-            Processing times vary by payment provider, typically 5 to 10
-            business days after approval.
+            Los tiempos de procesamiento varían según el proveedor de pagos, normalmente entre 5 y 10
+            días hábiles después de la aprobación.
           </p>
         </section>
       </article>

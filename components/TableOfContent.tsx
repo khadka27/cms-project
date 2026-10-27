@@ -91,7 +91,7 @@ export default function TableOfContents({ contentSelector = '.product-content' }
           >
             <span className="flex items-center gap-2">
               <List className="w-4 h-4 text-bright_teal_blue" />
-              Contents
+              Contenido
             </span>
             {open ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
           </button>
@@ -131,7 +131,7 @@ export default function TableOfContents({ contentSelector = '.product-content' }
           >
             <span className="flex items-center gap-2">
               <List className="w-4 h-4 text-bright_teal_blue" />
-              Table of Contents
+              Tabla de Contenidos
             </span>
             {open ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
           </button>

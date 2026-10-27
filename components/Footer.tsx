@@ -47,37 +47,37 @@ function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const exploreLinks = [
-  { label: "Product Reviews", href: "/products" },
-  { label: "Product Categories", href: "/products" },
-  { label: "Latest Products", href: "/products" },
-  { label: "Buyer Guides", href: "/article" },
-  { label: "Featured Product Pages", href: "/products" },
+  { label: "Análisis de Productos", href: "/products" },
+  { label: "Categorías de Productos", href: "/products" },
+  { label: "Últimos Productos", href: "/products" },
+  { label: "Guías de Compra", href: "/article" },
+  { label: "Páginas Destacadas", href: "/products" },
 ];
 
 const categoryLinks = [
-  { label: "Automotive Products", href: "/products" },
-  { label: "Beauty & Personal Care", href: "/products" },
-  { label: "Wellness & Lifestyle", href: "/products" },
-  { label: "Home & Kitchen Gadgets", href: "/products" },
-  { label: "Tech & Smart Gadgets", href: "/products" },
+  { label: "Productos Automotrices", href: "/products" },
+  { label: "Belleza y Cuidado Personal", href: "/products" },
+  { label: "Bienestar y Estilo de Vida", href: "/products" },
+  { label: "Hogar y Cocina", href: "/products" },
+  { label: "Tecnología y Gadgets", href: "/products" },
 ];
 
 const companyLinks = [
-  { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contact" },
-  { label: "Editorial Process", href: "/legal/editorial" },
-  { label: "How We Review Products", href: "/legal/how-we-review" },
+  { label: "Sobre Nosotros", href: "/about" },
+  { label: "Contáctenos", href: "/contact" },
+  { label: "Proceso Editorial", href: "/legal/editorial" },
+  { label: "Cómo Analizamos Productos", href: "/legal/how-we-review" },
 ];
 
 const legalLinks = [
-  { label: "Affiliate Disclosure", href: "/legal/affiliate" },
-  { label: "Advertising Disclosure", href: "/legal/advertising" },
-  { label: "Privacy Policy", href: "/legal/privacy" },
-  { label: "Terms and Conditions", href: "/legal/terms" },
-  { label: "Disclaimer", href: "/legal/disclaimer" },
-  { label: "Cookie Policy", href: "/legal/cookies" },
-  { label: "Corrections Policy", href: "/legal/corrections" },
-  { label: "External Links Policy", href: "/legal/external-links" },
+  { label: "Divulgación de Afiliados", href: "/legal/affiliate" },
+  { label: "Divulgación de Publicidad", href: "/legal/advertising" },
+  { label: "Política de Privacidad", href: "/legal/privacy" },
+  { label: "Términos y Condiciones", href: "/legal/terms" },
+  { label: "Descargo de Responsabilidad", href: "/legal/disclaimer" },
+  { label: "Política de Cookies", href: "/legal/cookies" },
+  { label: "Política de Correcciones", href: "/legal/corrections" },
+  { label: "Política de Enlaces Externos", href: "/legal/external-links" },
 ];
 
 const socials = [
@@ -117,33 +117,33 @@ export default function Footer() {
 
           {/* Brand column (wider) */}
           <div className="sm:col-span-2 md:col-span-3 lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-3 group mb-5" aria-label="OfficialProductsLab home">
+            <Link href="/" className="inline-flex items-center gap-3 group mb-5" aria-label="NutritionalReviews home">
               <img
                 src="/logo.png"
-                alt="OfficialProductsLab logo"
+                alt="NutritionalReviews logo"
                 className="h-12 sm:h-14 w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
               />
               <span className="font-bold text-white text-base tracking-tight group-hover:text-sky_aqua transition-colors duration-200">
-                OfficialProductsLab
+                NutritionalReviews
               </span>
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed mb-6 max-w-sm">
-              Official Products Lab is a product information hub that helps shoppers explore trending e-commerce products through clear reviews, category guides, buyer notes, and dedicated product information pages.
+              Nutritional Reviews es un centro de información de productos que ayuda a los compradores a descubrir productos destacados de salud y nutrición mediante análisis claros, guías por categoría, notas para compradores y páginas especializadas de información de productos.
             </p>
 
             {/* Contact info */}
             <div className="space-y-2.5 mb-6">
               <a
-                href="mailto:support@officialproductslab.com"
+                href="mailto:support@nutritionalreviews.org"
                 className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-sky_aqua transition-colors duration-200 group"
               >
                 <Mail className="w-4 h-4 text-slate-500 group-hover:text-turquoise_surf transition-colors" />
-                support@officialproductslab.com
+                support@nutritionalreviews.org
               </a>
               <div className="flex items-center gap-2.5 text-sm text-slate-400">
                 <MapPin className="w-4 h-4 text-slate-500" />
-                United States
+                Estados Unidos
               </div>
             </div>
 
@@ -166,7 +166,7 @@ export default function Footer() {
           <div>
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-4 sm:mb-5">
               <Compass className="w-3.5 h-3.5 text-turquoise_surf" />
-              Explore
+              Explorar
             </h3>
             <ul className="space-y-2.5 sm:space-y-3">
               {exploreLinks.map(({ label, href }) => (
@@ -186,7 +186,7 @@ export default function Footer() {
           <div>
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-4 sm:mb-5">
               <Layers className="w-3.5 h-3.5 text-turquoise_surf" />
-              Categories
+              Categorías
             </h3>
             <ul className="space-y-2.5 sm:space-y-3">
               {categoryLinks.map(({ label, href }) => (
@@ -206,7 +206,7 @@ export default function Footer() {
           <div>
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-4 sm:mb-5">
               <BookOpen className="w-3.5 h-3.5 text-turquoise_surf" />
-              Company
+              Empresa
             </h3>
             <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
               {companyLinks.map(({ label, href }) => (
@@ -242,18 +242,18 @@ export default function Footer() {
           <div className="sm:col-span-2 md:col-span-3 lg:col-span-2">
             <h3 className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-2">
               <Mail className="w-3.5 h-3.5 text-turquoise_surf" />
-              Get Research Updates
+              Recibir Actualizaciones de Investigación
             </h3>
             <p className="text-sm text-slate-400 mb-4 sm:mb-5 leading-relaxed">
-              Readers can subscribe to receive new product reviews, buyer guides, and category updates from Official Products Lab.
+              Suscríbase para recibir nuevos análisis de productos, guías de compra y novedades de categorías de Nutritional Reviews.
             </p>
 
             {subscribed ? (
               <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-bright_teal_blue/15 border border-turquoise_surf/30">
                 <CheckCircle className="w-5 h-5 text-turquoise_surf flex-shrink-0" />
                 <div>
-                  <p className="text-sm font-semibold text-sky_aqua">You&apos;re in!</p>
-                  <p className="text-xs text-slate-400">Check your inbox soon.</p>
+                  <p className="text-sm font-semibold text-sky_aqua">¡Bienvenido!</p>
+                  <p className="text-xs text-slate-400">Revisa tu bandeja de entrada pronto.</p>
                 </div>
               </div>
             ) : (
@@ -265,7 +265,7 @@ export default function Footer() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
+                    placeholder="Tu correo electrónico"
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-turquoise_surf/40 focus:border-turquoise_surf/50 transition-all duration-200"
                     required
                   />
@@ -280,7 +280,7 @@ export default function Footer() {
                     <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                   ) : (
                     <>
-                      Subscribe <ArrowRight className="w-4 h-4" />
+                      Suscribirse <ArrowRight className="w-4 h-4" />
                     </>
                   )}
                 </button>
@@ -288,7 +288,7 @@ export default function Footer() {
             )}
 
             <p className="mt-3 text-xs text-slate-500 leading-relaxed">
-              No spam. You can unsubscribe at any time.
+              Sin spam. Puedes cancelar tu suscripción en cualquier momento.
             </p>
           </div>
         </div>
@@ -296,7 +296,7 @@ export default function Footer() {
         {/* ── Bottom bar ── */}
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-500 order-2 sm:order-1">
-            © {new Date().getFullYear()} OfficialProductsLab. All rights reserved.
+            © {new Date().getFullYear()} NutritionalReviews. Todos los derechos reservados.
           </p>
 
           <div className="flex items-center gap-4 order-1 sm:order-2 flex-wrap justify-center">

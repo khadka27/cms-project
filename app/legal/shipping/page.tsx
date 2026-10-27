@@ -3,35 +3,35 @@ export default function ShippingPolicyPage() {
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <article className="surface-shell rounded-3xl p-8 sm:p-12">
         <p className="text-xs uppercase tracking-[0.24em] text-bright_teal_blue">
-          Shipping Policy
+          Política de Envíos
         </p>
         <h1 className="mt-3 text-4xl sm:text-5xl font-semibold text-slate-900">
-          Shipping policy
+          Política de envíos y entregas
         </h1>
-        <p className="mt-4 text-sm text-slate-500">Last updated: May 8, 2026</p>
+        <p className="mt-4 text-sm text-slate-500">Última actualización: 8 de mayo de 2026</p>
 
         <section className="mt-8 space-y-4 text-sm sm:text-base text-slate-700">
           <p>
-            We aim to deliver your order quickly and reliably. This policy
-            outlines our fulfillment and shipping timelines.
+            Nuestro objetivo es entregar su pedido de forma rápida y confiable. Esta política
+            describe nuestros plazos de preparación y logística de envío.
           </p>
           <h2 className="text-lg font-semibold text-slate-900">
-            Processing time
+            Tiempo de preparación
           </h2>
           <p>
-            Orders are processed within 1 to 3 business days, excluding
-            holidays.
+            Los pedidos se procesan en un plazo de 1 a 3 días hábiles, excluyendo
+            fines de semana y días festivos.
           </p>
           <h2 className="text-lg font-semibold text-slate-900">
-            Shipping times
+            Plazos de entrega estimados
           </h2>
           <ul className="list-disc pl-5 space-y-2">
-            <li>Domestic standard: 3 to 7 business days.</li>
-            <li>Domestic express: 1 to 3 business days.</li>
-            <li>International: 7 to 21 business days.</li>
+            <li>Envío nacional estándar: de 3 a 7 días hábiles.</li>
+            <li>Envío nacional exprés: de 1 a 3 días hábiles.</li>
+            <li>Envío internacional: de 7 a 21 días hábiles según aduanas.</li>
           </ul>
-          <h2 className="text-lg font-semibold text-slate-900">Tracking</h2>
-          <p>You will receive a tracking link once your order ships.</p>
+          <h2 className="text-lg font-semibold text-slate-900">Seguimiento de envío</h2>
+          <p>Recibirá un enlace de seguimiento oficial por correo electrónico en cuanto su pedido sea despachado.</p>
         </section>
       </article>
     </main>

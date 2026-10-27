@@ -2,29 +2,64 @@ import Link from "next/link";
 
 const legalPages = [
   {
-    title: "Privacy Policy",
-    description: "How we collect, use, and protect your data.",
+    title: "Política de Privacidad",
+    description: "Cómo recopilamos, utilizamos y protegemos sus datos.",
     href: "/legal/privacy",
   },
   {
-    title: "Terms of Service",
-    description: "The rules and conditions for using OfficialProductsLab.",
+    title: "Términos de Servicio",
+    description: "Reglas y condiciones para el uso de NutritionalReviews.",
     href: "/legal/terms",
   },
   {
-    title: "Refund Policy",
-    description: "Eligibility, timelines, and how refunds work.",
+    title: "Política de Reembolso",
+    description: "Elegibilidad, plazos y procedimiento de devoluciones.",
     href: "/legal/refunds",
   },
   {
-    title: "Shipping Policy",
-    description: "Fulfillment timelines, tracking, and delivery info.",
+    title: "Política de Envíos",
+    description: "Tiempos de preparación, seguimiento e información de entrega.",
     href: "/legal/shipping",
   },
   {
-    title: "Cookie Policy",
-    description: "What cookies we use and your choices.",
+    title: "Política de Cookies",
+    description: "Qué cookies utilizamos y cómo gestionar sus preferencias.",
     href: "/legal/cookies",
+  },
+  {
+    title: "Divulgación de Publicidad",
+    description: "Transparencia publicitaria y estándares comerciales.",
+    href: "/legal/advertising",
+  },
+  {
+    title: "Divulgación de Afiliados",
+    description: "Información sobre nuestras relaciones y enlaces de afiliados.",
+    href: "/legal/affiliate",
+  },
+  {
+    title: "Política de Correcciones",
+    description: "Cómo gestionamos correcciones y actualizaciones de datos.",
+    href: "/legal/corrections",
+  },
+  {
+    title: "Aviso Legal y Descargo",
+    description: "Descargo de responsabilidad de salud y productos.",
+    href: "/legal/disclaimer",
+  },
+  {
+    title: "Proceso Editorial",
+    description: "Nuestros estándares editoriales e integridad científica.",
+    href: "/legal/editorial",
+  },
+  {
+    title: "Enlaces Externos",
+    description: "Pautas y políticas respecto a enlaces de terceros.",
+    href: "/legal/external-links",
+  },
+  {
+    title: "Cómo Evaluamos Productos",
+    description: "Nuestra metodología de análisis y pruebas independientes.",
+    href: "/legal/how-we-review",
   },
 ];
 
@@ -36,11 +71,11 @@ export default function LegalIndexPage() {
           Legal
         </p>
         <h1 className="mt-3 text-4xl sm:text-5xl font-semibold text-slate-900">
-          Legal information
+          Información legal
         </h1>
         <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl">
-          Review the policies that govern your use of OfficialProductsLab, your data,
-          and your purchases.
+          Consulte las políticas que rigen el uso de NutritionalReviews, la protección de sus datos
+          y las compras realizadas a través de enlaces verificados.
         </p>
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {legalPages.map((page) => (
@@ -54,7 +89,7 @@ export default function LegalIndexPage() {
                   {page.title}
                 </h2>
                 <span className="text-bright_teal_blue text-sm font-medium transition group-hover:text-french_blue">
-                  View
+                  Ver
                 </span>
               </div>
               <p className="mt-2 text-sm text-slate-600">{page.description}</p>

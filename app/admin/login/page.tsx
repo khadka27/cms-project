@@ -24,18 +24,18 @@ export default function AdminLoginPage() {
         redirect: false,
       });
       if (result?.error) {
-        setError("Invalid email or password. Please try again.");
+        setError("Correo electrónico o contraseña no válidos. Por favor, inténtelo de nuevo.");
       } else {
         const session = await getSession();
         const role = (session?.user as any)?.role;
         if (role === "admin" || role === "ADMIN") {
           router.push("/admin");
         } else {
-          setError("Access denied. Admin privileges required.");
+          setError("Acceso denegado. Se requieren privilegios de administrador.");
         }
       }
     } catch {
-      setError("An error occurred. Please try again.");
+      setError("Ocurrió un error. Por favor, inténtelo de nuevo.");
     } finally {
       setLoading(false);
     }
@@ -56,8 +56,8 @@ export default function AdminLoginPage() {
               <ShoppingBag className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="font-bold text-white text-lg tracking-tight">OfficialProductsLab</p>
-              <p className="text-sky_aqua text-xs uppercase tracking-widest font-semibold">Admin Panel</p>
+              <p className="font-bold text-white text-lg tracking-tight">NutritionalReviews</p>
+              <p className="text-sky_aqua text-xs uppercase tracking-widest font-semibold">Panel de Administración</p>
             </div>
           </div>
         </div>
@@ -65,17 +65,17 @@ export default function AdminLoginPage() {
         <div className="relative z-10 space-y-6">
           <div>
             <h2 className="text-4xl font-bold text-white leading-tight">
-              Manage your<br />store with ease
+              Gestione su<br />portal con facilidad
             </h2>
             <p className="text-sky_aqua/80 mt-3 text-base leading-relaxed">
-              Full control over products, categories, and your storefront — all in one place.
+              Control total sobre productos, categorías y su vitrina — todo en un solo lugar.
             </p>
           </div>
           <div className="grid grid-cols-3 gap-3">
             {[
-              { label: 'Products', icon: '📦' },
-              { label: 'Categories', icon: '📁' },
-              { label: 'Analytics', icon: '📊' },
+              { label: 'Productos', icon: '📦' },
+              { label: 'Categorías', icon: '📁' },
+              { label: 'Estadísticas', icon: '📊' },
             ].map(item => (
               <div key={item.label} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 text-center">
                 <div className="text-2xl mb-1">{item.icon}</div>
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
 
         <div className="relative z-10">
           <p className="text-white/50 text-xs">
-            © {new Date().getFullYear()} OfficialProductsLab. All rights reserved.
+            © {new Date().getFullYear()} NutritionalReviews. Todos los derechos reservados.
           </p>
         </div>
       </div>
@@ -100,12 +100,12 @@ export default function AdminLoginPage() {
             <div className="w-9 h-9 bg-gradient-to-r from-french_blue to-bright_teal_blue rounded-xl flex items-center justify-center shadow-md">
               <ShoppingBag className="w-5 h-5 text-white" />
             </div>
-            <p className="font-bold text-white text-lg">OfficialProductsLab Admin</p>
+            <p className="font-bold text-white text-lg">Panel de NutritionalReviews</p>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-white">Welcome back</h1>
-            <p className="text-white/50 mt-1 text-sm">Sign in to your admin account</p>
+            <h1 className="text-2xl font-bold text-white">Bienvenido de nuevo</h1>
+            <p className="text-white/50 mt-1 text-sm">Inicie sesión en su cuenta de administrador</p>
           </div>
 
           {error && (
@@ -118,7 +118,7 @@ export default function AdminLoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-white/70 mb-1.5">
-                Email Address
+                Correo Electrónico
               </label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -127,7 +127,7 @@ export default function AdminLoginPage() {
                   required
                   value={formData.email}
                   onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
-                  placeholder="admin@example.com"
+                  placeholder="admin@ejemplo.com"
                   className="w-full pl-10 pr-4 py-3 bg-white/8 border border-white/12 rounded-xl text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue/50 focus:border-bright_teal_blue/50 transition-all"
                 />
               </div>
@@ -135,7 +135,7 @@ export default function AdminLoginPage() {
 
             <div>
               <label className="block text-sm font-medium text-white/70 mb-1.5">
-                Password
+                Contraseña
               </label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -144,7 +144,7 @@ export default function AdminLoginPage() {
                   required
                   value={formData.password}
                   onChange={e => setFormData(p => ({ ...p, password: e.target.value }))}
-                  placeholder="Enter your password"
+                  placeholder="Introduzca su contraseña"
                   className="w-full pl-10 pr-11 py-3 bg-white/8 border border-white/12 rounded-xl text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-bright_teal_blue/50 focus:border-bright_teal_blue/50 transition-all"
                 />
                 <button
@@ -165,15 +165,15 @@ export default function AdminLoginPage() {
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Signing in…
+                  Iniciando sesión…
                 </span>
-              ) : "Sign In"}
+              ) : "Iniciar Sesión"}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors">
-              <ArrowLeft className="w-3.5 h-3.5" /> Back to website
+              <ArrowLeft className="w-3.5 h-3.5" /> Volver al sitio web
             </Link>
           </div>
         </div>

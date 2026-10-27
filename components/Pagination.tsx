@@ -19,6 +19,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        aria-label="Página anterior"
         className="p-2 rounded-xl bg-white border border-slate-100 text-slate-400 hover:text-bright_teal_blue disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm cursor-pointer"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -29,6 +30,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           <button
             key={page}
             onClick={() => onPageChange(page)}
+            aria-label={`Página ${page}`}
             className={`w-10 h-10 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               currentPage === page
                 ? 'bg-gradient-to-r from-french_blue to-bright_teal_blue text-white shadow-lg shadow-bright_teal_blue/25 ring-2 ring-bright_teal_blue/30'
@@ -43,6 +45,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        aria-label="Página siguiente"
         className="p-2 rounded-xl bg-white border border-slate-100 text-slate-400 hover:text-bright_teal_blue disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm cursor-pointer"
       >
         <ChevronRight className="w-5 h-5" />

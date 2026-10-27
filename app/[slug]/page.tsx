@@ -95,9 +95,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = await getProduct(slug);
   
-  if (!product) return { title: 'Product Not Found' };
+  if (!product) return { title: 'Producto no encontrado' };
   
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://officialproductslab.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nutritionalreviews.org';
   const url = `${siteUrl}/${slug}`;
   
   return {
@@ -110,7 +110,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url,
       title: product.metaTitle || product.name,
       description: product.metaDescription || product.shortDescription,
-      siteName: 'OfficialProductsLab',
+      siteName: 'NutritionalReviews',
       images: product.image ? [{ url: product.image, width: 1200, height: 630, alt: product.imageAlt || product.name }] : [],
     },
     twitter: {
@@ -156,7 +156,7 @@ export default async function ProductPage({
         description={product.detailedDescription}
         price={product.price}
         image={product.image}
-        url={`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/${product.slug}`}
+        url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org"}/${product.slug}`}
         slug={product.slug}
         shortDescription={product.shortDescription || ""}
         keyFeatures={product.keyFeatures || ""}
@@ -187,16 +187,16 @@ export default async function ProductPage({
       <BreadcrumbSchema
         items={[
           {
-            name: "Home",
-            url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+            name: "Inicio",
+            url: process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org",
           },
           {
-            name: "Products",
-            url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/products`,
+            name: "Productos",
+            url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org"}/products`,
           },
           {
             name: product.name,
-            url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/${product.slug}`,
+            url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org"}/${product.slug}`,
           },
         ]}
       />
@@ -208,8 +208,8 @@ export default async function ProductPage({
           <div className="hidden">
             <Breadcrumb
               crumbs={[
-                { label: "Home", href: "/" },
-                { label: "Products", href: "/products" },
+                { label: "Inicio", href: "/" },
+                { label: "Productos", href: "/products" },
                 { label: product.name },
               ]}
             />
@@ -228,7 +228,7 @@ export default async function ProductPage({
                 />
                 <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-col gap-2">
                   <span className="px-4 py-1.5 bg-white/90 backdrop-blur-md rounded-full text-[10px] sm:text-xs font-bold text-french_blue uppercase tracking-widest shadow-sm border border-turquoise_surf/30">
-                    Product
+                    Producto
                   </span>
                 </div>
               </div>
@@ -240,7 +240,7 @@ export default async function ProductPage({
                     <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-bright_teal_blue" />
                   </div>
                   <span className="text-[10px] sm:text-xs font-bold text-slate-900 uppercase tracking-tight">
-                    Pure Quality
+                    Calidad Pura
                   </span>
                 </div>
                 <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-turquoise_surf/40 transition-colors shadow-sm">
@@ -248,7 +248,7 @@ export default async function ProductPage({
                     <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-bright_teal_blue" />
                   </div>
                   <span className="text-[10px] sm:text-xs font-bold text-slate-900 uppercase tracking-tight">
-                    Fast Shipping
+                    Envío Rápido
                   </span>
                 </div>
                 <div className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 flex flex-col items-center text-center group hover:border-turquoise_surf/40 transition-colors shadow-sm">
@@ -256,7 +256,7 @@ export default async function ProductPage({
                     <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 text-bright_teal_blue" />
                   </div>
                   <span className="text-[10px] sm:text-xs font-bold text-slate-900 uppercase tracking-tight">
-                    Easy Returns
+                    Devolución Sencilla
                   </span>
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default async function ProductPage({
                   ))}
                 </div>
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                  Verified Product
+                  Producto Verificado
                 </span>
               </div>
 
@@ -306,7 +306,7 @@ export default async function ProductPage({
                       rel="noopener noreferrer nofollow"
                       className="flex items-center justify-center gap-2 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf hover:brightness-110 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-bright_teal_blue/25 hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
                     >
-                      <ShoppingCart className="w-4 h-4" /> Check Current Price & Availability
+                      <ShoppingCart className="w-4 h-4" /> Consultar Precio y Disponibilidad
                     </a>
                   )}
                   {product.readMoreLink && (
@@ -317,7 +317,7 @@ export default async function ProductPage({
                       className="flex items-center justify-center gap-2 bg-deep_twilight hover:bg-french_blue text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      Explore the Full Product Guide
+                      Explorar la Guía Completa del Producto
                     </a>
                   )}
                 </div>
@@ -327,7 +327,7 @@ export default async function ProductPage({
               {keyFeaturesList.length > 0 && (
                 <div>
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">
-                    Key Features
+                    Características Principales
                   </p>
                   <ul className="space-y-1.5 sm:space-y-2">
                     {keyFeaturesList.slice(0, 5).map((feature, i) => (
@@ -340,7 +340,7 @@ export default async function ProductPage({
                     ))}
                     {keyFeaturesList.length > 5 && (
                       <li className="text-xs text-slate-400 pl-6">
-                        +{keyFeaturesList.length - 5} more below
+                        +{keyFeaturesList.length - 5} más a continuación
                       </li>
                     )}
                   </ul>
@@ -374,7 +374,7 @@ export default async function ProductPage({
                           <div className="flex items-center gap-1 bg-light_cyan/40 px-2 py-0.5 rounded-full border border-turquoise_surf/30">
                             <CheckCircle2 className="w-3 h-3 text-french_blue" />
                             <span className="text-[10px] font-bold text-french_blue uppercase tracking-widest">
-                              Verified Expert
+                              Experto Verificado
                             </span>
                           </div>
                         </div>
@@ -383,15 +383,15 @@ export default async function ProductPage({
                           <div className="flex items-center gap-2 text-slate-500">
                             <Zap className="w-3.5 h-3.5 text-bright_teal_blue" />
                             <span className="text-xs font-medium">
-                              {product.author.title || "Health Researcher"}
+                              {product.author.title || "Investigador de Salud"}
                             </span>
                           </div>
                           <div className="flex items-center gap-2 text-slate-400">
                             <Activity className="w-3.5 h-3.5" />
                             <span className="text-xs">
-                              Updated:{" "}
+                              Actualizado:{" "}
                               {new Date(product.updatedAt).toLocaleDateString(
-                                "en-US",
+                                "es-ES",
                                 {
                                   month: "short",
                                   day: "numeric",
@@ -409,17 +409,17 @@ export default async function ProductPage({
                               4.9/5
                             </span>
                             <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">
-                              Rating
+                              Puntuación
                             </span>
                           </div>
                           <div className="h-3 w-px bg-slate-200" />
                           <div className="flex items-center gap-1.5">
                             <ShieldCheck className="w-3.5 h-3.5 text-bright_teal_blue" />
                             <span className="text-xs font-bold text-slate-700">
-                              12+ yrs
+                              12+ años
                             </span>
                             <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">
-                              Experience
+                              Experiencia
                             </span>
                           </div>
                           <div className="h-3 w-px bg-slate-200" />
@@ -429,7 +429,7 @@ export default async function ProductPage({
                               500+
                             </span>
                             <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">
-                              Products Reviewed
+                              Productos Analizados
                             </span>
                           </div>
                         </div>
@@ -454,7 +454,7 @@ export default async function ProductPage({
                   {/* Current Product Card in Sidebar */}
                   <div className="mt-8">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4 pl-1">
-                      Product Highlights
+                      Puntos Destacados
                     </p>
                     <ProductCard
                       product={product as any}
@@ -473,10 +473,10 @@ export default async function ProductPage({
                         </div>
                         <div>
                           <h3 className="text-lg font-bold leading-tight">
-                            Active Ingredients
+                            Ingredientes Activos
                           </h3>
                           <p className="text-[10px] text-sky_aqua uppercase tracking-widest font-bold mt-0.5">
-                            Potency & Purity
+                            Potencia y Pureza
                           </p>
                         </div>
                       </div>
@@ -515,7 +515,7 @@ export default async function ProductPage({
                                 <div className="flex items-center gap-1.5 mt-1">
                                   <Activity className="w-3 h-3 text-turquoise_surf" />
                                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
-                                    Bioavailable Form
+                                    Forma Biodisponible
                                   </span>
                                 </div>
                               )}
@@ -527,7 +527,7 @@ export default async function ProductPage({
                       <div className="mt-8 pt-6 border-t border-french_blue/40 relative z-10">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-xs font-bold text-slate-300">
-                            Scientific Trust
+                            Respaldo Científico
                           </span>
                           <span className="text-xs font-black text-sky_aqua">
                             99.8%
@@ -553,17 +553,17 @@ export default async function ProductPage({
             <div className="flex items-end justify-between mb-8 sm:mb-12">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 bg-light_cyan/50 text-french_blue px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-turquoise_surf/30">
-                  <Zap className="w-3 h-3 text-bright_teal_blue" /> Expert Recommendation
+                  <Zap className="w-3 h-3 text-bright_teal_blue" /> Recomendación de Expertos
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                  Complete Your <span className="text-bright_teal_blue">Regimen</span>
+                  Complete su <span className="text-bright_teal_blue">Rutina</span>
                 </h2>
               </div>
               <Link
                 href="/products"
                 className="hidden sm:flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-bright_teal_blue transition-colors group"
               >
-                View all collection{" "}
+                Ver toda la colección{" "}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

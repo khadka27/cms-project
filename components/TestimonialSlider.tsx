@@ -45,10 +45,10 @@ export default function TestimonialSlider({ testimonials }: TestimonialSliderPro
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-10 sm:mb-16">
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-3 sm:mb-4">
-            Trusted by <span className="text-bright_teal_blue">Thousands</span>
+            Confiado por <span className="text-bright_teal_blue">Miles</span>
           </h2>
           <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-lg">
-            See what our community has to say about their experience with OfficialProductsLab.
+            Vea lo que dice nuestra comunidad sobre su experiencia con NutritionalReviews.
           </p>
         </div>
 
@@ -114,7 +114,7 @@ export default function TestimonialSlider({ testimonials }: TestimonialSliderPro
               <button
                 onClick={() => emblaApi?.scrollPrev()}
                 className="w-12 h-12 rounded-full bg-white border border-slate-100 text-slate-400 hover:text-bright_teal_blue hover:border-turquoise_surf/40 hover:bg-light_cyan/20 flex items-center justify-center transition-all shadow-sm cursor-pointer"
-                aria-label="Previous testimonial"
+                aria-label="Testimonio anterior"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
@@ -129,7 +129,7 @@ export default function TestimonialSlider({ testimonials }: TestimonialSliderPro
                         ? "w-8 bg-bright_teal_blue"
                         : "w-2.5 bg-slate-200 hover:bg-turquoise_surf/50"
                     }`}
-                    aria-label={`Go to slide ${index + 1}`}
+                    aria-label={`Ir a la diapositiva ${index + 1}`}
                   />
                 ))}
               </div>
@@ -137,7 +137,7 @@ export default function TestimonialSlider({ testimonials }: TestimonialSliderPro
               <button
                 onClick={() => emblaApi?.scrollNext()}
                 className="w-12 h-12 rounded-full bg-white border border-slate-100 text-slate-400 hover:text-bright_teal_blue hover:border-turquoise_surf/40 hover:bg-light_cyan/20 flex items-center justify-center transition-all shadow-sm cursor-pointer"
-                aria-label="Next testimonial"
+                aria-label="Testimonio siguiente"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>

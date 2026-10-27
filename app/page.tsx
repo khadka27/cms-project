@@ -114,10 +114,10 @@ export default function HomePage() {
 
   const defaultHero: HeroSettings = {
     id: "default",
-    title: "Explore Trending Products With Clear Buyer-Focused Reviews",
-    subtitle: "Verified Testing & Editorial Reviews",
+    title: "Descubra Productos Destacados Con Análisis Claros para Compradores",
+    subtitle: "Pruebas Verificadas y Revisiones Editoriales",
     description:
-      "Official Products Lab helps shoppers evaluate popular lifestyle & tech products through in-depth testing summaries, clear feature breakdowns, real-world pros & cons, and verified pricing checks before ordering.",
+      "Nutritional Reviews ayuda a los compradores a evaluar productos populares de salud y nutrición mediante análisis detallados, desglose de características, pros y contras reales y verificación de precios antes de realizar un pedido.",
     backgroundImage: "",
     backgroundType: "gradient",
     gradientFrom: "#d4eff7",
@@ -168,20 +168,20 @@ export default function HomePage() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-bright_teal_blue" />
                 </span>
                 <span className="text-xs font-bold text-deep_twilight uppercase tracking-wider">
-                  {hero.subtitle || "Verified Testing & Editorial Reviews"}
+                  {hero.subtitle || "Pruebas Verificadas y Revisiones Editoriales"}
                 </span>
               </div>
 
               {/* Headline */}
               <h1 className="text-2xl sm:text-4xl lg:text-[3.35rem] font-black leading-[1.15] sm:leading-[1.08] tracking-tight text-slate-900">
-                Explore Trending Products With{" "}
-                <span className="text-french_blue">Clear Buyer-Focused Reviews</span>
+                Descubra Productos Destacados Con{" "}
+                <span className="text-french_blue">Análisis Claros para Compradores</span>
               </h1>
 
               {/* Subtitle / Description */}
               <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-xl">
                 {hero.description ||
-                  "Official Products Lab helps shoppers understand popular online products through simple reviews, category guides, feature breakdowns, and verified pricing checks before visiting an offer."}
+                  "Nutritional Reviews ayuda a los compradores a entender productos populares en línea mediante análisis sencillos, guías por categoría, desglose de funciones y verificación de precios antes de visitar una oferta."}
               </p>
 
               {/* Action Buttons: SOLID COLORS ONLY (NO GRADIENT INTERNAL LINKING) */}
@@ -191,7 +191,7 @@ export default function HomePage() {
                     href={`/${spotlightProduct.slug}`}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-french_blue hover:bg-deep_twilight text-white font-bold text-sm tracking-wide shadow-md shadow-french_blue/20 hover:shadow-lg transition-all duration-200 active:scale-95 text-center"
                   >
-                    <span>Read Latest Product Review</span>
+                    <span>Leer Análisis de Producto Reciente</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 ) : (
@@ -199,7 +199,7 @@ export default function HomePage() {
                     href="#products"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-french_blue hover:bg-deep_twilight text-white font-bold text-sm tracking-wide shadow-md shadow-french_blue/20 hover:shadow-lg transition-all duration-200 active:scale-95 text-center"
                   >
-                    <span>Explore Products</span>
+                    <span>Explorar Productos</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 )}
@@ -208,7 +208,7 @@ export default function HomePage() {
                   href="/products"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-light_cyan/40 text-deep_twilight hover:text-french_blue font-bold text-sm border-2 border-french_blue/30 hover:border-french_blue transition-all duration-200 text-center"
                 >
-                  <span>Browse All Products</span>
+                  <span>Ver Todos los Productos</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -217,15 +217,15 @@ export default function HomePage() {
               <div className="pt-4 border-t border-turquoise_surf/30 grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 text-xs font-semibold text-slate-700">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-bright_teal_blue flex-shrink-0" />
-                  <span>100% Independent</span>
+                  <span>100% Independiente</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-bright_teal_blue flex-shrink-0" />
-                  <span>Verified Specifications</span>
+                  <span>Especificaciones Verificadas</span>
                 </div>
                 <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
                   <Clock className="w-4 h-4 text-bright_teal_blue flex-shrink-0" />
-                  <span>Updated for 2026</span>
+                  <span>Actualizado para 2026</span>
                 </div>
               </div>
             </div>
@@ -251,7 +251,7 @@ export default function HomePage() {
                     <div className="flex items-center justify-between gap-2 mb-4 sm:mb-5">
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-french_blue text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider">
                         <Flame className="w-3.5 h-3.5 text-white" />
-                        <span>Latest Product Spotlight</span>
+                        <span>Destacado de Último Producto</span>
                       </div>
                       {(spotlightProduct.subcategory?.name || subcategories.find((s) => s.id === spotlightProduct.subcategoryId)?.name) && (
                         <span className="text-[11px] sm:text-xs font-bold text-slate-500 bg-light_cyan/40 px-2.5 py-1 rounded-lg border border-frosted_blue/40 truncate max-w-[140px] sm:max-w-none">
@@ -276,7 +276,7 @@ export default function HomePage() {
                       <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-2.5 sm:px-3 py-1 rounded-full shadow-md border border-light_cyan flex items-center gap-1.5">
                         <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
                         <span className="text-xs font-black text-slate-900">4.9 / 5</span>
-                        <span className="hidden sm:inline text-[10px] text-slate-500 font-medium">Verified Test</span>
+                        <span className="hidden sm:inline text-[10px] text-slate-500 font-medium">Prueba Verificada</span>
                       </div>
 
                       {/* Price callout */}
@@ -295,7 +295,7 @@ export default function HomePage() {
 
                       <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
                         {spotlightProduct.shortDescription ||
-                          "Comprehensive review analyzing build quality, buyer suitability, feature breakdowns, and real-world value."}
+                          "Análisis exhaustivo que evalúa calidad de fabricación, idoneidad para el comprador, desglose de funciones y valor real."}
                       </p>
 
                       {/* Solid CTA Buttons (NO GRADIENTS) */}
@@ -305,7 +305,7 @@ export default function HomePage() {
                           className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-french_blue hover:bg-deep_twilight text-white font-bold text-sm transition-colors shadow-md text-center"
                         >
                           <FileText className="w-4 h-4" />
-                          <span>View Full Review</span>
+                          <span>Ver Análisis Completo</span>
                         </Link>
                         {spotlightProduct.buyNowLink && (
                           <a
@@ -315,7 +315,7 @@ export default function HomePage() {
                             className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-bright_teal_blue hover:bg-french_blue text-white font-bold text-sm transition-colors shadow-md text-center"
                           >
                             <ShoppingCart className="w-4 h-4" />
-                            <span>Check Official Offer</span>
+                            <span>Ver Oferta Oficial</span>
                           </a>
                         )}
                       </div>
@@ -325,7 +325,7 @@ export default function HomePage() {
                     {products.length > 1 && (
                       <div className="mt-4 sm:mt-5 pt-3.5 sm:pt-4 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
                         <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                          Recent Additions:
+                          Últimas Incorporaciones:
                         </span>
                         <div className="flex items-center gap-2">
                           {products.slice(0, 4).map((item, idx) => (
@@ -359,8 +359,8 @@ export default function HomePage() {
                 /* Fallback if no products in database yet */
                 <div className="bg-white rounded-3xl p-8 border-2 border-dashed border-light_cyan text-center py-16 text-slate-500">
                   <ShoppingCart className="w-12 h-12 mx-auto text-bright_teal_blue opacity-30 mb-3" />
-                  <p className="font-bold text-base text-slate-800">Featured Spotlight Ready</p>
-                  <p className="text-sm mt-1">Products added in the admin dashboard will be showcased right here.</p>
+                  <p className="font-bold text-base text-slate-800">Destacado Listo</p>
+                  <p className="text-sm mt-1">Los productos agregados en el panel de administración se mostrarán aquí.</p>
                 </div>
               )}
             </div>
@@ -378,23 +378,23 @@ export default function HomePage() {
             {[
               {
                 icon: ShieldCheck,
-                title: "100% Unbiased",
-                desc: "Independent research & editorial testing",
+                title: "100% Imparcial",
+                desc: "Investigación independiente y pruebas editoriales",
               },
               {
                 icon: Award,
-                title: "Verified Specs",
-                desc: "Rigorous breakdown of features & limitations",
+                title: "Especificaciones Verificadas",
+                desc: "Desglose riguroso de características y limitaciones",
               },
               {
                 icon: TrendingUp,
-                title: "Live Pricing",
-                desc: "Checked against current manufacturer offers",
+                title: "Precios en Tiempo Real",
+                desc: "Comprobados contra ofertas actuales del fabricante",
               },
               {
                 icon: Star,
-                title: "Buyer Suitability",
-                desc: "Clear guidelines on who should (and shouldn't) buy",
+                title: "Idoneidad del Comprador",
+                desc: "Pautas claras sobre quién debería (y quién no) comprar",
               },
             ].map(({ icon: Icon, title, desc }) => (
               <div
@@ -420,9 +420,9 @@ export default function HomePage() {
       <section id="products" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#eef8fb]">
         <div className="max-w-7xl mx-auto">
           <SectionHeading
-            label="In-Depth Analysis"
-            title="Featured Product Reviews"
-            subtitle="Explore our comprehensive editorial reviews detailing real specifications, buyer suitability, price checks, and verified pros & cons."
+            label="Análisis en Profundidad"
+            title="Análisis de Productos Destacados"
+            subtitle="Explore nuestras completas revisiones editoriales con especificaciones reales, idoneidad de compra, verificación de precios y pros y contras verificados."
             action={
               <div className="flex items-center gap-3">
                 {/* View Mode Toggle: SOLID BRAND STYLING */}
@@ -434,9 +434,9 @@ export default function HomePage() {
                         ? "bg-french_blue text-white shadow-sm"
                         : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                     }`}
-                    aria-label="List view"
+                    aria-label="Vista lista"
                   >
-                    <List className="w-3.5 h-3.5" /> List
+                    <List className="w-3.5 h-3.5" /> Lista
                   </button>
                   <button
                     onClick={() => setViewMode("grid")}
@@ -445,9 +445,9 @@ export default function HomePage() {
                         ? "bg-french_blue text-white shadow-sm"
                         : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                     }`}
-                    aria-label="Grid view"
+                    aria-label="Vista cuadrícula"
                   >
-                    <LayoutGrid className="w-3.5 h-3.5" /> Grid
+                    <LayoutGrid className="w-3.5 h-3.5" /> Cuadrícula
                   </button>
                 </div>
               </div>
@@ -465,7 +465,7 @@ export default function HomePage() {
                     : "bg-white text-slate-700 hover:bg-light_cyan/40 border border-light_cyan"
                 }`}
               >
-                All Categories ({latestProducts.length})
+                Todas las Categorías ({latestProducts.length})
               </button>
               {subcategories.map((sub) => {
                 const count = products.filter((p) => p.subcategoryId === sub.id).length;
@@ -511,12 +511,12 @@ export default function HomePage() {
           ) : filteredProducts.length === 0 ? (
             <div className="rounded-3xl text-center py-20 text-slate-500 border-2 border-dashed border-light_cyan bg-white">
               <ShoppingCart className="w-12 h-12 mx-auto mb-3 opacity-25 text-bright_teal_blue" />
-              <p className="text-base font-bold text-slate-800">No products found in this category.</p>
+              <p className="text-base font-bold text-slate-800">No se encontraron productos en esta categoría.</p>
               <button
                 onClick={() => setSelectedSubcategoryFilter("all")}
                 className="mt-3 text-xs font-bold text-french_blue hover:underline"
               >
-                Reset filters
+                Restablecer filtros
               </button>
             </div>
           ) : (
@@ -547,14 +547,14 @@ export default function HomePage() {
                       <Clock className="w-4 h-4 text-bright_teal_blue" />
                     </div>
                     <span className="font-semibold text-slate-700 text-left">
-                      More verified product reviews and comparison benchmarks are currently in our testing pipeline.
+                      Más análisis de productos verificados y comparativas se encuentran actualmente en nuestro laboratorio de pruebas.
                     </span>
                   </div>
                   <Link
                     href="/products"
                     className="text-xs font-bold text-french_blue hover:text-bright_teal_blue flex items-center gap-1 flex-shrink-0 bg-light_cyan/30 px-3 py-1.5 rounded-xl border border-light_cyan hover:border-french_blue transition-colors"
                   >
-                    <span>Browse All Reviews</span>
+                    <span>Ver Todos los Análisis</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -568,7 +568,7 @@ export default function HomePage() {
               href="/products"
               className="inline-flex items-center gap-2 px-9 py-4 bg-french_blue hover:bg-deep_twilight text-white text-sm font-bold rounded-2xl shadow-md transition-all active:scale-95 group"
             >
-              <span>Explore Complete Product Catalog</span>
+              <span>Explorar Catálogo Completo de Productos</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -582,15 +582,15 @@ export default function HomePage() {
         <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-turquoise_surf/20">
           <div className="max-w-7xl mx-auto">
             <SectionHeading
-              label="Curated Categories"
-              title="Browse by Product Category"
-              subtitle="Find tailored product reviews, buyer guides, and feature comparisons organized by specific product type."
+              label="Categorías Seleccionadas"
+              title="Explorar por Categoría de Producto"
+              subtitle="Encuentre análisis de productos a medida, guías de compra y comparativas organizadas por tipo de producto."
               action={
                 <Link
                   href="/products"
                   className="inline-flex items-center gap-1.5 text-sm font-bold text-french_blue hover:text-bright_teal_blue transition-colors border border-light_cyan hover:border-french_blue px-4 py-2 rounded-xl bg-light_cyan/20"
                 >
-                  <span>View All Categories</span>
+                  <span>Ver Todas las Categorías</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               }
@@ -610,10 +610,10 @@ export default function HomePage() {
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-bright_teal_blue text-white text-[11px] font-black uppercase tracking-wider shadow-sm">
                           <Flame className="w-3.5 h-3.5" />
-                          Featured Category Hub
+                          Centro de Categoría Destacada
                         </span>
                         <span className="text-xs font-bold text-light_cyan/90 bg-white/10 px-2.5 py-1 rounded-full border border-white/20">
-                          {products.filter((p) => p.subcategoryId === subcategories[0].id).length || 1} Tested Reviews
+                          {products.filter((p) => p.subcategoryId === subcategories[0].id).length || 1} Análisis Probados
                         </span>
                       </div>
 
@@ -623,26 +623,26 @@ export default function HomePage() {
 
                       <p className="text-sm sm:text-base text-light_cyan/90 leading-relaxed max-w-2xl">
                         {subcategories[0].description ||
-                          "In-depth editorial reviews, decibel noise tests, motor output measurements, and buyer suitability comparisons for top cardio and fitness equipment."}
+                          "Análisis editoriales en profundidad, pruebas de nivel sonoro, mediciones de rendimiento y comparativas de idoneidad para el comprador."}
                       </p>
 
                       {/* Editorial Testing Highlights */}
                       <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-white/90">
                         <div className="flex items-center gap-2">
                           <CheckCircle className="w-4 h-4 text-turquoise_surf flex-shrink-0" />
-                          <span>Motor Durability & Decibel Testing</span>
+                          <span>Durabilidad de Componentes y Pruebas Sonoras</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <CheckCircle className="w-4 h-4 text-turquoise_surf flex-shrink-0" />
-                          <span>Frame Stability & Joint Cushioning</span>
+                          <span>Estabilidad de Estructura y Amortiguación</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <CheckCircle className="w-4 h-4 text-turquoise_surf flex-shrink-0" />
-                          <span>Live Pricing & Warranty Audits</span>
+                          <span>Auditorías de Precios en Vivo y Garantías</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <CheckCircle className="w-4 h-4 text-turquoise_surf flex-shrink-0" />
-                          <span>Verified User Feedback Analysis</span>
+                          <span>Análisis Verificado de Opiniones de Usuarios</span>
                         </div>
                       </div>
 
@@ -652,14 +652,14 @@ export default function HomePage() {
                           href={`/products?subcategory=${subcategories[0].slug}`}
                           className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-light_cyan text-deep_twilight font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center"
                         >
-                          <span>Explore All {subcategories[0].name} Reviews</span>
+                          <span>Explorar Todos los Análisis de {subcategories[0].name}</span>
                           <ArrowRight className="w-4 h-4" />
                         </Link>
                         <Link
                           href="/products"
                           className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-white/30 hover:bg-white/10 text-white font-bold text-xs sm:text-sm transition-all text-center"
                         >
-                          <span>Browse Full Catalog</span>
+                          <span>Explorar Catálogo Completo</span>
                         </Link>
                       </div>
                     </div>
@@ -674,7 +674,7 @@ export default function HomePage() {
                             <div className="bg-white rounded-2xl p-5 text-slate-900 border border-light_cyan shadow-xl space-y-4">
                               <div className="flex items-center justify-between">
                                 <span className="text-[10px] font-extrabold uppercase tracking-wider text-french_blue bg-light_cyan/60 px-2.5 py-1 rounded-md">
-                                  Top Tested Pick in Category
+                                  Mejor Elección Probada de la Categoría
                                 </span>
                                 <div className="flex items-center gap-1 text-xs font-black text-slate-900">
                                   <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
@@ -696,14 +696,14 @@ export default function HomePage() {
                                   {topProduct.name}
                                 </h4>
                                 <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                                  {topProduct.shortDescription || "Verified specifications & buyer guide"}
+                                  {topProduct.shortDescription || "Especificaciones verificadas y guía de compra"}
                                 </p>
                               </div>
 
                               <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
                                 <div>
                                   <span className="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest block">
-                                    Verified Offer
+                                    Oferta Verificada
                                   </span>
                                   <span className="text-xl font-black text-deep_twilight">
                                     ${topProduct.price.toFixed(2)}
@@ -714,7 +714,7 @@ export default function HomePage() {
                                   href={`/${topProduct.slug}`}
                                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-xs"
                                 >
-                                  <span>Read Review</span>
+                                  <span>Leer Análisis</span>
                                   <ArrowRight className="w-3.5 h-3.5" />
                                 </Link>
                               </div>
@@ -724,9 +724,9 @@ export default function HomePage() {
                       ) : (
                         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 text-center space-y-3">
                           <LayoutGrid className="w-10 h-10 mx-auto text-turquoise_surf" />
-                          <h4 className="font-bold text-white text-base">Active Testing Hub</h4>
+                          <h4 className="font-bold text-white text-base">Centro de Pruebas Activo</h4>
                           <p className="text-xs text-light_cyan/80">
-                            New models are tested regularly with updated motor, noise, and price data.
+                            Nuevos modelos se evalúan periódicamente con datos actualizados de rendimiento y precio.
                           </p>
                         </div>
                       )}
@@ -738,34 +738,34 @@ export default function HomePage() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
-                      Explore Other Review Departments
+                      Explorar Otros Departamentos de Análisis
                     </span>
                     <span className="text-xs font-semibold text-bright_teal_blue">
-                      Updated for 2026
+                      Actualizado para 2026
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {[
                       {
-                        title: "Tech & Smart Gadgets",
-                        desc: "Fitness trackers, wireless audio, smart home devices, and wearable sensors tested for battery life & accuracy.",
+                        title: "Tecnología y Gadgets Inteligentes",
+                        desc: "Dispositivos de fitness, audio inalámbrico, domótica y sensores portátiles probados en batería y precisión.",
                         icon: Zap,
-                        badge: "Active Department",
+                        badge: "Departamento Activo",
                         href: "/products",
                       },
                       {
-                        title: "Health, Nutrition & Wellness",
-                        desc: "Ingredient purity tests, certified dietary formulations, recovery essentials, and manufacturer guarantee checks.",
+                        title: "Salud, Nutrición y Bienestar",
+                        desc: "Pruebas de pureza de ingredientes, fórmulas dietéticas certificadas, elementos de recuperación y garantías del fabricante.",
                         icon: ShieldCheck,
-                        badge: "Verified Department",
+                        badge: "Departamento Verificado",
                         href: "/products",
                       },
                       {
-                        title: "Home Living & Ergonomics",
-                        desc: "Ergonomic seating, active desk setups, wellness appliances, and durability testing for daily living.",
+                        title: "Hogar, Vida y Ergonomía",
+                        desc: "Asientos ergonómicos, estaciones de trabajo activas, electrodomésticos de bienestar y pruebas de durabilidad para la vida diaria.",
                         icon: Sparkles,
-                        badge: "Testing Department",
+                        badge: "Departamento en Pruebas",
                         href: "/products",
                       },
                     ].map((dept) => (
@@ -795,7 +795,7 @@ export default function HomePage() {
                         </div>
 
                         <div className="pt-4 border-t border-slate-200/60 mt-4 flex items-center justify-between text-xs font-bold text-french_blue group-hover:text-deep_twilight">
-                          <span>Browse Department</span>
+                          <span>Ver Departamento</span>
                           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </Link>
@@ -842,7 +842,7 @@ export default function HomePage() {
                           </span>
                         )}
                         <span className="text-[10px] font-bold text-light_cyan bg-white/10 px-2 py-0.5 rounded-md border border-white/20">
-                          {products.filter((p) => p.subcategoryId === sub.id).length} Reviews
+                          {products.filter((p) => p.subcategoryId === sub.id).length} Análisis
                         </span>
                       </div>
 
@@ -855,7 +855,7 @@ export default function HomePage() {
                         </p>
                       )}
                       <div className="pt-2 flex items-center gap-1.5 text-xs font-bold text-turquoise_surf group-hover:text-white transition-colors">
-                        <span>Explore Category</span>
+                        <span>Explorar Categoría</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
@@ -874,9 +874,9 @@ export default function HomePage() {
         <section id="ingredients" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#eef8fb] border-t border-turquoise_surf/20">
           <div className="max-w-7xl mx-auto">
             <SectionHeading
-              label="Science & Formulation"
-              title="Verified Ingredient Breakdowns"
-              subtitle="Understand the science behind top product formulations, certified purity standards, and proven benefits."
+              label="Ciencia y Formulación"
+              title="Desglose de Ingredientes Verificados"
+              subtitle="Comprenda la ciencia detrás de las fórmulas de productos líderes, estándares de pureza certificados y beneficios comprobados."
             />
             <div
               className={
@@ -900,7 +900,7 @@ export default function HomePage() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-3 left-3 bg-white/95 px-2.5 py-1 rounded-full text-[10px] font-bold text-french_blue border border-light_cyan shadow-sm">
-                      Verified
+                      Verificado
                     </div>
                   </div>
 
@@ -910,7 +910,7 @@ export default function HomePage() {
                         {ing.name}
                       </h3>
                       <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                        {ing.description || "High quality component evaluated for safety, potency, and effectiveness."}
+                        {ing.description || "Componente de alta calidad evaluado en seguridad, potencia y eficacia."}
                       </p>
 
                       {ing.keyFeatures && (
@@ -931,9 +931,9 @@ export default function HomePage() {
 
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-french_blue">
                       <span className="flex items-center gap-1">
-                        <Zap className="w-3.5 h-3.5 text-turquoise_surf" /> Lab Evaluated
+                        <Zap className="w-3.5 h-3.5 text-turquoise_surf" /> Evaluado en Laboratorio
                       </span>
-                      <span className="text-slate-400">100% Pure</span>
+                      <span className="text-slate-400">100% Puro</span>
                     </div>
                   </div>
                 </div>
@@ -949,7 +949,7 @@ export default function HomePage() {
       {testimonials.length > 0 && <TestimonialSlider testimonials={testimonials} />}
 
       {/* ══════════════════════════════════════════════════════════════════════
-          7. HOW OFFICIAL PRODUCTS LAB WORKS (EDITORIAL METHODOLOGY)
+          7. HOW NUTRITIONAL REVIEWS WORKS (EDITORIAL METHODOLOGY)
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-t border-turquoise_surf/20">
         <div className="max-w-7xl mx-auto space-y-16">
@@ -958,13 +958,13 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-light_cyan text-deep_twilight font-extrabold text-[11px] tracking-widest uppercase mb-3 border border-frosted_blue/60">
               <ShieldCheck className="w-3.5 h-3.5 text-bright_teal_blue" />
-              <span>Editorial Integrity</span>
+              <span>Integridad Editorial</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              How Official Products Lab Evaluates Products
+              Cómo Evalúa Nutritional Reviews los Productos
             </h2>
             <p className="mt-3 text-base text-slate-600 leading-relaxed">
-              Online product research can be overwhelming when exaggerated claims, unstable pricing, and scattered reviews make informed choices difficult. We simplify this process by providing structured, transparent analysis before you decide to visit a product offer.
+              Investigar productos en línea puede ser abrumador cuando las afirmaciones exageradas, precios inestables y opiniones dispersas dificultan decisiones informadas. Simplificamos este proceso proporcionando análisis estructurados y transparentes antes de visitar una oferta de producto.
             </p>
           </div>
 
@@ -974,16 +974,16 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-xl bg-french_blue text-white flex items-center justify-center font-bold text-sm">
                 01
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Unbiased Product Clarity</h3>
+              <h3 className="text-lg font-bold text-slate-900">Claridad Imparcial del Producto</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                We clearly define what the product is, its intended purpose, and exactly which everyday problem it aims to solve without sensationalized marketing language.
+                Definimos claramente qué es el producto, su propósito previsto y exactamente qué problema diario pretende resolver sin lenguaje de marketing sensacionalista.
               </p>
               <ul className="text-xs text-slate-700 space-y-2 pt-2 border-t border-turquoise_surf/20">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-french_blue" /> Practical function breakdown
+                  <Check className="w-3.5 h-3.5 text-french_blue" /> Desglose de funciones prácticas
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-french_blue" /> Target buyer suitability check
+                  <Check className="w-3.5 h-3.5 text-french_blue" /> Comprobación de idoneidad del comprador
                 </li>
               </ul>
             </div>
@@ -992,16 +992,16 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-xl bg-bright_teal_blue text-white flex items-center justify-center font-bold text-sm">
                 02
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Balanced Pros & Limitations</h3>
+              <h3 className="text-lg font-bold text-slate-900">Pros y Limitaciones Equilibrados</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                No product is ideal for everyone. We explicitly highlight both the standout advantages and realistic limitations so you have full expectations ahead of time.
+                Ningún producto es ideal para todos. Destacamos explícitamente tanto las ventajas sobresalientes como las limitaciones realistas para que tenga expectativas completas de antemano.
               </p>
               <ul className="text-xs text-slate-700 space-y-2 pt-2 border-t border-turquoise_surf/20">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-bright_teal_blue" /> Verified user experiences
+                  <Check className="w-3.5 h-3.5 text-bright_teal_blue" /> Experiencias de usuarios verificadas
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-bright_teal_blue" /> Realistic durability expectations
+                  <Check className="w-3.5 h-3.5 text-bright_teal_blue" /> Expectativas realistas de durabilidad
                 </li>
               </ul>
             </div>
@@ -1010,16 +1010,16 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-xl bg-deep_twilight text-white flex items-center justify-center font-bold text-sm">
                 03
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Price & Guarantee Checks</h3>
+              <h3 className="text-lg font-bold text-slate-900">Verificación de Precios y Garantías</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                We confirm current package offerings, official discounts, shipping terms, and manufacturer refund policies so shoppers are never caught off guard.
+                Confirmamos paquetes de ofertas actuales, descuentos oficiales, condiciones de envío y políticas de reembolso del fabricante para que los compradores nunca se lleven sorpresas.
               </p>
               <ul className="text-xs text-slate-700 space-y-2 pt-2 border-t border-turquoise_surf/20">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-deep_twilight" /> Current discount verification
+                  <Check className="w-3.5 h-3.5 text-deep_twilight" /> Verificación de descuentos actuales
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-deep_twilight" /> Direct link to official offers
+                  <Check className="w-3.5 h-3.5 text-deep_twilight" /> Enlace directo a ofertas oficiales
                 </li>
               </ul>
             </div>
@@ -1028,9 +1028,9 @@ export default function HomePage() {
           {/* Action Links (SOLID INTERNAL LINKS) */}
           <div className="p-6 sm:p-8 rounded-2xl bg-[#03045e] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <h4 className="text-lg sm:text-xl font-bold text-white">Have questions about our review process?</h4>
+              <h4 className="text-lg sm:text-xl font-bold text-white">¿Tiene preguntas sobre nuestro proceso de análisis?</h4>
               <p className="text-xs sm:text-sm text-light_cyan/80 mt-1">
-                Read our complete testing methodology and consumer transparency guidelines.
+                Lea nuestra metodología completa de pruebas y pautas de transparencia para el consumidor.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto flex-shrink-0">
@@ -1038,13 +1038,13 @@ export default function HomePage() {
                 href="/about"
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white text-deep_twilight font-bold text-xs hover:bg-light_cyan transition-colors text-center"
               >
-                About Our Process
+                Sobre Nuestro Proceso
               </Link>
               <Link
                 href="/contact"
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-white/30 text-white font-bold text-xs hover:bg-white/10 transition-colors text-center"
               >
-                Contact Research Team
+                Contactar Equipo de Investigación
               </Link>
             </div>
           </div>
@@ -1065,15 +1065,15 @@ export default function HomePage() {
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-sky_aqua text-xs font-bold uppercase tracking-widest">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Shop With Confidence</span>
+                <span>Compre con Confianza</span>
               </div>
 
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
-                Ready to Find Your Next Verified Product?
+                ¿Listo para Encontrar su Próximo Producto Verificado?
               </h2>
 
               <p className="text-light_cyan/90 text-xs sm:text-base leading-relaxed">
-                Join thousands of smart shoppers who consult Official Products Lab before buying. Compare verified reviews, check specs, and find the best offer.
+                Únase a miles de compradores inteligentes que consultan Nutritional Reviews antes de comprar. Compare análisis verificados, revise especificaciones y encuentre la mejor oferta.
               </p>
 
               {/* Solid Action Buttons (NO GRADIENT INTERNAL LINKING) */}
@@ -1082,14 +1082,14 @@ export default function HomePage() {
                   href="#products"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-french_blue hover:bg-bright_teal_blue text-white font-bold rounded-xl shadow-lg transition-all active:scale-95 text-sm text-center"
                 >
-                  <span>Explore Featured Reviews</span>
+                  <span>Explorar Análisis Destacados</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <Link
                   href="/products"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-deep_twilight hover:bg-light_cyan font-bold rounded-xl shadow-md transition-all text-sm text-center"
                 >
-                  <span>Browse All Categories</span>
+                  <span>Ver Todas las Categorías</span>
                 </Link>
               </div>
             </div>

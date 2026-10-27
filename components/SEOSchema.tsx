@@ -1,8 +1,8 @@
 // ── SEO Schema Components ─────────────────────────────────────────────────────
 // All schemas follow Schema.org structured data standards for Google rich results
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://officialproductslab.com';
-const SITE_NAME = 'OfficialProductsLab';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nutritionalreviews.org';
+const SITE_NAME = 'NutritionalReviews';
 
 // ── Helper ────────────────────────────────────────────────────────────────────
 function SchemaScript({ schema }: { schema: object }) {
@@ -30,16 +30,16 @@ export function OrganizationSchema() {
         width: 200,
         height: 60,
       },
-      description: 'Premium health, wellness, and fitness products',
+      description: 'Productos de salud, bienestar y nutrición respaldados por la ciencia',
       sameAs: [
-        'https://www.facebook.com/bestproductslab',
-        'https://www.twitter.com/bestproductslab',
-        'https://www.instagram.com/bestproductslab',
+        'https://www.facebook.com/nutritionalreviews',
+        'https://www.twitter.com/nutritionalreviews',
+        'https://www.instagram.com/nutritionalreviews',
       ],
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer service',
-        availableLanguage: 'English',
+        availableLanguage: 'Spanish',
       },
     }} />
   );
@@ -54,7 +54,7 @@ export function WebSiteSchema() {
       '@id': `${SITE_URL}/#website`,
       url: SITE_URL,
       name: SITE_NAME,
-      description: 'Premium health, wellness, and fitness products',
+      description: 'Análisis y comparativas de suplementos y productos de bienestar',
       publisher: { '@id': `${SITE_URL}/#organization` },
       potentialAction: {
         '@type': 'SearchAction',
@@ -225,13 +225,13 @@ export function ProductSchema({
     ...(createdAt ? { datePublished: createdAt } : {}),
     ...(updatedAt ? { dateModified: updatedAt } : {}),
     breadcrumb: { '@id': `${url}#breadcrumb` },
-    inLanguage: 'en-US',
+    inLanguage: 'es-ES',
     potentialAction: readMoreLink ? [{
       '@type': 'ReadAction',
       target: [url],
     }, {
       '@type': 'ViewAction',
-      name: 'Explore the Full Product Guide',
+      name: 'Explorar la Guía Completa del Producto',
       target: readMoreLink,
     }] : [{
       '@type': 'ReadAction',
@@ -244,7 +244,7 @@ export function ProductSchema({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     '@id': `${url}#features`,
-    name: `Key Features of ${name}`,
+    name: `Características Clave de ${name}`,
     numberOfItems: features.length,
     itemListElement: features.map((f, i) => ({
       '@type': 'ListItem',
@@ -310,11 +310,11 @@ export function CategorySchema({ name, description, image, url, productCount }: 
         description: name,
       } : undefined,
       isPartOf: { '@id': `${SITE_URL}/#website` },
-      inLanguage: 'en-US',
+      inLanguage: 'es-ES',
       ...(productCount !== undefined ? {
         mainEntity: {
           '@type': 'ItemList',
-          name: `${name} Products`,
+          name: `Productos de ${name}`,
           numberOfItems: productCount,
         },
       } : {}),

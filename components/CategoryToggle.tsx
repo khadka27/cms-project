@@ -7,8 +7,8 @@ export default function CategoryToggle() {
   const { activeCategory, setActiveCategory } = useCategoryContext();
 
   const options: { label: string; value: CategoryType }[] = [
-    { label: "Supplement", value: "nutra" },
-    { label: "Product", value: "ecom" },
+    { label: "Suplemento", value: "nutra" },
+    { label: "Producto", value: "ecom" },
   ];
 
   return (

@@ -343,7 +343,7 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Google Preview</p>
                 <div className="space-y-0.5">
-                  <p className="text-xs text-gray-400">https://officialproductslab.com/article/{form.slug}</p>
+                  <p className="text-xs text-gray-400">https://nutritionalreviews.org/article/{form.slug}</p>
                   <p className="text-bright_teal_blue text-base font-medium leading-tight hover:underline cursor-pointer line-clamp-1">
                     {form.metaTitle || form.title}
                   </p>

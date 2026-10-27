@@ -40,9 +40,9 @@ export default function ProductCard({
       if (split.length > 0) return split.slice(0, 3);
     }
     return [
-      "100% Independent Lab Testing",
-      "Verified 2026 Specifications",
-      "Official Warranty & Return Check",
+      "Pruebas de Laboratorio 100% Independientes",
+      "Especificaciones Verificadas 2026",
+      "Garantía Oficial y Verificación de Devolución",
     ];
   }, [product.keyFeatures]);
 
@@ -66,7 +66,7 @@ export default function ProductCard({
           {/* Top Category Badge */}
           <div className="absolute top-3 left-3 flex items-center gap-1.5">
             <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/95 text-french_blue border border-light_cyan shadow-xs">
-              {product.subcategory?.name || "Product Review"}
+              {product.subcategory?.name || "Análisis de Producto"}
             </span>
           </div>
 
@@ -74,7 +74,7 @@ export default function ProductCard({
           <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-xs px-3 py-1 rounded-full shadow-xs border border-light_cyan flex items-center gap-1.5 text-xs font-black text-slate-900">
             <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
             <span>4.9 / 5</span>
-            <span className="text-[10px] text-slate-500 font-semibold">Tested</span>
+            <span className="text-[10px] text-slate-500 font-semibold">Probado</span>
           </div>
         </div>
 
@@ -83,7 +83,7 @@ export default function ProductCard({
           <div className="space-y-2.5">
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide bg-light_cyan/60 text-deep_twilight border border-frosted_blue/40">
-                <CheckCircle className="w-3 h-3 text-bright_teal_blue" /> Verified Editorial Review
+                <CheckCircle className="w-3 h-3 text-bright_teal_blue" /> Análisis Editorial Verificado
               </span>
             </div>
 
@@ -95,7 +95,7 @@ export default function ProductCard({
 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">
               {product.shortDescription ||
-                "In-depth editorial testing evaluating build specifications, daily usability, ergonomic comfort, and buyer suitability."}
+                "Análisis editorial exhaustivo que evalúa especificaciones, usabilidad diaria, confort y relación calidad-precio."}
             </p>
 
             {/* Feature Highlights / Proof Points */}
@@ -116,7 +116,7 @@ export default function ProductCard({
           <div className="pt-3 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500">
             <Sparkles className="w-3.5 h-3.5 text-bright_teal_blue flex-shrink-0" />
             <span className="italic line-clamp-1">
-              "Editor Verdict: Recommended for shoppers looking for dependable performance, quiet operation, and transparent warranty coverage."
+              "Veredicto Editorial: Recomendado para quienes buscan rendimiento confiable, alta pureza y garantía verificada."
             </span>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function ProductCard({
         <div className="p-5 sm:p-6 lg:p-7 w-full lg:w-68 bg-slate-50/70 border-t lg:border-t-0 lg:border-l border-light_cyan/70 flex flex-col justify-between flex-shrink-0 gap-5">
           <div>
             <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block mb-1">
-              Best Verified Price
+              Mejor Precio Verificado
             </span>
             <div className="flex items-baseline gap-1.5">
               <span className="text-2xl sm:text-3xl font-black text-deep_twilight">
@@ -134,7 +134,7 @@ export default function ProductCard({
               <span className="text-[11px] text-slate-500 font-bold">USD</span>
             </div>
             <p className="text-[11px] font-semibold text-bright_teal_blue mt-1 flex items-center gap-1">
-              <Clock className="w-3 h-3" /> Updated 2026 Check
+              <Clock className="w-3 h-3" /> Verificación Actualizada 2026
             </p>
           </div>
 
@@ -145,7 +145,7 @@ export default function ProductCard({
               className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-98 text-center"
             >
               <FileText className="w-4 h-4" />
-              <span>Read Full Review</span>
+              <span>Leer Análisis Completo</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
@@ -158,14 +158,14 @@ export default function ProductCard({
                 className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl font-bold text-xs bg-bright_teal_blue hover:bg-french_blue text-white transition-all shadow-sm active:scale-98 text-center"
               >
                 <ShoppingCart className="w-3.5 h-3.5" />
-                <span>Check Official Offer</span>
+                <span>Ver Oferta Oficial</span>
               </a>
             ) : (
               <Link
                 href={`/${product.slug}`}
                 className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl font-bold text-xs bg-white hover:bg-light_cyan/40 text-deep_twilight border border-light_cyan hover:border-french_blue/40 transition-all text-center"
               >
-                <span>View Full Specs</span>
+                <span>Ver Especificaciones Completas</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             )}
@@ -194,7 +194,7 @@ export default function ProductCard({
         {/* Category Badge */}
         <div className="absolute top-3 left-3">
           <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/95 text-french_blue border border-light_cyan shadow-xs">
-            {product.subcategory?.name || "Product Review"}
+            {product.subcategory?.name || "Análisis de Producto"}
           </span>
         </div>
 
@@ -202,7 +202,7 @@ export default function ProductCard({
         <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full shadow-xs border border-light_cyan flex items-center gap-1.5 text-xs font-black text-slate-900">
           <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
           <span>4.9 / 5</span>
-          <span className="text-[10px] text-slate-500 font-medium">Tested</span>
+          <span className="text-[10px] text-slate-500 font-medium">Probado</span>
         </div>
 
         {/* Price Tag Callout */}
@@ -222,7 +222,7 @@ export default function ProductCard({
 
           <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
             {product.shortDescription ||
-              "Comprehensive review analyzing build quality, buyer suitability, feature breakdowns, and real-world value."}
+              "Análisis completo que examina calidad, idoneidad, desglose de ingredientes y valor real."}
           </p>
 
           {/* Quick Highlight Feature Pills */}
@@ -246,7 +246,7 @@ export default function ProductCard({
             className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold bg-french_blue hover:bg-deep_twilight text-white transition-all shadow-md active:scale-98 text-center"
           >
             <FileText className="w-3.5 h-3.5" />
-            <span>View Full Review & Specs</span>
+            <span>Ver Análisis y Especificaciones</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
 
@@ -258,7 +258,7 @@ export default function ProductCard({
               className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-bold bg-bright_teal_blue hover:bg-french_blue text-white transition-all shadow-xs active:scale-98 text-center"
             >
               <ShoppingCart className="w-3.5 h-3.5" />
-              <span>Check Official Offer</span>
+              <span>Ver Oferta Oficial</span>
             </a>
           )}
         </div>

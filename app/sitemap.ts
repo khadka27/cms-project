@@ -1,15 +1,26 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://officialproductslab.com";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
 const staticPages = [
   "",
+  "/about",
+  "/contact",
+  "/products",
+  "/article",
   "/legal",
   "/legal/privacy",
   "/legal/terms",
   "/legal/refunds",
   "/legal/shipping",
   "/legal/cookies",
+  "/legal/advertising",
+  "/legal/affiliate",
+  "/legal/corrections",
+  "/legal/disclaimer",
+  "/legal/editorial",
+  "/legal/external-links",
+  "/legal/how-we-review",
 ];
 
 function getQuantizedDate(intervalDays: number = 5): Date {

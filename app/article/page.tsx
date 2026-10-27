@@ -4,8 +4,8 @@ import Image from "next/image";
 import { BookOpen, Calendar, ArrowRight, User } from "lucide-react";
 
 export const metadata = {
-  title: "Guides & Articles | OfficialProductsLab",
-  description: "Read our latest guides, health tips, and product reviews.",
+  title: "Guías y Artículos | NutritionalReviews",
+  description: "Lea nuestras últimas guías, consejos de salud y análisis de productos.",
 };
 
 export default async function ArticlesIndexPage() {
@@ -50,11 +50,11 @@ export default async function ArticlesIndexPage() {
               <BookOpen className="w-6 h-6 text-sky_aqua" />
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
-              Guides & <span className="bg-gradient-to-r from-sky_aqua via-turquoise_surf to-light_cyan bg-clip-text text-transparent">Articles</span>
+              Guías y <span className="bg-gradient-to-r from-sky_aqua via-turquoise_surf to-light_cyan bg-clip-text text-transparent">Artículos</span>
             </h1>
             <p className="text-light_cyan/80 max-w-2xl text-sm sm:text-base leading-relaxed">
-              Expert advice, deep-dive reviews, and ultimate guides to help you
-              make the most informed wellness decisions.
+              Consejos de expertos, análisis profundos y guías completas para ayudarle a tomar
+              las mejores decisiones sobre su bienestar.
             </p>
           </div>
         </div>
@@ -66,8 +66,8 @@ export default async function ArticlesIndexPage() {
           {allArticles.length === 0 ? (
             <div className="bg-white rounded-3xl p-12 text-center border border-light_cyan/70 shadow-sm">
               <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-              <h2 className="text-xl font-bold text-slate-800 mb-2">No articles published yet</h2>
-              <p className="text-slate-500">Check back later for new guides and content.</p>
+              <h2 className="text-xl font-bold text-slate-800 mb-2">Aún no hay artículos publicados</h2>
+              <p className="text-slate-500">Vuelva más tarde para descubrir nuevas guías y contenidos.</p>
             </div>
           ) : (
             <div className="space-y-12 sm:space-y-16">
@@ -95,7 +95,7 @@ export default async function ArticlesIndexPage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                       <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
                         <span className="px-4 py-1.5 bg-gradient-to-r from-french_blue to-bright_teal_blue text-white rounded-full text-xs font-bold uppercase tracking-widest shadow-md shadow-bright_teal_blue/30">
-                          Featured Guide
+                          Guía Destacada
                         </span>
                       </div>
                     </div>
@@ -106,7 +106,7 @@ export default async function ArticlesIndexPage() {
                         {heroArticle.publishedAt && (
                           <span className="flex items-center gap-1.5">
                             <Calendar className="w-3.5 h-3.5 text-bright_teal_blue" />
-                            {new Date(heroArticle.publishedAt).toLocaleDateString("en-US", {
+                            {new Date(heroArticle.publishedAt).toLocaleDateString("es-ES", {
                               month: "short",
                               day: "numeric",
                               year: "numeric"
@@ -140,16 +140,16 @@ export default async function ArticlesIndexPage() {
                           )}
                           <div>
                             <p className="text-xs font-bold text-slate-700 leading-none">
-                              {heroArticle.author?.name || "OfficialProductsLab"}
+                              {heroArticle.author?.name || "NutritionalReviews"}
                             </p>
                             <p className="text-[10px] text-slate-400 font-medium mt-0.5">
-                              {heroArticle.author?.title || "Editorial Writer"}
+                              {heroArticle.author?.title || "Redactor Editorial"}
                             </p>
                           </div>
                         </div>
 
                         <span className="flex items-center gap-1 text-xs font-bold text-bright_teal_blue group-hover:text-french_blue transition-colors">
-                          Read Guide <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                          Leer Guía <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </span>
                       </div>
                     </div>
@@ -162,7 +162,7 @@ export default async function ArticlesIndexPage() {
                 <div>
                   {heroArticle && (
                     <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 pl-1">
-                      More Articles & Guides
+                      Más Artículos y Guías
                     </h3>
                   )}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -195,7 +195,7 @@ export default async function ArticlesIndexPage() {
                             {article.publishedAt && (
                               <span className="flex items-center gap-1.5">
                                 <Calendar className="w-3.5 h-3.5 text-bright_teal_blue" />
-                                {new Date(article.publishedAt).toLocaleDateString("en-US", {
+                                {new Date(article.publishedAt).toLocaleDateString("es-ES", {
                                   month: "short",
                                   day: "numeric",
                                   year: "numeric"
@@ -228,12 +228,12 @@ export default async function ArticlesIndexPage() {
                                 </div>
                               )}
                               <span className="text-xs font-bold text-slate-700">
-                                {article.author?.name || "OfficialProductsLab"}
+                                {article.author?.name || "NutritionalReviews"}
                               </span>
                             </div>
 
                             <span className="flex items-center gap-1 text-xs font-bold text-bright_teal_blue group-hover:text-french_blue transition-colors">
-                              Read <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                              Leer <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                             </span>
                           </div>
                         </div>

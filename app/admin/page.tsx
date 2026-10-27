@@ -43,7 +43,7 @@ export default function AdminDashboard() {
 
   const cards: DashboardCard[] = [
     {
-      label: 'Products',
+      label: 'Productos',
       count: counts.products,
       icon: Package,
       href: '/admin/products',
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
       iconBg: 'bg-light_cyan text-deep_twilight',
     },
     {
-      label: 'Categories',
+      label: 'Categorías',
       count: counts.categories,
       icon: FolderOpen,
       href: '/admin/categories',
@@ -61,7 +61,7 @@ export default function AdminDashboard() {
       iconBg: 'bg-light_cyan text-french_blue',
     },
     {
-      label: 'Subcategories',
+      label: 'Subcategorías',
       count: counts.subcategories,
       icon: Layers,
       href: '/admin/subcategories',
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
       iconBg: 'bg-light_cyan text-deep_twilight',
     },
     {
-      label: 'Hero Settings',
+      label: 'Ajustes de Portada',
       count: 1,
       icon: Settings,
       href: '/admin/hero-settings',
@@ -81,15 +81,15 @@ export default function AdminDashboard() {
   ];
 
   const quickActions = [
-    { label: 'New Product',      href: '/admin/products/new',      color: 'bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 text-white', icon: Package },
-    { label: 'New Subcategory',  href: '/admin/subcategories/new', color: 'bg-gradient-to-r from-bright_teal_blue to-turquoise_surf hover:brightness-110 text-white', icon: Layers },
-    { label: 'New Category',     href: '/admin/categories/new',    color: 'bg-deep_twilight hover:bg-french_blue text-white', icon: FolderOpen },
-    { label: 'Hero Settings',    href: '/admin/hero-settings',     color: 'bg-french_blue hover:bg-bright_teal_blue text-white', icon: Settings },
+    { label: 'Nuevo Producto',      href: '/admin/products/new',      color: 'bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 text-white', icon: Package },
+    { label: 'Nueva Subcategoría',  href: '/admin/subcategories/new', color: 'bg-gradient-to-r from-bright_teal_blue to-turquoise_surf hover:brightness-110 text-white', icon: Layers },
+    { label: 'Nueva Categoría',     href: '/admin/categories/new',    color: 'bg-deep_twilight hover:bg-french_blue text-white', icon: FolderOpen },
+    { label: 'Ajustes de Portada',  href: '/admin/hero-settings',     color: 'bg-french_blue hover:bg-bright_teal_blue text-white', icon: Settings },
   ];
 
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-  const name = session?.user?.name?.split(' ')[0] || 'Admin';
+  const greeting = hour < 12 ? 'Buenos días' : hour < 17 ? 'Buenas tardes' : 'Buenas noches';
+  const name = session?.user?.name?.split(' ')[0] || 'Administrador';
 
   return (
     <div className="space-y-6 max-w-6xl">
@@ -103,12 +103,12 @@ export default function AdminDashboard() {
             <p className="text-sky_aqua text-sm font-medium">{greeting},</p>
             <h1 className="text-2xl sm:text-3xl font-bold mt-0.5">{name}</h1>
             <p className="text-sky_aqua/80 text-sm mt-1">
-              You have <span className="text-white font-semibold">{counts.products}</span> products across <span className="text-white font-semibold">{counts.categories}</span> categories.
+              Dispone de <span className="text-white font-semibold">{counts.products}</span> productos en <span className="text-white font-semibold">{counts.categories}</span> categorías.
             </p>
           </div>
           <div className="flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
             <Activity className="w-4 h-4 text-sky_aqua" />
-            <span className="text-sm font-medium">Store Active</span>
+            <span className="text-sm font-medium">Portal Activo</span>
           </div>
         </div>
       </div>
@@ -126,8 +126,8 @@ export default function AdminDashboard() {
                     <Icon className="w-5 h-5" />
                   </div>
                   <Link href={card.newHref}
-                    className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                    title={`Add ${card.label}`}>
+                    className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors cursor-pointer"
+                    title={`Añadir ${card.label}`}>
                     <Plus className="w-3.5 h-3.5 text-gray-500" />
                   </Link>
                 </div>
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
                 <div className="flex items-center justify-between mt-1">
                   <p className="text-sm text-gray-500">{card.label}</p>
                   <Link href={card.href} className="text-xs text-gray-400 hover:text-gray-700 flex items-center gap-0.5 transition-colors">
-                    View <ArrowRight className="w-3 h-3" />
+                    Ver <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function AdminDashboard() {
             <div className="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center">
               <Plus className="w-4 h-4 text-gray-600" />
             </div>
-            <h2 className="font-semibold text-gray-900">Quick Actions</h2>
+            <h2 className="font-semibold text-gray-900">Acciones Rápidas</h2>
           </div>
           <div className="space-y-2">
             {quickActions.map(action => {
@@ -177,13 +177,13 @@ export default function AdminDashboard() {
             <div className="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center">
               <TrendingUp className="w-4 h-4 text-gray-600" />
             </div>
-            <h2 className="font-semibold text-gray-900">Store Overview</h2>
+            <h2 className="font-semibold text-gray-900">Resumen del Portal</h2>
           </div>
           <div className="space-y-3">
             {[
-              { label: 'Total Products',      value: counts.products,      max: Math.max(counts.products, 1),      color: 'bg-bright_teal_blue' },
-              { label: 'Total Categories',    value: counts.categories,    max: Math.max(counts.categories, 1),    color: 'bg-french_blue' },
-              { label: 'Total Subcategories', value: counts.subcategories, max: Math.max(counts.subcategories, 1), color: 'bg-turquoise_surf' },
+              { label: 'Total de Productos',      value: counts.products,      max: Math.max(counts.products, 1),      color: 'bg-bright_teal_blue' },
+              { label: 'Total de Categorías',    value: counts.categories,    max: Math.max(counts.categories, 1),    color: 'bg-french_blue' },
+              { label: 'Total de Subcategorías', value: counts.subcategories, max: Math.max(counts.subcategories, 1), color: 'bg-turquoise_surf' },
             ].map(item => (
               <div key={item.label}>
                 <div className="flex items-center justify-between text-sm mb-1.5">
@@ -204,9 +204,9 @@ export default function AdminDashboard() {
 
           <div className="mt-5 pt-4 border-t border-gray-100 grid grid-cols-3 gap-3 text-center">
             {[
-              { label: 'Products', value: counts.products, href: '/admin/products' },
-              { label: 'Categories', value: counts.categories, href: '/admin/categories' },
-              { label: 'Subcategories', value: counts.subcategories, href: '/admin/subcategories' },
+              { label: 'Productos', value: counts.products, href: '/admin/products' },
+              { label: 'Categorías', value: counts.categories, href: '/admin/categories' },
+              { label: 'Subcategorías', value: counts.subcategories, href: '/admin/subcategories' },
             ].map(item => (
               <Link key={item.href} href={item.href}
                 className="p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors group">

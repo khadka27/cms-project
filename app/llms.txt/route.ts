@@ -23,42 +23,42 @@ export async function GET() {
     }
   }
 
-  let content = `# Official Products Lab\n\nOfficial Products Lab helps shoppers explore product reviews, compare features, understand pros and cons, and learn what to check before visiting a product page.\n\n`;
+  let content = `# Nutritional Reviews\n\nNutritional Reviews ayuda a los compradores a explorar análisis de productos, comparar características, comprender pros y contras, y aprender qué verificar antes de visitar una página de producto.\n\n`;
 
-  content += `## Main Pages\n`;
-  content += `- [Home Page](https://officialproductslab.com) - Curated buyer-focused reviews of trending supplements and lifestyle products.\n`;
-  content += `- [All Products](https://officialproductslab.com/products) - Complete catalog of products reviewed on the site.\n`;
-  content += `- [About Us](https://officialproductslab.com/about) - Information about our review process and mission.\n`;
-  content += `- [Contact](https://officialproductslab.com/contact) - Contact form for inquiries.\n\n`;
+  content += `## Páginas Principales\n`;
+  content += `- [Página de Inicio](https://nutritionalreviews.org) - Análisis selectos orientados al consumidor de suplementos y productos de bienestar en tendencia.\n`;
+  content += `- [Todos los Productos](https://nutritionalreviews.org/products) - Catálogo completo de productos analizados en el sitio.\n`;
+  content += `- [Sobre Nosotros](https://nutritionalreviews.org/about) - Información sobre nuestro proceso editorial y misión.\n`;
+  content += `- [Contacto](https://nutritionalreviews.org/contact) - Formulario de contacto para consultas y soporte.\n\n`;
 
-  content += `## Editorial & Guidelines\n`;
-  content += `- [How We Review](https://officialproductslab.com/legal/how-we-review) - Our editorial principles and content approach.\n`;
-  content += `- [Terms & Conditions](https://officialproductslab.com/legal/terms) - Terms governing website usage.\n`;
-  content += `- [Privacy Policy](https://officialproductslab.com/legal/privacy) - Information on user privacy and cookies.\n`;
-  content += `- [Refunds Policy](https://officialproductslab.com/legal/refunds) - Guarantee and refund awareness reminders.\n`;
-  content += `- [Shipping Info](https://officialproductslab.com/legal/shipping) - General shipping guidelines.\n`;
-  content += `- [Cookies Policy](https://officialproductslab.com/legal/cookies) - Cookie usage information.\n\n`;
+  content += `## Editorial y Directrices Legales\n`;
+  content += `- [Cómo Evaluamos](https://nutritionalreviews.org/legal/how-we-review) - Nuestros principios editoriales y metodología de evaluación.\n`;
+  content += `- [Términos y Condiciones](https://nutritionalreviews.org/legal/terms) - Términos que rigen el uso del sitio web.\n`;
+  content += `- [Política de Privacidad](https://nutritionalreviews.org/legal/privacy) - Información sobre privacidad del usuario y cookies.\n`;
+  content += `- [Política de Reembolsos](https://nutritionalreviews.org/legal/refunds) - Avisos y garantías sobre devoluciones.\n`;
+  content += `- [Información de Envíos](https://nutritionalreviews.org/legal/shipping) - Directrices generales de envío y entrega.\n`;
+  content += `- [Política de Cookies](https://nutritionalreviews.org/legal/cookies) - Información sobre el uso de cookies.\n\n`;
 
   if (subcategories.length > 0) {
-    content += `## Subcategories\n`;
+    content += `## Subcategorías\n`;
     for (const sub of subcategories) {
-      content += `- [${sub.name}](https://officialproductslab.com/subcategory/${sub.slug}) - ${sub.description || "Browse product reviews in this category."}\n`;
+      content += `- [${sub.name}](https://nutritionalreviews.org/subcategory/${sub.slug}) - ${sub.description || "Explorar análisis de productos en esta categoría."}\n`;
     }
     content += `\n`;
   }
 
   if (products.length > 0) {
-    content += `## Product Reviews\n`;
+    content += `## Análisis de Productos\n`;
     for (const prod of products) {
-      content += `- [${prod.name}](https://officialproductslab.com/${prod.slug}) - ${prod.shortDescription || "Detailed product review and specs."}\n`;
+      content += `- [${prod.name}](https://nutritionalreviews.org/${prod.slug}) - ${prod.shortDescription || "Análisis detallado de especificaciones y producto."}\n`;
     }
     content += `\n`;
   }
 
   if (articles.length > 0) {
-    content += `## Articles\n`;
+    content += `## Artículos y Guías\n`;
     for (const art of articles) {
-      content += `- [${art.title}](https://officialproductslab.com/article/${art.slug}) - ${art.excerpt || "Read our full article."}\n`;
+      content += `- [${art.title}](https://nutritionalreviews.org/article/${art.slug}) - ${art.excerpt || "Lea nuestro artículo completo."}\n`;
     }
     content += `\n`;
   }

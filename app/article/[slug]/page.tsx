@@ -5,7 +5,7 @@ import { ArrowLeft, Calendar, Clock, Star, Globe, ExternalLink } from 'lucide-re
 import prisma from '@/lib/db';
 import { wrapTablesInResponsiveDiv } from '@/lib/utils';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://officialproductslab.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nutritionalreviews.org';
 
 async function getArticle(slug: string) {
   try {
@@ -47,7 +47,7 @@ async function getArticle(slug: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticle(slug);
-  if (!article) return { title: 'Article Not Found' };
+  if (!article) return { title: 'Artículo no encontrado' };
   const url = `${SITE_URL}/article/${slug}`;
   return {
     title: article.metaTitle || article.title,
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: 'article', url,
       title: article.metaTitle || article.title,
       description: article.metaDescription || article.excerpt,
-      siteName: 'OfficialProductsLab',
+      siteName: 'NutritionalReviews',
       images: article.featuredImage ? [{ url: article.featuredImage, width: 1200, height: 630, alt: article.featuredImageAlt || article.title }] : [],
       publishedTime: article.publishedAt?.toISOString(),
       modifiedTime: article.updatedAt.toISOString(),
@@ -88,8 +88,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     image: article.featuredImage,
     datePublished: article.publishedAt?.toISOString(),
     dateModified: article.updatedAt.toISOString(),
-    author: author ? { '@type': 'Person', name: author.name, ...(author.title ? { jobTitle: author.title } : {}), ...(author.website ? { url: author.website } : {}) } : { '@type': 'Organization', name: 'OfficialProductsLab' },
-    publisher: { '@type': 'Organization', name: 'OfficialProductsLab', url: SITE_URL, logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` } },
+    author: author ? { '@type': 'Person', name: author.name, ...(author.title ? { jobTitle: author.title } : {}), ...(author.website ? { url: author.website } : {}) } : { '@type': 'Organization', name: 'NutritionalReviews' },
+    publisher: { '@type': 'Organization', name: 'NutritionalReviews', url: SITE_URL, logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` } },
   };
 
   return (
@@ -108,11 +108,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               {article.publishedAt && (
                 <span className="flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5" />
-                  {new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  {new Date(article.publishedAt).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </span>
               )}
-              <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{readTime} min read</span>
-              <span className="bg-teal-500/80 text-white px-2.5 py-0.5 rounded-full font-semibold backdrop-blur-sm">Article</span>
+              <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{readTime} min de lectura</span>
+              <span className="bg-teal-500/80 text-white px-2.5 py-0.5 rounded-full font-semibold backdrop-blur-sm">Artículo</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-bold text-white leading-tight tracking-tight drop-shadow-lg">
               {article.title}
@@ -124,7 +124,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Back */}
         <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-teal-700 mb-5 transition-colors group">
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Back to Home
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Volver al Inicio
         </Link>
 
         {/* If no featured image, show title here */}
@@ -133,11 +133,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="flex flex-wrap items-center gap-3 mb-3 text-xs text-gray-400">
               {article.publishedAt && (
                 <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />
-                  {new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  {new Date(article.publishedAt).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </span>
               )}
-              <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{readTime} min read</span>
-              <span>{wordCount.toLocaleString()} words</span>
+              <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{readTime} min de lectura</span>
+              <span>{wordCount.toLocaleString()} palabras</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight tracking-tight">
               {article.title}
@@ -195,12 +195,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               {/* Footer */}
               <div className="px-6 sm:px-8 py-5 bg-gray-50 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
                 <div className="text-xs text-gray-400">
-                  Last updated: {new Date(article.updatedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  Última actualización: {new Date(article.updatedAt).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </div>
                 {author?.website && (
                   <a href={author.website} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-xs text-bright_teal_blue hover:text-french_blue font-medium transition-colors">
-                    <Globe className="w-3.5 h-3.5" /> Author website <ExternalLink className="w-3 h-3" />
+                    <Globe className="w-3.5 h-3.5" /> Sitio web del autor <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
               </div>
@@ -214,7 +214,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className="bg-white rounded-2xl border border-light_cyan/70 shadow-sm overflow-hidden">
                 <div className="h-0.5 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf" />
                 <div className="p-5">
-                  <p className="text-xs font-semibold text-bright_teal_blue uppercase tracking-wider mb-3">About the Author</p>
+                  <p className="text-xs font-semibold text-bright_teal_blue uppercase tracking-wider mb-3">Sobre el Autor</p>
                   <div className="flex items-center gap-3 mb-3">
                     {author.avatar ? (
                       <img src={author.avatar} alt={author.name} className="w-14 h-14 rounded-full object-cover border-2 border-light_cyan" />
@@ -231,7 +231,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   {author.bio && <p className="text-xs text-gray-500 leading-relaxed mb-3">{author.bio}</p>}
                   {author.expertise && (
                     <div className="bg-light_cyan/15 rounded-xl p-3 mb-3 border border-light_cyan/50">
-                      <p className="text-xs font-semibold text-french_blue mb-1">Expertise</p>
+                      <p className="text-xs font-semibold text-french_blue mb-1">Especialidad</p>
                       <p className="text-xs text-slate-600">{author.expertise}</p>
                     </div>
                   )}
@@ -239,13 +239,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     <div className="flex items-center gap-2 text-sm">
                       <div className="text-turquoise_surf">{'★'.repeat(Math.round(author.rating))}{'☆'.repeat(5 - Math.round(author.rating))}</div>
                       <span className="font-bold text-gray-900">{author.rating.toFixed(1)}</span>
-                      {author.reviewCount && <span className="text-xs text-gray-400">({author.reviewCount.toLocaleString()} reviews)</span>}
+                      {author.reviewCount && <span className="text-xs text-gray-400">({author.reviewCount.toLocaleString()} valoraciones)</span>}
                     </div>
                   )}
                   {author.website && (
                     <a href={author.website} target="_blank" rel="noopener noreferrer"
                       className="mt-3 flex items-center justify-center gap-1.5 w-full py-2 border border-bright_teal_blue/30 text-bright_teal_blue hover:bg-light_cyan/20 rounded-xl text-xs font-semibold transition-colors">
-                      <Globe className="w-3.5 h-3.5" /> Visit Website
+                      <Globe className="w-3.5 h-3.5" /> Visitar Sitio Web
                     </a>
                   )}
                 </div>
@@ -254,19 +254,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
             {/* Article info */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Article Info</p>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Información del Artículo</p>
               <div className="space-y-2.5 text-xs">
                 <div className="flex justify-between text-gray-600">
-                  <span>Read time</span><span className="font-semibold text-gray-900">{readTime} min</span>
+                  <span>Tiempo de lectura</span><span className="font-semibold text-gray-900">{readTime} min</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Word count</span><span className="font-semibold text-gray-900">{wordCount.toLocaleString()}</span>
+                  <span>Número de palabras</span><span className="font-semibold text-gray-900">{wordCount.toLocaleString()}</span>
                 </div>
                 {article.publishedAt && (
                   <div className="flex justify-between text-gray-600">
-                    <span>Published</span>
+                    <span>Publicado</span>
                     <span className="font-semibold text-gray-900">
-                      {new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                      {new Date(article.publishedAt).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })}
                     </span>
                   </div>
                 )}

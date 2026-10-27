@@ -11,17 +11,17 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { label: "Dashboard",     href: "/admin",                icon: LayoutDashboard, color: "text-sky_aqua" },
-  { label: "Categories",    href: "/admin/categories",     icon: FolderOpen,      color: "text-turquoise_surf" },
-  { label: "Subcategories", href: "/admin/subcategories",  icon: Layers,          color: "text-bright_teal_blue" },
-  { label: "Ingredients",   href: "/admin/ingredients",    icon: FlaskConical,    color: "text-blue_green" },
-  { label: "Products",      href: "/admin/products",       icon: Package,         color: "text-sky_aqua" },
-  { label: "Authors",       href: "/admin/authors",        icon: UserCog,         color: "text-frosted_blue" },
-  { label: "Articles",      href: "/admin/articles",       icon: FileText,        color: "text-turquoise_surf" },
-  { label: "SEO Articles",  href: "/admin/seo-article",    icon: Sparkles,        color: "text-sky_aqua" },
-  { label: "Testimonials",  href: "/admin/testimonials",   icon: MessageSquareQuote, color: "text-light_cyan" },
-  { label: "Hero Settings", href: "/admin/hero-settings",  icon: Settings,        color: "text-bright_teal_blue" },
-  { label: "Account",       href: "/admin/settings",       icon: UserCog,         color: "text-sky_aqua" },
+  { label: "Panel Principal",     href: "/admin",                icon: LayoutDashboard, color: "text-sky_aqua" },
+  { label: "Categorías",          href: "/admin/categories",     icon: FolderOpen,      color: "text-turquoise_surf" },
+  { label: "Subcategorías",       href: "/admin/subcategories",  icon: Layers,          color: "text-bright_teal_blue" },
+  { label: "Ingredientes",        href: "/admin/ingredients",    icon: FlaskConical,    color: "text-blue_green" },
+  { label: "Productos",           href: "/admin/products",       icon: Package,         color: "text-sky_aqua" },
+  { label: "Autores",             href: "/admin/authors",        icon: UserCog,         color: "text-frosted_blue" },
+  { label: "Artículos",           href: "/admin/articles",       icon: FileText,        color: "text-turquoise_surf" },
+  { label: "Artículos SEO",       href: "/admin/seo-article",    icon: Sparkles,        color: "text-sky_aqua" },
+  { label: "Testimonios",         href: "/admin/testimonials",   icon: MessageSquareQuote, color: "text-light_cyan" },
+  { label: "Ajustes de Portada",  href: "/admin/hero-settings",  icon: Settings,        color: "text-bright_teal_blue" },
+  { label: "Cuenta",              href: "/admin/settings",       icon: UserCog,         color: "text-sky_aqua" },
 ];
 
 function Sidebar({ onClose }: { onClose?: () => void }) {
@@ -37,12 +37,12 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
             <ShoppingBag className="w-4 h-4 text-white" />
           </div>
           <div>
-            <p className="font-bold text-sm tracking-tight text-white leading-tight">OfficialProductsLab</p>
-            <p className="text-[10px] text-sky_aqua uppercase tracking-widest font-semibold">Admin Panel</p>
+            <p className="font-bold text-sm tracking-tight text-white leading-tight">NutritionalReviews</p>
+            <p className="text-[10px] text-sky_aqua uppercase tracking-widest font-semibold">Panel de Administración</p>
           </div>
         </div>
         {onClose && (
-          <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/10 transition-colors md:hidden cursor-pointer" aria-label="Close sidebar">
+          <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/10 transition-colors md:hidden cursor-pointer" aria-label="Cerrar barra lateral">
             <X className="w-4 h-4 text-white/60" />
           </button>
         )}
@@ -60,7 +60,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 {session.user.name || session.user.email}
               </p>
               <p className="text-[10px] text-sky_aqua uppercase tracking-wider font-semibold">
-                {(session.user as any)?.role || "Admin"}
+                {(session.user as any)?.role || "Administrador"}
               </p>
             </div>
           </div>
@@ -69,7 +69,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
 
       {/* Nav */}
       <nav className="flex-1 min-h-0 overflow-y-auto px-3 py-2.5 space-y-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest px-3 my-1.5">Navigation</p>
+        <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest px-3 my-1.5">Navegación</p>
         {navItems.map((item) => {
           const active = pathname === item.href ||
             (item.href !== "/admin" && pathname.startsWith(item.href));
@@ -101,14 +101,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
           className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs text-white/50 hover:bg-white/8 hover:text-white transition-all font-medium"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Site
+          Volver al Sitio
         </Link>
         <button
           onClick={() => signOut({ callbackUrl: "/admin/login" })}
           className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs text-white/50 hover:bg-red-500/15 hover:text-red-400 transition-all font-medium cursor-pointer"
         >
           <LogOut className="w-3.5 h-3.5" />
-          Sign Out
+          Cerrar Sesión
         </button>
       </div>
     </div>
@@ -149,7 +149,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <button
               className="md:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 transition-colors cursor-pointer"
               onClick={() => setSidebarOpen(true)}
-              aria-label="Open sidebar"
+              aria-label="Abrir barra lateral"
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -166,14 +166,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               href="/"
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-600 hover:text-bright_teal_blue hover:bg-light_cyan/30 rounded-lg transition-colors border border-transparent hover:border-turquoise_surf/30"
             >
-              <ArrowLeft className="w-3.5 h-3.5" /> View Site
+              <ArrowLeft className="w-3.5 h-3.5" /> Ver Sitio
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: "/admin/login" })}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out</span>
+              <span>Cerrar Sesión</span>
             </button>
           </div>
         </header>

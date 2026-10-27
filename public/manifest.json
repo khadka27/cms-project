@@ -1,7 +1,7 @@
 {
-  "name": "OfficialProductsLab - Premium Supplements & Wellness Products",
-  "short_name": "OfficialProductsLab",
-  "description": "Discover science-backed supplements, fitness gear, and organic wellness products at OfficialProductsLab.",
+  "name": "NutritionalReviews - Análisis de Salud y Nutrición",
+  "short_name": "NutritionalReviews",
+  "description": "Descubra suplementos respaldados por la ciencia, guías de nutrición y análisis de bienestar en NutritionalReviews.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
