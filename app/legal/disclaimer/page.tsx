@@ -1,4 +1,13 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Descargo de Responsabilidad de Salud | NutritionalReviews.org",
+  description:
+    "Aviso legal y descargo de responsabilidad sobre contenido informativo y suplementos en NutritionalReviews.org. Consulte siempre a un profesional sanitario.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/disclaimer",
+  },
+};
 
 export default function DisclaimerPage() {
   return (
@@ -8,100 +17,160 @@ export default function DisclaimerPage() {
           Avisos y Límites Legales
         </span>
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          Aviso Legal y Descargo de Responsabilidad
+          Descargo de Responsabilidad de Salud
         </h1>
-        <p className="mt-4 text-sm font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl w-fit">
-          Fecha de entrada en vigor: 01/06/2026
-        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs sm:text-sm font-semibold text-slate-500">
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl">
+            Última actualización: 27 de octubre de 2026
+          </span>
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl text-bright_teal_blue">
+            Sitio web: https://nutritionalreviews.org
+          </span>
+        </div>
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
-          <p>
-            Nutritional Reviews es un portal de información sobre productos creado para orientar a los consumidores en la investigación de suplementos y productos de bienestar mediante análisis imparciales, guías de compra y resúmenes técnicos.
-          </p>
-          <p>
-            La información contenida en <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">NutritionalReviews.org</a> se suministra con fines estrictamente informativos y divulgativos. Al utilizar este sitio web, usted comprende y acepta que el contenido no constituye asesoramiento profesional ni una garantía médica o de resultados.
+          <p className="text-base sm:text-lg text-slate-800 font-medium">
+            Lee este descargo antes de usar cualquier información de este sitio.
           </p>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Informational Purpose Only */}
+          {/* Section 1 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Finalidad Exclusivamente Informativa
+              1. Contenido informativo, no consejo médico
             </h2>
             <p>
-              El propósito de Nutritional Reviews es brindar comparativas objetivas para que los compradores conozcan a fondo las características, pros y contras de un producto antes de acudir a una tienda oficial.
+              Todo el contenido de NutritionalReviews.org — incluyendo reseñas, artículos, comparaciones, opiniones, testimonios y descripciones de ingredientes — tiene fines exclusivamente informativos y educativos.
             </p>
             <p className="font-semibold text-slate-900">
-              Esta información no debe considerarse como una garantía de que determinado producto solucionará un problema de salud o resultará idóneo para todas las personas.
+              No constituye, ni debe interpretarse como, asesoramiento médico, diagnóstico, tratamiento, recomendación nutricional personalizada ni sustituto de la atención profesional.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: No Medical Advice */}
+          {/* Section 2 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Sin Asesoramiento Médico ni Sanitario
+              2. Consulta a un profesional de la salud
             </h2>
             <p>
-              Nutritional Reviews no presta asesoramiento médico, diagnóstico clínico ni prescripción terapéutica. Nada en este sitio web debe utilizarse para reemplazar el criterio de un médico, farmacéutico u otro profesional sanitario cualificado.
-            </p>
-            <p>
-              Antes de iniciar cualquier régimen de suplementación alimenticia, consulte con su médico de confianza, especialmente si:
+              Antes de tomar, cambiar o suspender cualquier suplemento, medicamento o tratamiento, consulta a un médico, nutricionista, farmacéutico u otro profesional de la salud calificado, especialmente si:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Padece alguna enfermedad diagnosticada o trastorno crónico</li>
-              <li>Se encuentra embarazada, en período de lactancia o planificando un embarazo</li>
-              <li>Toma medicamentos con o sin receta médica</li>
-              <li>Presenta alergias alimentarias o sensibilidad conocida a ciertos principios activos</li>
+              <li>Estás embarazada, en periodo de lactancia o planeas estarlo.</li>
+              <li>Tienes una enfermedad, condición crónica o tomas medicamentos.</li>
+              <li>Vas a someterte a una cirugía.</li>
+              <li>Eres menor de edad o cuidas a un menor o a una persona mayor.</li>
+              <li>Tienes alergias o intolerancias conocidas.</li>
             </ul>
+            <p className="bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl p-4 text-xs sm:text-sm font-medium">
+              No ignores el consejo de un profesional ni retrases la búsqueda de atención médica por algo que hayas leído en este sitio.
+            </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Results May Vary */}
+          {/* Section 3 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Los Resultados Individuales Pueden Variar
+              3. Los suplementos no son medicamentos
             </h2>
             <p>
-              Cada organismo responde de forma diferente a los ingredientes bioactivos y hábitos de estilo de vida. Un suplemento que resulte altamente eficaz para un usuario puede no generar los mismos efectos en otro debido a factores metabólicos, edad, dieta y regularidad en las tomas.
+              Los suplementos alimenticios no están destinados a diagnosticar, tratar, curar o prevenir ninguna enfermedad. Las afirmaciones sobre estos productos no han sido evaluadas necesariamente por autoridades sanitarias como la FDA de Estados Unidos ni por las autoridades sanitarias de tu país (por ejemplo, COFEPRIS en México, INVIMA en Colombia, ANVISA en Brasil, o la autoridad equivalente en tu país).
             </p>
+            <p>
+              Los resultados pueden variar de una persona a otra. Que un producto funcione para una persona no garantiza que funcione para otra.
+            </p>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 4 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              4. Lee siempre la etiqueta del producto
+            </h2>
+            <p>Antes de comprar o consumir un producto:</p>
+            <ul className="list-disc pl-6 space-y-2 text-slate-600">
+              <li>Lee la etiqueta completa, incluyendo ingredientes, dosis, advertencias y contraindicaciones.</li>
+              <li>Verifica que el producto esté autorizado para su venta en tu país.</li>
+              <li>Sigue las instrucciones del fabricante y no excedas la dosis recomendada.</li>
+            </ul>
+            <p>
+              Si experimentas efectos adversos, suspende su uso y consulta a un profesional de la salud. En caso de emergencia, busca atención médica inmediata.
+            </p>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 5 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              5. Testimonios y resultados
+            </h2>
+            <p>
+              Los testimonios, opiniones de usuarios o resultados mencionados en reseñas son experiencias individuales y no garantizan resultados. Pueden estar editados por claridad, pero no representan una promesa de eficacia.
+            </p>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 6 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              6. Responsabilidad del vendedor
+            </h2>
+            <p>
+              El fabricante y el vendedor son responsables de la composición, calidad, seguridad, etiquetado, envío y devoluciones de sus productos. NutritionalReviews.org no fabrica, distribuye ni garantiza ningún producto reseñado.
+            </p>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 7 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              7. En caso de duda
+            </h2>
             <p className="font-semibold text-slate-900">
-              Nutritional Reviews no garantiza resultados específicos ni curas milagrosas en ningún caso.
+              Si tienes dudas sobre si un suplemento es adecuado para ti, no lo tomes hasta consultar a un profesional de la salud.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Third-Party Links */}
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Enlaces Externos y Tiendas de Terceros
-            </h2>
-            <p>
-              Los enlaces a tiendas de terceros y fabricantes se facilitan para su conveniencia investigadora. Nutritional Reviews no asume responsabilidad alguna por cambios de precio, stock, retrasos en la entrega o discrepancias en pasarelas de pago externas.
-            </p>
-          </div>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: Contact Us */}
+          {/* Contact */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
               Contacto
             </h2>
             <p>
-              Si tiene dudas sobre este descargo de responsabilidad, comuníquese con nosotros en:
+              Si tienes dudas o preguntas sobre este descargo de responsabilidad, escríbenos a:
             </p>
             <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
-              <p>Nutritional Reviews</p>
-              <p>Correo electrónico: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@nutritionalreviews.org</a></p>
-              <p>Sitio web: <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://nutritionalreviews.org</a></p>
+              <p className="font-bold text-slate-900">NutritionalReviews.org</p>
+              <p>
+                Correo electrónico:{" "}
+                <a
+                  href="mailto:reviewsnutritional@gmail.com"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  reviewsnutritional@gmail.com
+                </a>
+              </p>
+              <p>
+                Sitio web:{" "}
+                <a
+                  href="https://nutritionalreviews.org"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  https://nutritionalreviews.org
+                </a>
+              </p>
             </div>
           </div>
-
         </section>
       </article>
     </main>

@@ -298,29 +298,41 @@ export default async function ProductPage({
 
               {/* CTA buttons — full width on mobile */}
               {(product.readMoreLink || product.buyNowLink) && (
-                <div className="mt-6 mb-8 flex flex-col sm:flex-row gap-3">
-                  {product.buyNowLink && (
-                    <a
-                      href={product.buyNowLink}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="flex items-center justify-center gap-2 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf hover:brightness-110 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-bright_teal_blue/25 hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
-                    >
-                      <ShoppingCart className="w-4 h-4" /> Consultar Precio y Disponibilidad
-                    </a>
-                  )}
-                  {product.readMoreLink && (
-                    <a
-                      href={product.readMoreLink}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="flex items-center justify-center gap-2 bg-deep_twilight hover:bg-french_blue text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Explorar la Guía Completa del Producto
-                    </a>
-                  )}
-                </div>
+                <>
+                  <div className="mt-6 mb-3 flex flex-col sm:flex-row gap-3">
+                    {product.buyNowLink && (
+                      <a
+                        href={product.buyNowLink}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="flex items-center justify-center gap-2 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf hover:brightness-110 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-bright_teal_blue/25 hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
+                      >
+                        <ShoppingCart className="w-4 h-4" /> Consultar Precio y Disponibilidad
+                      </a>
+                    )}
+                    {product.readMoreLink && (
+                      <a
+                        href={product.readMoreLink}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="flex items-center justify-center gap-2 bg-deep_twilight hover:bg-french_blue text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base cursor-pointer"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Explorar la Guía Completa del Producto
+                      </a>
+                    )}
+                  </div>
+                  <p className="mb-8 text-xs text-slate-500 leading-relaxed">
+                    <span className="font-semibold text-slate-600">Aviso de transparencia:</span> Enlace comercial con posible comisión. Consulta nuestra{" "}
+                    <Link href="/legal/affiliate" className="text-bright_teal_blue hover:underline font-medium">
+                      Divulgación de Afiliados
+                    </Link>{" "}
+                    y nuestro{" "}
+                    <Link href="/legal/disclaimer" className="text-bright_teal_blue hover:underline font-medium">
+                      Descargo de Salud
+                    </Link>.
+                  </p>
+                </>
               )}
 
               {/* Key Features */}

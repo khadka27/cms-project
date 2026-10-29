@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Política de Privacidad | NutritionalReviews.org",
+  description:
+    "Conozca cómo NutritionalReviews.org recopila, procesa y protege sus datos personales, el uso de herramientas de análisis y el ejercicio de sus derechos.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/privacy",
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (
@@ -10,294 +20,244 @@ export default function PrivacyPolicyPage() {
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
           Política de Privacidad
         </h1>
-        <p className="mt-4 text-sm font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl w-fit">
-          Fecha de entrada en vigor: 01/06/2026
-        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs sm:text-sm font-semibold text-slate-500">
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl">
+            Última actualización: 27 de octubre de 2026
+          </span>
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl text-bright_teal_blue">
+            Titular: NutritionalReviews.org
+          </span>
+        </div>
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
-          <p>
-            Nutritional Reviews (“Nutritional Reviews”, “nosotros” o “nuestro”) respeta profundamente su privacidad. Esta Política de Privacidad explica cómo recopilamos, utilizamos, compartimos y protegemos la información cuando usted visita <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">NutritionalReviews.org</a>, consulta nuestros análisis de productos, explora categorías, se suscribe a actualizaciones, envía formularios o hace clic en enlaces a páginas de productos y ofertas de terceros.
-          </p>
-          <p>
-            Esta Política de Privacidad se aplica a NutritionalReviews.org y a cualquier página, servicio o subdominio relacionado que enlace a esta política.
-          </p>
-          <p className="font-semibold text-slate-900">
-            Al utilizar nuestro sitio web, usted acepta las prácticas descritas en esta Política de Privacidad.
-          </p>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: Information We Collect */}
+          {/* Section 1 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Información que Recopilamos
+              1. Introducción
             </h2>
             <p>
-              Podemos recopilar información que usted nos proporcione directamente, información recopilada automáticamente cuando navega por el sitio web y datos limitados procedentes de herramientas de terceros.
+              Esta Política de Privacidad explica qué datos recopilamos cuando visitas NutritionalReviews.org, cómo los usamos y qué derechos tienes. Al usar este sitio, aceptas esta política.
             </p>
-            <p>El tipo de información que podemos recopilar incluye:</p>
-            <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Nombre y dirección de correo electrónico si nos contacta o se suscribe al boletín</li>
-              <li>Mensajes o detalles enviados a través de formularios de contacto</li>
-              <li>Dirección IP, tipo de navegador, modelo de dispositivo y sistema operativo</li>
-              <li>Páginas visitadas, enlaces pulsados, tiempo de permanencia y actividad de navegación</li>
-              <li>Datos de cookies, identificadores de sesión y datos analíticos</li>
-              <li>Interacciones con enlaces de productos, clics en enlaces de afiliados y fuentes de referencia</li>
-              <li>Preferencias de suscripción y tasa de interacción con comunicaciones por correo</li>
-            </ul>
-            <p className="text-slate-500 text-xs sm:text-sm italic bg-slate-50 border border-slate-100 rounded-xl p-4">
-              No recopilamos de forma deliberada datos personales sensibles como números de identificación gubernamental, números de tarjetas de crédito o débito, historiales médicos privados ni credenciales bancarias a través de este sitio web.
+            <p>
+              NutritionalReviews.org es un sitio informativo de reseñas de suplementos y productos de bienestar. No vendemos productos directamente. Cuando haces clic en un enlace de afiliado y compras en el sitio del vendedor, esa compra se rige por la política de privacidad y los términos de ese vendedor, no por los nuestros.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: How We Collect Information */}
+          {/* Section 2 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Cómo Recopilamos la Información
+              2. Datos que recopilamos
             </h2>
-            <p>
-              Recopilamos información de diversas formas según su interacción con nuestro portal.
-            </p>
-            <p>
-              Parte de la información se recopila directamente cuando completa un formulario, se suscribe a nuestras alertas o nos envía un correo electrónico. Otra información se recopila automáticamente mediante cookies, registros de servidor, etiquetas analíticas y tecnologías similares de seguimiento.
-            </p>
-            <p>
-              También podemos recibir métricas agregadas de herramientas de análisis, plataformas de afiliados, sistemas de prevención de spam y servicios de alojamiento seguro.
-            </p>
-          </div>
 
-          <hr className="border-slate-100" />
-
-          {/* Section: How We Use Your Information */}
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Cómo Utilizamos su Información
-            </h2>
-            <p>
-              Utilizamos la información recopilada para operar, mantener, proteger y mejorar Nutritional Reviews.
-            </p>
-            <p>Podemos utilizar su información para:</p>
-            <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Responder a sus consultas, mensajes, comentarios o solicitudes de corrección</li>
-              <li>Enviar boletines informativos y guías cuando se haya suscrito voluntariamente</li>
-              <li>Optimizar nuestros análisis, páginas de categorías y diseño del sitio web</li>
-              <li>Analizar el comportamiento general de los visitantes y medir el tráfico</li>
-              <li>Medir el rendimiento de enlaces y la efectividad de los análisis de productos</li>
-              <li>Prevenir el spam, actividades fraudulentas y amenazas a la seguridad del portal</li>
-              <li>Cumplir con las obligaciones legales aplicables</li>
-            </ul>
-            <p className="font-semibold text-slate-900">
-              No vendemos directamente su información personal a terceros ni a corredores de datos.
-            </p>
-          </div>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: Cookies and Tracking Technologies */}
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Cookies y Tecnologías de Rastreo
-            </h2>
-            <p>
-              Nutritional Reviews puede utilizar cookies, etiquetas y scripts técnicos para asegurar el correcto funcionamiento del portal, comprender los patrones de navegación y medir el rendimiento de los contenidos.
-            </p>
-            <p>
-              Las cookies son pequeños ficheros que se almacenan en su navegador o dispositivo para recordar preferencias, registrar sesiones de navegación anónimas y optimizar la experiencia de usuario.
-            </p>
-
-            <div className="overflow-x-auto border border-slate-100 rounded-2xl shadow-sm mt-4">
-              <table className="w-full text-left border-collapse text-xs sm:text-sm">
-                <thead>
-                  <tr className="bg-slate-50 text-slate-900 border-b border-slate-100 font-bold">
-                    <th className="p-4">Tipo de Cookie</th>
-                    <th className="p-4">Finalidad</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 text-slate-600">
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies Esenciales</td>
-                    <td className="p-4">Permiten la navegación segura y funciones técnicas básicas</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies Analíticas</td>
-                    <td className="p-4">Nos ayudan a entender las visitas y el rendimiento de las páginas</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies de Afiliados</td>
-                    <td className="p-4">Permiten registrar referencias válidas a tiendas oficiales</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies Publicitarias</td>
-                    <td className="p-4">Miden la eficacia de campañas informativas y anuncios</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies de Preferencia</td>
-                    <td className="p-4">Guardan ajustes seleccionados por el usuario</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="space-y-3">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                Datos que nos proporcionas directamente
+              </h3>
+              <ul className="list-disc pl-6 space-y-1.5 text-slate-600">
+                <li>Nombre y correo electrónico, únicamente si nos contactas a través de un formulario o por correo electrónico.</li>
+                <li>Cualquier mensaje, consulta o comentario que nos envíes voluntariamente.</li>
+              </ul>
             </div>
 
-            <p className="mt-4">
-              Usted puede configurar o desactivar las cookies en cualquier momento a través de las preferencias de su navegador. Tenga en cuenta que bloquear ciertas cookies puede influir en la disponibilidad de algunas funciones técnicas.
+            <div className="space-y-3 pt-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                Datos recopilados automáticamente
+              </h3>
+              <ul className="list-disc pl-6 space-y-1.5 text-slate-600">
+                <li>Dirección IP, tipo de navegador, modelo de dispositivo, resolución y sistema operativo.</li>
+                <li>Páginas visitadas, enlaces pulsados y métricas de navegación agregadas.</li>
+                <li>Datos anónimos o agregados a través de herramientas de análisis para entender qué guías y artículos resultan útiles.</li>
+                <li>Información derivada de cookies y tecnologías similares.</li>
+              </ul>
+            </div>
+
+            <p className="bg-slate-50 border border-slate-100 rounded-2xl p-4 text-xs sm:text-sm font-semibold text-slate-800">
+              No recopilamos intencionalmente datos de salud personales, historiales médicos, ni información bancaria o de pago. No procesamos pagos en este sitio.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Third-Party Tools and Services */}
+          {/* Section 3 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Herramientas y Servicios de Terceros
+              3. Cómo usamos tus datos
             </h2>
-            <p>
-              Podemos emplear servicios de terceros para administrar, medir y proteger nuestro sitio web. Estos proveedores procesan información de acuerdo con sus propias políticas de privacidad.
-            </p>
-            <p>Entre los servicios utilizados pueden encontrarse:</p>
+            <p>Usamos los datos únicamente para:</p>
             <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Google Analytics para análisis de audiencia y comportamiento</li>
-              <li>Google Search Console para supervisión del rendimiento de búsqueda</li>
-              <li>Redes de afiliación para el seguimiento de referencias de productos</li>
-              <li>Servicios de entrega de correo electrónico para el boletín informativo</li>
-              <li>Proveedores de infraestructura en la nube y cortafuegos de seguridad</li>
+              <li>Operar, mantener y mejorar el sitio y la calidad de su contenido editorial.</li>
+              <li>Entender qué contenido y guías resultan útiles para nuestros lectores.</li>
+              <li>Responder a mensajes, consultas o peticiones de corrección.</li>
+              <li>Detectar, prevenir y corregir incidentes de seguridad, spam o abusos.</li>
+              <li>Cumplir con las obligaciones legales aplicables.</li>
             </ul>
-          </div>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: Affiliate Links and Product Pages */}
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Enlaces de Afiliados y Páginas de Productos
-            </h2>
-            <p>
-              Nutritional Reviews incluye enlaces a páginas de información detallada, ofertas oficiales de productos o pantallas de pago de terceros.
-            </p>
-            <p>
-              Al hacer clic en un enlace a un producto externo, el sitio de destino puede registrar datos como su dirección IP, navegador y referencia de clic. Dichos sitios aplican sus propias políticas de privacidad y condiciones comerciales independientes.
-            </p>
-          </div>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: Newsletter and Email Communication */}
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Boletín y Comunicaciones por Correo Electrónico
-            </h2>
-            <p>
-              Si se suscribe a nuestro boletín, utilizaremos su correo electrónico exclusivamente para remitirle análisis de productos, guías de salud y resúmenes editoriales.
-            </p>
-            <p>
-              Puede darse de baja en cualquier instante haciendo clic en el enlace de cancelación presente al pie de cada correo o enviándonos un mensaje directo.
-            </p>
-          </div>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: How We Share Information */}
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Cómo Compartimos la Información
-            </h2>
-            <p>
-              Solo compartimos datos limitados con proveedores de servicios de confianza necesarios para alojar el sitio, garantizar la seguridad, gestionar el correo y cumplir con normativas legales.
-            </p>
             <p className="font-semibold text-slate-900">
-              No comercializamos ni alquilamos datos personales a intermediarios comerciales de datos.
+              No vendemos ni alquilamos tus datos personales a terceros bajo ninguna circunstancia.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Data Retention */}
+          {/* Section 4 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Conservación de Datos
+              4. Terceros y enlaces de afiliados
             </h2>
             <p>
-              Conservamos la información personal únicamente durante el tiempo estrictamente necesario para los fines descritos en esta política o para cumplir con obligaciones legales y de archivo.
+              Este sitio web utiliza enlaces de afiliados comerciales. Al hacer clic en ellos, puedes ser redirigido a sitios web de terceros, incluyendo redes de afiliados y tiendas oficiales de los vendedores.
+            </p>
+            <p>
+              Esos terceros pueden emplear sus propias cookies y herramientas de seguimiento para registrar el clic, la venta y la atribución de comisión correspondiente. Te recomendamos revisar sus políticas de privacidad individuales, ya que no controlamos sus prácticas externas.
+            </p>
+            <p>
+              También podemos utilizar herramientas de análisis y optimización de terceros, tales como Google Analytics, Bing Webmaster Tools y Google Search Console, con el fin de supervisar la disponibilidad técnica, la audiencia agregada y el posicionamiento del sitio web.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Data Security */}
+          {/* Section 5 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Seguridad de los Datos
+              5. Cookies
             </h2>
             <p>
-              Adoptamos medidas técnicas y organizativas adecuadas para proteger sus datos frente a accesos no autorizados, pérdidas o alteraciones. Sin embargo, ningún sistema de transmisión por internet es infalible al 100%.
+              Usamos cookies necesarias para el funcionamiento seguro del sitio, cookies de preferencias y, con tu consentimiento cuando la legislación lo exija, cookies analíticas y de atribución de afiliados. Puedes gestionar o bloquear cookies desde la configuración de tu navegador.
+            </p>
+            <p>
+              Para más información detallada, consulta nuestra{" "}
+              <Link
+                href="/legal/cookies"
+                className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors"
+              >
+                Política de Cookies
+              </Link>.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Your Privacy Rights */}
+          {/* Section 6 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Sus Derechos de Privacidad
+              6. Conservación de datos
             </h2>
             <p>
-              Dependiendo de su lugar de residencia (como la Unión Europea bajo el RGPD o California bajo la CCPA/CPRA), usted puede ostentar derechos para:
+              Conservamos los datos de contacto únicamente el tiempo necesario para responder a tu mensaje y, en su caso, para dar cumplimiento a requerimientos legales. Los datos analíticos de navegación se conservan de forma agregada o anonimizada.
+            </p>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 7 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              7. Seguridad de la información
+            </h2>
+            <p>
+              Aplicamos medidas razonables para proteger los datos, incluyendo cifrado HTTPS en todo el sitio y control restringido de accesos. Aunque nos esforzamos al máximo en salvaguardar la seguridad, ningún método de transmisión por internet es 100% invulnerable.
+            </p>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 8 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              8. Menores de edad
+            </h2>
+            <p>
+              Este sitio está dirigido exclusivamente a personas adultas. No recopilamos intencionalmente datos de menores de 18 años. Si eres padre, madre o tutor y consideras que un menor nos ha proporcionado información personal, contáctanos inmediatamente para proceder a su eliminación.
+            </p>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 9 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              9. Tus derechos de privacidad
+            </h2>
+            <p>
+              Dependiendo de tu país de residencia en Latinoamérica (como México, Colombia, Brasil, Argentina, Chile o Perú) o en otras jurisdicciones internacionales, puedes tener derechos para:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Solicitar acceso a los datos personales que conservamos sobre usted</li>
-              <li>Pedir la rectificación de información inexacta o desactualizada</li>
-              <li>Solicitar la supresión o eliminación de sus datos personales</li>
-              <li>Oponerse o limitar determinados tratamientos de sus datos</li>
-              <li>Darse de baja de comunicaciones comerciales en cualquier momento</li>
-              <li>Solicitar la portabilidad de sus datos en formato estructurado</li>
+              <li>Acceder a los datos personales que conservamos sobre ti.</li>
+              <li>Rectificar información inexacta, desactualizada o incompleta.</li>
+              <li>Cancelar o solicitar la supresión de tus datos.</li>
+              <li>Oponerte al tratamiento o solicitar la limitación de ciertos usos.</li>
+              <li>Solicitar la portabilidad de tus datos cuando sea técnicamente factible.</li>
             </ul>
             <p>
-              Para ejercer cualquiera de estos derechos, contáctenos en la dirección indicada abajo.
+              Para ejercer cualquiera de estos derechos, escríbenos a{" "}
+              <a
+                href="mailto:reviewsnutritional@gmail.com"
+                className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors"
+              >
+                reviewsnutritional@gmail.com
+              </a>{" "}
+              indicando tu nombre, el país desde el que nos contactas y el detalle de tu solicitud. Responderemos con la mayor celeridad conforme a los plazos previstos por la normativa aplicable.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Children’s Privacy */}
+          {/* Section 10 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Privacidad de Menores
+              10. Transferencias internacionales
             </h2>
             <p>
-              Nutritional Reviews no está dirigido a menores de 13 años (o 16 años según la legislación local). No recopilamos conscientemente datos de menores de edad.
+              Nuestros servidores y proveedores de servicios tecnológicos pueden estar ubicados fuera de tu país de origen. Al utilizar este portal, aceptas que tus datos puedan ser procesados en otros territorios bajo las salvaguardas y principios de seguridad previstos en esta política.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Changes to This Privacy Policy */}
+          {/* Section 11 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Modificaciones a esta Política de Privacidad
+              11. Cambios en esta política
             </h2>
             <p>
-              Podemos modificar esta Política de Privacidad periódicamente. Toda actualización se publicará con una nueva fecha de entrada en vigor en esta página.
+              Podemos modificar esta Política de Privacidad periódicamente. Toda actualización se publicará con la fecha de última actualización reflejada en la parte superior de esta página. Te aconsejamos revisarla de forma habitual.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Contact Us */}
+          {/* Section 12 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Contacto
+              12. Contacto
             </h2>
             <p>
-              Para consultas relativas a la privacidad o para ejercer sus derechos de datos, comuníquese con nosotros en:
+              Para cualquier pregunta, duda o solicitud relacionada con la privacidad, puedes contactarnos en:
             </p>
             <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
-              <p>Nutritional Reviews</p>
-              <p>Correo electrónico: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@nutritionalreviews.org</a></p>
-              <p>Sitio web: <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://nutritionalreviews.org</a></p>
+              <p className="font-bold text-slate-900">NutritionalReviews.org</p>
+              <p>
+                Correo electrónico:{" "}
+                <a
+                  href="mailto:reviewsnutritional@gmail.com"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  reviewsnutritional@gmail.com
+                </a>
+              </p>
+              <p>
+                Sitio web:{" "}
+                <a
+                  href="https://nutritionalreviews.org"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  https://nutritionalreviews.org
+                </a>
+              </p>
             </div>
           </div>
-
         </section>
       </article>
     </main>

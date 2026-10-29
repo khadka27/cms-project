@@ -1,4 +1,13 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Divulgación de Afiliados | NutritionalReviews.org",
+  description:
+    "Transparencia sobre nuestras relaciones y enlaces de afiliados comerciales en NutritionalReviews.org. Conozca cómo se financia nuestro sitio.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/affiliate",
+  },
+};
 
 export default function AffiliateDisclosurePage() {
   return (
@@ -10,101 +19,147 @@ export default function AffiliateDisclosurePage() {
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
           Divulgación de Afiliados
         </h1>
-        <p className="mt-4 text-sm font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl w-fit">
-          Fecha de entrada en vigor: 01/06/2026
-        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs sm:text-sm font-semibold text-slate-500">
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl">
+            Última actualización: 27 de octubre de 2026
+          </span>
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl text-bright_teal_blue">
+            Sitio web: https://nutritionalreviews.org
+          </span>
+        </div>
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
-          <p>
-            Nutritional Reviews es un portal de análisis e investigación que ayuda a los compradores a evaluar productos de salud y bienestar mediante reseñas, resúmenes de ingredientes, guías y enlaces a tiendas verificadas.
-          </p>
-          <p>
-            Algunas páginas en <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">NutritionalReviews.org</a> contienen enlaces de afiliados y botones comerciales. Esto significa que podemos percibir una pequeña comisión si usted hace clic en dichos enlaces y completa una compra, <strong>sin ningún coste adicional para usted</strong>.
-          </p>
-          <p className="font-semibold text-slate-900">
-            Esta Divulgación de Afiliados explica con total claridad cómo operan estas relaciones comerciales en nuestro sitio web.
-          </p>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: Our Affiliate Relationship */}
+          {/* Section Intro */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Nuestras Relaciones de Afiliación
+              Transparencia desde el inicio
             </h2>
             <p>
-              Nutritional Reviews participa en redes de afiliación y programas de colaboradores comerciales verificados. Cuando usted hace clic en enlaces como "Verificar Precio", "Comprar Ahora" o en fichas destacadas, el vendedor asociado puede atribuirnos una comisión por referencia.
-            </p>
-            <p>
-              Estas comisiones nos permiten financiar las operaciones de investigación científica, mantenimiento del servidor y actualización continua de nuestros análisis.
+              NutritionalReviews.org es un sitio financiado en parte por comisiones de afiliados. Queremos que lo sepas antes de leer nuestras reseñas o hacer clic en un enlace de compra.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: No Extra Cost to You */}
+          {/* Section 1 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Sin Coste Adicional Para Usted
+              1. Qué significa un enlace de afiliado
             </h2>
             <p>
-              El uso de enlaces de afiliados nunca incrementa el precio final que usted paga. En muchos casos, a través de nuestras alianzas, los lectores acceden a descuentos exclusivos, cupones o promociones de paquetes multipack.
+              Cuando haces clic en ciertos enlaces de este sitio — por ejemplo, botones como “Comprar ahora”, “Ver oferta” o “Sitio oficial” — y realizas una compra en el sitio del vendedor, podemos recibir una comisión.
+            </p>
+            <ul className="list-disc pl-6 space-y-2 text-slate-600">
+              <li>
+                <strong>No pagas más por usar nuestros enlaces.</strong> El precio que ves en el sitio del vendedor es el mismo, con o sin nuestro enlace, salvo que se indique una oferta específica.
+              </li>
+              <li>
+                La comisión la paga el vendedor o la red de afiliados, no tú.
+              </li>
+            </ul>
+          </div>
+
+          <hr className="border-slate-100" />
+
+          {/* Section 2 */}
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              2. Redes y programas con los que trabajamos
+            </h2>
+            <p>
+              Podemos participar en programas de afiliados de redes y vendedores, así como en programas directos de fabricantes y vendedores.
+            </p>
+            <p>
+              Los programas exactos pueden cambiar con el tiempo según los productos que reseñemos. Esta página se actualizará cuando corresponda.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Product Information and Editorial Independence */}
+          {/* Section 3 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Independencia Editorial y Calidad
+              3. Cómo elaboramos nuestras reseñas
             </h2>
             <p>
-              Nuestra prioridad fundamental es el rigor editorial. Las comisiones de afiliación no alteran nuestros criterios de evaluación: destacamos honestamente los puntos fuertes, posibles efectos secundarios, limitaciones y la relación calidad-precio de cada producto analizado.
+              Nuestras reseñas se basan en información pública del producto, su etiqueta, ingredientes, precio y opiniones disponibles. Nos esforzamos por señalar ventajas y desventajas, no solo beneficios.
+            </p>
+            <p>Sin embargo, debes saber que:</p>
+            <ul className="list-disc pl-6 space-y-2 text-slate-600">
+              <li>La existencia de una comisión es un incentivo económico.</li>
+              <li>No todos los productos del mercado son reseñados en este sitio.</li>
+              <li>Una reseña positiva no significa que un producto sea adecuado para ti ni que sea el mejor para tu caso.</li>
+            </ul>
+            <p className="bg-slate-50 border border-slate-100 rounded-2xl p-4 text-xs sm:text-sm font-medium text-slate-700">
+              Te recomendamos comparar productos, leer la etiqueta completa y, si tienes dudas de salud, consultar a un profesional antes de comprar.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Third-Party Product Offers */}
+          {/* Section 4 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Transacciones en Sitios de Terceros
+              4. Responsabilidad de la compra
             </h2>
             <p>
-              Nutritional Reviews no gestiona pagos directos ni despachos de mercancía para productos de terceros. Toda transacción se efectúa en la pasarela segura del vendedor oficial, sujeta a sus propias políticas de privacidad, términos de venta y plazos de entrega.
+              La compra se realiza directamente con el vendedor. El vendedor es responsable de:
+            </p>
+            <ul className="list-disc pl-6 space-y-2 text-slate-600">
+              <li>El precio final, impuestos y gastos de envío.</li>
+              <li>La entrega, disponibilidad y plazos.</li>
+              <li>Devoluciones, reembolsos y atención al cliente.</li>
+              <li>La calidad y seguridad del producto.</li>
+            </ul>
+            <p>
+              Si tienes un problema con un pedido, debes contactar directamente al vendedor. No podemos procesar reembolsos ni envíos, porque no vendemos los productos.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Your Responsibility as a Buyer */}
+          {/* Section 5 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Responsabilidad del Comprador
+              5. Contenido patrocinado
             </h2>
             <p>
-              Le recomendamos encarecidamente verificar la lista de ingredientes, indicaciones de uso del fabricante, certificados de garantía y políticas de devolución oficiales antes de formalizar cualquier pedido.
+              Si algún artículo es patrocinado o contiene contenido pagado, lo indicaremos claramente en ese artículo. Salvo que se indique lo contrario, las reseñas no son patrocinadas por el fabricante del producto reseñado.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Contact Us */}
+          {/* Section 6 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Contacto
+              6. Preguntas y Contacto
             </h2>
             <p>
-              Si tiene dudas sobre nuestra política de afiliados o enlaces comerciales, escríbanos a:
+              Si tienes preguntas sobre esta divulgación o nuestras relaciones comerciales, escríbenos a:
             </p>
             <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
-              <p>Nutritional Reviews</p>
-              <p>Correo electrónico: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@nutritionalreviews.org</a></p>
-              <p>Sitio web: <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://nutritionalreviews.org</a></p>
+              <p className="font-bold text-slate-900">NutritionalReviews.org</p>
+              <p>
+                Correo electrónico:{" "}
+                <a
+                  href="mailto:reviewsnutritional@gmail.com"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  reviewsnutritional@gmail.com
+                </a>
+              </p>
+              <p>
+                Sitio web:{" "}
+                <a
+                  href="https://nutritionalreviews.org"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  https://nutritionalreviews.org
+                </a>
+              </p>
             </div>
           </div>
-
         </section>
       </article>
     </main>

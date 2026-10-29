@@ -71,11 +71,11 @@ const companyLinks = [
 
 const legalLinks = [
   { label: "Divulgación de Afiliados", href: "/legal/affiliate" },
-  { label: "Divulgación de Publicidad", href: "/legal/advertising" },
   { label: "Política de Privacidad", href: "/legal/privacy" },
-  { label: "Términos y Condiciones", href: "/legal/terms" },
-  { label: "Descargo de Responsabilidad", href: "/legal/disclaimer" },
+  { label: "Términos de Uso", href: "/legal/terms" },
+  { label: "Descargo de Responsabilidad de Salud", href: "/legal/disclaimer" },
   { label: "Política de Cookies", href: "/legal/cookies" },
+  { label: "Divulgación de Publicidad", href: "/legal/advertising" },
   { label: "Política de Correcciones", href: "/legal/corrections" },
   { label: "Política de Enlaces Externos", href: "/legal/external-links" },
 ];
@@ -135,11 +135,11 @@ export default function Footer() {
             {/* Contact info */}
             <div className="space-y-2.5 mb-6">
               <a
-                href="mailto:support@nutritionalreviews.org"
+                href="mailto:reviewsnutritional@gmail.com"
                 className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-sky_aqua transition-colors duration-200 group"
               >
                 <Mail className="w-4 h-4 text-slate-500 group-hover:text-turquoise_surf transition-colors" />
-                support@nutritionalreviews.org
+                reviewsnutritional@gmail.com
               </a>
               <div className="flex items-center gap-2.5 text-sm text-slate-400">
                 <MapPin className="w-4 h-4 text-slate-500" />

@@ -1,4 +1,13 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Política de Cookies | NutritionalReviews.org",
+  description:
+    "Información sobre qué cookies utilizamos en NutritionalReviews.org, tecnologías de seguimiento y cómo gestionar sus preferencias.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/cookies",
+  },
+};
 
 export default function CookiePolicyPage() {
   return (
@@ -10,153 +19,167 @@ export default function CookiePolicyPage() {
         <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
           Política de Cookies
         </h1>
-        <p className="mt-4 text-sm font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl w-fit">
-          Fecha de entrada en vigor: 01/06/2026
-        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs sm:text-sm font-semibold text-slate-500">
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl">
+            Última actualización: 27 de octubre de 2026
+          </span>
+          <span className="bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl text-bright_teal_blue">
+            Sitio web: https://nutritionalreviews.org
+          </span>
+        </div>
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
-          <p>
-            Nutritional Reviews (“Nutritional Reviews”, “nosotros” o “nuestro”) utiliza cookies y tecnologías de seguimiento similares en <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">NutritionalReviews.org</a> y páginas o subdominios vinculados que enlazan a esta Política de Cookies.
-          </p>
-          <p>
-            Esta Política de Cookies explica qué son las cookies, cómo las utilizamos, qué tipos de cookies pueden estar activas en nuestro sitio web, cómo terceros pueden utilizarlas y cómo gestionar sus preferencias.
-          </p>
-          <p className="font-semibold text-slate-900">
-            Al continuar navegando por nuestro sitio web, usted reconoce el uso de cookies y tecnologías similares según lo descrito en este documento, sujeto a sus opciones de consentimiento cuando la ley así lo exija.
-          </p>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: What Cookies Are */}
+          {/* Section 1 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Qué son las Cookies
+              1. Qué son las cookies
             </h2>
             <p>
-              Las cookies son pequeños archivos de texto que se almacenan en su navegador, ordenador o teléfono móvil al visitar un sitio web.
+              Las cookies son pequeños archivos que un sitio web guarda en tu navegador para recordar preferencias, medir el uso del sitio o, en el caso de los enlaces de afiliados, registrar que un clic provino de este sitio.
             </p>
             <p>
-              Las cookies permiten a los sitios web recordar información sobre su visita, mantener funciones técnicas básicas, mejorar la velocidad, medir el tráfico de audiencia, registrar enlaces pulsados y respaldar el seguimiento de afiliados o analíticas de rendimiento.
+              También podemos usar tecnologías similares, como píxeles o almacenamiento local.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Types of Cookies We May Use */}
+          {/* Section 2 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Tipos de Cookies que Podemos Utilizar
+              2. Qué cookies usamos
             </h2>
-            <p>
-              Nutritional Reviews puede emplear diferentes categorías de cookies según las funciones activas del portal y los proveedores integrados:
-            </p>
+
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">Cookies necesarias</h3>
+                <p className="mt-1 text-slate-600">
+                  Esenciales para que el sitio funcione, por ejemplo, seguridad, integridad técnica y equilibrio de carga. No se pueden desactivar desde el sitio sin afectar su funcionamiento.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">Cookies de preferencias</h3>
+                <p className="mt-1 text-slate-600">
+                  Recuerdan configuraciones como idioma, consentimientos o preferencias de visualización.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">Cookies de análisis</h3>
+                <p className="mt-1 text-slate-600">
+                  Nos ayudan a entender, de forma agregada y anónima, qué artículos se leen y cómo los visitantes usan el sitio. Usamos estas herramientas solo según la configuración realmente instalada: Google Analytics, Bing Webmaster Tools y métricas de servidor.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">Cookies de marketing y afiliados</h3>
+                <p className="mt-1 text-slate-600">
+                  Cuando haces clic en un enlace de afiliado, el vendedor o la red de afiliados puede colocar una cookie para registrar ese clic y, si compras, atribuir la comisión. Estas cookies pertenecen a terceros y se rigen por sus propias políticas.
+                </p>
+              </div>
+            </div>
 
             <div className="overflow-x-auto border border-slate-100 rounded-2xl shadow-sm mt-4">
               <table className="w-full text-left border-collapse text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-slate-50 text-slate-900 border-b border-slate-100 font-bold">
-                    <th className="p-4 w-1/4">Tipo de Cookie</th>
-                    <th className="p-4">Finalidad</th>
+                    <th className="p-4 w-1/3">Tipo de Cookie</th>
+                    <th className="p-4">Finalidad Principal</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-slate-600">
                   <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies Esenciales</td>
-                    <td className="p-4">Garantizan la carga adecuada del sitio, la navegación segura y funciones técnicas indispensables</td>
+                    <td className="p-4 font-bold text-slate-900">Cookies Necesarias</td>
+                    <td className="p-4">Garantizan la carga adecuada, seguridad básica y navegación fluida.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies Analíticas</td>
-                    <td className="p-4">Nos permiten analizar estadísticas de visitas, tiempos de lectura y rendimiento de páginas</td>
+                    <td className="p-4 font-bold text-slate-900">Cookies de Preferencias</td>
+                    <td className="p-4">Recuerdan opciones seleccionadas como confirmaciones de avisos o idioma.</td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/50">
+                    <td className="p-4 font-bold text-slate-900">Cookies de Análisis</td>
+                    <td className="p-4">Miden volumen de tráfico, artículos más consultados y rendimiento del sitio.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
                     <td className="p-4 font-bold text-slate-900">Cookies de Afiliados</td>
-                    <td className="p-4">Registran referencias legítimas a tiendas oficiales cuando un usuario hace clic en un análisis</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies Publicitarias</td>
-                    <td className="p-4">Ayudan a medir campañas, evitar anuncios repetitivos y evaluar la relevancia de contenidos</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-4 font-bold text-slate-900">Cookies de Preferencia</td>
-                    <td className="p-4">Guardan selecciones previas como idioma o confirmaciones de avisos</td>
+                    <td className="p-4">Atribuyen referencias comerciales anónimas a tiendas oficiales externas.</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <p className="bg-slate-50 border border-slate-100 rounded-2xl p-4 text-xs sm:text-sm font-semibold text-slate-800">
+              No usamos cookies para recopilar historiales médicos ni datos de pago.
+            </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Why We Use Cookies */}
+          {/* Section 3 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Por Qué Usamos Cookies
+              3. Cómo gestionar las cookies
             </h2>
             <p>
-              Utilizamos cookies para garantizar la mejor experiencia posible a nuestros lectores. Nos ayudan a:
+              Puedes aceptar, rechazar o eliminar cookies desde la configuración de tu navegador. También puedes usar el modo de navegación privada o incógnito.
             </p>
+            <p>Ten en cuenta que:</p>
             <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Mantener el sitio web operativo, estable y seguro</li>
-              <li>Comprobar qué guías y comparativas resultan más útiles a los usuarios</li>
-              <li>Analizar la interacción con botones de compra y fichas de producto</li>
-              <li>Atribuir adecuadamente las referencias a los fabricantes asociados</li>
-              <li>Detectar fallos técnicos o enlaces rotos con rapidez</li>
+              <li>Bloquear todas las cookies puede afectar el funcionamiento técnico del sitio.</li>
+              <li>
+                Si bloqueas las cookies de afiliados, es posible que tu compra no se atribuya a este sitio, pero <strong>eso no afectará el precio que pagas</strong>.
+              </li>
             </ul>
-          </div>
-
-          <hr className="border-slate-100" />
-
-          {/* Section: Third-Party Cookies */}
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Cookies de Terceros
-            </h2>
             <p>
-              Ciertas cookies pueden ser instaladas por servicios externos integrados en el portal, tales como Google Analytics, redes de afiliación de productos o proveedores de infraestructura en la nube.
-            </p>
-            <p>
-              Estas terceras partes gestionan sus cookies con arreglo a sus propias políticas de privacidad.
+              Para más información sobre cómo gestionar cookies en los navegadores más comunes, consulta los enlaces de soporte oficiales: Google Chrome, Mozilla Firefox, Apple Safari y Microsoft Edge.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: How You Can Manage Cookies */}
+          {/* Section 4 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Cómo Gestionar y Desactivar las Cookies
+              4. Cambios en esta política
             </h2>
             <p>
-              Usted tiene el control sobre las cookies que se instalan en su dispositivo. Puede:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li>Configurar su navegador para bloquear o rechazar cookies de terceros</li>
-              <li>Eliminar las cookies almacenadas previamente en el historial de navegación</li>
-              <li>Activar el modo de navegación privada o de incógnito</li>
-              <li>Instalar extensiones de protección de privacidad en su navegador</li>
-            </ul>
-            <p className="font-semibold text-slate-900">
-              Tenga en cuenta que la desactivación de cookies técnicas esenciales puede impedir el correcto funcionamiento de ciertas características del portal.
+              Podemos actualizar esta política cuando cambien las herramientas o servicios que usamos. La versión vigente será la publicada en esta página.
             </p>
           </div>
 
           <hr className="border-slate-100" />
 
-          {/* Section: Contact Us */}
+          {/* Section 5 */}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Contacto
+              5. Contacto
             </h2>
             <p>
-              Si tiene dudas sobre esta Política de Cookies o sobre el uso de tecnologías de seguimiento, escríbanos a:
+              Para preguntas sobre el uso de cookies y tecnologías de seguimiento, escríbenos a:
             </p>
             <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
-              <p>Nutritional Reviews</p>
-              <p>Correo electrónico: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@nutritionalreviews.org</a></p>
-              <p>Sitio web: <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://nutritionalreviews.org</a></p>
+              <p className="font-bold text-slate-900">NutritionalReviews.org</p>
+              <p>
+                Correo electrónico:{" "}
+                <a
+                  href="mailto:reviewsnutritional@gmail.com"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  reviewsnutritional@gmail.com
+                </a>
+              </p>
+              <p>
+                Sitio web:{" "}
+                <a
+                  href="https://nutritionalreviews.org"
+                  className="text-bright_teal_blue hover:text-french_blue transition-colors"
+                >
+                  https://nutritionalreviews.org
+                </a>
+              </p>
             </div>
           </div>
-
         </section>
       </article>
     </main>
