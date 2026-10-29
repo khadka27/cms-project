@@ -12,7 +12,7 @@ export default function EditorialPolicyPage() {
           Proceso y Política Editorial
         </h1>
         <p className="mt-4 text-sm font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl w-fit">
-          Fecha de entrada en vigor: 01/06/2026
+          Última actualización: 27 de octubre de 2026
         </p>
 
         <section className="mt-10 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
@@ -94,7 +94,7 @@ export default function EditorialPolicyPage() {
             </p>
             <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-5 space-y-2 text-slate-800 text-xs sm:text-sm font-semibold max-w-md">
               <p>Nutritional Reviews</p>
-              <p>Correo electrónico: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@nutritionalreviews.org</a></p>
+              <p>Correo electrónico: <a href="mailto:reviewsnutritional@gmail.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">reviewsnutritional@gmail.com</a></p>
               <p>Sitio web: <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://nutritionalreviews.org</a></p>
             </div>
           </div>
