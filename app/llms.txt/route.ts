@@ -32,12 +32,14 @@ export async function GET() {
   content += `- [Contacto](https://nutritionalreviews.org/contact) - Formulario de contacto para consultas y soporte.\n\n`;
 
   content += `## Editorial y Directrices Legales\n`;
+  content += `- [Descargo de Responsabilidad de Salud](https://nutritionalreviews.org/legal/disclaimer) - Aviso médico y descargo sobre suplementos alimenticios.\n`;
+  content += `- [Divulgación de Afiliados](https://nutritionalreviews.org/legal/affiliate) - Información sobre comisiones de afiliación y transparencia comercial.\n`;
+  content += `- [Política de Privacidad](https://nutritionalreviews.org/legal/privacy) - Información sobre privacidad del usuario y tratamiento de datos.\n`;
+  content += `- [Términos de Uso](https://nutritionalreviews.org/legal/terms) - Términos y condiciones que rigen el uso del portal.\n`;
+  content += `- [Política de Cookies](https://nutritionalreviews.org/legal/cookies) - Información sobre el uso de cookies y herramientas de análisis.\n`;
   content += `- [Cómo Evaluamos](https://nutritionalreviews.org/legal/how-we-review) - Nuestros principios editoriales y metodología de evaluación.\n`;
-  content += `- [Términos y Condiciones](https://nutritionalreviews.org/legal/terms) - Términos que rigen el uso del sitio web.\n`;
-  content += `- [Política de Privacidad](https://nutritionalreviews.org/legal/privacy) - Información sobre privacidad del usuario y cookies.\n`;
-  content += `- [Política de Reembolsos](https://nutritionalreviews.org/legal/refunds) - Avisos y garantías sobre devoluciones.\n`;
-  content += `- [Información de Envíos](https://nutritionalreviews.org/legal/shipping) - Directrices generales de envío y entrega.\n`;
-  content += `- [Política de Cookies](https://nutritionalreviews.org/legal/cookies) - Información sobre el uso de cookies.\n\n`;
+  content += `- [Política de Reembolsos](https://nutritionalreviews.org/legal/refunds) - Avisos y directrices sobre devoluciones en tiendas oficiales.\n`;
+  content += `- [Información de Envíos](https://nutritionalreviews.org/legal/shipping) - Directrices sobre logística y plazos de entrega.\n\n`;
 
   if (subcategories.length > 0) {
     content += `## Subcategorías\n`;
