@@ -47,7 +47,6 @@ async function main() {
         const existing = await prisma.user.findUnique({ where: { email } });
         if (existing) {
             console.log('✓ Admin user already exists:', existing.email);
-            // continue with seeding other sample data instead of returning
         } else {
             // Hash password
             const hashed = await bcrypt.hash(password, 12);
@@ -74,11 +73,13 @@ async function main() {
             console.log(`  Role: ${admin.role}`);
         }
 
-        // Create sample categories
-        console.log('\n🏷️ Creating sample categories...');
+        // Create or ensure sample categories
+        console.log('\n🏷️ Ensuring sample categories...');
 
-        const nutraCategory = await prisma.category.create({
-            data: {
+        const nutraCategory = await prisma.category.upsert({
+            where: { slug: 'supplements' },
+            update: {},
+            create: {
                 name: 'Supplements',
                 slug: 'supplements',
                 type: 'NUTRA',
@@ -87,8 +88,10 @@ async function main() {
             },
         });
 
-        const ecomCategory = await prisma.category.create({
-            data: {
+        const ecomCategory = await prisma.category.upsert({
+            where: { slug: 'fitness-equipment' },
+            update: {},
+            create: {
                 name: 'Fitness Equipment',
                 slug: 'fitness-equipment',
                 type: 'ECOM',
@@ -97,13 +100,15 @@ async function main() {
             },
         });
 
-        console.log('✓ Categories created');
+        console.log('✓ Categories ready');
 
-        // Create sample subcategories
-        console.log('\n📂 Creating sample subcategories...');
+        // Create or ensure sample subcategories
+        console.log('\n📂 Ensuring sample subcategories...');
 
-        const vitaminsSub = await prisma.subcategory.create({
-            data: {
+        const vitaminsSub = await prisma.subcategory.upsert({
+            where: { slug: 'vitamins' },
+            update: {},
+            create: {
                 name: 'Vitamins',
                 slug: 'vitamins',
                 categoryType: 'NUTRA',
@@ -113,8 +118,10 @@ async function main() {
             },
         });
 
-        const proteinSub = await prisma.subcategory.create({
-            data: {
+        const proteinSub = await prisma.subcategory.upsert({
+            where: { slug: 'protein-supplements' },
+            update: {},
+            create: {
                 name: 'Protein Supplements',
                 slug: 'protein-supplements',
                 categoryType: 'NUTRA',
@@ -124,8 +131,10 @@ async function main() {
             },
         });
 
-        const cardioSub = await prisma.subcategory.create({
-            data: {
+        const cardioSub = await prisma.subcategory.upsert({
+            where: { slug: 'cardio-equipment' },
+            update: {},
+            create: {
                 name: 'Cardio Equipment',
                 slug: 'cardio-equipment',
                 categoryType: 'ECOM',
@@ -135,13 +144,15 @@ async function main() {
             },
         });
 
-        console.log('✓ Subcategories created');
+        console.log('✓ Subcategories ready');
 
-        // Create sample products
-        console.log('\n🛍️ Creating sample products...');
+        // Create or ensure sample products
+        console.log('\n🛍️ Ensuring sample products...');
 
-        await prisma.product.create({
-            data: {
+        await prisma.product.upsert({
+            where: { slug: 'vitamin-d3-1000-iu' },
+            update: {},
+            create: {
                 name: 'Vitamin D3 1000 IU',
                 slug: 'vitamin-d3-1000-iu',
                 price: 19.99,
@@ -157,8 +168,10 @@ async function main() {
             },
         });
 
-        await prisma.product.create({
-            data: {
+        await prisma.product.upsert({
+            where: { slug: 'whey-protein-powder' },
+            update: {},
+            create: {
                 name: 'Whey Protein Powder',
                 slug: 'whey-protein-powder',
                 price: 49.99,
@@ -174,8 +187,10 @@ async function main() {
             },
         });
 
-        await prisma.product.create({
-            data: {
+        await prisma.product.upsert({
+            where: { slug: 'home-treadmill-pro' },
+            update: {},
+            create: {
                 name: 'Home Treadmill Pro',
                 slug: 'home-treadmill-pro',
                 price: 899.99,
@@ -191,7 +206,7 @@ async function main() {
             },
         });
 
-        console.log('✓ Sample products created');
+        console.log('✓ Sample products ready');
 
         console.log('\n✅ Database seed completed successfully!\n');
         console.log('📝 Admin Credentials:');
