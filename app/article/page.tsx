@@ -6,6 +6,9 @@ import { BookOpen, Calendar, ArrowRight, User } from "lucide-react";
 export const metadata = {
   title: "Guías y Artículos | NutritionalReviews",
   description: "Lea nuestras últimas guías, consejos de salud y análisis de productos.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/article",
+  },
 };
 
 export default async function ArticlesIndexPage() {

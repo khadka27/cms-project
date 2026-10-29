@@ -3,6 +3,21 @@ import { NextResponse } from 'next/server';
 
 export default withAuth(
   function proxy(req) {
+    const host = req.headers.get('host') || '';
+    const proto = req.headers.get('x-forwarded-proto') || 'https';
+    const url = req.nextUrl;
+
+    // 1. Canonical consolidation: www -> non-www (301 Permanent Redirect)
+    if (host.startsWith('www.')) {
+      const nonWwwHost = host.replace(/^www\./i, '');
+      return NextResponse.redirect(`https://${nonWwwHost}${url.pathname}${url.search}`, 301);
+    }
+
+    // 2. Protocol enforcement: http -> https in production
+    if (proto === 'http' && process.env.NODE_ENV === 'production' && !host.includes('localhost')) {
+      return NextResponse.redirect(`https://${host}${url.pathname}${url.search}`, 301);
+    }
+
     // Check if user is trying to access admin routes
     if (req.nextUrl.pathname.startsWith('/admin') && 
         req.nextUrl.pathname !== '/admin/login') {
@@ -28,7 +43,7 @@ export default withAuth(
           return !!token && token.role === 'admin';
         }
         
-        // Allow all other routes
+        // Allow all other public routes without authentication
         return true;
       },
     },
@@ -36,5 +51,13 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ['/admin/:path*']
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static build assets)
+     * - _next/image (image optimization pipeline)
+     * - Static asset files
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|json|webmanifest)).*)',
+  ],
 };

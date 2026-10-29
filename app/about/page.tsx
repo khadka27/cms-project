@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sobre Nosotros | NutritionalReviews",
   description: "Conozca más sobre NutritionalReviews y nuestro compromiso con el bienestar y la vida saludable.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/about",
+  },
 };
 
 export default function AboutPage() {

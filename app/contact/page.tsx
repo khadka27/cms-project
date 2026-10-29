@@ -5,6 +5,9 @@ import { Mail, HelpCircle, FileText, Lock, Globe, ShieldAlert, CheckCircle } fro
 export const metadata: Metadata = {
   title: "Contáctenos | Nutritional Reviews",
   description: "Póngase en contacto con Nutritional Reviews para consultas, solicitudes de corrección, privacidad o consultas comerciales.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/contact",
+  },
 };
 
 export default function ContactPage() {
@@ -44,8 +47,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-xs text-slate-400 font-extrabold uppercase tracking-wider">Soporte por Correo</p>
-                <a href="mailto:support@nutritionalreviews.org" className="text-lg sm:text-xl font-bold text-bright_teal_blue hover:text-french_blue transition-colors">
-                  support@nutritionalreviews.org
+                <a href="mailto:reviewsnutritional@gmail.com" className="text-lg sm:text-xl font-bold text-bright_teal_blue hover:text-french_blue transition-colors">
+                  reviewsnutritional@gmail.com
                 </a>
               </div>
             </div>
@@ -142,7 +145,7 @@ export default function ContactPage() {
               Solicitudes de Privacidad
             </h3>
             <p className="text-slate-600 text-sm sm:text-base">
-              Si tiene una pregunta relacionada con la privacidad o desea realizar una solicitud de datos, puede comunicarse con nosotros en: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">support@nutritionalreviews.org</a>.
+              Si tiene una pregunta relacionada con la privacidad o desea realizar una solicitud de datos, puede comunicarse con nosotros en: <a href="mailto:reviewsnutritional@gmail.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">reviewsnutritional@gmail.com</a>.
             </p>
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
               <p className="text-sm font-semibold text-slate-800 mb-2">Las solicitudes relacionadas con la privacidad pueden incluir:</p>
@@ -190,7 +193,7 @@ export default function ContactPage() {
               Consultas Comerciales y de Asociaciones
             </h3>
             <p className="text-slate-600 text-sm sm:text-base">
-              Para consultas comerciales, publicidad, colocaciones patrocinadas, afiliados o asociaciones, puede contactarnos en: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">support@nutritionalreviews.org</a>.
+              Para consultas comerciales, publicidad, colocaciones patrocinadas, afiliados o asociaciones, puede contactarnos en: <a href="mailto:reviewsnutritional@gmail.com" className="text-bright_teal_blue hover:text-french_blue font-bold transition-colors">reviewsnutritional@gmail.com</a>.
             </p>
             <p className="text-slate-600 text-sm">
               Por favor incluya su nombre, nombre de la empresa si corresponde, sitio web, detalles del producto y el propósito de su consulta. Revisamos las oportunidades de asociación con atención y es posible que no respondamos a todas las solicitudes promocionales.
@@ -223,7 +226,7 @@ export default function ContactPage() {
             <div className="bg-gradient-to-br from-[#f4fcfe] to-[#f8fbff] border border-light_cyan/80 rounded-2xl p-6 space-y-2 text-slate-800 text-sm font-semibold max-w-md">
               <p>Nutritional Reviews</p>
               <p>Sitio Web: <a href="https://nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">https://nutritionalreviews.org</a></p>
-              <p>Correo: <a href="mailto:support@nutritionalreviews.org" className="text-bright_teal_blue hover:text-french_blue transition-colors">support@nutritionalreviews.org</a></p>
+              <p>Correo: <a href="mailto:reviewsnutritional@gmail.com" className="text-bright_teal_blue hover:text-french_blue transition-colors">reviewsnutritional@gmail.com</a></p>
             </div>
           </div>
 

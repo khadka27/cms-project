@@ -47,19 +47,19 @@ function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const exploreLinks = [
-  { label: "Análisis de Productos", href: "/products" },
-  { label: "Categorías de Productos", href: "/products" },
-  { label: "Últimos Productos", href: "/products" },
-  { label: "Guías de Compra", href: "/article" },
-  { label: "Páginas Destacadas", href: "/products" },
+  { label: "Catálogo de Productos", href: "/products" },
+  { label: "Guías de Compra y Artículos", href: "/article" },
+  { label: "Sobre Nosotros", href: "/about" },
+  { label: "Centro de Contacto", href: "/contact" },
+  { label: "Políticas y Avisos Legales", href: "/legal" },
 ];
 
 const categoryLinks = [
-  { label: "Productos Automotrices", href: "/products" },
-  { label: "Belleza y Cuidado Personal", href: "/products" },
-  { label: "Bienestar y Estilo de Vida", href: "/products" },
-  { label: "Hogar y Cocina", href: "/products" },
-  { label: "Tecnología y Gadgets", href: "/products" },
+  { label: "Vitaminas y Minerales", href: "/subcategory/vitamins" },
+  { label: "Suplementos de Proteína", href: "/subcategory/protein-supplements" },
+  { label: "Nutrición y Salud Digestiva", href: "/products?type=nutra" },
+  { label: "Bienestar y Longevidad", href: "/products" },
+  { label: "Fitness y Equipamiento", href: "/subcategory/cardio-equipment" },
 ];
 
 const companyLinks = [
@@ -81,10 +81,10 @@ const legalLinks = [
 ];
 
 const socials = [
-  { icon: TwitterIcon, label: "Twitter / X", href: "#", color: "hover:bg-slate-700" },
-  { icon: InstagramIcon, label: "Instagram", href: "#", color: "hover:bg-slate-700" },
-  { icon: FacebookIcon, label: "Facebook", href: "#", color: "hover:bg-slate-700" },
-  { icon: YoutubeIcon, label: "YouTube", href: "#", color: "hover:bg-slate-700" },
+  { icon: TwitterIcon, label: "Twitter / X", href: "https://twitter.com/nutritionalreviews", color: "hover:bg-slate-700" },
+  { icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com/nutritionalreviews", color: "hover:bg-slate-700" },
+  { icon: FacebookIcon, label: "Facebook", href: "https://www.facebook.com/nutritionalreviews", color: "hover:bg-slate-700" },
+  { icon: YoutubeIcon, label: "YouTube", href: "https://www.youtube.com/@nutritionalreviews", color: "hover:bg-slate-700" },
 ];
 
 export default function Footer() {
@@ -153,6 +153,8 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-transparent transition-all duration-200 hover:bg-french_blue shadow-sm"
                 >
