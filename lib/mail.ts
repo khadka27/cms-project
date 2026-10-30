@@ -42,14 +42,17 @@ function getFormattedDate(): string {
 
 function getTransporter() {
   const host = process.env.SMTP_HOST || "smtp.gmail.com";
-  const port = parseInt(process.env.SMTP_PORT || "465", 10);
-  const secure = process.env.SMTP_SECURE !== "false";
+  const port = parseInt(process.env.SMTP_PORT || "587", 10);
+  const secure = process.env.SMTP_SECURE === "true";
   const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const rawPass = process.env.SMTP_PASS;
 
-  if (!user || !pass) {
+  if (!user || !rawPass) {
     return null;
   }
+
+  // Strip spaces if user pasted Google App Password formatted as "xxxx xxxx xxxx xxxx"
+  const pass = rawPass.replace(/\s+/g, "");
 
   return nodemailer.createTransport({
     host,
@@ -59,6 +62,11 @@ function getTransporter() {
       user,
       pass,
     },
+    pool: true,
+    maxConnections: 3,
+    maxMessages: 100,
+    rateDelta: 1000,
+    rateLimit: 5,
   });
 }
 
