@@ -66,11 +66,9 @@ export default function HeroProductShowcase({ products = [] }: { products?: Prod
 
     products.slice(0, 6).forEach((p, idx) => {
       const validImage =
-        p.featuredImage && p.featuredImage.trim() !== ''
-          ? p.featuredImage
-          : p.image && p.image.trim() !== ''
-            ? p.image
-            : fallbackImages[idx % fallbackImages.length];
+        p.image && p.image.trim() !== ''
+          ? p.image
+          : fallbackImages[idx % fallbackImages.length];
 
       items.push({
         id: p.id,

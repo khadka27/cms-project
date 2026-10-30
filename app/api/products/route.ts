@@ -84,9 +84,21 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+
+    const sanitizedSlug = (body.slug || body.name || '')
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/-+/g, '-');
+
+    if (!sanitizedSlug) {
+      return NextResponse.json({ error: 'A valid slug or product name is required' }, { status: 400 });
+    }
+
     const productData = {
       name: body.name,
-      slug: body.slug || body.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+      slug: sanitizedSlug,
       price: parseFloat(body.price),
       categoryType: body.categoryType.toUpperCase() as any,
       status: (body.status === 'PUBLISHED' ? 'PUBLISHED' : 'DRAFT') as any,
@@ -113,8 +125,14 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json(created, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Products POST error:', error);
+    if (error?.code === 'P2002') {
+      return NextResponse.json(
+        { error: 'A product with this URL slug already exists. Please choose a different slug.' },
+        { status: 400 }
+      );
+    }
     return NextResponse.json({ error: 'Failed to create product' }, { status: 500 });
   }
 }

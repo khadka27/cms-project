@@ -42,7 +42,10 @@ export default function EditProductPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    if (!res.ok) throw new Error("Failed to update product");
+    if (!res.ok) {
+      const errData = await res.json().catch(() => null);
+      throw new Error(errData?.error || "Failed to update product");
+    }
     router.push("/admin/products");
   };
 
@@ -75,6 +78,7 @@ export default function EditProductPage() {
       <ProductForm
         initialValues={{
           name: product.name,
+          slug: product.slug,
           price: String(product.price),
           categoryType: product.categoryType,
           subcategoryId: product.subcategoryId,

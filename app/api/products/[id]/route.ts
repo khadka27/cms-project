@@ -29,34 +29,51 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params;
     const body = await req.json();
+
+    const updateData: any = {
+      name: body.name,
+      price: parseFloat(body.price),
+      categoryType: body.categoryType?.toUpperCase(),
+      status: body.status === 'PUBLISHED' ? 'PUBLISHED' : 'DRAFT',
+      subcategory: { connect: { id: body.subcategoryId } },
+      author: body.authorId ? { connect: { id: body.authorId } } : { disconnect: true },
+      shortDescription: body.shortDescription,
+      detailedDescription: body.detailedDescription,
+      keyFeatures: body.keyFeatures || '',
+      metaTitle: body.metaTitle,
+      metaDescription: body.metaDescription,
+      image: body.image,
+      featuredImage: body.featuredImage,
+      readMoreLink: body.readMoreLink,
+      buyNowLink: body.buyNowLink || '',
+      ingredients: {
+        set: body.ingredientIds?.map((id: string) => ({ id })) || []
+      }
+    };
+
+    if (body.slug) {
+      updateData.slug = body.slug
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '')
+        .replace(/-+/g, '-');
+    }
     
     const updated = await prisma.product.update({
       where: { id },
-      data: {
-        name: body.name,
-        price: parseFloat(body.price),
-        categoryType: body.categoryType?.toUpperCase(),
-        status: body.status === 'PUBLISHED' ? 'PUBLISHED' : 'DRAFT',
-        subcategory: { connect: { id: body.subcategoryId } },
-        author: body.authorId ? { connect: { id: body.authorId } } : { disconnect: true },
-        shortDescription: body.shortDescription,
-        detailedDescription: body.detailedDescription,
-        keyFeatures: body.keyFeatures || '',
-        metaTitle: body.metaTitle,
-        metaDescription: body.metaDescription,
-        image: body.image,
-        featuredImage: body.featuredImage,
-        readMoreLink: body.readMoreLink,
-        buyNowLink: body.buyNowLink || '',
-        ingredients: {
-          set: body.ingredientIds?.map((id: string) => ({ id })) || []
-        }
-      } as any,
+      data: updateData,
     });
     
     return NextResponse.json(updated);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Product PUT error:', error);
+    if (error?.code === 'P2002') {
+      return NextResponse.json(
+        { error: 'A product with this URL slug already exists. Please choose a different slug.' },
+        { status: 400 }
+      );
+    }
     return NextResponse.json({ error: 'Failed to update product' }, { status: 500 });
   }
 }

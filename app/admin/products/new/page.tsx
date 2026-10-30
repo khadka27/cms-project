@@ -14,7 +14,10 @@ export default function NewProductPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    if (!res.ok) throw new Error('Failed to create product');
+    if (!res.ok) {
+      const errData = await res.json().catch(() => null);
+      throw new Error(errData?.error || 'Failed to create product');
+    }
     router.push('/admin/products');
   };
 

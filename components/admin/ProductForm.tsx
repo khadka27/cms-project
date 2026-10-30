@@ -21,6 +21,7 @@ import RichTextEditor from "@/components/admin/RichTextEditor";
 
 export interface ProductFormData {
   name: string;
+  slug: string;
   price: string;
   categoryType: string;
   subcategoryId: string;
@@ -115,7 +116,7 @@ function Field({
 }: {
   label: string;
   required?: boolean;
-  hint?: string;
+  hint?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
@@ -325,6 +326,7 @@ export default function ProductForm({
 
   const [form, setForm] = useState<ProductFormData>({
     name: "",
+    slug: "",
     price: "",
     categoryType: "ecom",
     subcategoryId: "",
@@ -342,6 +344,7 @@ export default function ProductForm({
     status: "DRAFT",
     ...initialValues,
   });
+  const [slugManual, setSlugManual] = useState(Boolean(initialValues?.slug));
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [authors, setAuthors] = useState<
     { id: string; name: string; title: string | null }[]
@@ -352,6 +355,19 @@ export default function ProductForm({
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [featuredImageWarning, setFeaturedImageWarning] = useState("");
+
+  // Auto-generate slug from name unless manually modified by admin
+  useEffect(() => {
+    if (!slugManual && form.name) {
+      const generated = form.name
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .trim();
+      setForm((p) => ({ ...p, slug: generated }));
+    }
+  }, [form.name, slugManual]);
 
   useEffect(() => {
     fetch("/api/subcategories")
@@ -442,7 +458,18 @@ export default function ProductForm({
     setError("");
     setSuccess(false);
     try {
-      await onSubmit(form);
+      const sanitizedSlug = (form.slug || form.name || "")
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "")
+        .replace(/-+/g, "-");
+
+      if (!sanitizedSlug) {
+        throw new Error("A valid product slug or name is required.");
+      }
+
+      await onSubmit({ ...form, slug: sanitizedSlug });
       setSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save product.");
@@ -478,7 +505,7 @@ export default function ProductForm({
           <SectionCard
             icon={Package}
             title="Basic Information"
-            subtitle="Product name, price and category"
+            subtitle="Product name, slug, price and category"
             accent="amber"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -491,6 +518,56 @@ export default function ProductForm({
                   placeholder="e.g. Vitamin D3 1000 IU"
                 />
               </Field>
+
+              <Field
+                label="URL Slug"
+                required
+                hint={
+                  slugManual ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSlugManual(false);
+                        const generated = form.name
+                          .toLowerCase()
+                          .replace(/[^a-z0-9\s-]/g, "")
+                          .replace(/\s+/g, "-")
+                          .replace(/-+/g, "-")
+                          .trim();
+                        setForm((p) => ({ ...p, slug: generated }));
+                      }}
+                      className="text-bright_teal_blue hover:underline ml-1 cursor-pointer font-medium"
+                    >
+                      (Auto-generate from name)
+                    </button>
+                  ) : (
+                    form.slug ? `/${form.slug}` : "Auto-generated from name"
+                  )
+                }
+              >
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 font-mono text-xs select-none">
+                    /
+                  </span>
+                  <input
+                    required
+                    value={form.slug}
+                    onChange={(e) => {
+                      setSlugManual(true);
+                      setForm((p) => ({
+                        ...p,
+                        slug: e.target.value
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")
+                          .replace(/[^a-z0-9-]/g, ""),
+                      }));
+                    }}
+                    className={`${inputCls} pl-7 font-mono text-sm`}
+                    placeholder="vitamin-d3-1000-iu"
+                  />
+                </div>
+              </Field>
+
               <Field label="Price (USD)" required>
                 <div className="relative">
                   <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">
@@ -513,22 +590,31 @@ export default function ProductForm({
                 <select
                   required
                   value={form.subcategoryId}
-                  onChange={set("subcategoryId")}
+                  onChange={(e) => {
+                    const subId = e.target.value;
+                    const sub = subcategories.find((s) => s.id === subId);
+                    setForm((p) => ({
+                      ...p,
+                      subcategoryId: subId,
+                      categoryType: sub?.categoryType?.toLowerCase() || p.categoryType,
+                    }));
+                  }}
                   className={inputCls}
                 >
                   <option value="">Select subcategory…</option>
-                  {filteredSubs.map((s) => (
+                  {(filteredSubs.length > 0 ? filteredSubs : subcategories).map((s) => (
                     <option key={s.id} value={s.id}>
-                      {s.name}
+                      {s.name} ({s.categoryType})
                     </option>
                   ))}
                 </select>
-                {filteredSubs.length === 0 && (
+                {subcategories.length === 0 && (
                   <p className="text-xs text-french_blue/70 mt-1">
-                    No subcategories for this type yet.
+                    No subcategories available yet.
                   </p>
                 )}
               </Field>
+
               <Field
                 label="Author"
                 hint="Shown as trust signal in article header"
@@ -655,6 +741,13 @@ export default function ProductForm({
                 )}
               </div>
             </Field>
+
+            <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 text-xs">
+              <p className="font-semibold text-gray-500 mb-1">Search Preview URL</p>
+              <p className="font-mono text-french_blue truncate">
+                https://nutritionalreviews.org/{form.slug || "product-slug"}
+              </p>
+            </div>
           </SectionCard>
         </div>
 

@@ -126,6 +126,7 @@ export default function AdminProductsPage() {
                         </div>
                         <div className="min-w-0">
                           <p className="font-medium text-gray-900 line-clamp-1">{prod.name}</p>
+                          <p className="text-[11px] text-gray-400 font-mono">/{prod.slug}</p>
                           {prod.shortDescription && (
                             <p className="text-xs text-gray-400 line-clamp-1 mt-0.5">{prod.shortDescription}</p>
                           )}
