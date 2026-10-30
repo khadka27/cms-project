@@ -616,6 +616,29 @@ export default function HeroSettingsPage() {
             {/* Removed Current gradient preview */}
           </div>
         </div>
+
+        {/* Sticky bottom bar on mobile / tablet (< lg) */}
+        <div className="lg:hidden sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 flex gap-2.5 z-20 shadow-lg -mx-3 sm:-mx-5 md:-mx-6">
+          <button
+            type="submit"
+            disabled={saving}
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:from-deep_twilight hover:to-french_blue disabled:opacity-50 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer"
+          >
+            {saving ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" /> Saving…
+              </>
+            ) : (
+              "Save Settings"
+            )}
+          </button>
+          <Link
+            href="/admin"
+            className="px-4 py-2.5 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-600 hover:bg-gray-50 transition-colors flex items-center justify-center"
+          >
+            Cancel
+          </Link>
+        </div>
       </form>
     </div>
   );

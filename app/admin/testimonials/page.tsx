@@ -105,7 +105,7 @@ export default function AdminTestimonialsPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
+          <table className="w-full text-sm text-left min-w-[580px]">
             <thead className="bg-gray-50/80 text-gray-500 font-medium border-b border-gray-100">
               <tr>
                 <th className="px-6 py-4">Author</th>

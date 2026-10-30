@@ -453,6 +453,48 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
           )}
         </div>
       </div>
+
+      {/* Sticky bottom bar on mobile / tablet (< xl) */}
+      <div className="xl:hidden sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 flex gap-2.5 z-20 shadow-lg -mx-3 sm:-mx-5 md:-mx-6">
+        <button
+          type="button"
+          onClick={() => handleSave(true)}
+          disabled={publishing || saving}
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-r from-french_blue to-bright_teal_blue hover:brightness-110 disabled:opacity-50 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer"
+        >
+          {publishing ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" /> Publishing…
+            </>
+          ) : (
+            <>
+              <Send className="w-3.5 h-3.5" />
+              <span>{isPublished ? "Update & Publish" : "Publish"}</span>
+            </>
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleSave(false)}
+          disabled={saving || publishing}
+          className="flex items-center justify-center gap-1.5 px-3 py-2.5 border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+        >
+          {saving ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Save className="w-3.5 h-3.5" />
+          )}
+          <span className="hidden sm:inline">Save Draft</span>
+        </button>
+
+        <Link
+          href="/admin/articles"
+          className="px-3 py-2.5 border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-600 hover:bg-gray-50 transition-colors flex items-center justify-center"
+        >
+          Cancel
+        </Link>
+      </div>
     </div>
   );
 }

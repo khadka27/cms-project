@@ -91,7 +91,7 @@ robots: {
     shortcut: ["/favicon.ico"],
   },
   verification: {
-    google: "your-google-site-verification-code",
+    google: "G-M6XNQ8Z0QF",
   },
 };
 
