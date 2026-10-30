@@ -27,6 +27,10 @@ import {
   SlidersHorizontal,
   Flame,
   FileText,
+  AlertCircle,
+  HeartHandshake,
+  BookOpen,
+  Stethoscope,
 } from "lucide-react";
 
 /* ─── Section Heading Component ─────────────────────────────────────────── */
@@ -319,46 +323,83 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          2. EDITORIAL STANDARDS & VALUE PROPOSITION METRICS
+          2. TITULAR Y TEXTO EDITORIAL PROPUESTO (TRANSPARENCIA)
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white border-b border-turquoise_surf/20 py-6 sm:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
-            {[
-              {
-                icon: ShieldCheck,
-                title: "100% Imparcial",
-                desc: "Investigación independiente y pruebas editoriales",
-              },
-              {
-                icon: Award,
-                title: "Especificaciones Verificadas",
-                desc: "Desglose riguroso de características y limitaciones",
-              },
-              {
-                icon: TrendingUp,
-                title: "Precios en Tiempo Real",
-                desc: "Comprobados contra ofertas actuales del fabricante",
-              },
-              {
-                icon: Star,
-                title: "Idoneidad del Comprador",
-                desc: "Pautas claras sobre quién debería (y quién no) comprar",
-              },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div
-                key={title}
-                className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-2xl bg-[#eef8fb]/50 hover:bg-[#eef8fb] border border-light_cyan/80 transition-colors"
-              >
-                <div className="w-10 h-10 rounded-xl bg-light_cyan flex items-center justify-center flex-shrink-0 text-french_blue shadow-xs">
-                  <Icon className="w-5 h-5" />
+      <section className="bg-white border-b border-turquoise_surf/20 py-10 sm:py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
+          
+          {/* Main Proposed Headline & Intro */}
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-light_cyan text-deep_twilight font-extrabold text-[11px] tracking-widest uppercase mb-3 border border-frosted_blue/60">
+              <ShieldCheck className="w-3.5 h-3.5 text-bright_teal_blue" />
+              <span>Transparencia Editorial · Para América Latina</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+              Reseñas de suplementos en español, para comparar antes de comprar
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
+              NutritionalReviews.org es un sitio de reseñas de suplementos nutricionales, escrito en español para lectores de América Latina. En cada reseña reunimos, en un mismo lugar, qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y el lugar de compra verificados en la fecha indicada en el artículo.
+            </p>
+          </div>
+
+          {/* 3 Pillar Cards: Editorial Scope, Affiliate Disclosure, Medical Disclaimer */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 pt-1">
+            {/* Card 1: Qué reúne cada reseña */}
+            <div className="p-6 rounded-2xl bg-[#eef8fb]/70 border border-light_cyan flex flex-col justify-between space-y-4 hover:shadow-sm transition-all">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-light_cyan flex items-center justify-center text-french_blue shadow-xs">
+                  <FileText className="w-5 h-5" />
                 </div>
-                <div>
-                  <h4 className="text-sm font-extrabold text-slate-900 leading-tight">{title}</h4>
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">{desc}</p>
-                </div>
+                <h3 className="text-base font-extrabold text-slate-900">
+                  Reseñas Claras y Verificadas
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  En cada reseña reunimos qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y lugar de compra verificados en la fecha indicada en el artículo.
+                </p>
               </div>
-            ))}
+              <div className="pt-3 border-t border-turquoise_surf/20 text-xs font-bold text-french_blue flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-bright_teal_blue flex-shrink-0" />
+                <span>Fecha de verificación visible</span>
+              </div>
+            </div>
+
+            {/* Card 2: No vendemos suplementos / Afiliados */}
+            <div className="p-6 rounded-2xl bg-[#eef8fb]/70 border border-light_cyan flex flex-col justify-between space-y-4 hover:shadow-sm transition-all">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-light_cyan flex items-center justify-center text-french_blue shadow-xs">
+                  <HeartHandshake className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-extrabold text-slate-900">
+                  Compra Directa y Afiliación
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  No vendemos suplementos. Las compras se realizan directamente con el vendedor, a través de los enlaces que publicamos. El sitio se financia en parte con comisiones de afiliados sin costo extra para ti, lo cual no determina la valoración del producto.
+                </p>
+              </div>
+              <div className="pt-3 border-t border-turquoise_surf/20 text-xs font-bold text-french_blue flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-bright_teal_blue flex-shrink-0" />
+                <span>No cobramos al comprador</span>
+              </div>
+            </div>
+
+            {/* Card 3: Descargo Médico */}
+            <div className="p-6 rounded-2xl bg-[#eef8fb]/70 border border-amber-200/70 flex flex-col justify-between space-y-4 hover:shadow-sm transition-all">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shadow-xs border border-amber-200/60">
+                  <Stethoscope className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-extrabold text-slate-900">
+                  Responsabilidad y Salud
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  No damos consejos médicos personalizados, no garantizamos resultados y no publicamos resultados personales inventados. Si tienes dudas de salud, consulta a un profesional cualificado antes de tomar un suplemento.
+                </p>
+              </div>
+              <div className="pt-3 border-t border-amber-200/50 text-xs font-bold text-amber-700 flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
+                <span>Consulte a un profesional cualificado</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -369,9 +410,9 @@ export default function HomePage() {
       <section id="products" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#eef8fb]">
         <div className="max-w-7xl mx-auto">
           <SectionHeading
-            label="Análisis en Profundidad"
-            title="Análisis de Productos Destacados"
-            subtitle="Explore nuestras completas revisiones editoriales con especificaciones reales, idoneidad de compra, verificación de precios y pros y contras verificados."
+            label="Catálogo Editorial"
+            title="Reseñas Destacadas"
+            subtitle="En cada reseña reunimos qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y el lugar de compra verificados en la fecha indicada en el artículo."
             action={
               <div className="flex items-center gap-3">
                 {/* View Mode Toggle: SOLID BRAND STYLING */}
@@ -458,15 +499,22 @@ export default function HomePage() {
               ))}
             </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="rounded-3xl text-center py-20 text-slate-500 border-2 border-dashed border-light_cyan bg-white">
-              <ShoppingCart className="w-12 h-12 mx-auto mb-3 opacity-25 text-bright_teal_blue" />
-              <p className="text-base font-bold text-slate-800">No se encontraron productos en esta categoría.</p>
-              <button
-                onClick={() => setSelectedSubcategoryFilter("all")}
-                className="mt-3 text-xs font-bold text-french_blue hover:underline"
-              >
-                Restablecer filtros
-              </button>
+            <div className="rounded-3xl text-center py-16 px-6 text-slate-600 border-2 border-dashed border-light_cyan bg-white max-w-3xl mx-auto space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-light_cyan flex items-center justify-center text-french_blue">
+                <Clock className="w-6 h-6 text-bright_teal_blue" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-900">Sin reseñas publicadas todavía</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl mx-auto italic">
+                Esta sección se rellena solo con el primer lote que pase los filtros de la lista de lanzamiento: envío confirmado al país objetivo, página de venta en español, y precio y enlace verificados en una fecha concreta. No publicar productos de relleno ni listados sin reseña.
+              </p>
+              {selectedSubcategoryFilter !== "all" && (
+                <button
+                  onClick={() => setSelectedSubcategoryFilter("all")}
+                  className="mt-2 text-xs font-bold text-french_blue hover:underline cursor-pointer"
+                >
+                  Restablecer filtros
+                </button>
+              )}
             </div>
           ) : (
             <div className="space-y-6">
@@ -496,14 +544,14 @@ export default function HomePage() {
                       <Clock className="w-4 h-4 text-bright_teal_blue" />
                     </div>
                     <span className="font-semibold text-slate-700 text-left">
-                      Más análisis de productos verificados y comparativas se encuentran actualmente en nuestro laboratorio de pruebas.
+                      Publicamos únicamente análisis que cumplen los criterios de verificación: envío confirmado al país objetivo, página de venta en español y precio verificado en fecha concreta.
                     </span>
                   </div>
                   <Link
                     href="/products"
                     className="text-xs font-bold text-french_blue hover:text-bright_teal_blue flex items-center gap-1 flex-shrink-0 bg-light_cyan/30 px-3 py-1.5 rounded-xl border border-light_cyan hover:border-french_blue transition-colors"
                   >
-                    <span>Ver Todos los Análisis</span>
+                    <span>Ver Catálogo</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -898,102 +946,110 @@ export default function HomePage() {
       {testimonials.length > 0 && <TestimonialSlider testimonials={testimonials} />}
 
       {/* ══════════════════════════════════════════════════════════════════════
-          7. HOW NUTRITIONAL REVIEWS WORKS (EDITORIAL METHODOLOGY)
+          7. CÓMO LEER CADA RESEÑA (METODOLOGÍA EDITORIAL)
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-t border-turquoise_surf/20">
-        <div className="max-w-7xl mx-auto space-y-16">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           
           {/* Header */}
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-light_cyan text-deep_twilight font-extrabold text-[11px] tracking-widest uppercase mb-3 border border-frosted_blue/60">
               <ShieldCheck className="w-3.5 h-3.5 text-bright_teal_blue" />
-              <span>Integridad Editorial</span>
+              <span>Metodología Editorial</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              Cómo Evalúa Nutritional Reviews los Productos
+              Cómo Leer Cada Reseña
             </h2>
             <p className="mt-3 text-base text-slate-600 leading-relaxed">
-              Investigar productos en línea puede ser abrumador cuando las afirmaciones exageradas, precios inestables y opiniones dispersas dificultan decisiones informadas. Simplificamos este proceso proporcionando análisis estructurados y transparentes antes de visitar una oferta de producto.
+              En cada reseña reunimos, en un mismo lugar, qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y el lugar de compra verificados en la fecha indicada en el artículo.
             </p>
           </div>
 
-          {/* 3-Column Structured Breakdown */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-[#eef8fb] p-7 rounded-2xl border border-light_cyan space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-french_blue text-white flex items-center justify-center font-bold text-sm">
-                01
+          {/* 6 Structured Points Grid from Proposed Content */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                num: "01",
+                title: "Qué es el producto y para quién está pensado",
+                desc: "Definición clara de la fórmula, propósito previsto y a qué tipo de comprador se dirige, sin lenguaje publicitario.",
+                color: "bg-french_blue",
+              },
+              {
+                num: "02",
+                title: "Ingredientes y etiqueta, tal como los publica el fabricante",
+                desc: "Desglose transparente de componentes activos, dosificación declarada y sellos de calidad informados en el envase.",
+                color: "bg-bright_teal_blue",
+              },
+              {
+                num: "03",
+                title: "Beneficios anunciados frente a evidencia disponible",
+                desc: "Contraste objetivo entre las promesas comerciales del fabricante y la evidencia científica o bibliográfica disponible.",
+                color: "bg-deep_twilight",
+              },
+              {
+                num: "04",
+                title: "Ventajas y desventajas",
+                desc: "Evaluación equilibrada de pros prácticos y limitaciones reales, para que tenga expectativas honestas antes de comprar.",
+                color: "bg-french_blue",
+              },
+              {
+                num: "05",
+                title: "Precio, presentaciones y dónde comprarlo",
+                desc: "Costos oficiales, formatos disponibles y enlaces directos al vendedor, con la fecha de verificación siempre visible.",
+                color: "bg-bright_teal_blue",
+              },
+              {
+                num: "06",
+                title: "Preguntas frecuentes",
+                desc: "Reseñas, opiniones existentes de compradores, análisis de si funciona según lo esperado, precio y puntos de venta oficiales.",
+                color: "bg-deep_twilight",
+              },
+            ].map((step) => (
+              <div
+                key={step.num}
+                className="bg-[#eef8fb] p-6 sm:p-7 rounded-2xl border border-light_cyan space-y-3.5 hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div
+                    className={`w-9 h-9 rounded-xl ${step.color} text-white flex items-center justify-center font-black text-xs shadow-xs`}
+                  >
+                    {step.num}
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900 leading-snug">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-turquoise_surf/20 flex items-center gap-1.5 text-[11px] font-bold text-french_blue">
+                  <Check className="w-3.5 h-3.5 text-bright_teal_blue flex-shrink-0" />
+                  <span>Criterio verificado</span>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Claridad Imparcial del Producto</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Definimos claramente qué es el producto, su propósito previsto y exactamente qué problema diario pretende resolver sin lenguaje de marketing sensacionalista.
-              </p>
-              <ul className="text-xs text-slate-700 space-y-2 pt-2 border-t border-turquoise_surf/20">
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-french_blue" /> Desglose de funciones prácticas
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-french_blue" /> Comprobación de idoneidad del comprador
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-[#eef8fb] p-7 rounded-2xl border border-light_cyan space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-bright_teal_blue text-white flex items-center justify-center font-bold text-sm">
-                02
-              </div>
-              <h3 className="text-lg font-bold text-slate-900">Pros y Limitaciones Equilibrados</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Ningún producto es ideal para todos. Destacamos explícitamente tanto las ventajas sobresalientes como las limitaciones realistas para que tenga expectativas completas de antemano.
-              </p>
-              <ul className="text-xs text-slate-700 space-y-2 pt-2 border-t border-turquoise_surf/20">
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-bright_teal_blue" /> Experiencias de usuarios verificadas
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-bright_teal_blue" /> Expectativas realistas de durabilidad
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-[#eef8fb] p-7 rounded-2xl border border-light_cyan space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-deep_twilight text-white flex items-center justify-center font-bold text-sm">
-                03
-              </div>
-              <h3 className="text-lg font-bold text-slate-900">Verificación de Precios y Garantías</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Confirmamos paquetes de ofertas actuales, descuentos oficiales, condiciones de envío y políticas de reembolso del fabricante para que los compradores nunca se lleven sorpresas.
-              </p>
-              <ul className="text-xs text-slate-700 space-y-2 pt-2 border-t border-turquoise_surf/20">
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-deep_twilight" /> Verificación de descuentos actuales
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-deep_twilight" /> Enlace directo a ofertas oficiales
-                </li>
-              </ul>
-            </div>
+            ))}
           </div>
 
-          {/* Action Links (SOLID INTERNAL LINKS) */}
+          {/* Action Links */}
           <div className="p-6 sm:p-8 rounded-2xl bg-[#03045e] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <h4 className="text-lg sm:text-xl font-bold text-white">¿Tiene preguntas sobre nuestro proceso de análisis?</h4>
+              <h4 className="text-lg sm:text-xl font-bold text-white">¿Tiene dudas sobre nuestro proceso de reseñas?</h4>
               <p className="text-xs sm:text-sm text-light_cyan/80 mt-1">
-                Lea nuestra metodología completa de pruebas y pautas de transparencia para el consumidor.
+                Escríbanos directamente a reviewsnutritional@gmail.com o consulte nuestras páginas de transparencia.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto flex-shrink-0">
               <Link
-                href="/about"
+                href="/quienes-somos"
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white text-deep_twilight font-bold text-xs hover:bg-light_cyan transition-colors text-center"
               >
-                Sobre Nuestro Proceso
+                Quiénes Somos
               </Link>
               <Link
-                href="/contact"
+                href="/contacto"
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-white/30 text-white font-bold text-xs hover:bg-white/10 transition-colors text-center"
               >
-                Contactar Equipo de Investigación
+                Contacto
               </Link>
             </div>
           </div>
@@ -1002,7 +1058,91 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          8. BOTTOM CALL-TO-ACTION (SOLID STYLING, ZERO GRADIENTS)
+          8. ENLACES PROPUESTOS (TRANSPARENCIA Y POLÍTICAS DEL SITIO)
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#eef8fb] border-t border-turquoise_surf/20">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-light_cyan text-deep_twilight font-extrabold text-[11px] tracking-widest uppercase mb-3 border border-frosted_blue/60">
+              <BookOpen className="w-3.5 h-3.5 text-bright_teal_blue" />
+              <span>Transparencia y Normativa</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
+              Enlaces y Políticas del Sitio
+            </h2>
+            <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
+              Consulte nuestras directrices de publicación, descargos de responsabilidad médica y términos de uso antes de navegar.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {[
+              {
+                label: "Quiénes Somos",
+                href: "/quienes-somos",
+                desc: "Objetivo y equipo editorial de NutritionalReviews.org",
+              },
+              {
+                label: "Contacto",
+                href: "/contacto",
+                desc: "Canal de contacto: reviewsnutritional@gmail.com",
+                badge: "reviewsnutritional@gmail.com",
+              },
+              {
+                label: "Divulgación de Afiliados",
+                href: "/divulgacion-de-afiliados",
+                desc: "Financiación del sitio mediante comisiones de afiliados sin sobrecoste",
+              },
+              {
+                label: "Descargo de Responsabilidad de Salud",
+                href: "/descargo-de-responsabilidad",
+                desc: "No ofrecemos asesoramiento médico ni garantizamos resultados",
+              },
+              {
+                label: "Política de Privacidad",
+                href: "/politica-de-privacidad",
+                desc: "Tratamiento transparente de datos conforme a la normativa vigente",
+              },
+              {
+                label: "Términos de Uso",
+                href: "/terminos-de-uso",
+                desc: "Condiciones de acceso, uso y navegación en el portal",
+              },
+              {
+                label: "Política de Cookies",
+                href: "/politica-de-cookies",
+                desc: "Información sobre cookies técnicas y analíticas utilizadas",
+              },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="group p-5 rounded-2xl bg-white border border-light_cyan hover:border-turquoise_surf hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold text-slate-900 group-hover:text-french_blue transition-colors">
+                      {link.label}
+                    </span>
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-french_blue group-hover:translate-x-1 transition-all" />
+                  </div>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    {link.desc}
+                  </p>
+                </div>
+                {link.badge && (
+                  <span className="mt-3 inline-block text-[10px] font-mono font-medium text-french_blue bg-light_cyan/40 px-2 py-0.5 rounded-md self-start border border-light_cyan">
+                    {link.badge}
+                  </span>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          9. BOTTOM CALL-TO-ACTION (SOLID STYLING, HONEST COMMITMENT)
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#eef8fb]">
         <div className="max-w-7xl mx-auto">
@@ -1014,31 +1154,31 @@ export default function HomePage() {
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-sky_aqua text-xs font-bold uppercase tracking-widest">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Compre con Confianza</span>
+                <span>Compare Antes de Comprar</span>
               </div>
 
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
-                ¿Listo para Encontrar su Próximo Producto Verificado?
+                Reseñas de Suplementos en Español
               </h2>
 
               <p className="text-light_cyan/90 text-xs sm:text-base leading-relaxed">
-                Únase a miles de compradores inteligentes que consultan Nutritional Reviews antes de comprar. Compare análisis verificados, revise especificaciones y encuentre la mejor oferta.
+                Consulte qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y el lugar de compra verificados en la fecha indicada en el artículo.
               </p>
 
-              {/* Solid Action Buttons (NO GRADIENT INTERNAL LINKING) */}
+              {/* Solid Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 justify-center pt-2 w-full sm:w-auto">
                 <a
                   href="#products"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-french_blue hover:bg-bright_teal_blue text-white font-bold rounded-xl shadow-lg transition-all active:scale-95 text-sm text-center"
                 >
-                  <span>Explorar Análisis Destacados</span>
+                  <span>Explorar Reseñas Destacadas</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <Link
-                  href="/products"
+                  href="/contacto"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-deep_twilight hover:bg-light_cyan font-bold rounded-xl shadow-md transition-all text-sm text-center"
                 >
-                  <span>Ver Todas las Categorías</span>
+                  <span>Contacto y Consultas</span>
                 </Link>
               </div>
             </div>
