@@ -64,7 +64,14 @@ export default function HeroSettingsPage() {
   useEffect(() => {
     fetch("/api/hero-settings")
       .then((r) => r.json())
-      .then(setSettings)
+      .then((data) => {
+        if (data && !data.error) {
+          setSettings(data);
+        } else {
+          setError(data?.error || "Failed to load hero settings");
+        }
+      })
+      .catch(() => setError("Failed to connect to server"))
       .finally(() => setLoading(false));
   }, []);
 
@@ -458,6 +465,76 @@ export default function HeroSettingsPage() {
                   </div>
                 </div>
               )}
+            </SectionCard>
+
+            {/* Colors & Appearance */}
+            <SectionCard
+              icon={Palette}
+              title="Colors & Appearance"
+              subtitle="Customize headline, text, and button colors"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Text Color
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      value={settings.textColor || "#0f172a"}
+                      onChange={(e) => update({ textColor: e.target.value })}
+                      className="w-10 h-10 rounded-xl border border-gray-200 p-1 cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={settings.textColor || "#0f172a"}
+                      onChange={(e) => update({ textColor: e.target.value })}
+                      className={inputCls}
+                      placeholder="#0f172a"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Headline Highlight
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      value={settings.primaryColor || "#023e8a"}
+                      onChange={(e) => update({ primaryColor: e.target.value })}
+                      className="w-10 h-10 rounded-xl border border-gray-200 p-1 cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={settings.primaryColor || "#023e8a"}
+                      onChange={(e) => update({ primaryColor: e.target.value })}
+                      className={inputCls}
+                      placeholder="#023e8a"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Button CTA Color
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      value={settings.ctaColor || "#023e8a"}
+                      onChange={(e) => update({ ctaColor: e.target.value })}
+                      className="w-10 h-10 rounded-xl border border-gray-200 p-1 cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={settings.ctaColor || "#023e8a"}
+                      onChange={(e) => update({ ctaColor: e.target.value })}
+                      className={inputCls}
+                      placeholder="#023e8a"
+                    />
+                  </div>
+                </div>
+              </div>
             </SectionCard>
           </div>
 

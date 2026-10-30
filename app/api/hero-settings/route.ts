@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db";
 
 type ClientBackgroundType = "gradient" | "image";
@@ -74,19 +75,19 @@ export async function GET() {
     if (!settings) {
       settings = await prisma.heroSettings.create({
         data: {
-          title: "Your Wellness Journey Starts Here",
-          subtitle: "Premium Health Products",
+          title: "Descubra Productos Destacados Con Análisis Claros para Compradores",
+          subtitle: "Pruebas Verificadas y Revisiones Editoriales",
           description:
-            "Discover science-backed supplements, premium fitness gear, and organic wellness products curated for your health goals.",
+            "Nutritional Reviews ayuda a los compradores a evaluar productos populares de salud y nutrición mediante análisis detallados, desglose de características, pros y contras reales y verificación de precios antes de realizar un pedido.",
           backgroundImage: "",
           backgroundType: "GRADIENT",
-          gradientFrom: "#16A34A",
-          gradientVia: "#15803D",
-          gradientTo: "#14532D",
-          primaryColor: "#007BFF",
-          ctaColor: "#FF6600",
-          accentColor: "#28A745",
-          textColor: "#FFFFFF",
+          gradientFrom: "#d4eff7",
+          gradientVia: "#e5f5f9",
+          gradientTo: "#daf0f6",
+          primaryColor: "#023e8a",
+          ctaColor: "#023e8a",
+          accentColor: "#0077b6",
+          textColor: "#0f172a",
           overlayOpacity: 30,
           backgroundPosition: "center",
           backgroundSize: "cover",
@@ -94,7 +95,11 @@ export async function GET() {
       });
     }
 
-    return NextResponse.json(serializeHero(settings));
+    return NextResponse.json(serializeHero(settings), {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      },
+    });
   } catch (error) {
     console.error("Hero settings GET error:", error);
     return NextResponse.json(
@@ -124,19 +129,19 @@ export async function PUT(req: NextRequest) {
     } else {
       updated = await prisma.heroSettings.create({
         data: {
-          title: "Your Wellness Journey Starts Here",
-          subtitle: "Premium Health Products",
+          title: "Descubra Productos Destacados Con Análisis Claros para Compradores",
+          subtitle: "Pruebas Verificadas y Revisiones Editoriales",
           description:
-            "Discover science-backed supplements, premium fitness gear, and organic wellness products curated for your health goals.",
+            "Nutritional Reviews ayuda a los compradores a evaluar productos populares de salud y nutrición mediante análisis detallados, desglose de características, pros y contras reales y verificación de precios antes de realizar un pedido.",
           backgroundImage: "",
           backgroundType: "GRADIENT",
-          gradientFrom: "#16A34A",
-          gradientVia: "#15803D",
-          gradientTo: "#14532D",
-          primaryColor: "#007BFF",
-          ctaColor: "#FF6600",
-          accentColor: "#28A745",
-          textColor: "#FFFFFF",
+          gradientFrom: "#d4eff7",
+          gradientVia: "#e5f5f9",
+          gradientTo: "#daf0f6",
+          primaryColor: "#023e8a",
+          ctaColor: "#023e8a",
+          accentColor: "#0077b6",
+          textColor: "#0f172a",
           overlayOpacity: 30,
           backgroundPosition: "center",
           backgroundSize: "cover",
@@ -145,7 +150,17 @@ export async function PUT(req: NextRequest) {
       });
     }
 
-    return NextResponse.json(serializeHero(updated));
+    try {
+      revalidatePath("/");
+    } catch (e) {
+      console.warn("revalidatePath error:", e);
+    }
+
+    return NextResponse.json(serializeHero(updated), {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      },
+    });
   } catch (error) {
     console.error("Hero settings PUT error:", error);
     return NextResponse.json(

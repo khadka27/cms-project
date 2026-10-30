@@ -7,6 +7,7 @@ import { useCategoryContext } from "@/context/CategoryContext";
 import ProductCard from "@/components/ProductCard";
 import SkeletonCard from "@/components/SkeletonCard";
 import TestimonialSlider from "@/components/TestimonialSlider";
+import HeroProductShowcase from "@/components/HeroProductShowcase";
 import type { Product, Subcategory, HeroSettings, Ingredient } from "@/lib/types";
 import {
   ArrowRight,
@@ -79,7 +80,7 @@ export default function HomePage() {
     Promise.all([
       fetch(`/api/products?type=${activeCategory}`).then((r) => r.json()),
       fetch(`/api/subcategories?type=${activeCategory}`).then((r) => r.json()),
-      fetch("/api/hero-settings").then((r) => r.json()),
+      fetch("/api/hero-settings", { cache: "no-store" }).then((r) => r.json()),
       fetch("/api/ingredients").then((r) => r.json()),
       fetch("/api/admin/testimonials").then((r) => r.json()),
     ])
@@ -136,6 +137,36 @@ export default function HomePage() {
 
   const hero = heroSettings || defaultHero;
 
+  const renderHeroTitle = (title: string, highlightColor?: string) => {
+    if (!title) return "Descubra Productos Destacados Con Análisis Claros para Compradores";
+    if (title.includes("|")) {
+      const [first, ...rest] = title.split("|");
+      return (
+        <>
+          {first.trim()}{" "}
+          <span className="text-french_blue" style={highlightColor ? { color: highlightColor } : undefined}>
+            {rest.join("|").trim()}
+          </span>
+        </>
+      );
+    }
+    const words = title.split(" ");
+    if (words.length >= 5) {
+      const midpoint = Math.max(words.length - 4, Math.floor(words.length * 0.5));
+      const firstPart = words.slice(0, midpoint).join(" ");
+      const secondPart = words.slice(midpoint).join(" ");
+      return (
+        <>
+          {firstPart}{" "}
+          <span className="text-french_blue" style={highlightColor ? { color: highlightColor } : undefined}>
+            {secondPart}
+          </span>
+        </>
+      );
+    }
+    return title;
+  };
+
   // Filter products by subcategory if selected
   const filteredProducts = useMemo(() => {
     if (selectedSubcategoryFilter === "all") return latestProducts;
@@ -151,7 +182,26 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           1. HERO SECTION: SHOWCASE LATEST PRODUCT PROMINENTLY
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full overflow-hidden bg-[#eef8fb] border-b border-turquoise_surf/20 pt-6 sm:pt-8 pb-14 sm:pb-20">
+      <section
+        className="relative w-full overflow-hidden bg-[#eef8fb] border-b border-turquoise_surf/20 pt-6 sm:pt-8 pb-14 sm:pb-20"
+        style={
+          hero.backgroundType === "image" && hero.backgroundImage
+            ? {
+                backgroundImage: `url(${hero.backgroundImage})`,
+                backgroundSize: hero.backgroundSize || "cover",
+                backgroundPosition: hero.backgroundPosition || "center",
+              }
+            : undefined
+        }
+      >
+        {hero.backgroundType === "image" && hero.backgroundImage && (
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundColor: `rgba(0,0,0,${(hero.overlayOpacity ?? 30) / 100})`,
+            }}
+          />
+        )}
         {/* Subtle coastal ambient illumination */}
         <div className="absolute top-0 right-0 w-[550px] h-[550px] rounded-full bg-light_cyan/60 blur-[120px] pointer-events-none -mr-40 -mt-40" />
         <div className="absolute bottom-0 left-0 w-[450px] h-[450px] rounded-full bg-sky_aqua/15 blur-[100px] pointer-events-none -ml-32 -mb-32" />
@@ -173,23 +223,43 @@ export default function HomePage() {
               </div>
 
               {/* Headline */}
-              <h1 className="text-2xl sm:text-4xl lg:text-[3.35rem] font-black leading-[1.15] sm:leading-[1.08] tracking-tight text-slate-900">
-                Descubra Productos Destacados Con{" "}
-                <span className="text-french_blue">Análisis Claros para Compradores</span>
+              <h1
+                className="text-2xl sm:text-4xl lg:text-[3.35rem] font-black leading-[1.15] sm:leading-[1.08] tracking-tight"
+                style={{ color: hero.textColor || "#0f172a" }}
+              >
+                {renderHeroTitle(hero.title, hero.primaryColor)}
               </h1>
 
               {/* Subtitle / Description */}
-              <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-xl">
+              <p
+                className="text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl"
+                style={{
+                  color: hero.textColor && hero.backgroundType === "image" ? hero.textColor : "#475569",
+                  opacity: hero.backgroundType === "image" ? 0.95 : 1,
+                }}
+              >
                 {hero.description ||
                   "Nutritional Reviews ayuda a los compradores a entender productos populares en línea mediante análisis sencillos, guías por categoría, desglose de funciones y verificación de precios antes de visitar una oferta."}
               </p>
 
               {/* Action Buttons: SOLID COLORS ONLY (NO GRADIENT INTERNAL LINKING) */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 w-full sm:w-auto">
-                {spotlightProduct ? (
+                {hero.buyNowLink ? (
+                  <a
+                    href={hero.buyNowLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-french_blue hover:bg-deep_twilight text-white font-bold text-sm tracking-wide shadow-md shadow-french_blue/20 hover:shadow-lg transition-all duration-200 active:scale-95 text-center"
+                    style={hero.ctaColor ? { backgroundColor: hero.ctaColor } : undefined}
+                  >
+                    <span>Comprar Ahora</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                ) : spotlightProduct ? (
                   <Link
                     href={`/${spotlightProduct.slug}`}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-french_blue hover:bg-deep_twilight text-white font-bold text-sm tracking-wide shadow-md shadow-french_blue/20 hover:shadow-lg transition-all duration-200 active:scale-95 text-center"
+                    style={hero.ctaColor ? { backgroundColor: hero.ctaColor } : undefined}
                   >
                     <span>Leer Análisis de Producto Reciente</span>
                     <ArrowRight className="w-4 h-4" />
@@ -198,6 +268,7 @@ export default function HomePage() {
                   <a
                     href="#products"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-french_blue hover:bg-deep_twilight text-white font-bold text-sm tracking-wide shadow-md shadow-french_blue/20 hover:shadow-lg transition-all duration-200 active:scale-95 text-center"
+                    style={hero.ctaColor ? { backgroundColor: hero.ctaColor } : undefined}
                   >
                     <span>Explorar Productos</span>
                     <ArrowRight className="w-4 h-4" />
@@ -230,138 +301,16 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: Hero Spotlight Card Displaying the Latest Product */}
-            <div className="lg:col-span-6">
+            {/* Right Column: 3D Single-Card Product Showcase Carousel */}
+            <div className="lg:col-span-6 flex items-center justify-center">
               {loading ? (
-                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-light_cyan shadow-xl animate-pulse min-h-[440px] flex flex-col justify-between">
-                  <div className="h-6 w-32 bg-slate-200 rounded-full mb-4" />
-                  <div className="h-48 sm:h-56 bg-slate-100 rounded-2xl w-full" />
-                  <div className="space-y-3 mt-6">
-                    <div className="h-6 bg-slate-200 rounded w-3/4" />
-                    <div className="h-4 bg-slate-100 rounded w-full" />
-                    <div className="h-10 bg-slate-200 rounded-xl w-full" />
-                  </div>
-                </div>
-              ) : spotlightProduct ? (
-                <div className="relative group">
-                  {/* Spotlight container card */}
-                  <div className="bg-white rounded-3xl p-5 sm:p-8 border-2 border-light_cyan hover:border-turquoise_surf/60 shadow-xl shadow-french_blue/5 transition-all duration-300 relative overflow-hidden">
-                    
-                    {/* Top status bar inside card */}
-                    <div className="flex items-center justify-between gap-2 mb-4 sm:mb-5">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-french_blue text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-                        <Flame className="w-3.5 h-3.5 text-white" />
-                        <span>Destacado de Último Producto</span>
-                      </div>
-                      {(spotlightProduct.subcategory?.name || subcategories.find((s) => s.id === spotlightProduct.subcategoryId)?.name) && (
-                        <span className="text-[11px] sm:text-xs font-bold text-slate-500 bg-light_cyan/40 px-2.5 py-1 rounded-lg border border-frosted_blue/40 truncate max-w-[140px] sm:max-w-none">
-                          {spotlightProduct.subcategory?.name || subcategories.find((s) => s.id === spotlightProduct.subcategoryId)?.name}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Spotlight Product Image & Badge */}
-                    <div className="relative w-full h-48 sm:h-64 rounded-2xl bg-gradient-to-b from-[#f0f9fb] to-[#e6f4f8] flex items-center justify-center p-3 sm:p-4 overflow-hidden mb-5 sm:mb-6 border border-light_cyan/80">
-                      <Link href={`/${spotlightProduct.slug}`} className="relative w-full h-full block">
-                        <Image
-                          src={spotlightProduct.featuredImage || spotlightProduct.image || "/placeholder-image.png"}
-                          alt={spotlightProduct.imageAlt || spotlightProduct.name}
-                          fill
-                          className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                          priority
-                        />
-                      </Link>
-
-                      {/* Verified Review Score Pill */}
-                      <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-2.5 sm:px-3 py-1 rounded-full shadow-md border border-light_cyan flex items-center gap-1.5">
-                        <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
-                        <span className="text-xs font-black text-slate-900">4.9 / 5</span>
-                        <span className="hidden sm:inline text-[10px] text-slate-500 font-medium">Prueba Verificada</span>
-                      </div>
-
-                      {/* Price callout */}
-                      <div className="absolute top-3 right-3 bg-deep_twilight text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow-md font-extrabold text-xs sm:text-sm">
-                        ${spotlightProduct.price.toFixed(2)}
-                      </div>
-                    </div>
-
-                    {/* Product Details */}
-                    <div className="space-y-3">
-                      <Link href={`/${spotlightProduct.slug}`} className="block group-hover:text-french_blue transition-colors">
-                        <h3 className="text-lg sm:text-2xl font-black text-slate-900 leading-snug line-clamp-2">
-                          {spotlightProduct.name}
-                        </h3>
-                      </Link>
-
-                      <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
-                        {spotlightProduct.shortDescription ||
-                          "Análisis exhaustivo que evalúa calidad de fabricación, idoneidad para el comprador, desglose de funciones y valor real."}
-                      </p>
-
-                      {/* Solid CTA Buttons (NO GRADIENTS) */}
-                      <div className="pt-2 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
-                        <Link
-                          href={`/${spotlightProduct.slug}`}
-                          className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-french_blue hover:bg-deep_twilight text-white font-bold text-sm transition-colors shadow-md text-center"
-                        >
-                          <FileText className="w-4 h-4" />
-                          <span>Ver Análisis Completo</span>
-                        </Link>
-                        {spotlightProduct.buyNowLink && (
-                          <a
-                            href={spotlightProduct.buyNowLink}
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-bright_teal_blue hover:bg-french_blue text-white font-bold text-sm transition-colors shadow-md text-center"
-                          >
-                            <ShoppingCart className="w-4 h-4" />
-                            <span>Ver Oferta Oficial</span>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Quick Switcher Thumbnails Dock (if multiple products exist) */}
-                    {products.length > 1 && (
-                      <div className="mt-4 sm:mt-5 pt-3.5 sm:pt-4 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
-                        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                          Últimas Incorporaciones:
-                        </span>
-                        <div className="flex items-center gap-2">
-                          {products.slice(0, 4).map((item, idx) => (
-                            <button
-                              key={item.id}
-                              onClick={() => setActiveSpotlightIndex(idx)}
-                              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border-2 transition-all p-1 bg-slate-50 cursor-pointer ${
-                                idx === activeSpotlightIndex
-                                  ? "border-french_blue scale-105 shadow-md bg-white"
-                                  : "border-slate-200 hover:border-bright_teal_blue opacity-70 hover:opacity-100"
-                              }`}
-                              title={item.name}
-                              aria-label={`View ${item.name}`}
-                            >
-                              <div className="relative w-full h-full">
-                                <Image
-                                  src={item.featuredImage || item.image || "/placeholder-image.png"}
-                                  alt={item.name}
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                <div className="w-[340px] h-[440px] rounded-[25px] bg-slate-900/10 border border-slate-200/60 animate-pulse flex flex-col items-center justify-center p-6 gap-4">
+                  <div className="w-20 h-20 rounded-full bg-slate-200" />
+                  <div className="w-3/4 h-5 rounded-lg bg-slate-200" />
+                  <div className="w-1/2 h-4 rounded-lg bg-slate-200" />
                 </div>
               ) : (
-                /* Fallback if no products in database yet */
-                <div className="bg-white rounded-3xl p-8 border-2 border-dashed border-light_cyan text-center py-16 text-slate-500">
-                  <ShoppingCart className="w-12 h-12 mx-auto text-bright_teal_blue opacity-30 mb-3" />
-                  <p className="font-bold text-base text-slate-800">Destacado Listo</p>
-                  <p className="text-sm mt-1">Los productos agregados en el panel de administración se mostrarán aquí.</p>
-                </div>
+                <HeroProductShowcase products={products} />
               )}
             </div>
 
