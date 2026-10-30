@@ -94,7 +94,7 @@ export default function ContactPage() {
                   Tiempos de Respuesta
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
-                  Revisamos cada mensaje recibido en <span className="font-semibold text-slate-800">reviewsnutritional@gmail.com</span>. Nuestro plazo habitual de atención es de <span className="font-bold text-french_blue">2 a 5 días hábiles</span>, condicionado por:
+                  Revisamos cada mensaje recibido en <span className="font-semibold text-slate-800">reviewsnutritional@gmail.com</span>. Nuestro plazo habitual de atención es de <span className="font-bold text-french_blue">2 a 3 días hábiles</span>, condicionado por:
                 </p>
                 <ul className="text-xs sm:text-sm text-slate-600 space-y-2 list-inside list-disc">
                   <li>Volumen de solicitudes en curso</li>

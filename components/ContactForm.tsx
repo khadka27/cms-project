@@ -177,7 +177,7 @@ export default function ContactForm() {
             <div className="mt-5 pt-4 border-t border-slate-100 flex items-start gap-2.5 text-xs text-slate-500">
               <span className="font-bold text-french_blue">•</span>
               <p>
-                <strong>Tiempo estimado de respuesta:</strong> Entre 2 y 5 días hábiles según la investigación requerida.
+                <strong>Tiempo estimado de respuesta:</strong> De 2 a 3 días hábiles (lunes a viernes).
               </p>
             </div>
           </div>
@@ -226,7 +226,7 @@ export default function ContactForm() {
                     ¡Gracias por contactarnos!
                   </h3>
                   <p className="text-sm text-slate-600 leading-relaxed">
-                    Hemos recibido su mensaje a través de nuestro servidor de correo. Nuestro equipo editorial revisará su consulta y le responderá a la brevedad.
+                    Hemos recibido su mensaje con éxito. Le hemos enviado una copia de confirmación a su correo electrónico y nuestro equipo le responderá en un plazo estimado de <strong className="text-slate-800">2 a 3 días hábiles</strong>.
                   </p>
                 </div>
 
