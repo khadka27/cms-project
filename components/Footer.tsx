@@ -91,15 +91,38 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [subscribing, setSubscribing] = useState(false);
+  const [subscribeMessage, setSubscribeMessage] = useState("");
+  const [subscribeError, setSubscribeError] = useState("");
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!email.trim() || subscribing) return;
     setSubscribing(true);
-    setTimeout(() => {
+    setSubscribeError("");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "No se pudo procesar la suscripción");
+      }
+
       setSubscribed(true);
+      setSubscribeMessage(
+        data.message ||
+          "¡Bienvenido! Te hemos enviado un correo con las últimas reseñas y nuevos productos."
+      );
+      setEmail("");
+    } catch (err: any) {
+      setSubscribeError(err.message || "Ocurrió un error al suscribirte. Inténtalo de nuevo.");
+    } finally {
       setSubscribing(false);
-    }, 800);
+    }
   };
 
   return (
@@ -251,11 +274,13 @@ export default function Footer() {
             </p>
 
             {subscribed ? (
-              <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-bright_teal_blue/15 border border-turquoise_surf/30">
-                <CheckCircle className="w-5 h-5 text-turquoise_surf flex-shrink-0" />
+              <div className="flex items-start gap-2.5 p-4 rounded-xl bg-bright_teal_blue/15 border border-turquoise_surf/30 animate-in fade-in duration-300">
+                <CheckCircle className="w-5 h-5 text-turquoise_surf flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-semibold text-sky_aqua">¡Bienvenido!</p>
-                  <p className="text-xs text-slate-400">Revisa tu bandeja de entrada pronto.</p>
+                  <p className="text-sm font-bold text-sky_aqua">¡Suscripción Confirmada!</p>
+                  <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                    {subscribeMessage || "Revisa tu bandeja de entrada; te hemos enviado la notificación con las últimas reseñas y nuevos productos analizados."}
+                  </p>
                 </div>
               </div>
             ) : (
@@ -266,12 +291,20 @@ export default function Footer() {
                     id="newsletter-email"
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (subscribeError) setSubscribeError("");
+                    }}
                     placeholder="Tu correo electrónico"
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-turquoise_surf/40 focus:border-turquoise_surf/50 transition-all duration-200"
                     required
                   />
                 </div>
+                {subscribeError && (
+                  <p className="text-xs text-rose-400 font-medium px-1 leading-tight">
+                    {subscribeError}
+                  </p>
+                )}
                 <button
                   id="newsletter-submit"
                   type="submit"
@@ -279,7 +312,10 @@ export default function Footer() {
                   className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold bg-french_blue hover:bg-bright_teal_blue text-white shadow-md transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer active:scale-98"
                 >
                   {subscribing ? (
-                    <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                    <span className="flex items-center gap-2">
+                      <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                      <span>Enviando...</span>
+                    </span>
                   ) : (
                     <>
                       Suscribirse <ArrowRight className="w-4 h-4" />

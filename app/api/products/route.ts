@@ -123,6 +123,35 @@ export async function POST(req: NextRequest) {
         } : undefined
       },
     });
+
+    // Notify registered subscribers in background if product is PUBLISHED
+    if (created.status === 'PUBLISHED') {
+      (async () => {
+        try {
+          const subscribers = await prisma.subscriber.findMany({
+            where: { active: true },
+            select: { email: true },
+          });
+          if (subscribers.length > 0) {
+            const { sendNewProductNotificationToSubscribers } = await import('@/lib/mail');
+            await sendNewProductNotificationToSubscribers(
+              {
+                id: created.id,
+                name: created.name,
+                slug: created.slug,
+                price: created.price,
+                shortDescription: created.shortDescription,
+                detailedDescription: created.detailedDescription,
+                buyNowLink: created.buyNowLink || undefined,
+              },
+              subscribers.map((s) => s.email)
+            );
+          }
+        } catch (mailErr) {
+          console.error('[Products POST] Error notifying subscribers:', mailErr);
+        }
+      })();
+    }
     
     return NextResponse.json(created, { status: 201 });
   } catch (error: any) {
