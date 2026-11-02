@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
+import { ContactPageSchema, BreadcrumbSchema } from "@/components/SEOSchema";
 import {
   Mail,
   HelpCircle,
@@ -12,6 +13,8 @@ import {
   Clock,
   Sparkles,
 } from "lucide-react";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
 export const metadata: Metadata = {
   title: "Contáctenos | NutritionalReviews.org",
@@ -25,6 +28,13 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6] flex flex-col items-center pt-16 sm:pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <ContactPageSchema />
+      <BreadcrumbSchema
+        items={[
+          { name: "Inicio", url: SITE_URL },
+          { name: "Contacto", url: `${SITE_URL}/contact` },
+        ]}
+      />
       <div className="max-w-6xl w-full space-y-12">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto space-y-4">

@@ -2,6 +2,9 @@ import prisma from "@/lib/db";
 import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, Calendar, ArrowRight, User } from "lucide-react";
+import { CollectionPageSchema, BreadcrumbSchema } from "@/components/SEOSchema";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
 export const metadata = {
   title: "Guías y Artículos | NutritionalReviews",
@@ -13,6 +16,9 @@ export const metadata = {
 
 export default async function ArticlesIndexPage() {
   const allArticles = await prisma.article.findMany({
+    where: {
+      status: "PUBLISHED",
+    },
     select: {
       id: true,
       slug: true,
@@ -24,6 +30,7 @@ export default async function ArticlesIndexPage() {
       author: {
         select: {
           name: true,
+          slug: true,
           avatar: true,
           title: true,
         },
@@ -41,6 +48,23 @@ export default async function ArticlesIndexPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
+      {/* Schema.org CollectionPage & BreadcrumbList */}
+      <CollectionPageSchema
+        name="Guías y Artículos de Salud y Nutrición"
+        description="Consejos de expertos, análisis profundos y guías completas para ayudarle a tomar las mejores decisiones sobre su bienestar."
+        url={`${SITE_URL}/article`}
+        items={allArticles.map((a) => ({
+          name: a.title,
+          url: `${SITE_URL}/article/${a.slug}`,
+          image: a.featuredImage || undefined,
+        }))}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Inicio", url: SITE_URL },
+          { name: "Guías y Artículos", url: `${SITE_URL}/article` },
+        ]}
+      />
       {/* Header */}
       <section className="relative bg-[#010226] py-16 sm:py-24 overflow-hidden border-b border-french_blue/30">
         <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-turquoise_surf/15 blur-3xl -mr-20 -mt-20 pointer-events-none" />

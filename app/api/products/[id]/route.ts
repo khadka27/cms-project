@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/db';
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -65,6 +66,14 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       data: updateData,
     });
     
+    // Revalidate sitemap and product pages so deleted/updated content reflects instantly
+    revalidatePath('/sitemap.xml');
+    revalidatePath('/products');
+    revalidatePath('/');
+    if (updated?.slug) {
+      revalidatePath(`/${updated.slug}`);
+    }
+
     return NextResponse.json(updated);
   } catch (error: any) {
     console.error('Product PUT error:', error);
@@ -82,9 +91,23 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
   try {
     const { id } = await params;
     
+    // Query product slug before deletion to invalidate paths accurately
+    const product = await prisma.product.findUnique({
+      where: { id },
+      select: { slug: true },
+    });
+
     await prisma.product.delete({
       where: { id },
     });
+
+    // Instantly remove deleted product from sitemap and dynamic cache
+    revalidatePath('/sitemap.xml');
+    revalidatePath('/products');
+    revalidatePath('/');
+    if (product?.slug) {
+      revalidatePath(`/${product.slug}`);
+    }
     
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -108,6 +131,14 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
         status: body.status === 'PUBLISHED' ? 'PUBLISHED' : 'DRAFT',
       },
     });
+
+    // Revalidate sitemap on status toggle (e.g. published -> draft removes from sitemap)
+    revalidatePath('/sitemap.xml');
+    revalidatePath('/products');
+    revalidatePath('/');
+    if (updated?.slug) {
+      revalidatePath(`/${updated.slug}`);
+    }
     
     return NextResponse.json(updated);
   } catch (error) {

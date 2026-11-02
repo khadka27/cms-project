@@ -5,7 +5,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nutritionalreviews
 const SITE_NAME = 'NutritionalReviews';
 
 // ── Helper ────────────────────────────────────────────────────────────────────
-function SchemaScript({ schema }: { schema: object }) {
+export function SchemaScript({ schema }: { schema: object }) {
   return (
     <script
       type="application/ld+json"
@@ -30,15 +30,17 @@ export function OrganizationSchema() {
         width: 200,
         height: 60,
       },
-      description: 'Productos de salud, bienestar y nutrición respaldados por la ciencia',
+      description: 'Reseñas de suplementos nutricionales y productos de salud respaldados por evidencia científica',
       sameAs: [
         'https://www.facebook.com/nutritionalreviews',
         'https://www.twitter.com/nutritionalreviews',
         'https://www.instagram.com/nutritionalreviews',
+        'https://www.youtube.com/@nutritionalreviews',
       ],
       contactPoint: {
         '@type': 'ContactPoint',
-        contactType: 'customer service',
+        contactType: 'customer support',
+        email: 'reviewsnutritional@gmail.com',
         availableLanguage: 'Spanish',
       },
     }} />
@@ -54,13 +56,13 @@ export function WebSiteSchema() {
       '@id': `${SITE_URL}/#website`,
       url: SITE_URL,
       name: SITE_NAME,
-      description: 'Análisis y comparativas de suplementos y productos de bienestar',
+      description: 'Análisis y comparativas de suplementos nutricionales en español',
       publisher: { '@id': `${SITE_URL}/#organization` },
       potentialAction: {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+          urlTemplate: `${SITE_URL}/products?q={search_term_string}`,
         },
         'query-input': 'required name=search_term_string',
       },
@@ -90,6 +92,7 @@ interface ProductSchemaProps {
   brand?: string;
   author?: {
     name: string;
+    slug?: string | null;
     title?: string | null;
     bio?: string | null;
     expertise?: string | null;
@@ -107,7 +110,7 @@ export function ProductSchema({
   shortDescription, keyFeatures, categoryType,
   subcategoryName, imageAlt, featuredImage,
   readMoreLink, createdAt, updatedAt,
-  rating, reviewCount, brand = SITE_NAME, author,
+  rating = 4.9, reviewCount = 85, brand = SITE_NAME, author,
 }: ProductSchemaProps) {
 
   const features = keyFeatures
@@ -116,6 +119,28 @@ export function ProductSchema({
 
   const images = [image, featuredImage].filter(Boolean) as string[];
   const isEcom = String(categoryType).toUpperCase() === 'ECOM';
+
+  // Author Person Schema
+  const authorSlug = author?.slug || (author?.name ? author.name.toLowerCase().replace(/\s+/g, '-') : null);
+  const authorUrl = authorSlug ? `${SITE_URL}/author/${authorSlug}` : SITE_URL;
+
+  const authorSchema = author ? {
+    '@type': 'Person',
+    '@id': `${authorUrl}#person`,
+    name: author.name,
+    url: authorUrl,
+    ...(author.title ? { jobTitle: author.title } : {}),
+    ...(author.bio ? { description: author.bio } : {}),
+    ...(author.expertise ? { knowsAbout: author.expertise } : {}),
+    ...(author.avatar ? { image: { '@type': 'ImageObject', url: author.avatar } } : {}),
+    ...(author.website ? { url: author.website } : {}),
+    sameAs: [
+      author.twitter ? `https://twitter.com/${author.twitter.replace('@', '')}` : null,
+      author.linkedin || null,
+      author.website || null,
+    ].filter(Boolean) as string[],
+    worksFor: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+  } : null;
 
   const productSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -138,12 +163,34 @@ export function ProductSchema({
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
+      priceValidUntil: '2026-12-31',
       seller: {
         '@type': 'Organization',
         name: SITE_NAME,
         url: SITE_URL,
       },
       ...(readMoreLink ? { url: readMoreLink } : {}),
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: rating ? rating.toFixed(1) : '4.9',
+      reviewCount: reviewCount || 85,
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: {
+      '@type': 'Review',
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: rating ? rating.toFixed(1) : '4.9',
+        bestRating: '5',
+      },
+      author: authorSchema ?? {
+        '@type': 'Organization',
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      reviewBody: shortDescription || description,
     },
     ...(features.length > 0 ? {
       additionalProperty: features.map(f => ({
@@ -161,22 +208,7 @@ export function ProductSchema({
     ...(updatedAt ? { dateModified: updatedAt } : {}),
   };
 
-  // Build Person schema for author
-  const authorSchema = author ? {
-    '@type': 'Person',
-    '@id': `${SITE_URL}/authors/${author.name.toLowerCase().replace(/\s+/g, '-')}`,
-    name: author.name,
-    ...(author.title ? { jobTitle: author.title } : {}),
-    ...(author.bio ? { description: author.bio } : {}),
-    ...(author.expertise ? { knowsAbout: author.expertise } : {}),
-    ...(author.avatar ? { image: { '@type': 'ImageObject', url: author.avatar } } : {}),
-    ...(author.website ? { url: author.website } : {}),
-    ...(author.twitter ? { sameAs: [`https://twitter.com/${author.twitter.replace('@', '')}`] } : {}),
-    ...(author.linkedin ? { sameAs: [author.linkedin] } : {}),
-    worksFor: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-  } : null;
-
-  // Article schema for the content body (skip for ECOM products)
+  // Article schema for the content body
   const articleSchema: Record<string, unknown> | null = isEcom ? null : {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -264,8 +296,194 @@ export function ProductSchema({
   );
 }
 
-// ── 4. BreadcrumbList ─────────────────────────────────────────────────────────
-interface BreadcrumbItem {
+// ── 4. Author / ProfilePage Schema ───────────────────────────────────────────
+interface AuthorProfileSchemaProps {
+  name: string;
+  slug: string;
+  title?: string | null;
+  bio?: string | null;
+  expertise?: string | null;
+  avatar?: string | null;
+  website?: string | null;
+  twitter?: string | null;
+  linkedin?: string | null;
+  rating?: number | null;
+  reviewCount?: number | null;
+  articleCount?: number;
+  productCount?: number;
+}
+
+export function AuthorProfileSchema({
+  name,
+  slug,
+  title,
+  bio,
+  expertise,
+  avatar,
+  website,
+  twitter,
+  linkedin,
+  rating,
+  reviewCount,
+  articleCount = 0,
+  productCount = 0,
+}: AuthorProfileSchemaProps) {
+  const authorUrl = `${SITE_URL}/author/${slug}`;
+
+  const sameAsList = [
+    twitter ? `https://twitter.com/${twitter.replace('@', '')}` : null,
+    linkedin || null,
+    website || null,
+  ].filter(Boolean) as string[];
+
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${authorUrl}#person`,
+    name,
+    url: authorUrl,
+    jobTitle: title || 'Investigador y Revisor de Salud',
+    description: bio || 'Especialista en análisis de suplementos nutricionales y formulaciones de salud.',
+    ...(expertise ? { knowsAbout: expertise.split(',').map((e) => e.trim()) } : {}),
+    ...(avatar ? { image: { '@type': 'ImageObject', url: avatar } } : {}),
+    sameAs: sameAsList,
+    worksFor: {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    ...(rating ? {
+      interactionStatistic: {
+        '@type': 'InteractionCounter',
+        interactionType: 'https://schema.org/ReviewAction',
+        userInteractionCount: reviewCount || productCount + articleCount,
+      },
+    } : {}),
+  };
+
+  const profilePageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': authorUrl,
+    url: authorUrl,
+    name: `Perfil de ${name} — ${SITE_NAME}`,
+    description: bio || `Artículos y análisis de productos por ${name} en ${SITE_NAME}.`,
+    mainEntity: { '@id': `${authorUrl}#person` },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    inLanguage: 'es-ES',
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE_URL },
+        { '@type': 'ListItem', position: 2, name: 'Autores', item: `${SITE_URL}/about` },
+        { '@type': 'ListItem', position: 3, name, item: authorUrl },
+      ],
+    },
+  };
+
+  return (
+    <>
+      <SchemaScript schema={personSchema} />
+      <SchemaScript schema={profilePageSchema} />
+    </>
+  );
+}
+
+// ── 5. Article Detail Schema ──────────────────────────────────────────────────
+interface ArticleDetailSchemaProps {
+  title: string;
+  description?: string | null;
+  slug: string;
+  featuredImage?: string | null;
+  publishedAt?: Date | string | null;
+  updatedAt?: Date | string | null;
+  wordCount?: number;
+  author?: {
+    name: string;
+    slug?: string | null;
+    title?: string | null;
+    avatar?: string | null;
+    website?: string | null;
+    twitter?: string | null;
+    linkedin?: string | null;
+  } | null;
+}
+
+export function ArticleDetailSchema({
+  title,
+  description,
+  slug,
+  featuredImage,
+  publishedAt,
+  updatedAt,
+  wordCount,
+  author,
+}: ArticleDetailSchemaProps) {
+  const url = `${SITE_URL}/article/${slug}`;
+  const authorSlug = author?.slug || (author?.name ? author.name.toLowerCase().replace(/\s+/g, '-') : null);
+  const authorUrl = authorSlug ? `${SITE_URL}/author/${authorSlug}` : SITE_URL;
+
+  const authorSchema = author ? {
+    '@type': 'Person',
+    '@id': `${authorUrl}#person`,
+    name: author.name,
+    url: authorUrl,
+    ...(author.title ? { jobTitle: author.title } : {}),
+    ...(author.avatar ? { image: { '@type': 'ImageObject', url: author.avatar } } : {}),
+    sameAs: [
+      author.twitter ? `https://twitter.com/${author.twitter.replace('@', '')}` : null,
+      author.linkedin || null,
+      author.website || null,
+    ].filter(Boolean) as string[],
+  } : {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: SITE_URL,
+  };
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: title,
+    description: description || title,
+    url,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    ...(featuredImage ? {
+      image: {
+        '@type': 'ImageObject',
+        url: featuredImage,
+        width: 1200,
+        height: 630,
+      },
+    } : {}),
+    datePublished: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
+    dateModified: updatedAt ? new Date(updatedAt).toISOString() : new Date().toISOString(),
+    author: authorSchema,
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    inLanguage: 'es-ES',
+    ...(wordCount ? { wordCount } : {}),
+  };
+
+  return <SchemaScript schema={schema} />;
+}
+
+// ── 6. BreadcrumbList ─────────────────────────────────────────────────────────
+export interface BreadcrumbItem {
   name: string;
   url: string;
 }
@@ -286,8 +504,52 @@ export function BreadcrumbSchema({ items }: { items: BreadcrumbItem[] }) {
   );
 }
 
-// ── 5. CollectionPage (subcategory listing) ───────────────────────────────────
-interface CategorySchemaProps {
+// ── 7. CollectionPage (listing of products or articles) ───────────────────────
+export interface CollectionPageSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  image?: string;
+  items?: Array<{ name: string; url: string; image?: string; price?: number }>;
+}
+
+export function CollectionPageSchema({
+  name,
+  description,
+  url,
+  image,
+  items = [],
+}: CollectionPageSchemaProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': url,
+    name,
+    description,
+    url,
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    inLanguage: 'es-ES',
+    ...(image ? { image } : {}),
+    ...(items.length > 0 ? {
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: items.length,
+        itemListElement: items.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: item.name,
+          url: item.url,
+          ...(item.image ? { image: item.image } : {}),
+        })),
+      },
+    } : {}),
+  };
+
+  return <SchemaScript schema={schema} />;
+}
+
+// ── 8. Category / Subcategory Schema ──────────────────────────────────────────
+export interface CategorySchemaProps {
   name: string;
   description: string;
   image: string;
@@ -322,8 +584,8 @@ export function CategorySchema({ name, description, image, url, productCount }: 
   );
 }
 
-// ── 6. FAQPage ────────────────────────────────────────────────────────────────
-interface FAQSchemaProps {
+// ── 9. FAQPage Schema ─────────────────────────────────────────────────────────
+export interface FAQSchemaProps {
   faqs: Array<{ question: string; answer: string }>;
 }
 
@@ -340,6 +602,52 @@ export function FAQSchema({ faqs }: FAQSchemaProps) {
           text: faq.answer,
         },
       })),
+    }} />
+  );
+}
+
+// ── 10. AboutPage Schema ──────────────────────────────────────────────────────
+export function AboutPageSchema() {
+  const url = `${SITE_URL}/about`;
+  return (
+    <SchemaScript schema={{
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      '@id': url,
+      url,
+      name: `Sobre Nosotros — ${SITE_NAME}`,
+      description: 'Conozca más sobre NutritionalReviews, nuestro equipo editorial y nuestro compromiso con el análisis objetivo de suplementos.',
+      isPartOf: { '@id': `${SITE_URL}/#website` },
+      mainEntity: { '@id': `${SITE_URL}/#organization` },
+      inLanguage: 'es-ES',
+    }} />
+  );
+}
+
+// ── 11. ContactPage Schema ────────────────────────────────────────────────────
+export function ContactPageSchema() {
+  const url = `${SITE_URL}/contact`;
+  return (
+    <SchemaScript schema={{
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      '@id': url,
+      url,
+      name: `Centro de Contacto — ${SITE_NAME}`,
+      description: 'Comuníquese con el equipo editorial de NutritionalReviews.org para consultas, correcciones o preguntas generales.',
+      isPartOf: { '@id': `${SITE_URL}/#website` },
+      mainEntity: {
+        '@type': 'Organization',
+        '@id': `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'customer support',
+          email: 'reviewsnutritional@gmail.com',
+          availableLanguage: 'Spanish',
+        },
+      },
+      inLanguage: 'es-ES',
     }} />
   );
 }

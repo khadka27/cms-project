@@ -1,4 +1,7 @@
 import { Metadata } from "next";
+import { AboutPageSchema, BreadcrumbSchema } from "@/components/SEOSchema";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
 export const metadata: Metadata = {
   title: "Sobre Nosotros | NutritionalReviews",
@@ -11,6 +14,13 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6] flex flex-col items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <AboutPageSchema />
+      <BreadcrumbSchema
+        items={[
+          { name: "Inicio", url: SITE_URL },
+          { name: "Sobre Nosotros", url: `${SITE_URL}/about` },
+        ]}
+      />
       <div className="max-w-4xl w-full">
         {/* Header Section */}
         <div className="text-center mb-16 fade-in-up">

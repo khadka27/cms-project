@@ -51,26 +51,53 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-[#121936] via-[#101b3b] to-[#070b1c] select-none">
-      {/* Global CSS rules to eliminate browser autofill grey/white background & maintain clean look */}
+      {/* Global CSS rules to completely neutralize browser autofill grey/white background & maintain pristine frosted glass */}
       <style dangerouslySetInnerHTML={{ __html: `
+        /* Chrome, Edge, Brave, Safari autofill background neutralization */
         input.glass-input:-webkit-autofill,
         input.glass-input:-webkit-autofill:hover,
         input.glass-input:-webkit-autofill:focus,
-        input.glass-input:-webkit-autofill:active {
+        input.glass-input:-webkit-autofill:active,
+        input:-internal-autofill-selected,
+        input:-internal-autofill-previewed {
+          -webkit-background-clip: text !important;
+          background-clip: text !important;
           -webkit-text-fill-color: #ffffff !important;
           caret-color: #ffffff !important;
-          -webkit-box-shadow: 0 0 0 1000px #18223c inset !important;
-          box-shadow: 0 0 0 1000px #18223c inset !important;
           transition: background-color 9999999s ease-in-out 0s, color 9999999s ease-in-out 0s !important;
+          box-shadow: none !important;
+          -webkit-box-shadow: none !important;
+          background-color: transparent !important;
+          background: transparent !important;
         }
+
+        /* Base input reset: 100% transparent, no borders, no outline */
         input.glass-input {
           background-color: transparent !important;
+          background: transparent !important;
           color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+          caret-color: #ffffff !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+          -webkit-appearance: none !important;
+          appearance: none !important;
         }
+
+        /* Firefox autofill reset */
         input.glass-input:-moz-autofill,
         input.glass-input:-moz-autofill-preview {
-          background-color: #18223c !important;
+          filter: none !important;
+          background-color: transparent !important;
           color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        /* Placeholder styling */
+        input.glass-input::placeholder {
+          color: #8d9cb0 !important;
+          opacity: 1 !important;
         }
       `}} />
 
@@ -80,18 +107,18 @@ export default function AdminLoginPage() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] h-[620px] bg-sky-500/12 rounded-full blur-[160px] pointer-events-none" />
 
       {/* Main Glassmorphic Login Card */}
-      <div className="relative w-full max-w-[390px] sm:max-w-[420px] rounded-[34px] sm:rounded-[38px] overflow-hidden p-8 sm:p-10 pt-10 pb-11 shadow-[0_30px_70px_rgba(0,0,0,0.6)] border border-white/20 backdrop-blur-2xl bg-white/[0.08] z-10">
+      <div className="relative w-full max-w-[400px] sm:max-w-[430px] rounded-[34px] sm:rounded-[38px] overflow-hidden p-8 sm:p-10 pt-9 pb-11 shadow-[0_30px_70px_rgba(0,0,0,0.6),0_0_50px_rgba(30,50,100,0.15)] border border-white/20 backdrop-blur-2xl bg-white/[0.08] z-10">
         {/* Diagonal specular glass reflection cut from Image 1 */}
         <div
           className="absolute inset-0 pointer-events-none rounded-[inherit]"
           style={{
             background:
-              "linear-gradient(116deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.12) 34.5%, rgba(255, 255, 255, 0.015) 34.8%, transparent 44%)",
+              "linear-gradient(116deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.14) 33.5%, rgba(255, 255, 255, 0.02) 34%, transparent 45%)",
           }}
         />
 
         {/* Top bar with subtle avatar switcher */}
-        <div className="relative z-20 flex justify-end mb-2 -mt-4 -mr-4">
+        <div className="relative z-20 flex justify-end mb-1 -mt-4 -mr-4">
           <button
             type="button"
             onClick={() => setAvatarMode((prev) => (prev === "silhouette" ? "yeti" : "silhouette"))}
@@ -119,56 +146,65 @@ export default function AdminLoginPage() {
 
         {/* Error notification */}
         {error && (
-          <div className="relative z-10 mb-6 bg-rose-500/15 border border-rose-500/30 text-rose-200 text-xs px-4 py-3 rounded-xl flex items-center gap-2.5 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative z-10 mb-6 bg-rose-500/15 border border-rose-500/30 text-rose-200 text-xs px-4 py-2.5 rounded-2xl flex items-center gap-2.5 backdrop-blur-md animate-in fade-in duration-200">
             <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-400" />
             <span className="leading-relaxed">{error}</span>
           </div>
         )}
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="relative z-10 space-y-7">
+        <form onSubmit={handleSubmit} className="relative z-10 space-y-7" autoComplete="off">
+          {/* Decoy fields to capture automatic browser credential autofill and prevent ugly styling */}
+          <div className="sr-only" aria-hidden="true" style={{ position: "absolute", opacity: 0, height: 0, width: 0, zIndex: -1 }}>
+            <input type="text" name="fake_username" tabIndex={-1} autoComplete="username" />
+            <input type="password" name="fake_password" tabIndex={-1} autoComplete="current-password" />
+          </div>
+
           {/* Email ID Field */}
           <div
             ref={emailRowRef}
-            className="relative border-b border-white/35 focus-within:border-white transition-all duration-200 pb-2.5 flex items-center gap-3.5 group"
+            className="relative border-b border-white/30 focus-within:border-white transition-colors duration-200 pb-2.5 flex items-center gap-3.5 group"
           >
-            <Mail className="w-5 h-5 text-[#9aa7b9] group-focus-within:text-white transition-colors flex-shrink-0" />
+            <Mail className="w-5 h-5 text-[#8d9cb0] group-focus-within:text-white transition-colors flex-shrink-0" />
             <input
               type="email"
               name="email"
               id="login-email"
-              autoComplete="username"
+              autoComplete="off"
+              data-lpignore="true"
+              spellCheck={false}
               required
               value={formData.email}
               onFocus={() => setIsEmailFocused(true)}
               onBlur={() => setIsEmailFocused(false)}
               onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
               placeholder="Email ID"
-              className="glass-input w-full bg-transparent text-white placeholder-[#8d9cb0] text-sm sm:text-base font-normal tracking-wide focus:outline-none border-none outline-none ring-0 p-0 m-0 shadow-none"
+              className="glass-input flex-1 min-w-0 bg-transparent text-white placeholder-[#8d9cb0] text-sm sm:text-base font-normal tracking-wide focus:outline-none border-none outline-none ring-0 p-0 m-0 shadow-none"
             />
           </div>
 
           {/* Password Field */}
-          <div className="relative border-b border-white/35 focus-within:border-white transition-all duration-200 pb-2.5 flex items-center gap-3.5 group">
-            <Lock className="w-5 h-5 text-[#9aa7b9] group-focus-within:text-white transition-colors flex-shrink-0" />
+          <div className="relative border-b border-white/30 focus-within:border-white transition-colors duration-200 pb-2.5 flex items-center gap-3.5 group">
+            <Lock className="w-5 h-5 text-[#8d9cb0] group-focus-within:text-white transition-colors flex-shrink-0" />
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               id="login-password"
-              autoComplete="current-password"
+              autoComplete="off"
+              data-lpignore="true"
               required
               value={formData.password}
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => setIsPasswordFocused(false)}
               onChange={(e) => setFormData((p) => ({ ...p, password: e.target.value }))}
               placeholder="Password"
-              className="glass-input w-full bg-transparent text-white placeholder-[#8d9cb0] text-sm sm:text-base font-normal tracking-wide focus:outline-none border-none outline-none ring-0 p-0 m-0 shadow-none pr-2"
+              className="glass-input flex-1 min-w-0 bg-transparent text-white placeholder-[#8d9cb0] text-sm sm:text-base font-normal tracking-wide focus:outline-none border-none outline-none ring-0 p-0 m-0 shadow-none pr-1"
             />
             <button
               type="button"
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => setShowPassword((p) => !p)}
-              className="text-slate-400/60 hover:text-white transition-colors cursor-pointer flex-shrink-0 p-1"
+              className="text-[#8d9cb0]/50 hover:text-white transition-colors cursor-pointer flex-shrink-0 p-1"
               tabIndex={-1}
               title={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
             >
@@ -181,7 +217,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="rounded-full bg-[#2a2c33] hover:bg-[#353942] active:scale-95 text-white font-bold text-xs tracking-[0.16em] px-8 sm:px-10 py-3 uppercase shadow-lg shadow-black/45 border border-white/10 transition-all cursor-pointer disabled:opacity-60"
+              className="rounded-full bg-[#2a2c33] hover:bg-[#353942] active:scale-95 text-white font-bold text-xs tracking-[0.16em] px-8 sm:px-10 py-3 uppercase shadow-lg shadow-black/45 border border-white/10 transition-all cursor-pointer disabled:opacity-60 flex items-center justify-center min-w-[125px]"
             >
               {loading ? (
                 <span className="flex items-center gap-2">

@@ -35,6 +35,7 @@ interface ProductFull extends Omit<
   subcategory: Subcategory & { category: { name: string; type: string } };
   author?: {
     name: string;
+    slug?: string | null;
     avatar?: string | null;
     title?: string | null;
     bio?: string | null;
@@ -171,6 +172,7 @@ export default async function ProductPage({
           product.author
             ? {
                 name: product.author.name,
+                slug: product.author.slug,
                 title: product.author.title,
                 avatar: product.author.avatar,
                 bio: product.author.bio,
@@ -371,18 +373,24 @@ export default async function ProductPage({
                   <div className="mb-10 p-5 sm:p-6 bg-white rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-1 h-full bg-bright_teal_blue" />
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
-                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shadow-md border-4 border-white flex-shrink-0 ring-1 ring-slate-100">
+                      <Link
+                        href={product.author.slug ? `/author/${product.author.slug}` : "/about"}
+                        className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shadow-md border-4 border-white flex-shrink-0 ring-1 ring-slate-100 hover:scale-105 transition-transform"
+                      >
                         <AuthorAvatar
                           src={product.author.avatar}
                           alt={product.author.name}
                           name={product.author.name}
                         />
-                      </div>
+                      </Link>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                          <span className="text-lg font-black text-slate-900 tracking-tight">
+                          <Link
+                            href={product.author.slug ? `/author/${product.author.slug}` : "/about"}
+                            className="text-lg font-black text-slate-900 hover:text-bright_teal_blue transition-colors tracking-tight"
+                          >
                             {product.author.name}
-                          </span>
+                          </Link>
                           <div className="flex items-center gap-1 bg-light_cyan/40 px-2 py-0.5 rounded-full border border-turquoise_surf/30">
                             <CheckCircle2 className="w-3 h-3 text-french_blue" />
                             <span className="text-[10px] font-bold text-french_blue uppercase tracking-widest">

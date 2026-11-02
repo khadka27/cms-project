@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CollectionPageSchema, BreadcrumbSchema } from "@/components/SEOSchema";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
 export const metadata: Metadata = {
   title: "Información Legal y Políticas | NutritionalReviews.org",
@@ -88,6 +91,21 @@ const legalPages = [
 export default function LegalIndexPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <CollectionPageSchema
+        name="Políticas Legales y Transparencia Editorial"
+        description="Consulte las políticas legales, privacidad, términos de uso, descargo de salud y divulgación de afiliados de NutritionalReviews.org."
+        url={`${SITE_URL}/legal`}
+        items={legalPages.map((p) => ({
+          name: p.title,
+          url: `${SITE_URL}${p.href}`,
+        }))}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Inicio", url: SITE_URL },
+          { name: "Legal", url: `${SITE_URL}/legal` },
+        ]}
+      />
       <div className="surface-shell rounded-3xl p-8 sm:p-12">
         <p className="text-xs uppercase tracking-[0.24em] text-bright_teal_blue font-bold">
           Centro Legal y Transparencia

@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Clock, Star, Globe, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Clock, Star, Globe, ExternalLink } from 'lucide-react';
 import prisma from '@/lib/db';
-import { wrapTablesInResponsiveDiv } from '@/lib/utils';
+import { wrapTablesInResponsiveDiv, extractFaqsFromHtml } from '@/lib/utils';
+import { ArticleDetailSchema, BreadcrumbSchema, FAQSchema } from '@/components/SEOSchema';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nutritionalreviews.org';
 
@@ -27,6 +28,7 @@ async function getArticle(slug: string) {
         author: {
           select: {
             name: true,
+            slug: true,
             title: true,
             bio: true,
             expertise: true,
@@ -78,23 +80,29 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const author = article.author;
   const wordCount = article.content.replace(/<[^>]*>/g, '').split(' ').filter(Boolean).length;
   const readTime = Math.max(1, Math.round(wordCount / 200));
-
-  const articleSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: article.title,
-    description: article.metaDescription || article.excerpt,
-    url: `${SITE_URL}/article/${slug}`,
-    image: article.featuredImage,
-    datePublished: article.publishedAt?.toISOString(),
-    dateModified: article.updatedAt.toISOString(),
-    author: author ? { '@type': 'Person', name: author.name, ...(author.title ? { jobTitle: author.title } : {}), ...(author.website ? { url: author.website } : {}) } : { '@type': 'Organization', name: 'NutritionalReviews' },
-    publisher: { '@type': 'Organization', name: 'NutritionalReviews', url: SITE_URL, logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` } },
-  };
+  const faqs = extractFaqsFromHtml(article.content);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#d4eff7] via-[#e5f5f9] to-[#daf0f6]">
-      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {/* Dynamic SEO Schemas for Google Rich Results */}
+      <ArticleDetailSchema
+        title={article.title}
+        description={article.metaDescription || article.excerpt}
+        slug={article.slug}
+        featuredImage={article.featuredImage}
+        publishedAt={article.publishedAt}
+        updatedAt={article.updatedAt}
+        wordCount={wordCount}
+        author={author}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Inicio", url: SITE_URL },
+          { name: "Guías y Artículos", url: `${SITE_URL}/article` },
+          { name: article.title, url: `${SITE_URL}/article/${slug}` },
+        ]}
+      />
+      {faqs.length > 0 && <FAQSchema faqs={faqs} />}
 
       {/* Hero image — full bleed with gradient overlay */}
       {article.featuredImage && (
@@ -159,10 +167,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
             {/* Author bar */}
             {author && (
-              <div className="flex items-center gap-3 mb-5 p-4 bg-white rounded-2xl border border-light_cyan/70 shadow-sm">
+              <Link
+                href={author.slug ? `/author/${author.slug}` : "/about"}
+                className="group flex items-center gap-3 mb-5 p-4 bg-white hover:bg-light_cyan/20 rounded-2xl border border-light_cyan/70 shadow-sm transition-all"
+              >
                 {author.avatar ? (
                   <img src={author.avatar} alt={author.avatarAlt || author.name}
-                    className="w-11 h-11 rounded-full object-cover border-2 border-light_cyan flex-shrink-0" />
+                    className="w-11 h-11 rounded-full object-cover border-2 border-light_cyan flex-shrink-0 group-hover:scale-105 transition-transform" />
                 ) : (
                   <div className="w-11 h-11 rounded-full bg-gradient-to-br from-french_blue to-bright_teal_blue flex items-center justify-center flex-shrink-0 text-white font-bold text-base">
                     {author.name.charAt(0)}
@@ -170,7 +181,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-semibold text-gray-900 text-sm">{author.name}</span>
+                    <span className="font-semibold text-gray-900 text-sm group-hover:text-bright_teal_blue transition-colors">
+                      {author.name}
+                    </span>
                     {author.title && <span className="text-xs text-french_blue bg-light_cyan/40 border border-light_cyan px-2 py-0.5 rounded-full font-medium">{author.title}</span>}
                     {author.rating && (
                       <span className="flex items-center gap-1 text-xs text-bright_teal_blue font-semibold ml-auto">
@@ -182,7 +195,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   </div>
                   {author.expertise && <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{author.expertise}</p>}
                 </div>
-              </div>
+              </Link>
             )}
 
             {/* Article body */}
@@ -247,6 +260,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                       className="mt-3 flex items-center justify-center gap-1.5 w-full py-2 border border-bright_teal_blue/30 text-bright_teal_blue hover:bg-light_cyan/20 rounded-xl text-xs font-semibold transition-colors">
                       <Globe className="w-3.5 h-3.5" /> Visitar Sitio Web
                     </a>
+                  )}
+                  {author.slug && (
+                    <Link
+                      href={`/author/${author.slug}`}
+                      className="mt-2.5 flex items-center justify-center gap-1.5 w-full py-2 bg-french_blue hover:bg-bright_teal_blue text-white rounded-xl text-xs font-bold transition-colors shadow-sm"
+                    >
+                      Ver perfil completo del autor <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   )}
                 </div>
               </div>

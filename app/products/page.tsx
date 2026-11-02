@@ -7,6 +7,9 @@ import SkeletonCard from "@/components/SkeletonCard";
 import Pagination from "@/components/Pagination";
 import { PackageSearch, Filter, List, LayoutGrid } from "lucide-react";
 import type { Product } from "@/lib/types";
+import { CollectionPageSchema, BreadcrumbSchema } from "@/components/SEOSchema";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
 function ProductsContent() {
   const searchParams = useSearchParams();
@@ -44,6 +47,25 @@ function ProductsContent() {
 
   return (
     <main className="min-h-screen bg-[#eef8fb]">
+      {/* Dynamic SEO Schemas */}
+      <CollectionPageSchema
+        name="Catálogo de Productos y Suplementos"
+        description="Descubra nuestra selección de suplementos nutricionales y productos de salud analizados rigurosamente."
+        url={`${SITE_URL}/products`}
+        items={products.map((p) => ({
+          name: p.name,
+          url: `${SITE_URL}/${p.slug}`,
+          image: p.image || undefined,
+          price: p.price,
+        }))}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Inicio", url: SITE_URL },
+          { name: "Productos", url: `${SITE_URL}/products` },
+        ]}
+      />
+
       {/* Header */}
       <section className="relative bg-[#010226] py-14 sm:py-20 overflow-hidden border-b border-french_blue/30">
         {/* Decorative elements matching the ocean theme */}

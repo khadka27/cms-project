@@ -1,5 +1,9 @@
 import type { MetadataRoute } from "next";
 
+// Ensure sitemap is dynamically generated so deleted or updated products immediately update
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
 const staticPages = [
@@ -37,64 +41,87 @@ function getQuantizedDate(intervalDays: number = 5): Date {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticEntries = staticPages.map((path) => ({
+  const defaultDate = getQuantizedDate(5);
+
+  const staticEntries: MetadataRoute.Sitemap = staticPages.map((path) => ({
     url: `${baseUrl}${path}`,
-    lastModified: getQuantizedDate(5),
+    lastModified: defaultDate,
     changeFrequency: "weekly" as const,
     priority: path === "" ? 1 : 0.6,
   }));
 
-  let subcategoryEntries: MetadataRoute.Sitemap = [];
-  let productEntries: MetadataRoute.Sitemap = [];
-
-  // Skip database queries if DATABASE_URL is not available (build-time)
+  // Skip database queries if DATABASE_URL is not available (build-time without DB)
   if (!process.env.DATABASE_URL) {
-    console.warn(
-      "DATABASE_URL not set during sitemap generation, using static pages only",
-    );
     return staticEntries;
   }
 
   try {
-    // Lazy import to avoid connection errors during build
     const prisma = (await import("@/lib/db")).default;
 
-    const [subcategories, products, articles] = await Promise.all([
+    // Fetch ONLY published products, published articles, active subcategories, and authors
+    const [subcategories, products, articles, authors] = await Promise.all([
       prisma.subcategory.findMany({
         select: { slug: true, updatedAt: true, createdAt: true },
       }),
       prisma.product.findMany({
+        where: { status: "PUBLISHED" },
         select: { slug: true, updatedAt: true, createdAt: true },
       }),
       (prisma as any).article.findMany({
+        where: { status: "PUBLISHED" },
         select: { slug: true, updatedAt: true, publishedAt: true },
+      }),
+      (prisma as any).author.findMany({
+        select: { slug: true, updatedAt: true, createdAt: true },
       }),
     ]);
 
-    subcategoryEntries = subcategories.map((subcategory: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
-      url: `${baseUrl}/subcategory/${subcategory.slug}`,
-      lastModified: getQuantizedDate(5),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    }));
+    const subcategoryEntries: MetadataRoute.Sitemap = subcategories.map(
+      (sub: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
+        url: `${baseUrl}/subcategory/${sub.slug}`,
+        lastModified: sub.updatedAt || sub.createdAt || defaultDate,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      })
+    );
 
-    productEntries = products.map((product: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
-      url: `${baseUrl}/${product.slug}`,
-      lastModified: getQuantizedDate(5),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    }));
+    // Only active, published products appear in sitemap (deleted or draft items are excluded)
+    const productEntries: MetadataRoute.Sitemap = products.map(
+      (prod: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
+        url: `${baseUrl}/${prod.slug}`,
+        lastModified: prod.updatedAt || prod.createdAt || defaultDate,
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })
+    );
 
-    const articleEntries: MetadataRoute.Sitemap = articles.map((a: { slug: string; updatedAt: Date; publishedAt: Date | null }) => ({
-      url: `${baseUrl}/article/${a.slug}`,
-      lastModified: getQuantizedDate(5),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    }));
+    const articleEntries: MetadataRoute.Sitemap = articles.map(
+      (art: { slug: string; updatedAt: Date; publishedAt: Date | null }) => ({
+        url: `${baseUrl}/article/${art.slug}`,
+        lastModified: art.updatedAt || art.publishedAt || defaultDate,
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })
+    );
 
-    return [...staticEntries, ...subcategoryEntries, ...productEntries, ...articleEntries];
+    const authorEntries: MetadataRoute.Sitemap = authors.map(
+      (aut: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
+        url: `${baseUrl}/author/${aut.slug}`,
+        lastModified: aut.updatedAt || aut.createdAt || defaultDate,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })
+    );
+
+    return [
+      ...staticEntries,
+      ...subcategoryEntries,
+      ...productEntries,
+      ...articleEntries,
+      ...authorEntries,
+    ];
   } catch (error) {
-    console.warn("Database unavailable during sitemap generation, using static pages only", error);
+    console.warn("Database query during sitemap generation failed, falling back to static:", error);
     return staticEntries;
   }
 }

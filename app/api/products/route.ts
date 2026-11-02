@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/db';
 // Diagnostic: Force rebuild v3 after successful pnpm prisma generate
 
@@ -151,6 +152,14 @@ export async function POST(req: NextRequest) {
           console.error('[Products POST] Error notifying subscribers:', mailErr);
         }
       })();
+    }
+
+    // Invalidate sitemap & catalog caches so new product is immediately indexed
+    revalidatePath('/sitemap.xml');
+    revalidatePath('/products');
+    revalidatePath('/');
+    if (created?.slug) {
+      revalidatePath(`/${created.slug}`);
     }
     
     return NextResponse.json(created, { status: 201 });
