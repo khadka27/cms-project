@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/db';
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -47,6 +48,19 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         authorId: body.authorId || null,
       },
     });
+
+    try {
+      revalidatePath('/article');
+      revalidatePath('/article/' + article.slug);
+      if (existing.slug !== article.slug) {
+        revalidatePath('/article/' + existing.slug);
+      }
+      revalidatePath('/sitemap.xml');
+      revalidatePath('/');
+    } catch (e) {
+      console.error('Revalidation error:', e);
+    }
+
     return NextResponse.json(article);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update article' }, { status: 500 });
@@ -56,7 +70,24 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
+    const existing = await (prisma.article as any).findUnique({
+      where: { id },
+      select: { slug: true },
+    });
+
     await (prisma.article as any).delete({ where: { id } });
+
+    try {
+      revalidatePath('/article');
+      if (existing?.slug) {
+        revalidatePath('/article/' + existing.slug);
+      }
+      revalidatePath('/sitemap.xml');
+      revalidatePath('/');
+    } catch (e) {
+      console.error('Revalidation error:', e);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete article' }, { status: 500 });

@@ -22,6 +22,9 @@ import { AuthorProfileSchema, BreadcrumbSchema } from "@/components/SEOSchema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface AuthorPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -34,12 +37,11 @@ async function getAuthor(slug: string) {
         products: {
           where: { status: "PUBLISHED" },
           orderBy: { createdAt: "desc" },
-          take: 12,
+          include: { subcategory: true },
         },
         articles: {
           where: { status: "PUBLISHED" },
-          orderBy: { publishedAt: "desc" },
-          take: 12,
+          orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
         },
       },
     });
@@ -119,7 +121,7 @@ export default async function AuthorProfilePage({ params }: AuthorPageProps) {
       <BreadcrumbSchema
         items={[
           { name: "Inicio", url: SITE_URL },
-          { name: "Autores", url: `${SITE_URL}/about` },
+          { name: "Autores", url: `${SITE_URL}/author` },
           { name: author.name, url: `${SITE_URL}/author/${author.slug}` },
         ]}
       />
@@ -129,7 +131,7 @@ export default async function AuthorProfilePage({ params }: AuthorPageProps) {
         <Breadcrumb
           crumbs={[
             { label: "Inicio", href: "/" },
-            { label: "Sobre Nosotros", href: "/about" },
+            { label: "Autores", href: "/author" },
             { label: author.name },
           ]}
         />
@@ -330,6 +332,27 @@ export default async function AuthorProfilePage({ params }: AuthorPageProps) {
             {author.products.map((prod: any) => (
               <ProductCard key={prod.id} product={prod} />
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* Fallback if author has neither published articles nor products */}
+      {author.articles.length === 0 && author.products.length === 0 && (
+        <section className="max-w-2xl mx-auto px-4 sm:px-6 mt-12 text-center">
+          <div className="bg-white rounded-3xl p-10 border border-light_cyan/70 shadow-sm">
+            <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-slate-800 mb-2">
+              Próximamente más publicaciones de {author.name}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-md mx-auto mb-6">
+              Este autor está preparando nuevas revisiones de suplementos y guías nutricionales con base científica.
+            </p>
+            <Link
+              href="/author"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-bright_teal_blue text-white font-bold text-xs hover:bg-french_blue transition-colors"
+            >
+              Ver todos los autores <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </section>
       )}

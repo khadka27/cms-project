@@ -208,6 +208,100 @@ async function main() {
 
         console.log('✓ Sample products ready');
 
+        // Create or ensure sample authors
+        console.log('\n🧑‍⚕️ Ensuring sample authors...');
+        const author1 = await prisma.author.upsert({
+            where: { slug: 'dra-elena-ramos' },
+            update: {},
+            create: {
+                name: 'Dra. Elena Ramos Morales',
+                slug: 'dra-elena-ramos',
+                title: 'Doctora en Farmacia y Nutrición Clínica',
+                bio: 'Especialista en biodisponibilidad de micronutrientes, suplementación preventiva y fitoterapia.',
+                expertise: 'Biodisponibilidad, Vitaminas y Minerales, Fitoterapia, Nutrición Preventiva',
+                avatar: 'https://images.unsplash.com/photo-1594824813583-059d435ef285?w=400&auto=format&fit=crop&q=80',
+                website: 'https://nutritionalreviews.org/author/dra-elena-ramos',
+                twitter: '@DraElenaRamos',
+                linkedin: 'https://linkedin.com/in/dra-elena-ramos-nutricion',
+                rating: 4.95,
+                reviewCount: 38,
+            },
+        });
+
+        const author2 = await prisma.author.upsert({
+            where: { slug: 'dr-alejandro-mendez' },
+            update: {},
+            create: {
+                name: 'Dr. Alejandro Méndez Silva',
+                slug: 'dr-alejandro-mendez',
+                title: 'Especialista en Medicina Deportiva y Rendimiento',
+                bio: 'Médico deportivo y asesor nutricional para atletas de resistencia y fuerza.',
+                expertise: 'Nutrición Deportiva, Proteínas y Aminoácidos, Rendimiento Físico, Salud Articular',
+                avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80',
+                website: 'https://nutritionalreviews.org/author/dr-alejandro-mendez',
+                twitter: '@DrMendezDeporte',
+                linkedin: 'https://linkedin.com/in/dr-alejandro-mendez-deporte',
+                rating: 4.92,
+                reviewCount: 29,
+            },
+        });
+
+        const author3 = await prisma.author.upsert({
+            where: { slug: 'lic-sofia-valenzuela' },
+            update: {},
+            create: {
+                name: 'Lic. Sofía Valenzuela Cruz',
+                slug: 'lic-sofia-valenzuela',
+                title: 'Dietista-Nutricionista y Educadora en Salud Digestiva',
+                bio: 'Graduada en Nutrición Humana y Dietética. Centrada en el estudio del microbioma intestinal.',
+                expertise: 'Microbiota Intestinal, Probióticos, Salud Digestiva, Nutrición Funcional',
+                avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&auto=format&fit=crop&q=80',
+                website: 'https://nutritionalreviews.org/author/lic-sofia-valenzuela',
+                twitter: '@SofiaValenzuelaNutri',
+                linkedin: 'https://linkedin.com/in/lic-sofia-valenzuela',
+                rating: 4.90,
+                reviewCount: 22,
+            },
+        });
+        console.log('✓ Authors ready');
+
+        // Link products to authors and publish
+        await prisma.product.updateMany({
+            where: { slug: 'vitamin-d3-1000-iu' },
+            data: { authorId: author1.id, status: 'PUBLISHED' },
+        });
+        await prisma.product.updateMany({
+            where: { slug: 'whey-protein-powder' },
+            data: { authorId: author2.id, status: 'PUBLISHED' },
+        });
+        await prisma.product.updateMany({
+            where: { slug: 'home-treadmill-pro' },
+            data: { authorId: author2.id, status: 'PUBLISHED' },
+        });
+
+        // Create sample articles
+        console.log('\n📰 Ensuring sample articles...');
+        const now = new Date();
+        await prisma.article.upsert({
+            where: { slug: 'guia-completa-vitamina-d3-beneficios-dosis' },
+            update: {},
+            create: {
+                title: 'Guía Completa de la Vitamina D3: Beneficios, Dosis Óptima y Cómo Mejorar su Absorción',
+                slug: 'guia-completa-vitamina-d3-beneficios-dosis',
+                authorId: author1.id,
+                status: 'PUBLISHED',
+                isHero: true,
+                publishedAt: now,
+                excerpt: 'Descubra la ciencia detrás del colecalciferol (D3), por qué el 60% de la población presenta insuficiencia y cómo combinarla con K2.',
+                featuredImage: 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=1200&auto=format&fit=crop&q=80',
+                featuredImageAlt: 'Cápsulas de Vitamina D3',
+                metaTitle: 'Guía Completa de Vitamina D3 | NutritionalReviews',
+                metaDescription: 'Análisis científico sobre la vitamina D3, dosis y pautas de absorción.',
+                content: '<h2>¿Por qué la Vitamina D3 es fundamental?</h2><p>La vitamina D3 actúa como una hormona esteroidea...</p>',
+            },
+        });
+        console.log('✓ Articles ready');
+
         console.log('\n✅ Database seed completed successfully!\n');
         console.log('📝 Admin Credentials:');
         console.log(`   Email: ${email}`);

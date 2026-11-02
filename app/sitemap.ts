@@ -12,6 +12,7 @@ const staticPages = [
   "/contact",
   "/products",
   "/article",
+  "/author",
   "/legal",
   "/legal/privacy",
   "/legal/terms",

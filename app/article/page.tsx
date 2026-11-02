@@ -6,6 +6,9 @@ import { CollectionPageSchema, BreadcrumbSchema } from "@/components/SEOSchema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nutritionalreviews.org";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: "Guías y Artículos | NutritionalReviews",
   description: "Lea nuestras últimas guías, consejos de salud y análisis de productos.",
@@ -15,7 +18,7 @@ export const metadata = {
 };
 
 export default async function ArticlesIndexPage() {
-  const allArticles = await prisma.article.findMany({
+  const allArticles = await (prisma.article as any).findMany({
     where: {
       status: "PUBLISHED",
     },
@@ -27,6 +30,7 @@ export default async function ArticlesIndexPage() {
       featuredImage: true,
       featuredImageAlt: true,
       publishedAt: true,
+      createdAt: true,
       author: {
         select: {
           name: true,
@@ -36,9 +40,10 @@ export default async function ArticlesIndexPage() {
         },
       },
     },
-    orderBy: {
-      publishedAt: "desc",
-    },
+    orderBy: [
+      { publishedAt: "desc" },
+      { createdAt: "desc" },
+    ],
   });
 
   const heroArticle = allArticles[0] ?? null;
@@ -53,7 +58,7 @@ export default async function ArticlesIndexPage() {
         name="Guías y Artículos de Salud y Nutrición"
         description="Consejos de expertos, análisis profundos y guías completas para ayudarle a tomar las mejores decisiones sobre su bienestar."
         url={`${SITE_URL}/article`}
-        items={allArticles.map((a) => ({
+        items={allArticles.map((a: any) => ({
           name: a.title,
           url: `${SITE_URL}/article/${a.slug}`,
           image: a.featuredImage || undefined,
@@ -193,7 +198,7 @@ export default async function ArticlesIndexPage() {
                     </h3>
                   )}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {otherArticles.map((article) => (
+                    {otherArticles.map((article: any) => (
                       <Link
                         key={article.id}
                         href={`/article/${article.slug}`}

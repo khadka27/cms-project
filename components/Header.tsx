@@ -13,6 +13,7 @@ import {
   ShoppingBag,
   Sparkles,
   ChevronRight,
+  Users,
 } from "lucide-react";
 import SearchBar from "./SearchBar";
 
@@ -93,136 +94,134 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full pt-2.5 sm:pt-4 pb-2 px-3 sm:px-6 lg:px-8 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          visible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]"
+        className={`sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-light_cyan/80 transition-all duration-300 ${
+          scrolled
+            ? "shadow-[0_4px_25px_rgba(3,4,94,0.08)] bg-white/98 border-bright_teal_blue/30"
+            : "shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+        } ${
+          visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="max-w-5xl mx-auto">
-          {/* ── Floating Pill Navbar ── */}
-          <div
-            className={`relative bg-white/95 backdrop-blur-xl rounded-full border border-turquoise_surf/35 shadow-[0_8px_30px_rgb(0,0,0,0.06)] px-3.5 sm:px-8 py-2 sm:py-3 transition-all duration-300 ${
-              scrolled
-                ? "shadow-lg border-bright_teal_blue/40 bg-white/98"
-                : ""
-            }`}
-          >
-            <div className="flex items-center justify-between min-h-[44px] sm:min-h-[48px]">
-              {/* ── Left Navigation: Article, Guide, About ── */}
-              <div className="flex items-center gap-6 lg:gap-8 flex-1 justify-start">
-                {/* Mobile Hamburger Toggle Button */}
-                <button
-                  id="mobile-menu-toggle"
-                  onClick={() => {
-                    setMobileOpen(!mobileOpen);
-                    setSearchOpen(false);
-                  }}
-                  className={`md:hidden w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 active:scale-95 cursor-pointer ${
-                    mobileOpen
-                      ? "bg-french_blue text-white shadow-md shadow-french_blue/25"
-                      : "bg-slate-50 hover:bg-light_cyan/50 text-slate-800 hover:text-french_blue border border-slate-200/80 shadow-xs"
-                  }`}
-                  aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
-                  aria-expanded={mobileOpen}
-                >
-                  {mobileOpen ? (
-                    <X className="w-5 h-5 text-white" />
-                  ) : (
-                    <Menu className="w-5 h-5 text-slate-800" />
-                  )}
-                </button>
+        {/* Subtle top accent bar in brand gradient */}
+        <div className="h-0.5 w-full bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
 
-                {/* Desktop Left Links: Artículos, Guías, Nosotros */}
-                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación izquierda">
-                  <Link
-                    href="/article"
-                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
-                  >
-                    Artículos
-                  </Link>
-                  <Link
-                    href="/article"
-                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
-                  >
-                    Guías
-                  </Link>
-                  <Link
-                    href="/about"
-                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
-                  >
-                    Nosotros
-                  </Link>
-                </nav>
-              </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20 relative">
+            {/* ── Left Navigation: Article, Author, About ── */}
+            <div className="flex items-center gap-6 lg:gap-8 flex-1 justify-start">
+              {/* Mobile Hamburger Toggle Button */}
+              <button
+                id="mobile-menu-toggle"
+                onClick={() => {
+                  setMobileOpen(!mobileOpen);
+                  setSearchOpen(false);
+                }}
+                className={`md:hidden w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 active:scale-95 cursor-pointer ${
+                  mobileOpen
+                    ? "bg-french_blue text-white shadow-md shadow-french_blue/25"
+                    : "bg-slate-50 hover:bg-light_cyan/50 text-slate-800 hover:text-french_blue border border-slate-200/80 shadow-xs"
+                }`}
+                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={mobileOpen}
+              >
+                {mobileOpen ? (
+                  <X className="w-5 h-5 text-white" />
+                ) : (
+                  <Menu className="w-5 h-5 text-slate-800" />
+                )}
+              </button>
 
-              {/* ── Center: Circular Protruding Logo Badge ── */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
+              {/* Desktop Left Links: Artículos, Autores, Nosotros */}
+              <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación izquierda">
                 <Link
-                  href="/"
-                  className="block group"
-                  aria-label="NutritionalReviews Home"
+                  href="/article"
+                  className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-[84px] md:h-[84px] rounded-full bg-white border-2 border-turquoise_surf/50 shadow-xl shadow-bright_teal_blue/20 ring-4 ring-white flex items-center justify-center p-1.5 sm:p-2 transition-all duration-300 group-hover:scale-105 group-hover:border-bright_teal_blue group-hover:shadow-bright_teal_blue/35 cursor-pointer">
-                    <img
-                      src="/logo.png"
-                      alt="NutritionalReviews logo"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
+                  Artículos
                 </Link>
-              </div>
-
-              {/* ── Right Navigation: Productos, Contacto, Búsqueda ── */}
-              <div className="flex items-center gap-4 sm:gap-6 flex-1 justify-end">
-                <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación derecha">
-                  <Link
-                    href="/products"
-                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
-                  >
-                    Productos
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
-                  >
-                    Contacto
-                  </Link>
-                </nav>
-
-                {/* Search Toggle Button */}
-                <button
-                  id="search-toggle"
-                  onClick={() => {
-                    setSearchOpen(!searchOpen);
-                    setMobileOpen(false);
-                  }}
-                  className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 active:scale-95 cursor-pointer ${
-                    searchOpen
-                      ? "bg-french_blue text-white shadow-md shadow-french_blue/25 scale-105"
-                      : "text-slate-700 hover:text-bright_teal_blue hover:bg-light_cyan/40 bg-slate-50 sm:bg-transparent border border-slate-200/80 sm:border-transparent"
-                  }`}
-                  aria-label={searchOpen ? "Cerrar búsqueda" : "Buscar productos"}
+                <Link
+                  href="/author"
+                  className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                 >
-                  {searchOpen ? (
-                    <X className="w-4.5 h-4.5 animate-in spin-in-90 duration-200" />
-                  ) : (
-                    <Search className="w-4.5 h-4.5" />
-                  )}
-                </button>
-              </div>
+                  Autores
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                >
+                  Nosotros
+                </Link>
+              </nav>
+            </div>
+
+            {/* ── Center: Circular Brand Logo Badge ── */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
+              <Link
+                href="/"
+                className="block group"
+                aria-label="NutritionalReviews Home"
+              >
+                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-white border-2 border-turquoise_surf/50 shadow-md shadow-bright_teal_blue/15 ring-2 ring-light_cyan/60 flex items-center justify-center p-1.5 sm:p-2 transition-all duration-300 group-hover:scale-105 group-hover:border-bright_teal_blue group-hover:shadow-bright_teal_blue/30 cursor-pointer">
+                  <img
+                    src="/logo.png"
+                    alt="NutritionalReviews logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </Link>
+            </div>
+
+            {/* ── Right Navigation: Productos, Contacto, Búsqueda ── */}
+            <div className="flex items-center gap-4 sm:gap-6 flex-1 justify-end">
+              <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación derecha">
+                <Link
+                  href="/products"
+                  className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                >
+                  Productos
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                >
+                  Contacto
+                </Link>
+              </nav>
+
+              {/* Search Toggle Button */}
+              <button
+                id="search-toggle"
+                onClick={() => {
+                  setSearchOpen(!searchOpen);
+                  setMobileOpen(false);
+                }}
+                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 active:scale-95 cursor-pointer ${
+                  searchOpen
+                    ? "bg-french_blue text-white shadow-md shadow-french_blue/25 scale-105"
+                    : "text-slate-700 hover:text-bright_teal_blue hover:bg-light_cyan/40 bg-slate-50 sm:bg-transparent border border-slate-200/80 sm:border-transparent"
+                }`}
+                aria-label={searchOpen ? "Cerrar búsqueda" : "Buscar productos"}
+              >
+                {searchOpen ? (
+                  <X className="w-4.5 h-4.5 animate-in spin-in-90 duration-200" />
+                ) : (
+                  <Search className="w-4.5 h-4.5" />
+                )}
+              </button>
             </div>
           </div>
+        </div>
 
-          {/* ── Floating Search Bar Popover With Smooth Open/Close Animation ── */}
-          <div
-            className={`transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform ${
-              searchOpen
-                ? "max-h-[720px] opacity-100 scale-100 translate-y-0 mt-3 pointer-events-auto"
-                : "max-h-0 opacity-0 scale-95 -translate-y-3 mt-0 pointer-events-none"
-            }`}
-          >
-            <div className="w-full max-w-2xl mx-auto bg-white/98 backdrop-blur-2xl rounded-3xl border-2 border-turquoise_surf/35 shadow-2xl shadow-french_blue/15 p-4 sm:p-5">
-              <SearchBar onClose={() => setSearchOpen(false)} autoFocus={searchOpen} />
-            </div>
+        {/* ── Search Bar Dropdown With Smooth Animation ── */}
+        <div
+          className={`transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] border-t border-slate-100 bg-white/98 backdrop-blur-2xl shadow-xl ${
+            searchOpen
+              ? "max-h-[720px] opacity-100 py-4 px-4 sm:px-6 pointer-events-auto"
+              : "max-h-0 opacity-0 py-0 px-4 sm:px-6 pointer-events-none overflow-hidden"
+          }`}
+        >
+          <div className="w-full max-w-2xl mx-auto">
+            <SearchBar onClose={() => setSearchOpen(false)} autoFocus={searchOpen} />
           </div>
         </div>
       </header>
@@ -320,6 +319,7 @@ export default function Header() {
               {[
                 { href: "/products", label: "Catálogo de Productos", icon: LayoutGrid, desc: "Explora todos los análisis verificados" },
                 { href: "/article", label: "Guías de Compra y Artículos", icon: BookOpen, desc: "Consejos de expertos y análisis" },
+                { href: "/author", label: "Autores y Revisores Expertos", icon: Users, desc: "Comité científico y equipo editorial" },
                 { href: "/about", label: "Sobre Nuestro Laboratorio", icon: Info, desc: "Proceso editorial y metodología" },
                 { href: "/contact", label: "Contáctenos", icon: Mail, desc: "Consultas y soporte" },
               ].map((item) => (

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/db';
 
 export async function GET(req: NextRequest) {
@@ -54,6 +55,16 @@ export async function POST(req: NextRequest) {
         authorId: body.authorId || null,
       },
     });
+
+    try {
+      revalidatePath('/article');
+      revalidatePath('/article/' + article.slug);
+      revalidatePath('/sitemap.xml');
+      revalidatePath('/');
+    } catch (e) {
+      console.error('Revalidation error:', e);
+    }
+
     return NextResponse.json(article, { status: 201 });
   } catch (error) {
     console.error('Articles POST error:', error);

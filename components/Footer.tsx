@@ -49,6 +49,7 @@ function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
 const exploreLinks = [
   { label: "Catálogo de Productos", href: "/products" },
   { label: "Guías de Compra y Artículos", href: "/article" },
+  { label: "Autores y Revisores", href: "/author" },
   { label: "Sobre Nosotros", href: "/about" },
   { label: "Centro de Contacto", href: "/contact" },
   { label: "Políticas y Avisos Legales", href: "/legal" },
@@ -64,6 +65,7 @@ const categoryLinks = [
 
 const companyLinks = [
   { label: "Sobre Nosotros", href: "/about" },
+  { label: "Autores y Comité Científico", href: "/author" },
   { label: "Contáctenos", href: "/contact" },
   { label: "Proceso Editorial", href: "/legal/editorial" },
   { label: "Cómo Analizamos Productos", href: "/legal/how-we-review" },
