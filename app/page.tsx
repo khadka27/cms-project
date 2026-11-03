@@ -31,7 +31,76 @@ import {
   HeartHandshake,
   BookOpen,
   Stethoscope,
+  ChevronDown,
+  Leaf,
 } from "lucide-react";
+
+/* ─── Category Icon Resolver ────────────────────────────────────────────── */
+function getCategoryIcon(name: string) {
+  const n = (name || "").toLowerCase();
+  if (
+    n.includes("memoria") ||
+    n.includes("nootr") ||
+    n.includes("concentr") ||
+    n.includes("cerebr") ||
+    n.includes("enfoque") ||
+    n.includes("cognit")
+  ) {
+    return Sparkles;
+  }
+  if (
+    n.includes("peso") ||
+    n.includes("quema") ||
+    n.includes("apetit") ||
+    n.includes("grasa") ||
+    n.includes("adelgazar") ||
+    n.includes("metabol")
+  ) {
+    return Flame;
+  }
+  if (
+    n.includes("femenin") ||
+    n.includes("mujer") ||
+    n.includes("masculin") ||
+    n.includes("hombre") ||
+    n.includes("vitalidad") ||
+    n.includes("hormon")
+  ) {
+    return HeartHandshake;
+  }
+  if (
+    n.includes("articular") ||
+    n.includes("colágeno") ||
+    n.includes("colageno") ||
+    n.includes("hueso") ||
+    n.includes("muscul") ||
+    n.includes("movilidad")
+  ) {
+    return ShieldCheck;
+  }
+  if (
+    n.includes("omega") ||
+    n.includes("cardio") ||
+    n.includes("coraz") ||
+    n.includes("presion") ||
+    n.includes("circul")
+  ) {
+    return Zap;
+  }
+  if (
+    n.includes("cúrcuma") ||
+    n.includes("curcuma") ||
+    n.includes("hierba") ||
+    n.includes("natural") ||
+    n.includes("vitamina") ||
+    n.includes("vegetal") ||
+    n.includes("proteina") ||
+    n.includes("antiox")
+  ) {
+    return Leaf;
+  }
+  return LayoutGrid;
+}
 
 /* ─── Section Heading Component ─────────────────────────────────────────── */
 function SectionHeading({
@@ -77,6 +146,7 @@ export default function HomePage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const [activeSpotlightIndex, setActiveSpotlightIndex] = useState(0);
   const [selectedSubcategoryFilter, setSelectedSubcategoryFilter] = useState<string>("all");
+  const [showAllCategories, setShowAllCategories] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -105,6 +175,10 @@ export default function HomePage() {
   }, [activeCategory]);
 
   const latestProducts = useMemo(() => products.slice(0, 8), [products]);
+  const displayedSubcategories = useMemo(() => {
+    if (showAllCategories || subcategories.length <= 10) return subcategories;
+    return subcategories.slice(0, 10);
+  }, [showAllCategories, subcategories]);
   const spotlightProduct = products[activeSpotlightIndex] || products[0];
 
   // Auto-cycle through top 4 products in spotlight if available
@@ -586,7 +660,7 @@ export default function HomePage() {
           4. BROWSE BY CATEGORY / COLLECTIONS
       ══════════════════════════════════════════════════════════════════════ */}
       {subcategories.length > 0 && (
-        <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-turquoise_surf/20">
+        <section id="categories" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-turquoise_surf/20">
           <div className="max-w-7xl mx-auto">
             <SectionHeading
               label="Categorías Seleccionadas"
@@ -811,63 +885,97 @@ export default function HomePage() {
                 </div>
               </div>
             ) : (
-              <div
-                className={
-                  subcategories.length === 2
-                    ? "grid grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto gap-6"
-                    : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-                }
-              >
-                {subcategories.map((sub, idx) => (
-                  <Link
-                    key={sub.id}
-                    href={`/products?subcategory=${sub.slug}`}
-                    className="group relative h-[280px] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-light_cyan hover:border-turquoise_surf transition-all duration-300 flex flex-col justify-end p-6 bg-deep_twilight"
-                  >
-                    {sub.image ? (
-                      <Image
-                        src={sub.image}
-                        alt={sub.name}
-                        fill
-                        className="object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-[#023e8a] flex items-center justify-center overflow-hidden">
-                        <div className="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-turquoise_surf/15 blur-xl pointer-events-none" />
-                        <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-light_cyan group-hover:scale-110 group-hover:bg-white/15 transition-all">
-                          <LayoutGrid className="w-8 h-8" />
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
+                  {displayedSubcategories.map((sub, idx) => {
+                    const IconComponent = getCategoryIcon(sub.name);
+                    const prodCount = products.filter((p) => p.subcategoryId === sub.id).length;
+
+                    return (
+                      <Link
+                        key={sub.id}
+                        href={`/products?subcategory=${sub.slug}`}
+                        className="group relative bg-white hover:bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 hover:border-bright_teal_blue/50 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                      >
+                        {/* Top subtle hover accent */}
+                        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-french_blue via-bright_teal_blue to-turquoise_surf opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
+
+                        <div>
+                          {/* Header row: Icon & Count Badges */}
+                          <div className="flex items-start justify-between gap-2">
+                            {sub.image ? (
+                              <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-slate-100 shadow-2xs shrink-0 bg-slate-50">
+                                <Image
+                                  src={sub.image}
+                                  alt={sub.name}
+                                  fill
+                                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#eef8fb] to-light_cyan/80 text-french_blue flex items-center justify-center border border-light_cyan/80 group-hover:bg-french_blue group-hover:text-white group-hover:border-french_blue transition-all duration-300 shadow-2xs shrink-0">
+                                <IconComponent className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                              </div>
+                            )}
+
+                            <div className="flex flex-col items-end gap-1">
+                              {idx < 2 && (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-extrabold uppercase tracking-wider border border-amber-200/60 shadow-2xs">
+                                  <Sparkles className="w-2.5 h-2.5 text-amber-500 fill-amber-500" />
+                                  Popular
+                                </span>
+                              )}
+                              <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 group-hover:bg-light_cyan/60 group-hover:text-deep_twilight px-2 py-0.5 rounded-full transition-colors">
+                                {prodCount} {prodCount === 1 ? "análisis" : "análisis"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="text-slate-900 font-bold text-base sm:text-lg leading-snug group-hover:text-french_blue transition-colors mt-3.5 line-clamp-1">
+                            {sub.name}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed mt-1.5 group-hover:text-slate-600">
+                            {sub.description || "Guías comparativas, dosis recomendadas y análisis de pureza verificados."}
+                          </p>
                         </div>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-deep_twilight/95 via-deep_twilight/60 to-transparent" />
 
-                    <div className="relative z-10 space-y-2">
-                      <div className="flex items-center gap-2">
-                        {idx < 2 && (
-                          <span className="inline-block px-2.5 py-0.5 rounded-full bg-bright_teal_blue text-white text-[9px] font-black uppercase tracking-widest">
-                            Popular
-                          </span>
-                        )}
-                        <span className="text-[10px] font-bold text-light_cyan bg-white/10 px-2 py-0.5 rounded-md border border-white/20">
-                          {products.filter((p) => p.subcategoryId === sub.id).length} Análisis
-                        </span>
-                      </div>
+                        {/* Footer Action */}
+                        <div className="pt-3.5 mt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-french_blue group-hover:text-bright_teal_blue transition-colors">
+                          <span>Explorar Categoría</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
 
-                      <h3 className="text-white font-black text-xl leading-snug group-hover:text-light_cyan transition-colors">
-                        {sub.name}
-                      </h3>
-                      {sub.description && (
-                        <p className="text-light_cyan/80 text-xs line-clamp-2 leading-relaxed">
-                          {sub.description}
-                        </p>
-                      )}
-                      <div className="pt-2 flex items-center gap-1.5 text-xs font-bold text-turquoise_surf group-hover:text-white transition-colors">
-                        <span>Explorar Categoría</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                {/* View More / View Less Toggle Button */}
+                {subcategories.length > 10 && (
+                  <div className="mt-10 sm:mt-12 flex flex-col items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowAllCategories((prev) => !prev)}
+                      className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-white hover:bg-[#eef8fb] text-french_blue hover:text-deep_twilight font-bold text-sm border-2 border-french_blue/20 hover:border-french_blue shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer group"
+                    >
+                      <span>
+                        {showAllCategories
+                          ? "Mostrar menos categorías"
+                          : `Ver más categorías (${subcategories.length - 10} adicionales)`}
+                      </span>
+                      <ChevronDown
+                        className={`w-4 h-4 text-bright_teal_blue transition-transform duration-300 ${
+                          showAllCategories ? "rotate-180" : "group-hover:translate-y-0.5"
+                        }`}
+                      />
+                    </button>
+                    <span className="text-xs text-slate-500 font-medium">
+                      Mostrando {displayedSubcategories.length} de {subcategories.length} categorías disponibles
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </div>
