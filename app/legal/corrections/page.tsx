@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle, AlertTriangle, HelpCircle, FileText, Info, RefreshCw, Mail } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Política de Correcciones y Transparencia | NutritionalReviews.org",
+  description: "Conozca cómo gestionamos las correcciones editoriales, rectificaciones de datos de productos y actualizaciones de información.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/corrections",
+  },
+};
 
 export default function CorrectionsPolicyPage() {
   return (

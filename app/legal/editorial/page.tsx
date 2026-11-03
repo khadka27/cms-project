@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, HelpCircle, FileText, CheckCircle, AlertTriangle, RefreshCw, Mail } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Proceso y Política Editorial | NutritionalReviews.org",
+  description: "Conozca los estándares editoriales, metodología de investigación y criterios científicos que rigen nuestros contenidos.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/editorial",
+  },
+};
 
 export default function EditorialPolicyPage() {
   return (

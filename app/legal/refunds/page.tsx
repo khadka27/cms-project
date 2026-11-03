@@ -43,9 +43,9 @@ export default function RefundPolicyPage() {
             Dado que la compra se efectúa directamente en el sitio del vendedor oficial, las políticas de devolución, plazos de garantía y reembolsos son fijadas y administradas exclusivamente por dicho comerciante.
           </p>
           <ul className="list-disc pl-5 space-y-2 text-slate-600">
-            <li>La mayoría de las marcas de suplementos evaluadas ofrecen garantías de satisfacción de entre 30 y 180 días según el fabricante.</li>
-            <li>Le recomendamos verificar los términos de garantía y la política de reembolso específica en la pantalla de pago de la tienda oficial antes de confirmar su pedido.</li>
-            <li>Consulte la confirmación por correo electrónico emitida por el vendedor para localizar el número de pedido y los datos de atención al cliente correspondientes.</li>
+            <li>Cada fabricante o vendedor establece de forma independiente sus propias condiciones de devolución, plazos de garantía y reembolsos.</li>
+            <li>Debe verificar siempre los términos de garantía y la política de reembolso aplicable en la tienda oficial del vendedor antes de confirmar cualquier pedido.</li>
+            <li>Consulte la confirmación por correo electrónico emitida por el vendedor oficial tras la compra para localizar su número de orden y los canales directos de atención al cliente.</li>
           </ul>
 
           <hr className="border-slate-100" />

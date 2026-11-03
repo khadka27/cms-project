@@ -29,8 +29,12 @@ export default function ShippingPolicyPage() {
         </div>
 
         <section className="mt-8 space-y-6 text-sm sm:text-base text-slate-700 leading-relaxed">
+          <div className="p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-sm font-medium leading-relaxed">
+            <strong>Aviso de no comercialización directa:</strong> NutritionalReviews.org es un sitio de reseñas informativas y <strong>no vende, no cobra, no almacena ni envía productos físicos</strong>. Las compras se realizan de forma independiente y directa en la tienda oficial del vendedor mediante los enlaces que acompañan a cada reseña.
+          </div>
+
           <p>
-            NutritionalReviews.org proporciona análisis y comparativas de suplementos y productos de bienestar. Los envíos físicos de los productos reseñados son gestionados de principio a fin por las empresas vendedoras y sus operadores logísticos autorizados.
+            Los envíos y la logística de entrega de los suplementos reseñados son gestionados de principio a fin por las empresas vendedoras, sus distribuidores y sus respectivos operadores postales autorizados.
           </p>
 
           <hr className="border-slate-100" />
@@ -39,7 +43,7 @@ export default function ShippingPolicyPage() {
             1. Plazos de preparación y despacho
           </h2>
           <p>
-            La mayoría de los fabricantes y distribuidores autorizados despachan los pedidos en un plazo habitual de 24 a 48 horas hábiles tras la confirmación del pago.
+            Los plazos habituales de preparación dependen de cada fabricante o tienda oficial, despachando comúnmente en un plazo de 24 a 48 horas hábiles tras la confirmación de la orden en su propia plataforma.
           </p>
 
           <hr className="border-slate-100" />
@@ -48,8 +52,8 @@ export default function ShippingPolicyPage() {
             2. Tiempos estimados de entrega
           </h2>
           <ul className="list-disc pl-5 space-y-2 text-slate-600">
-            <li><strong>Envíos nacionales:</strong> Generalmente de 3 a 7 días hábiles según la región de destino.</li>
-            <li><strong>Envíos internacionales a Latinoamérica / España:</strong> De 7 a 20 días hábiles dependiendo de los trámites aduaneros locales de cada país (México, Colombia, Argentina, Chile, Perú, etc.).</li>
+            <li><strong>Envíos nacionales (locales al país del vendedor):</strong> Generalmente de 3 a 7 días hábiles según la región de destino.</li>
+            <li><strong>Envíos internacionales a países de América Latina:</strong> De 7 a 20 días hábiles dependiendo de la logística de cada vendedor y de los trámites aduaneros locales de cada país (México, Colombia, Argentina, Chile, Perú, etc.).</li>
           </ul>
 
           <hr className="border-slate-100" />

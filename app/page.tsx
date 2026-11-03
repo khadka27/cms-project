@@ -49,7 +49,6 @@ function SectionHeading({
     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-12">
       <div className="max-w-3xl">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-light_cyan text-deep_twilight font-extrabold text-[11px] tracking-widest uppercase mb-3 border border-frosted_blue/60">
-          <Sparkles className="w-3.5 h-3.5 text-bright_teal_blue" />
           <span>{label}</span>
         </div>
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
@@ -119,10 +118,10 @@ export default function HomePage() {
 
   const defaultHero: HeroSettings = {
     id: "default",
-    title: "Descubra Productos Destacados Con Análisis Claros para Compradores",
-    subtitle: "Pruebas Verificadas y Revisiones Editoriales",
+    title: "Reseñas de suplementos en español, para comparar antes de comprar",
+    subtitle: "Criterio Editorial y Análisis Basado en Fuentes Científicas",
     description:
-      "Nutritional Reviews ayuda a los compradores a evaluar productos populares de salud y nutrición mediante análisis detallados, desglose de características, pros y contras reales y verificación de precios antes de realizar un pedido.",
+      "NutritionalReviews.org es un sitio de reseñas de suplementos nutricionales, escrito en español para lectores de América Latina. En cada reseña reunimos qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y el lugar de compra verificados en la fecha indicada en el artículo.",
     backgroundImage: "",
     backgroundType: "gradient",
     gradientFrom: "#d4eff7",
@@ -142,7 +141,18 @@ export default function HomePage() {
   const hero = heroSettings || defaultHero;
 
   const renderHeroTitle = (title: string, highlightColor?: string) => {
-    if (!title) return "Descubra Productos Destacados Con Análisis Claros para Compradores";
+    if (!title) return "Reseñas de suplementos en español, para comparar antes de comprar";
+    if (title.includes(",")) {
+      const parts = title.split(",");
+      return (
+        <>
+          {parts[0]},{" "}
+          <span className="text-french_blue" style={highlightColor ? { color: highlightColor } : undefined}>
+            {parts.slice(1).join(",")}
+          </span>
+        </>
+      );
+    }
     if (title.includes("|")) {
       const [first, ...rest] = title.split("|");
       return (
@@ -222,7 +232,7 @@ export default function HomePage() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-bright_teal_blue" />
                 </span>
                 <span className="text-xs font-bold text-deep_twilight uppercase tracking-wider">
-                  {hero.subtitle || "Pruebas Verificadas y Revisiones Editoriales"}
+                  {hero.subtitle || "Criterio Editorial y Análisis Basado en Fuentes Científicas"}
                 </span>
               </div>
 
@@ -292,7 +302,7 @@ export default function HomePage() {
               <div className="pt-4 border-t border-turquoise_surf/30 grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 text-xs font-semibold text-slate-700">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-bright_teal_blue flex-shrink-0" />
-                  <span>100% Independiente</span>
+                  <span>Criterio Editorial Transparente</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-bright_teal_blue flex-shrink-0" />
@@ -671,11 +681,11 @@ export default function HomePage() {
                             <div className="bg-white rounded-2xl p-5 text-slate-900 border border-light_cyan shadow-xl space-y-4">
                               <div className="flex items-center justify-between">
                                 <span className="text-[10px] font-extrabold uppercase tracking-wider text-french_blue bg-light_cyan/60 px-2.5 py-1 rounded-md">
-                                  Mejor Elección Probada de la Categoría
+                                  Producto Destacado de la Categoría
                                 </span>
                                 <div className="flex items-center gap-1 text-xs font-black text-slate-900">
                                   <Star className="w-3.5 h-3.5 fill-bright_teal_blue text-bright_teal_blue" />
-                                  <span>4.9 / 5</span>
+                                  <span>Reseña Editorial</span>
                                 </div>
                               </div>
 

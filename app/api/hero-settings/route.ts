@@ -75,10 +75,10 @@ export async function GET() {
     if (!settings) {
       settings = await prisma.heroSettings.create({
         data: {
-          title: "Descubra Productos Destacados Con Análisis Claros para Compradores",
-          subtitle: "Pruebas Verificadas y Revisiones Editoriales",
+          title: "Reseñas de suplementos en español, para comparar antes de comprar",
+          subtitle: "Criterio Editorial y Análisis Basado en Fuentes Científicas",
           description:
-            "Nutritional Reviews ayuda a los compradores a evaluar productos populares de salud y nutrición mediante análisis detallados, desglose de características, pros y contras reales y verificación de precios antes de realizar un pedido.",
+            "NutritionalReviews.org es un sitio de reseñas de suplementos nutricionales, escrito en español para lectores de América Latina. En cada reseña reunimos qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y el lugar de compra verificados en la fecha indicada en el artículo.",
           backgroundImage: "",
           backgroundType: "GRADIENT",
           gradientFrom: "#d4eff7",
@@ -129,10 +129,10 @@ export async function PUT(req: NextRequest) {
     } else {
       updated = await prisma.heroSettings.create({
         data: {
-          title: "Descubra Productos Destacados Con Análisis Claros para Compradores",
-          subtitle: "Pruebas Verificadas y Revisiones Editoriales",
+          title: "Reseñas de suplementos en español, para comparar antes de comprar",
+          subtitle: "Criterio Editorial y Análisis Basado en Fuentes Científicas",
           description:
-            "Nutritional Reviews ayuda a los compradores a evaluar productos populares de salud y nutrición mediante análisis detallados, desglose de características, pros y contras reales y verificación de precios antes de realizar un pedido.",
+            "NutritionalReviews.org es un sitio de reseñas de suplementos nutricionales, escrito en español para lectores de América Latina. En cada reseña reunimos qué contiene un producto según su etiqueta, qué promete el fabricante, qué evidencia hay disponible, sus ventajas y desventajas, y el precio y el lugar de compra verificados en la fecha indicada en el artículo.",
           backgroundImage: "",
           backgroundType: "GRADIENT",
           gradientFrom: "#d4eff7",

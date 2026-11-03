@@ -40,9 +40,9 @@ export default function ProductCard({
       if (split.length > 0) return split.slice(0, 3);
     }
     return [
-      "Pruebas de Laboratorio 100% Independientes",
+      "Análisis Editorial de Suplementos",
       "Especificaciones Verificadas 2026",
-      "Garantía Oficial y Verificación de Devolución",
+      "Verificación de Fuentes y Puntos de Compra",
     ];
   }, [product.keyFeatures]);
 

@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HelpCircle, Star, ShieldAlert, List, AlertTriangle, RefreshCw, Mail, CheckCircle } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Metodología y Cómo Evaluamos Productos | NutritionalReviews.org",
+  description: "Descubra nuestra metodología paso a paso para analizar etiquetas, dosis, evidencia científica y precios verificados.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/how-we-review",
+  },
+};
 
 export default function HowWeReviewPage() {
   return (

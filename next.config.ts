@@ -27,47 +27,72 @@ const nextConfig = {
         destination: 'https://nutritionalreviews.org/:path*',
         permanent: true,
       },
-      // Spanish legal draft addresses permanently redirecting to primary /legal/ pages (no duplicate content)
+      // Spanish legal draft addresses permanently redirecting to primary /legal/ pages (HTTP 301)
       {
         source: '/politica-de-privacidad',
         destination: '/legal/privacy',
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: '/terminos-de-uso',
         destination: '/legal/terms',
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: '/descargo-de-responsabilidad',
         destination: '/legal/disclaimer',
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: '/divulgacion-de-afiliados',
         destination: '/legal/affiliate',
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: '/politica-de-cookies',
         destination: '/legal/cookies',
-        permanent: true,
+        statusCode: 301,
       },
-      // Spanish navigation addresses permanently redirecting to primary routes
+      // Spanish navigation addresses permanently redirecting to primary routes (HTTP 301)
       {
         source: '/quienes-somos',
         destination: '/about',
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: '/sobre-nosotros',
         destination: '/about',
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: '/contacto',
         destination: '/contact',
-        permanent: true,
+        statusCode: 301,
+      },
+      {
+        source: '/articulos',
+        destination: '/article',
+        statusCode: 301,
+      },
+      {
+        source: '/articles',
+        destination: '/article',
+        statusCode: 301,
+      },
+      {
+        source: '/autores',
+        destination: '/author',
+        statusCode: 301,
+      },
+      {
+        source: '/authors',
+        destination: '/author',
+        statusCode: 301,
+      },
+      {
+        source: '/productos',
+        destination: '/products',
+        statusCode: 301,
       },
     ];
   },

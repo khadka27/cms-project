@@ -112,7 +112,7 @@ export default function PrivacyPolicyPage() {
               Esos terceros pueden emplear sus propias cookies y herramientas de seguimiento para registrar el clic, la venta y la atribución de comisión correspondiente. Te recomendamos revisar sus políticas de privacidad individuales, ya que no controlamos sus prácticas externas.
             </p>
             <p>
-              También podemos utilizar herramientas de análisis y optimización de terceros, tales como Google Analytics, Bing Webmaster Tools y Google Search Console, con el fin de supervisar la disponibilidad técnica, la audiencia agregada y el posicionamiento del sitio web.
+              También podemos utilizar herramientas de análisis y optimización de terceros, tales como Google Analytics 4 (GA4), Google Search Console (GSC) y Bing Webmaster Tools, con el fin de supervisar la disponibilidad técnica, la audiencia agregada y el posicionamiento del sitio web.
             </p>
           </div>
 

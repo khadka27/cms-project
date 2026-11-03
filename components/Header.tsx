@@ -363,10 +363,10 @@ export default function Header() {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { name: "Tecnología de Salud", href: "/products" },
-                  { name: "Vida y Hogar", href: "/products" },
-                  { name: "Salud y Bienestar", href: "/products" },
-                  { name: "Fitness y Deporte", href: "/products" },
+                  { name: "Vitaminas y Minerales", href: "/products" },
+                  { name: "Proteínas y Aminoácidos", href: "/products" },
+                  { name: "Salud Digestiva y Probióticos", href: "/products" },
+                  { name: "Longevidad y Bienestar", href: "/products" },
                 ].map((cat) => (
                   <Link
                     key={cat.name}
@@ -392,7 +392,7 @@ export default function Header() {
               <span>Explorar Catálogo Completo</span>
             </Link>
             <p className="text-center text-[10px] text-slate-400">
-              Nutritional Reviews • Análisis 100% Independientes
+              Nutritional Reviews • Reseñas y Comparativas de Suplementos
             </p>
           </div>
         </div>

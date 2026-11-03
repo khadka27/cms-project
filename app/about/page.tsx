@@ -43,15 +43,15 @@ export default function AboutPage() {
               respaldarlo en el logro de sus metas personales de salud.
             </p>
 
-            <h2 className="text-2xl font-bold text-slate-800 mb-4 mt-8">¿Por Qué Elegirnos?</h2>
+            <h2 className="text-2xl font-bold text-slate-800 mb-4 mt-8">Nuestra Metodología</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               <div className="p-6 bg-light_cyan/30 rounded-2xl border border-turquoise_surf/30 transition-all hover:shadow-md hover:bg-light_cyan/50">
-                <h3 className="font-semibold text-deep_twilight mb-2">Calidad Seleccionada</h3>
-                <p className="text-sm text-french_blue">Cada producto es verificado en cuanto a eficacia, seguridad e ingredientes de primera calidad.</p>
+                <h3 className="font-semibold text-deep_twilight mb-2">Revisión de Fuentes y Etiquetas</h3>
+                <p className="text-sm text-french_blue">Reunimos qué contiene cada suplemento según su etiqueta oficial, contrastando las promesas comerciales con la literatura científica pública disponible.</p>
               </div>
               <div className="p-6 bg-sky_aqua/15 rounded-2xl border border-sky_aqua/30 transition-all hover:shadow-md hover:bg-sky_aqua/25">
-                <h3 className="font-semibold text-deep_twilight mb-2">Respaldado por Expertos</h3>
-                <p className="text-sm text-french_blue">Nuestro catálogo es analizado y contrastado por profesionales de la salud y nutrición.</p>
+                <h3 className="font-semibold text-deep_twilight mb-2">Criterio Editorial Transparente</h3>
+                <p className="text-sm text-french_blue">Evaluamos pros, contras y precios verificados en la fecha de publicación, sin prometer curas milagrosas ni sustituir la consulta médica personalizada.</p>
               </div>
             </div>
           </div>

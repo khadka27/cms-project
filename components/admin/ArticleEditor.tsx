@@ -142,7 +142,11 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
       setAutoSaving(true);
       setError('');
       try {
-        const savedData = await onSaveRef.current(form, false);
+        const payload = {
+          ...form,
+          ...(articleIdRef.current ? { id: articleIdRef.current } : {}),
+        };
+        const savedData = await onSaveRef.current(payload, false);
         
         if (savedData && savedData.id) {
           articleIdRef.current = savedData.id;
@@ -174,7 +178,11 @@ export default function ArticleEditor({ initialData, onSave }: Props) {
     setter(true);
     setError('');
     try {
-      const savedData = await onSave(form, publish);
+      const payload = {
+        ...form,
+        ...(articleIdRef.current ? { id: articleIdRef.current } : {}),
+      };
+      const savedData = await onSave(payload, publish);
 
       if (savedData && savedData.id) {
         articleIdRef.current = savedData.id;

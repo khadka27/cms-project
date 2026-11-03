@@ -83,8 +83,8 @@ function ProductsContent() {
               Explore Nuestros <span className="text-sky_aqua">Productos</span>
             </h1>
             <p className="text-slate-300 max-w-2xl text-xs sm:text-base leading-relaxed">
-              Descubra nuestra cuidada selección de productos destacados, 
-              analizados para garantizar la máxima calidad, funcionalidad y eficacia.
+              Descubra nuestra selección de reseñas y análisis de suplementos populares, 
+              organizados para ayudarle a contrastar ingredientes, evidencia disponible y precios antes de comprar.
             </p>
           </div>
         </div>

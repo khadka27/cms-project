@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Link2, HelpCircle, FileText, Settings, Globe, AlertTriangle, ShieldCheck, Mail } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Política de Enlaces Externos y Descargo | NutritionalReviews.org",
+  description: "Directrices y descargo sobre enlaces externos a tiendas de terceros, fuentes científicas y sitios web asociados.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/external-links",
+  },
+};
 
 export default function ExternalLinksPolicyPage() {
   return (

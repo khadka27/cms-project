@@ -43,7 +43,7 @@ function getFormattedDate(): string {
 function getTransporter() {
   const host = process.env.SMTP_HOST || "smtp.gmail.com";
   const port = parseInt(process.env.SMTP_PORT || "587", 10);
-  const secure = process.env.SMTP_SECURE === "true";
+  const secure = process.env.SMTP_SECURE === "true" || port === 465;
   const user = process.env.SMTP_USER;
   const rawPass = process.env.SMTP_PASS;
 
@@ -62,11 +62,9 @@ function getTransporter() {
       user,
       pass,
     },
-    pool: true,
-    maxConnections: 3,
-    maxMessages: 100,
-    rateDelta: 1000,
-    rateLimit: 5,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
   });
 }
 

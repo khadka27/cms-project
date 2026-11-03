@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Divulgación de Publicidad y Financiación | NutritionalReviews.org",
+  description: "Información transparente sobre los modelos de financiación del sitio, divulgación de enlaces de afiliados y relaciones comerciales.",
+  alternates: {
+    canonical: "https://nutritionalreviews.org/legal/advertising",
+  },
+};
 
 export default function AdvertisingDisclosurePage() {
   return (

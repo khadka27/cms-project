@@ -77,24 +77,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     ]);
 
-    const subcategoryEntries: MetadataRoute.Sitemap = subcategories.map(
-      (sub: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
+    // Exclude off-topic subcategories and test entries
+    const EXCLUDED_SLUGS = new Set([
+      "cardio-equipment",
+      "fitness-equipment",
+      "home-treadmill-pro",
+      "test",
+      "halogrow",
+      "halo-grow",
+    ]);
+
+    const subcategoryEntries: MetadataRoute.Sitemap = subcategories
+      .filter((sub: { slug: string }) => !EXCLUDED_SLUGS.has(sub.slug.toLowerCase()))
+      .map((sub: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
         url: `${baseUrl}/subcategory/${sub.slug}`,
         lastModified: sub.updatedAt || sub.createdAt || defaultDate,
         changeFrequency: "weekly" as const,
         priority: 0.7,
-      })
-    );
+      }));
 
-    // Only active, published products appear in sitemap (deleted or draft items are excluded)
-    const productEntries: MetadataRoute.Sitemap = products.map(
-      (prod: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
+    // Only active, published supplement reviews appear in sitemap (deleted or draft items are excluded)
+    const productEntries: MetadataRoute.Sitemap = products
+      .filter((prod: { slug: string }) => !EXCLUDED_SLUGS.has(prod.slug.toLowerCase()))
+      .map((prod: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
         url: `${baseUrl}/${prod.slug}`,
         lastModified: prod.updatedAt || prod.createdAt || defaultDate,
         changeFrequency: "weekly" as const,
         priority: 0.8,
-      })
-    );
+      }));
 
     const articleEntries: MetadataRoute.Sitemap = articles.map(
       (art: { slug: string; updatedAt: Date; publishedAt: Date | null }) => ({

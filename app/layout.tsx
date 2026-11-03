@@ -1,13 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Script from "next/script";
 import { CategoryProvider } from "@/context/CategoryContext";
 import ConditionalHeader from "@/components/ConditionalHeader";
 import ConditionalFooter from "@/components/ConditionalFooter";
 import SessionProvider from "@/components/providers/SessionProvider";
 import { OrganizationSchema, WebSiteSchema } from "@/components/SEOSchema";
-import { GA_MEASUREMENT_ID } from "@/lib/gtag";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -93,7 +92,7 @@ robots: {
     shortcut: ["/favicon.ico"],
   },
   verification: {
-    google: "G-M6XNQ8Z0QF",
+    google: "cm59rt9t6Xmc9igD0oCwWTxRpievR6XDXmeMjQilLSo",
   },
 };
 
@@ -131,28 +130,7 @@ export default function RootLayout({
         <WebSiteSchema />
       </head>
       <body className={`${roboto.variable} antialiased bg-[#eef8fb] text-slate-800 min-h-screen flex flex-col`} suppressHydrationWarning>
-        {GA_MEASUREMENT_ID && (
-          <>
-            <Script
-              strategy="afterInteractive"
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-            />
-            <Script
-              id="google-analytics"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_MEASUREMENT_ID}', {
-                    page_path: window.location.pathname,
-                  });
-                `,
-              }}
-            />
-          </>
-        )}
+        <GoogleAnalytics />
         <SessionProvider>
           <CategoryProvider>
             <ConditionalHeader />

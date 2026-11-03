@@ -158,31 +158,28 @@ export function ProductSchema({
     offers: {
       '@type': 'Offer',
       '@id': `${url}#offer`,
-      url,
-      price: price.toFixed(2),
+      url: readMoreLink || url,
+      price: price ? price.toFixed(2) : '0.00',
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
       priceValidUntil: '2026-12-31',
-      seller: {
-        '@type': 'Organization',
-        name: SITE_NAME,
-        url: SITE_URL,
+    },
+    // Only include aggregateRating when backed by genuine user feedback, avoiding GSC fake review penalties
+    ...(reviewCount && reviewCount > 0 ? {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: rating ? rating.toFixed(1) : '5.0',
+        reviewCount,
+        bestRating: '5',
+        worstRating: '1',
       },
-      ...(readMoreLink ? { url: readMoreLink } : {}),
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: rating ? rating.toFixed(1) : '4.9',
-      reviewCount: reviewCount || 85,
-      bestRating: '5',
-      worstRating: '1',
-    },
+    } : {}),
     review: {
       '@type': 'Review',
       reviewRating: {
         '@type': 'Rating',
-        ratingValue: rating ? rating.toFixed(1) : '4.9',
+        ratingValue: rating ? rating.toFixed(1) : '5.0',
         bestRating: '5',
       },
       author: authorSchema ?? {

@@ -56,11 +56,11 @@ const exploreLinks = [
 ];
 
 const categoryLinks = [
-  { label: "Vitaminas y Minerales", href: "/subcategory/vitamins" },
-  { label: "Suplementos de Proteína", href: "/subcategory/protein-supplements" },
-  { label: "Nutrición y Salud Digestiva", href: "/products?type=nutra" },
-  { label: "Bienestar y Longevidad", href: "/products" },
-  { label: "Fitness y Equipamiento", href: "/subcategory/cardio-equipment" },
+  { label: "Vitaminas y Minerales", href: "/products?cat=vitaminas" },
+  { label: "Proteínas y Aminoácidos", href: "/products?cat=proteinas" },
+  { label: "Probióticos y Salud Digestiva", href: "/products?cat=probioticos" },
+  { label: "Longevidad y Bienestar", href: "/products" },
+  { label: "Magnesio y Minerales Esenciales", href: "/article/magnesio-formas-suplementacion-cual-elegir" },
 ];
 
 const companyLinks = [

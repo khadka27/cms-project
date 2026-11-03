@@ -68,7 +68,7 @@ export default function CookiePolicyPage() {
               <div>
                 <h3 className="text-lg font-bold text-slate-900">Cookies de análisis</h3>
                 <p className="mt-1 text-slate-600">
-                  Nos ayudan a entender, de forma agregada y anónima, qué artículos se leen y cómo los visitantes usan el sitio. Usamos estas herramientas solo según la configuración realmente instalada: Google Analytics, Bing Webmaster Tools y métricas de servidor.
+                  Nos ayudan a entender, de forma agregada y anónima, qué artículos se leen y cómo los visitantes usan el sitio. Usamos exclusivamente las herramientas analíticas realmente configuradas: Google Analytics 4 (GA4), Google Search Console (GSC) y Bing Webmaster Tools.
                 </p>
               </div>
 
