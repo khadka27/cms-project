@@ -93,3 +93,31 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to create subcategory' }, { status: 500 });
   }
 }
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { ids, categoryType, type } = body;
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return NextResponse.json({ error: 'Array of subcategory IDs is required' }, { status: 400 });
+    }
+
+    const typeStr = (categoryType || type || 'NUTRA').toString().toUpperCase();
+    const targetType: CategoryType = typeStr === 'ECOM' ? CategoryType.ECOM : CategoryType.NUTRA;
+
+    const result = await prisma.subcategory.updateMany({
+      where: { id: { in: ids } },
+      data: { categoryType: targetType },
+    });
+
+    return NextResponse.json({
+      success: true,
+      count: result.count,
+      categoryType: targetType,
+    });
+  } catch (error) {
+    console.error('Subcategories PATCH error:', error);
+    return NextResponse.json({ error: 'Failed to bulk update subcategories' }, { status: 500 });
+  }
+}

@@ -23,15 +23,16 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params;
     const body = await req.json();
+
+    const data: Record<string, any> = {};
+    if (typeof body.name === 'string' && body.name.trim()) data.name = body.name.trim();
+    if (body.type !== undefined) data.type = body.type.toString().toUpperCase() === 'ECOM' ? 'ECOM' : 'NUTRA';
+    if (body.description !== undefined) data.description = body.description;
+    if (body.image !== undefined) data.image = body.image;
     
     const updated = await prisma.category.update({
       where: { id },
-      data: {
-        name: body.name,
-        type: body.type?.toUpperCase(),
-        description: body.description,
-        image: body.image,
-      },
+      data,
     });
     
     return NextResponse.json(updated);

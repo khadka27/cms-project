@@ -68,3 +68,31 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to create category' }, { status: 500 });
   }
 }
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { ids, type } = body;
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return NextResponse.json({ error: 'Array of category IDs is required' }, { status: 400 });
+    }
+
+    const typeStr = (type || 'NUTRA').toString().toUpperCase();
+    const targetType: CategoryType = typeStr === 'ECOM' ? CategoryType.ECOM : CategoryType.NUTRA;
+
+    const result = await prisma.category.updateMany({
+      where: { id: { in: ids } },
+      data: { type: targetType },
+    });
+
+    return NextResponse.json({
+      success: true,
+      count: result.count,
+      type: targetType,
+    });
+  } catch (error) {
+    console.error('Categories PATCH error:', error);
+    return NextResponse.json({ error: 'Failed to bulk update categories' }, { status: 500 });
+  }
+}

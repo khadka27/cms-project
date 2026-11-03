@@ -18,6 +18,9 @@ export default function AdminCategoriesPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'nutra' | 'ecom'>('all');
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [bulkUpdating, setBulkUpdating] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -69,6 +72,67 @@ export default function AdminCategoriesPage() {
     }
   };
 
+  const handleToggleType = async (id: string, currentType?: string) => {
+    const isCurrentNutra = (currentType || '').toUpperCase() === 'NUTRA';
+    const nextType: 'NUTRA' | 'ECOM' = isCurrentNutra ? 'ECOM' : 'NUTRA';
+
+    // Optimistic local state update
+    setCategories((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, type: nextType } : c))
+    );
+    setTogglingId(id);
+
+    try {
+      const res = await fetch(`/api/categories/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: nextType }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to update category type');
+      }
+    } catch (err: any) {
+      console.error('Error toggling category type:', err);
+      // Revert optimistic update
+      setCategories((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, type: currentType as any } : c))
+      );
+      setError('No se pudo cambiar el tipo de categoría.');
+    } finally {
+      setTogglingId(null);
+    }
+  };
+
+  const handleBulkChange = async (targetType: 'NUTRA' | 'ECOM') => {
+    if (selectedIds.length === 0) return;
+    setBulkUpdating(true);
+    const affected = new Set(selectedIds);
+    const previous = [...categories];
+
+    // Optimistic update
+    setCategories((prev) =>
+      prev.map((c) => (affected.has(c.id) ? { ...c, type: targetType } : c))
+    );
+
+    try {
+      const res = await fetch('/api/categories', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: selectedIds, type: targetType }),
+      });
+      if (!res.ok) {
+        throw new Error('Bulk update failed');
+      }
+      setSelectedIds([]);
+    } catch (err) {
+      console.error('Error bulk updating categories:', err);
+      setCategories(previous);
+      setError('No se pudieron actualizar las categorías seleccionadas.');
+    } finally {
+      setBulkUpdating(false);
+    }
+  };
+
   const filtered = useMemo(() => {
     const list = Array.isArray(categories) ? categories : [];
     if (!search.trim()) return list;
@@ -79,6 +143,32 @@ export default function AdminCategoriesPage() {
       return Boolean(nameMatch || descMatch);
     });
   }, [categories, search]);
+
+  const allFilteredSelected = useMemo(() => {
+    if (filtered.length === 0) return false;
+    return filtered.every((c) => selectedIds.includes(c.id));
+  }, [filtered, selectedIds]);
+
+  const isIndeterminate = useMemo(() => {
+    if (filtered.length === 0 || allFilteredSelected) return false;
+    return filtered.some((c) => selectedIds.includes(c.id));
+  }, [filtered, selectedIds, allFilteredSelected]);
+
+  const handleSelectAll = () => {
+    if (allFilteredSelected) {
+      const filteredIds = new Set(filtered.map((c) => c.id));
+      setSelectedIds((prev) => prev.filter((id) => !filteredIds.has(id)));
+    } else {
+      const newIds = Array.from(new Set([...selectedIds, ...filtered.map((c) => c.id)]));
+      setSelectedIds(newIds);
+    }
+  };
+
+  const handleSelectOne = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -186,6 +276,18 @@ export default function AdminCategoriesPage() {
             <table className="w-full text-sm min-w-[560px]">
               <thead className="bg-gray-50 border-b border-gray-100">
                 <tr>
+                  <th className="px-4 py-3 w-10 text-center">
+                    <input
+                      type="checkbox"
+                      checked={allFilteredSelected}
+                      ref={(el) => {
+                        if (el) el.indeterminate = isIndeterminate;
+                      }}
+                      onChange={handleSelectAll}
+                      className="w-4 h-4 rounded border-gray-300 text-french_blue focus:ring-bright_teal_blue cursor-pointer"
+                      aria-label="Seleccionar todas las categorías"
+                    />
+                  </th>
                   <th className="text-left px-5 py-3 font-medium text-gray-500">Name</th>
                   <th className="text-left px-5 py-3 font-medium text-gray-500">Type</th>
                   <th className="text-left px-5 py-3 font-medium text-gray-500 hidden md:table-cell">Description</th>
@@ -195,8 +297,25 @@ export default function AdminCategoriesPage() {
               <tbody className="divide-y divide-gray-50">
                 {filtered.map((cat) => {
                   const isNutra = (cat.type || '').toUpperCase() === 'NUTRA';
+                  const isSelected = selectedIds.includes(cat.id);
+                  const isToggling = togglingId === cat.id;
+
                   return (
-                    <tr key={cat.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={cat.id}
+                      className={`transition-colors ${
+                        isSelected ? 'bg-sky-50/50 hover:bg-sky-50' : 'hover:bg-gray-50'
+                      }`}
+                    >
+                      <td className="px-4 py-3.5 text-center" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => handleSelectOne(cat.id)}
+                          className="w-4 h-4 rounded border-gray-300 text-french_blue focus:ring-bright_teal_blue cursor-pointer"
+                          aria-label={`Seleccionar ${cat.name}`}
+                        />
+                      </td>
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 shrink-0 border border-gray-100 flex items-center justify-center">
@@ -213,15 +332,30 @@ export default function AdminCategoriesPage() {
                         </div>
                       </td>
                       <td className="px-5 py-3.5">
-                        {isNutra ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
-                            <Leaf className="w-3 h-3 text-emerald-600" /> Nutra
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-sky-50 text-french_blue border border-sky-200/60">
-                            <ShoppingCart className="w-3 h-3 text-french_blue" /> E-Com
-                          </span>
-                        )}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleType(cat.id, cat.type);
+                          }}
+                          disabled={isToggling}
+                          title={`Click para cambiar a ${isNutra ? 'E-Com' : 'Nutra'}`}
+                          className={`group inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer border active:scale-95 shadow-xs ${
+                            isNutra
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 hover:border-emerald-300'
+                              : 'bg-sky-50 text-french_blue border-sky-200 hover:bg-sky-100 hover:border-sky-300'
+                          } ${isToggling ? 'opacity-60 pointer-events-none' : ''}`}
+                        >
+                          {isToggling ? (
+                            <RefreshCw className="w-3 h-3 animate-spin text-gray-500" />
+                          ) : isNutra ? (
+                            <Leaf className="w-3 h-3 text-emerald-600 group-hover:rotate-12 transition-transform" />
+                          ) : (
+                            <ShoppingCart className="w-3 h-3 text-french_blue group-hover:scale-110 transition-transform" />
+                          )}
+                          <span>{isNutra ? 'Nutra' : 'E-Com'}</span>
+                          <span className="text-[10px] opacity-40 group-hover:opacity-100 transition-opacity ml-0.5">⇄</span>
+                        </button>
                       </td>
                       <td className="px-5 py-3.5 text-gray-400 hidden md:table-cell">
                         <span className="line-clamp-1 max-w-xs">{cat.description || '—'}</span>
@@ -284,6 +418,47 @@ export default function AdminCategoriesPage() {
               )}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Floating Bulk Actions Bar */}
+      {selectedIds.length > 0 && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-gray-900/95 text-white backdrop-blur-md px-5 py-3 rounded-2xl shadow-2xl border border-gray-700/60 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-200">
+          <div className="flex items-center gap-2 pr-3 border-r border-gray-700 text-xs font-semibold text-gray-200">
+            <span className="w-5 h-5 rounded-full bg-bright_teal_blue text-white flex items-center justify-center text-[11px] font-bold">
+              {selectedIds.length}
+            </span>
+            <span>seleccionados</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              disabled={bulkUpdating}
+              onClick={() => handleBulkChange('NUTRA')}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-all shadow-sm cursor-pointer disabled:opacity-50"
+            >
+              <Leaf className="w-3.5 h-3.5" />
+              {bulkUpdating ? 'Cambiando…' : 'Cambiar a Nutra'}
+            </button>
+            <button
+              type="button"
+              disabled={bulkUpdating}
+              onClick={() => handleBulkChange('ECOM')}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition-all shadow-sm cursor-pointer disabled:opacity-50"
+            >
+              <ShoppingCart className="w-3.5 h-3.5" />
+              {bulkUpdating ? 'Cambiando…' : 'Cambiar a E-Com'}
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setSelectedIds([])}
+            className="text-xs text-gray-400 hover:text-white transition-colors cursor-pointer ml-1 underline underline-offset-2"
+          >
+            Deseleccionar
+          </button>
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-export type CategoryType = 'nutra' | 'ecom';
+export type CategoryType = 'nutra' | 'ecom' | 'NUTRA' | 'ECOM';
 export type UserRole = 'admin' | 'user';
 
 export interface User {
