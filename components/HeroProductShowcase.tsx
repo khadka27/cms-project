@@ -19,37 +19,37 @@ export interface ShowcaseProduct {
 const DEFAULT_SHOWCASE_PRODUCTS: ShowcaseProduct[] = [
   {
     id: 'sample-1',
-    name: 'Air Max Sneaker',
-    description: 'Edición Especial Deportiva',
-    price: '$129.99',
-    image: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png',
-    glow: '#34d399',
-    slug: 'products',
+    name: 'Vitamina D3 4000 UI + K2',
+    description: 'Salud Ósea, Inmunidad y Fijación de Calcio',
+    price: '$24.99',
+    image: '/images/supplement-vitamind3.png',
+    glow: '#10b981',
+    slug: 'vitamin-d3-1000-iu',
     rating: 4.9,
   },
   {
     id: 'sample-2',
-    name: 'Classic Headphones',
-    description: 'Audio Profesional de Estudio',
-    price: '$89.99',
-    image: 'https://pngimg.com/uploads/headphones/headphones_PNG101988.png',
-    glow: '#60a5fa',
+    name: 'Magnesio Bisglicinato Puro',
+    description: 'Alta Biodisponibilidad y Descanso Muscular',
+    price: '$28.50',
+    image: '/images/supplement-magnesium.png',
+    glow: '#0077b6',
     slug: 'products',
     rating: 4.8,
   },
   {
     id: 'sample-3',
-    name: 'Premium Watch',
-    description: 'Diseño Inteligente y Elegante',
-    price: '$199.99',
-    image: 'https://pngimg.com/uploads/watches/watches_PNG101420.png',
-    glow: '#c084fc',
+    name: 'Probióticos Complejo 50B UFC',
+    description: 'Microbiota Intestinal y Defensas Inmunes',
+    price: '$34.99',
+    image: '/images/supplement-probiotics.png',
+    glow: '#00b4d8',
     slug: 'products',
     rating: 5.0,
   },
 ];
 
-const GLOW_PALETTE = ['#34d399', '#60a5fa', '#c084fc', '#f59e0b', '#06b6d4', '#ec4899'];
+const GLOW_PALETTE = ['#10b981', '#0077b6', '#00b4d8', '#023e8a', '#48cae4', '#03045e'];
 
 export default function HeroProductShowcase({ products = [] }: { products?: Product[] }) {
   const showcaseItems: ShowcaseProduct[] = useMemo(() => {
@@ -59,9 +59,9 @@ export default function HeroProductShowcase({ products = [] }: { products?: Prod
 
     const items: ShowcaseProduct[] = [];
     const fallbackImages = [
-      'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png',
-      'https://pngimg.com/uploads/headphones/headphones_PNG101988.png',
-      'https://pngimg.com/uploads/watches/watches_PNG101420.png',
+      '/images/supplement-vitamind3.png',
+      '/images/supplement-magnesium.png',
+      '/images/supplement-probiotics.png',
     ];
 
     products.slice(0, 6).forEach((p, idx) => {
@@ -73,7 +73,7 @@ export default function HeroProductShowcase({ products = [] }: { products?: Prod
       items.push({
         id: p.id,
         name: p.name,
-        description: p.shortDescription || 'Análisis exhaustivo y pruebas verificadas',
+        description: p.shortDescription || 'Análisis editorial y guía de ingredientes',
         price: p.price ? `$${Number(p.price).toFixed(2)}` : '$29.99',
         image: validImage,
         glow: GLOW_PALETTE[idx % GLOW_PALETTE.length],
