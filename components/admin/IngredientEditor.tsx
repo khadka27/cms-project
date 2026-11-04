@@ -605,7 +605,7 @@ export default function IngredientEditor({ initialData }: Props) {
             <ImageUpload
               value={form.image}
               onChange={(url) => setForm((p) => ({ ...p, image: url }))}
-              altValue={form.imageAlt}
+              alt={form.imageAlt}
               onAltChange={(alt) => setForm((p) => ({ ...p, imageAlt: alt }))}
             />
           </div>
