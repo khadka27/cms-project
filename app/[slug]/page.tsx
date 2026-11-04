@@ -101,23 +101,32 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nutritionalreviews.org';
   const url = `${siteUrl}/${slug}`;
   
+  const rawTitle = product.metaTitle || `${product.name} — Análisis, Opiniones y Precio`;
+  const title = rawTitle.includes('NutritionalReviews')
+    ? rawTitle
+    : `${rawTitle} | NutritionalReviews`;
+  const description =
+    product.metaDescription ||
+    product.shortDescription ||
+    `Análisis independiente de ${product.name}: ingredientes, dosis recomendada, evidencia científica y opiniones verificadas en NutritionalReviews.`;
+
   return {
-    title: product.metaTitle || product.name,
-    description: product.metaDescription || product.shortDescription,
+    title,
+    description,
     alternates: { canonical: url },
     authors: product.author ? [{ name: product.author.name, url: product.author.website || siteUrl }] : undefined,
     openGraph: {
       type: 'website',
       url,
-      title: product.metaTitle || product.name,
-      description: product.metaDescription || product.shortDescription,
+      title,
+      description,
       siteName: 'NutritionalReviews',
       images: product.image ? [{ url: product.image, width: 1200, height: 630, alt: product.imageAlt || product.name }] : [],
     },
     twitter: {
       card: 'summary_large_image',
-      title: product.metaTitle || product.name,
-      description: product.metaDescription || product.shortDescription,
+      title,
+      description,
       images: product.image ? [product.image] : [],
     },
     robots: { index: true, follow: true },
@@ -207,7 +216,7 @@ export default async function ProductPage({
       {/* Hero Section */}
       <section className="relative pt-6 sm:pt-8 pb-10 sm:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="hidden">
+          <div className="mb-4 sm:mb-6">
             <Breadcrumb
               crumbs={[
                 { label: "Inicio", href: "/" },
