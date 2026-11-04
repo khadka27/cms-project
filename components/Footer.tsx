@@ -61,7 +61,7 @@ const categoryLinks = [
   { label: "Proteínas y Aminoácidos", href: "/products?cat=proteinas" },
   { label: "Probióticos y Salud Digestiva", href: "/products?cat=probioticos" },
   { label: "Longevidad y Bienestar", href: "/products" },
-  { label: "Magnesio y Minerales Esenciales", href: "/article/magnesio-formas-suplementacion-cual-elegir" },
+  { label: "Magnesio y Minerales Esenciales", href: "/ingredients/magnesio-formas-suplementacion-cual-elegir" },
 ];
 
 const companyLinks = [

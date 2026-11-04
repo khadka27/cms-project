@@ -123,7 +123,7 @@ export default function AdminArticlesPage() {
                         )}
                         <div className="min-w-0">
                           <p className="font-medium text-gray-900 line-clamp-1">{article.title}</p>
-                          <p className="text-xs text-gray-400 font-mono">/article/{article.slug}</p>
+                          <p className="text-xs text-gray-400 font-mono">/ingredients/{article.slug}</p>
                         </div>
                       </div>
                     </td>
@@ -146,7 +146,7 @@ export default function AdminArticlesPage() {
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1.5 justify-end">
                         {article.status === 'PUBLISHED' && (
-                          <Link href={`/article/${article.slug}`} target="_blank"
+                          <Link href={`/ingredients/${article.slug}`} target="_blank"
                             className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/30 transition-colors">
                             <Eye className="w-3.5 h-3.5" />
                           </Link>

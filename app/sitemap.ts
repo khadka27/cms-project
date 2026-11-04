@@ -110,13 +110,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       }));
 
+    const ingredientSlugSet = new Set<string>();
+
     const articleEntries: MetadataRoute.Sitemap = articles.map(
-      (art: { slug: string; updatedAt: Date; publishedAt: Date | null }) => ({
-        url: `${baseUrl}/article/${art.slug}`,
-        lastModified: art.updatedAt || art.publishedAt || defaultDate,
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-      })
+      (art: { slug: string; updatedAt: Date; publishedAt: Date | null }) => {
+        ingredientSlugSet.add(art.slug.toLowerCase());
+        return {
+          url: `${baseUrl}/ingredients/${art.slug}`,
+          lastModified: art.updatedAt || art.publishedAt || defaultDate,
+          changeFrequency: "weekly" as const,
+          priority: 0.8,
+        };
+      }
     );
 
     const authorEntries: MetadataRoute.Sitemap = authors.map(
@@ -128,14 +133,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
     );
 
-    const ingredientEntries: MetadataRoute.Sitemap = ingredients.map(
-      (ing: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
+    const ingredientEntries: MetadataRoute.Sitemap = ingredients
+      .filter((ing: { slug: string }) => !ingredientSlugSet.has(ing.slug.toLowerCase()))
+      .map((ing: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
         url: `${baseUrl}/ingredients/${ing.slug}`,
         lastModified: ing.updatedAt || ing.createdAt || defaultDate,
         changeFrequency: "weekly" as const,
         priority: 0.7,
-      })
-    );
+      }));
 
     return [
       ...staticEntries,

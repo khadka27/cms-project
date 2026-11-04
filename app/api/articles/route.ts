@@ -60,6 +60,8 @@ export async function POST(req: NextRequest) {
 
         try {
           revalidatePath('/article');
+          revalidatePath('/ingredients');
+          revalidatePath('/ingredients/' + updated.slug);
           revalidatePath('/article/' + updated.slug);
           revalidatePath('/sitemap.xml');
           revalidatePath('/');
@@ -110,6 +112,8 @@ export async function POST(req: NextRequest) {
 
     try {
       revalidatePath('/article');
+      revalidatePath('/ingredients');
+      revalidatePath('/ingredients/' + article.slug);
       revalidatePath('/article/' + article.slug);
       revalidatePath('/sitemap.xml');
       revalidatePath('/');

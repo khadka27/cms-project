@@ -94,6 +94,52 @@ const nextConfig = {
         destination: '/products',
         statusCode: 301,
       },
+      // Ingredient and article routing redirects
+      {
+        source: '/article/:slug',
+        destination: '/ingredients/:slug',
+        statusCode: 301,
+      },
+      {
+        source: '/articles/:slug',
+        destination: '/ingredients/:slug',
+        statusCode: 301,
+      },
+      {
+        source: '/articulos/:slug',
+        destination: '/ingredients/:slug',
+        statusCode: 301,
+      },
+      {
+        source: '/ingredient/:slug',
+        destination: '/ingredients/:slug',
+        statusCode: 301,
+      },
+      {
+        source: '/ingredientes/:slug',
+        destination: '/ingredients/:slug',
+        statusCode: 301,
+      },
+      {
+        source: '/ingrendent/:slug',
+        destination: '/ingredients/:slug',
+        statusCode: 301,
+      },
+      {
+        source: '/ingredient',
+        destination: '/ingredients',
+        statusCode: 301,
+      },
+      {
+        source: '/ingredientes',
+        destination: '/ingredients',
+        statusCode: 301,
+      },
+      {
+        source: '/ingrendent',
+        destination: '/ingredients',
+        statusCode: 301,
+      },
     ];
   },
 };

@@ -1,6 +1,7 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
-export default function IngredientesRedirect() {
-  redirect("/ingredients");
+export const dynamic = "force-dynamic";
+
+export default function IngredientesRedirectPage() {
+  permanentRedirect("/ingredients");
 }
-

@@ -60,7 +60,7 @@ export default async function ArticlesIndexPage() {
         url={`${SITE_URL}/article`}
         items={allArticles.map((a: any) => ({
           name: a.title,
-          url: `${SITE_URL}/article/${a.slug}`,
+          url: `${SITE_URL}/ingredients/${a.slug}`,
           image: a.featuredImage || undefined,
         }))}
       />
@@ -107,7 +107,7 @@ export default async function ArticlesIndexPage() {
               {heroArticle && (
                 <div className="mb-12">
                   <Link
-                    href={`/article/${heroArticle.slug}`}
+                    href={`/ingredients/${heroArticle.slug}`}
                     className="group grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[2rem] border border-light_cyan/70 shadow-sm hover:shadow-xl hover:shadow-bright_teal_blue/10 hover:-translate-y-1 transition-all overflow-hidden"
                   >
                     {/* Image */}
@@ -201,7 +201,7 @@ export default async function ArticlesIndexPage() {
                     {otherArticles.map((article: any) => (
                       <Link
                         key={article.id}
-                        href={`/article/${article.slug}`}
+                        href={`/ingredients/${article.slug}`}
                         className="group flex flex-col bg-white rounded-3xl border border-light_cyan/70 shadow-sm hover:shadow-xl hover:shadow-bright_teal_blue/10 hover:-translate-y-1 transition-all overflow-hidden h-full"
                       >
                         {/* Image */}

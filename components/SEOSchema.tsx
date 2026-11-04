@@ -405,6 +405,7 @@ interface ArticleDetailSchemaProps {
     twitter?: string | null;
     linkedin?: string | null;
   } | null;
+  url?: string;
 }
 
 export function ArticleDetailSchema({
@@ -416,8 +417,9 @@ export function ArticleDetailSchema({
   updatedAt,
   wordCount,
   author,
+  url: customUrl,
 }: ArticleDetailSchemaProps) {
-  const url = `${SITE_URL}/article/${slug}`;
+  const url = customUrl || `${SITE_URL}/ingredients/${slug}`;
   const authorSlug = author?.slug || (author?.name ? author.name.toLowerCase().replace(/\s+/g, '-') : null);
   const authorUrl = authorSlug ? `${SITE_URL}/author/${authorSlug}` : SITE_URL;
 

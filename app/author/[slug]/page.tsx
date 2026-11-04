@@ -264,7 +264,7 @@ export default async function AuthorProfilePage({ params }: AuthorPageProps) {
             {author.articles.map((art: any) => (
               <Link
                 key={art.id}
-                href={`/article/${art.slug}`}
+                href={`/ingredients/${art.slug}`}
                 className="group bg-white rounded-2xl border border-light_cyan/70 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col"
               >
                 {art.featuredImage && (

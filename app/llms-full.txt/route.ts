@@ -113,7 +113,7 @@ export async function GET() {
   if (articles.length > 0) {
     for (const art of articles) {
       content += `### ${art.title}\n`;
-      content += `- **Enlace**: https://nutritionalreviews.org/article/${art.slug}\n`;
+      content += `- **Enlace**: https://nutritionalreviews.org/ingredients/${art.slug}\n`;
       content += `- **Autor**: ${art.author?.name || "Equipo Editorial de Nutritional Reviews"}\n`;
       if (art.excerpt) {
         content += `- **Extracto**: ${art.excerpt}\n`;

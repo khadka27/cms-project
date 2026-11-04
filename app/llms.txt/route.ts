@@ -60,7 +60,7 @@ export async function GET() {
   if (articles.length > 0) {
     content += `## Artículos y Guías\n`;
     for (const art of articles) {
-      content += `- [${art.title}](https://nutritionalreviews.org/article/${art.slug}) - ${art.excerpt || "Lea nuestro artículo completo."}\n`;
+      content += `- [${art.title}](https://nutritionalreviews.org/ingredients/${art.slug}) - ${art.excerpt || "Lea nuestro artículo completo."}\n`;
     }
     content += `\n`;
   }

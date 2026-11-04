@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Plus, Pencil, Trash2, Search, FlaskConical } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, FlaskConical, Eye } from 'lucide-react';
 import type { Ingredient } from '@/lib/types';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
@@ -98,6 +98,11 @@ export default function AdminIngredientsPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1.5 justify-end">
+                        <Link href={`/ingredients/${item.slug}`} target="_blank"
+                          className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/30 transition-colors"
+                          title="View Live">
+                          <Eye className="w-3.5 h-3.5" />
+                        </Link>
                         <Link href={`/admin/ingredients/${item.id}`}
                           className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-bright_teal_blue hover:bg-light_cyan/30 transition-colors">
                           <Pencil className="w-3.5 h-3.5" />

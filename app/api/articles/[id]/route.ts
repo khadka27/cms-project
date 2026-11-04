@@ -51,8 +51,11 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
     try {
       revalidatePath('/article');
+      revalidatePath('/ingredients');
+      revalidatePath('/ingredients/' + article.slug);
       revalidatePath('/article/' + article.slug);
       if (existing.slug !== article.slug) {
+        revalidatePath('/ingredients/' + existing.slug);
         revalidatePath('/article/' + existing.slug);
       }
       revalidatePath('/sitemap.xml');
@@ -79,7 +82,9 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
 
     try {
       revalidatePath('/article');
+      revalidatePath('/ingredients');
       if (existing?.slug) {
+        revalidatePath('/ingredients/' + existing.slug);
         revalidatePath('/article/' + existing.slug);
       }
       revalidatePath('/sitemap.xml');
