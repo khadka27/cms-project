@@ -14,6 +14,7 @@ import {
   Sparkles,
   ChevronRight,
   Users,
+  FlaskConical,
 } from "lucide-react";
 import SearchBar from "./SearchBar";
 
@@ -131,8 +132,8 @@ export default function Header() {
                 )}
               </button>
 
-              {/* Desktop Left Links: Artículos, Autores, Nosotros */}
-              <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación izquierda">
+              {/* Desktop Left Links: Artículos, Autores, Ingredientes */}
+              <nav className="hidden md:flex items-center gap-5 lg:gap-7" aria-label="Navegación izquierda">
                 <Link
                   href="/article"
                   className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
@@ -146,10 +147,10 @@ export default function Header() {
                   Autores
                 </Link>
                 <Link
-                  href="/about"
+                  href="/ingredients"
                   className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                 >
-                  Nosotros
+                  Ingredientes
                 </Link>
               </nav>
             </div>
@@ -171,14 +172,20 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* ── Right Navigation: Productos, Contacto, Búsqueda ── */}
+            {/* ── Right Navigation: Productos, Nosotros, Contacto, Búsqueda ── */}
             <div className="flex items-center gap-4 sm:gap-6 flex-1 justify-end">
-              <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Navegación derecha">
+              <nav className="hidden md:flex items-center gap-5 lg:gap-7" aria-label="Navegación derecha">
                 <Link
                   href="/products"
                   className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                 >
                   Productos
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
+                >
+                  Nosotros
                 </Link>
                 <Link
                   href="/contact"
@@ -320,7 +327,8 @@ export default function Header() {
                 { href: "/products", label: "Catálogo de Productos", icon: LayoutGrid, desc: "Explora todos los análisis verificados" },
                 { href: "/article", label: "Guías de Compra y Artículos", icon: BookOpen, desc: "Consejos de expertos y análisis" },
                 { href: "/author", label: "Autores y Revisores Expertos", icon: Users, desc: "Comité científico y equipo editorial" },
-                { href: "/about", label: "Sobre Nuestro Laboratorio", icon: Info, desc: "Proceso editorial y metodología" },
+                { href: "/ingredients", label: "Directorio de Ingredientes", icon: FlaskConical, desc: "Evidencia clínica y principios activos" },
+                { href: "/about", label: "Sobre Nosotros", icon: Info, desc: "Proceso editorial y metodología" },
                 { href: "/contact", label: "Contáctenos", icon: Mail, desc: "Consultas y soporte" },
               ].map((item) => (
                 <Link

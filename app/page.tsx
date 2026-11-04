@@ -992,6 +992,15 @@ export default function HomePage() {
               label="Ciencia y Formulación"
               title="Desglose de Ingredientes Verificados"
               subtitle="Comprenda la ciencia detrás de las fórmulas de productos líderes, estándares de pureza certificados y beneficios comprobados."
+              action={
+                <Link
+                  href="/ingredients"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-french_blue hover:text-bright_teal_blue transition-colors border border-light_cyan hover:border-french_blue px-4 py-2 rounded-xl bg-light_cyan/20"
+                >
+                  <span>Ver Todos los Ingredientes</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              }
             />
             <div
               className={
@@ -1003,9 +1012,10 @@ export default function HomePage() {
               }
             >
               {ingredients.map((ing) => (
-                <div
+                <Link
                   key={ing.id}
-                  className="bg-white border border-light_cyan rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-turquoise_surf/50 transition-all duration-300 flex flex-col justify-between"
+                  href={`/ingredients/${ing.slug}`}
+                  className="group bg-white border border-light_cyan rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-turquoise_surf/50 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div className="relative h-44 w-full bg-slate-50 overflow-hidden">
                     <Image
@@ -1021,7 +1031,7 @@ export default function HomePage() {
 
                   <div className="p-5 flex-1 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-base font-bold text-slate-900 leading-tight mb-1.5">
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-french_blue transition-colors leading-tight mb-1.5">
                         {ing.name}
                       </h3>
                       <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
@@ -1044,14 +1054,14 @@ export default function HomePage() {
                       )}
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-french_blue">
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-french_blue group-hover:text-bright_teal_blue">
                       <span className="flex items-center gap-1">
                         <Zap className="w-3.5 h-3.5 text-turquoise_surf" /> Evaluado en Laboratorio
                       </span>
-                      <span className="text-slate-400">100% Puro</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

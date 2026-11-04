@@ -13,6 +13,7 @@ const staticPages = [
   "/products",
   "/article",
   "/author",
+  "/ingredients",
   "/legal",
   "/legal/privacy",
   "/legal/terms",
@@ -59,8 +60,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const prisma = (await import("@/lib/db")).default;
 
-    // Fetch ONLY published products, published articles, active subcategories, and authors
-    const [subcategories, products, articles, authors] = await Promise.all([
+    // Fetch ONLY published products, published articles, active subcategories, authors, and ingredients
+    const [subcategories, products, articles, authors, ingredients] = await Promise.all([
       prisma.subcategory.findMany({
         select: { slug: true, updatedAt: true, createdAt: true },
       }),
@@ -73,6 +74,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         select: { slug: true, updatedAt: true, publishedAt: true },
       }),
       (prisma as any).author.findMany({
+        select: { slug: true, updatedAt: true, createdAt: true },
+      }),
+      prisma.ingredient.findMany({
         select: { slug: true, updatedAt: true, createdAt: true },
       }),
     ]);
@@ -124,12 +128,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
     );
 
+    const ingredientEntries: MetadataRoute.Sitemap = ingredients.map(
+      (ing: { slug: string; updatedAt: Date | null; createdAt: Date }) => ({
+        url: `${baseUrl}/ingredients/${ing.slug}`,
+        lastModified: ing.updatedAt || ing.createdAt || defaultDate,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      })
+    );
+
     return [
       ...staticEntries,
       ...subcategoryEntries,
       ...productEntries,
       ...articleEntries,
       ...authorEntries,
+      ...ingredientEntries,
     ];
   } catch (error) {
     console.warn("Database query during sitemap generation failed, falling back to static:", error);

@@ -50,6 +50,7 @@ const exploreLinks = [
   { label: "Catálogo de Productos", href: "/products" },
   { label: "Guías de Compra y Artículos", href: "/article" },
   { label: "Autores y Revisores", href: "/author" },
+  { label: "Directorio de Ingredientes", href: "/ingredients" },
   { label: "Sobre Nosotros", href: "/about" },
   { label: "Centro de Contacto", href: "/contact" },
   { label: "Políticas y Avisos Legales", href: "/legal" },

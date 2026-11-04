@@ -648,3 +648,55 @@ export function ContactPageSchema() {
     }} />
   );
 }
+
+// ── 12. Ingredient Detail Schema ─────────────────────────────────────────────
+export interface IngredientDetailSchemaProps {
+  name: string;
+  slug: string;
+  description?: string | null;
+  image?: string | null;
+  keyFeatures?: string | null;
+  products?: Array<{ name: string; url: string; image?: string; price?: number }>;
+}
+
+export function IngredientDetailSchema({
+  name,
+  slug,
+  description,
+  image,
+  keyFeatures,
+  products = [],
+}: IngredientDetailSchemaProps) {
+  const url = `${SITE_URL}/ingredients/${slug}`;
+  const features = keyFeatures
+    ? keyFeatures
+        .split('\n')
+        .map((f) => f.trim())
+        .filter(Boolean)
+    : [];
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: `${name} — Perfil Científico y Guía de Ingredientes`,
+    description: description || `Información científica, beneficios probados y suplementos que contienen ${name}.`,
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    inLanguage: 'es-ES',
+    mainEntity: {
+      '@type': 'Substance',
+      name,
+      description: description || undefined,
+      ...(image ? { image: { '@type': 'ImageObject', url: image } } : {}),
+      ...(features.length > 0 ? { disambiguatingDescription: features.join('. ') } : {}),
+    },
+    ...(products.length > 0
+      ? {
+          relatedLink: products.map((p) => p.url),
+        }
+      : {}),
+  };
+
+  return <SchemaScript schema={schema} />;
+}
