@@ -28,7 +28,11 @@ export default withAuth(
       }
     }
     
-    return NextResponse.next();
+    const response = NextResponse.next();
+    if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/api')) {
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    }
+    return response;
   },
   {
     callbacks: {

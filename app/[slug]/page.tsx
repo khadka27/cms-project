@@ -512,9 +512,10 @@ export default async function ProductPage({
 
                       <div className="space-y-4 relative z-10">
                         {product.ingredients.map((ing) => (
-                          <div
+                          <Link
                             key={ing.id}
-                            className="flex items-center gap-4 group/item"
+                            href={`/ingredients/${ing.slug}`}
+                            className="flex items-center gap-4 group/item hover:bg-white/5 p-2 rounded-2xl transition-colors cursor-pointer"
                           >
                             <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-slate-800 border border-slate-700/50 flex-shrink-0 group-hover/item:border-turquoise_surf/50 transition-colors">
                               <Image
@@ -525,9 +526,12 @@ export default async function ProductPage({
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-bold text-white group-hover/item:text-sky_aqua transition-colors">
-                                {ing.name}
-                              </p>
+                              <div className="flex items-center justify-between">
+                                <p className="text-sm font-bold text-white group-hover/item:text-sky_aqua transition-colors truncate">
+                                  {ing.name}
+                                </p>
+                                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover/item:text-sky_aqua group-hover/item:translate-x-1 transition-all shrink-0 ml-1" />
+                              </div>
                               
                               {ing.keyFeatures && (
                                 <ul className="mt-2 space-y-1">
@@ -544,12 +548,12 @@ export default async function ProductPage({
                                 <div className="flex items-center gap-1.5 mt-1">
                                   <Activity className="w-3 h-3 text-turquoise_surf" />
                                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
-                                    Forma Biodisponible
+                                    Ver Guía Científica
                                   </span>
                                 </div>
                               )}
                             </div>
-                          </div>
+                          </Link>
                         ))}
                       </div>
 
