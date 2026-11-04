@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import {
   Users,
@@ -136,14 +137,16 @@ export default async function AuthorsDirectoryPage() {
                     {/* Circular Author Image */}
                     <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden flex-shrink-0 border-2 border-turquoise_surf/40 shadow-lg shadow-bright_teal_blue/20 bg-slate-800 ring-4 ring-white/10 group-hover:ring-turquoise_surf/40 transition-all">
                       {featuredAuthor.avatar ? (
-                        <img
+                        <Image
                           src={featuredAuthor.avatar}
                           alt={featuredAuthor.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          fill
+                          sizes="112px"
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-slate-800 text-sky_aqua">
-                          <Users className="w-8 h-8" />
+                        <div className="w-full h-full flex items-center justify-center bg-slate-800 text-sky_aqua font-bold text-xl">
+                          {featuredAuthor.name.charAt(0)}
                         </div>
                       )}
                     </div>
