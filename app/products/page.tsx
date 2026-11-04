@@ -5,7 +5,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import SkeletonCard from "@/components/SkeletonCard";
 import Pagination from "@/components/Pagination";
-import { PackageSearch, Filter, List, LayoutGrid } from "lucide-react";
+import { PackageSearch, Filter, List, LayoutGrid, Star, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { CollectionPageSchema, BreadcrumbSchema } from "@/components/SEOSchema";
 
@@ -66,26 +67,102 @@ function ProductsContent() {
         ]}
       />
 
-      {/* Header */}
-      <section className="relative bg-[#010226] py-14 sm:py-20 overflow-hidden border-b border-french_blue/30">
-        {/* Decorative elements matching the ocean theme */}
-        <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-turquoise_surf/15 blur-3xl -mr-20 -mt-20 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-deep_twilight-600/30 blur-3xl -ml-20 -mb-20 pointer-events-none" />
+      {/* Header: Two-Column Hero with Title/Description on Left & Product Spotlight Card on Right */}
+      <section className="relative bg-[#010226] py-14 sm:py-20 lg:py-24 overflow-hidden border-b border-french_blue/30">
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-turquoise_surf/15 blur-3xl -mr-20 -mt-20 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-deep_twilight-600/30 blur-3xl -ml-20 -mb-20 pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-deep_twilight via-bright_teal_blue to-turquoise_surf" />
         
-        <div className="absolute top-0 left-0 right-0 h-1 bg-french_blue" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-2xl bg-bright_teal_blue/20 flex items-center justify-center mb-5 sm:mb-6 ring-1 ring-turquoise_surf/30 backdrop-blur-md">
-              <PackageSearch className="w-6 h-6 text-sky_aqua" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+            {/* Left Box: Title & Description */}
+            <div className="lg:col-span-7 flex flex-col justify-center text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-bright_teal_blue/20 border border-turquoise_surf/30 text-sky_aqua text-xs font-bold tracking-wider uppercase mb-4 self-start shadow-xs backdrop-blur-md">
+                <PackageSearch className="w-3.5 h-3.5 text-turquoise_surf" />
+                <span>Catálogo de Suplementos y Nutracéuticos</span>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+                Explore Nuestros{" "}
+                <span className="bg-gradient-to-r from-sky_aqua via-turquoise_surf to-light_cyan bg-clip-text text-transparent">
+                  Productos
+                </span>
+              </h1>
+
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+                Descubra nuestra selección de reseñas y análisis de suplementos populares, 
+                organizados para ayudarle a contrastar ingredientes, evidencia disponible y precios antes de comprar.
+              </p>
+
+              <div className="mt-6 flex flex-wrap items-center gap-y-2 gap-x-5 text-xs text-slate-300 font-medium">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-turquoise_surf flex-shrink-0" />
+                  <span>Fórmulas y Pureza Verificadas</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-turquoise_surf flex-shrink-0" />
+                  <span>Criterio Editorial Imparcial</span>
+                </span>
+              </div>
             </div>
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-3 sm:mb-4">
-              Explore Nuestros <span className="text-sky_aqua">Productos</span>
-            </h1>
-            <p className="text-slate-300 max-w-2xl text-xs sm:text-base leading-relaxed">
-              Descubra nuestra selección de reseñas y análisis de suplementos populares, 
-              organizados para ayudarle a contrastar ingredientes, evidencia disponible y precios antes de comprar.
-            </p>
+
+            {/* Right Box: Featured Product Spotlight Card */}
+            {products.length > 0 && products[0] && (
+              <div className="lg:col-span-5">
+                <Link
+                  href={`/${products[0].slug}`}
+                  className="group relative block p-5 sm:p-6 rounded-3xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 hover:border-turquoise_surf/50 backdrop-blur-md shadow-2xl hover:shadow-bright_teal_blue/20 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                >
+                  <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-turquoise_surf/20 blur-2xl pointer-events-none group-hover:bg-turquoise_surf/30 transition-colors" />
+
+                  <div className="relative z-10 flex items-center gap-4 sm:gap-5">
+                    {/* Circular Product Image */}
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden flex-shrink-0 border-2 border-turquoise_surf/40 shadow-lg shadow-bright_teal_blue/20 bg-white ring-4 ring-white/10 group-hover:ring-turquoise_surf/40 transition-all flex items-center justify-center p-2">
+                      {products[0].image ? (
+                        <img
+                          src={products[0].image}
+                          alt={products[0].name}
+                          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                        />
+                      ) : (
+                        <PackageSearch className="w-8 h-8 text-french_blue" />
+                      )}
+                    </div>
+
+                    {/* Right text lines */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-turquoise_surf/20 text-sky_aqua border border-turquoise_surf/30">
+                          Producto Destacado
+                        </span>
+                        {products[0].price > 0 && (
+                          <span className="text-[11px] text-amber-300 font-bold">
+                            ${products[0].price.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+
+                      <h2 className="text-base sm:text-lg font-bold text-white group-hover:text-sky_aqua transition-colors line-clamp-2 leading-snug">
+                        {products[0].name}
+                      </h2>
+
+                      {products[0].shortDescription && (
+                        <p className="text-xs text-slate-300 line-clamp-2 mt-1.5 leading-relaxed">
+                          {products[0].shortDescription}
+                        </p>
+                      )}
+
+                      <div className="mt-3 flex items-center gap-1.5 text-xs font-bold text-turquoise_surf group-hover:text-white transition-colors">
+                        <span>Ver análisis y precios</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            )}
+
           </div>
         </div>
       </section>

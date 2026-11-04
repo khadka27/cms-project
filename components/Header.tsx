@@ -185,7 +185,7 @@ export default function Header() {
                   href="/about"
                   className="text-[15px] font-bold text-slate-800 hover:text-bright_teal_blue transition-colors duration-200 tracking-tight"
                 >
-                  Nosotros
+                  Sobre nosotras
                 </Link>
                 <Link
                   href="/contact"
